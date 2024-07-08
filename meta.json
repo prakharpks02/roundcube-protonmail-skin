@@ -1,6 +1,6 @@
 {
-	"name": "ProtonMail Theme",
-	"author": "Vojtěch Fošnár",
+	"name": "Floww Mail Theme",
+	"author": "Prakhar",
 	"license": "Creative Commons Attribution-ShareAlike",
 	"license-url": "http://creativecommons.org/licenses/by-sa/3.0/",
 	"config": {
@@ -14,7 +14,7 @@
 	},
 	"meta": {
 		"viewport": "width=device-width, initial-scale=1.0, shrink-to-fit=no, maximum-scale=1.0",
-		"theme-color": "#f4f4f4",
-		"msapplication-navbutton-color": "#f4f4f4"
+		"theme-color": "#1E92FB",
+		"msapplication-navbutton-color": "#1E92FB"
 	}
 }
