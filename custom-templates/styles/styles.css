@@ -1,0 +1,434 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+html {
+    overflow-y: hidden;
+    font-family: quicksand, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.hide {
+    display: none;
+}
+
+.full-page-container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    background-image: url(https://floww0.blob.core.windows.net/websitegraphics/console/login-bg.jpg);
+    background-size: cover;
+    /* background-color: red; */
+}
+
+.logo-top-container {
+    display: flex;
+    justify-content: center;
+}
+
+.login-box-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 900px;
+    height: 80vh;
+    border-radius: 10px;
+    background-color: white;
+    overflow-x: hidden;
+}
+
+.custom-login-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: hidden;
+}
+
+.custom-login-box>div {
+    width: 50%;
+    margin: auto;
+}
+
+.custom-login-box>div:first-child {
+    background-color: #0a5dcc;
+    display: grid;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
+    background-image: linear-gradient(0deg, #1e92fb, #4be8fb);
+    box-shadow: #00ceb1;
+    overflow-y: hidden;
+    height: 100%;
+}
+
+.custom-login-box>div:nth-child(2) {
+    height: 80vh;
+    padding: 10px 10px 50px 10px;
+    overflow-y: scroll;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.custom-login-box>div:nth-child(2)::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.custom-login-box>div:nth-child(2) {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.custom-login-box-image {
+    width: 100%;
+}
+.custom-login-box-image2 {
+    width: 70%;
+    margin: auto;
+}
+
+.login-heading-container {
+    font-size: 30px;
+    font-weight: 800;
+    width: fit-content;
+    margin: auto;
+    text-align: center;
+}
+
+.login-form-container {
+    width: 90%;
+    margin: auto;
+    position: relative;
+    padding: 20px;
+}
+
+.form-field-outer-container {
+    display: flex;
+    align-items: center;
+}
+
+.form-content-container {
+    color: rgb(212, 212, 212);
+    font-size: 20px;
+    width: 80%;
+    margin: auto;
+    transition: all 0.5s;
+    padding: 10px 0px;
+    border-bottom: solid;
+}
+
+
+
+.form-label-container {
+    color: rgb(146, 146, 146);
+    font-size: 10px;
+    padding-bottom: 5px;
+    font-weight: 700;
+}
+
+.form-label-container2 {
+    color: rgb(146, 146, 146);
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.form-field-container {
+    padding: 10px;
+    font-size: 17px;
+    width: 70%;
+    border: none;
+}
+
+.form-field-container:focus {
+    outline: none;
+}
+
+.form-field-select-container {
+    width: 70px;
+    font-size: 15px;
+    padding: 2px;
+    background: white;
+}
+
+.form-otp-container {
+    margin: auto;
+    width: fit-content;
+    border-bottom: black;
+    padding-left: 8px;
+}
+
+.form-field-otp-container {
+    letter-spacing: 20px;
+    font-size: large;
+    border: 0;
+    width: fit-content;
+    margin: auto;
+}
+
+.form-content-container:focus-within {
+    color: rgb(37, 37, 37);
+    border-color: rgb(37, 37, 37);
+}
+
+.login-button-container {
+    width: 50%;
+    margin: auto;
+    border-radius: 40px;
+    text-align: center;
+    background-image: linear-gradient(217deg, #1e92fb, #4be8fb);
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+.login-button-internal {
+    background: none;
+    border: none;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    cursor: pointer;
+    color: white;
+    font-size: 15px;
+    font-weight: 900;
+}
+
+.floww-login-rememberme {
+    width: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.login-button-container:hover {
+    background-image: linear-gradient(217deg, #00b89f, #c782c5);
+}
+
+/* Success And Failure Container */
+
+.try-again-button {
+    width: 100px;
+    margin: auto;
+}
+
+/* ---------------------------------------- Adding Search Loading Animation */
+
+.search-load-content {
+    width: 130px;
+    height: 50%;
+    margin: auto;
+    margin-top: 27%;
+}
+
+.search-load-element {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid blue;
+    border-bottom: 16px solid blue;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+.floww-login-with-google {
+    width: 40%;
+    margin: auto;
+    font-weight: normal;
+    font-size: 12px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.floww-login-center-div {
+    /* bottom: 5px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+    width: 200px;
+    margin: auto;
+    font-weight: normal;
+    font-size: 14px;
+    text-align: center;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Page Load Overlay */
+#page-load-overlay {
+    background-color: #03fffe;
+    opacity: 0.8;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.floww-custom-alert-container {
+    position: fixed;
+    top: 10%;
+    left: 75%;
+    width: 25%;
+    z-index: 9999;
+}
+
+.floww-custom-alert {
+    position: relative;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    height: auto;
+    background-color: #fff;
+    color: #333;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 20px;
+    transition: right 0.5s ease-in-out;
+    border-left: solid 8px;
+    font-size: large;
+    margin-bottom: 10px;
+}
+
+.floww-custom-message {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.floww-custom-alert.floww-custom-success {
+    color: #fff;
+    border-color: #539753;
+    background-color: #8fbf2f;
+}
+
+.floww-custom-alert.floww-custom-info {
+    color: #fff;
+    border-color: #076d91;
+    background-color: #3397db;
+}
+
+.floww-custom-alert.floww-custom-error {
+    color: #fff;
+    border-color: #dc4a4d;
+    background-color: #f25c5d;
+}
+
+.floww-custom-alert.floww-custom-warning {
+    color: #fff;
+    border-color: #dd6137;
+    background-color: #f7931d;
+}
+
+.floww-custom-alert.floww-custom-delete {
+    color: #fff;
+    border-color: #dc4a4d;
+    background-color: #f25c5d;
+}
+
+.floww-custom-alert.floww-custom-show {
+    right: 0;
+}
+
+.floww-custom-alert .floww-custom-message {
+    flex: 1;
+}
+
+
+@media screen and (max-height: 700px) {
+    .login-box-container {
+        height: 90vh;
+        /* width: 100vh; */
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+
+    /* CSS */
+    .custom-login-box {
+        zoom: 0.8;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .login-box-container {
+        width: 95%;
+    }
+
+    .custom-login-box>div:first-child {
+        display: none;
+    }
+
+    .custom-login-box>div {
+        width: 100%;
+        zoom: 0.9;
+    }
+}
+
+.floww-confirmpassword-matcherror{
+    margin: none;
+    padding: none;
+    color: red !important;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+.floww-confirmpassword-matchsuccess{
+    margin: none;
+    padding: none;
+    color: green !important;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+.floww-forget-password{
+    text-align: end;
+    font-size: 12px;
+    font-weight: 600;
+    color: #0a5dcc;
+    cursor: pointer;
+    padding-top: 0.5rem;
+    margin-right: 1rem;
+}
+.floww-forget-password:hover{
+    color: #0a5dcc;
+    text-decoration: underline;
+}
