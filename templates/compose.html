@@ -215,6 +215,18 @@
 		</form>
 		<div class="formbuttons">
 			<roundcube:button command="send" class="btn btn-primary send" label="send" tabindex="1" data-content-button="true" />
+			<button onclick="window.alert('Coming Soon')" style="cursor: pointer;">
+				<span class="icon">
+					<i class="fa-solid fa-wand-magic-sparkles"></i>
+				</span>
+				<span>Auto draft</span>
+			</button>
+			<button onclick="window.alert('Coming Soon')" style="cursor: pointer;">
+				<span class="icon">
+					<i class="fa-regular fa-clock"></i>
+				</span>
+				<span>Schedule Send</span>
+			</button>
 			<div class="float-right">
 				<roundcube:button command="extwin" type="link" label="openinextwin" data-hidden="small" class="button icon btn btn-link extwin" data-tabindex="1" condition="!env:extwin" />
 			</div>
@@ -277,5 +289,7 @@
 		<roundcube:include file="includes/pagenav.html" />
 	</div>
 </div>
+
+<script src="https://kit.fontawesome.com/3e4542b30a.js" crossorigin="anonymous"></script>
 
 <roundcube:include file="includes/footer.html" />
