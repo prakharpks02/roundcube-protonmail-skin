@@ -53,7 +53,7 @@
 					<!-- Search Bar for Phrases -->
 					<div class="mb-3">
 						<label for="search-bar" class="form-label">Search for a phrase</label>
-						<input type="text" id="search-bar" class="form-control" placeholder="Search for a phrase...">
+						<input type="text" id="search-bar" class="form-control" placeholder="Search for a phrase..." oninput="searchPhrases()">
 						<ul id="suggestions" class="list-group mt-2"></ul>
 					</div>
 
@@ -64,7 +64,7 @@
 					</div>
 
 					<!-- Generate Email Button -->
-					<button id="generate-button" class="btn btn-success">Generate Email</button>
+					<button id="generate-button" class="btn btn-success" onclick="generateEmail()">Generate Email</button>
 				</div>
 			</div>
 		</div>

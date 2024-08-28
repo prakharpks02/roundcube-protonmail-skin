@@ -292,33 +292,28 @@
 <script src="https://kit.fontawesome.com/3e4542b30a.js" crossorigin="anonymous"></script>
 <script>
 	const phrases = [
-		"Accepting order from a client",
-		"Rejecting an application",
-		"Sending notification for salary",
-		"Confirming meeting schedule",
-		"Requesting additional information",
-		"Following up on previous email",
-		"Offering a discount on services",
-		"Requesting payment",
-		"Sending project update",
-		"Providing feedback on a task"
+    "Accepting order from a client",
+    "Rejecting an application",
+    "Sending notification for salary",
+    "Confirming meeting schedule",
+    "Requesting additional information",
+    "Following up on previous email",
+    "Offering a discount on services",
+    "Requesting payment",
+    "Sending project update",
+    "Providing feedback on a task"
 	];
 
-	const autoDraftButton = document.getElementById('auto-draft-button');
-	const modal = new bootstrap.Modal(document.getElementById('modal'));
-	const searchBar = document.getElementById('search-bar');
-	const suggestionsList = document.getElementById('suggestions');
-	const emailDetails = document.getElementById('email-details');
-	const generateButton = document.getElementById('generate-button');
-	const selectedText = document.getElementById('composebody');
-
 	// Show the modal when the Auto-Draft button is clicked
-	autoDraftButton.addEventListener('click', function() {
+	function showModal() {
+		const modal = new bootstrap.Modal(document.getElementById('modal'));
 		modal.show();
-	});
+	}
 
 	// Search functionality for phrases
-	searchBar.addEventListener('input', function() {
+	function searchPhrases() {
+		const searchBar = document.getElementById('search-bar');
+		const suggestionsList = document.getElementById('suggestions');
 		const query = searchBar.value.toLowerCase();
 		suggestionsList.innerHTML = '';
 
@@ -339,12 +334,15 @@
 				});
 			});
 		}
-	});
+	}
 
 	// Function to call OpenAI API to generate an email
 	async function generateEmail() {
+		const searchBar = document.getElementById('search-bar');
+		const emailDetails = document.getElementById('email-details');
+		const selectedText = document.getElementById('composebody');
 		const prompt = `Write a professional email based on the following details:\n\nSubject: ${searchBar.value}\n\nDetails: ${emailDetails.value}`;
-		
+
 		try {
 			const response = await fetch('https://cors-anywhere.herokuapp.com/https://api.openai.com/v1/chat/completions', {
 				method: 'POST',
@@ -371,10 +369,7 @@
 			console.error('Error generating email:', error);
 			selectedText.value = 'Error generating email. Please try again.';
 		}
-	}
-
-	// Event listener for Generate Email button
-	generateButton.addEventListener('click', generateEmail);
+}
 </script>
 
 <roundcube:include file="includes/footer.html" />
