@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Auto-Drafting Tool</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container my-5">
+        <button id="auto-draft-button" class="btn btn-primary">Auto-Draft</button>
+    </div>
+    <div>   
+        <textarea name="_message" id="composebody" cols="70" rows="20" class="form-control" tabindex="1" data-html-editor="1" spellcheck="false" style="height: 466.85px;"></textarea>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal fade" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Email Auto-Drafting Tool</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Search Bar for Phrases -->
+                    <div class="mb-3">
+                        <label for="search-bar" class="form-label">Search for a phrase</label>
+                        <input type="text" id="search-bar" class="form-control" placeholder="Search for a phrase...">
+                        <ul id="suggestions" class="list-group mt-2"></ul>
+                    </div>
+
+                    <!-- Detailed Information for the Email -->
+                    <div class="mb-3">
+                        <label for="email-details" class="form-label">Email Details</label>
+                        <textarea id="email-details" class="form-control" placeholder="Enter the details of the email..." rows="4"></textarea>
+                    </div>
+
+                    <!-- Generate Email Button -->
+                    <button id="generate-button" class="btn btn-success">Generate Email</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies (Popper.js and Bootstrap Bundle) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const phrases = [
+            "Accepting order from a client",
+            "Rejecting an application",
+            "Sending notification for salary",
+            "Confirming meeting schedule",
+            "Requesting additional information",
+            "Following up on previous email",
+            "Offering a discount on services",
+            "Requesting payment",
+            "Sending project update",
+            "Providing feedback on a task"
+        ];
+
+        const autoDraftButton = document.getElementById('auto-draft-button');
+        const modal = new bootstrap.Modal(document.getElementById('modal'));
+        const searchBar = document.getElementById('search-bar');
+        const suggestionsList = document.getElementById('suggestions');
+        const emailDetails = document.getElementById('email-details');
+        const generateButton = document.getElementById('generate-button');
+        const selectedText = document.getElementById('composebody');
+
+        // Show the modal when the Auto-Draft button is clicked
+        autoDraftButton.addEventListener('click', function() {
+            modal.show();
+        });
+
+        // Search functionality for phrases
+        searchBar.addEventListener('input', function() {
+            const query = searchBar.value.toLowerCase();
+            suggestionsList.innerHTML = '';
+
+            if (query) {
+                const matchedPhrases = phrases
+                    .filter(phrase => phrase.toLowerCase().includes(query))
+                    .slice(0, 5); // Limit to top 5 matches
+
+                matchedPhrases.forEach(phrase => {
+                    const listItem = document.createElement('li');
+                    listItem.classList.add('list-group-item');
+                    listItem.textContent = phrase;
+                    suggestionsList.appendChild(listItem);
+
+                    listItem.addEventListener('click', function() {
+                        searchBar.value = listItem.textContent;
+                        suggestionsList.innerHTML = ''; // Clear suggestions after selection
+                    });
+                });
+            }
+        });
+
+        // Function to call auto-draft API to generate an email
+        async function generateEmail() {
+            const topic = searchBar.value;
+            const description = emailDetails.value;
+        
+            try {
+                const response = await fetch('http://localhost:8000/api/mail/auto-draft/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        topic: topic,
+                        description: description
+                    })
+                });
+        
+                const data = await response.json();
+        
+                if (response.ok) {
+                    const generatedEmail = data.email_body;
+                    selectedText.value = generatedEmail;
+                } else {
+                    console.error('Error generating email:', data.error);
+                    selectedText.value = 'Error generating email. Please try again.';
+                }
+            } catch (error) {
+                console.error('Error generating email:', error);
+                selectedText.value = 'Error generating email. Please try again.';
+            }
+        }
+        
+
+        // Event listener for Generate Email button
+        generateButton.addEventListener('click', generateEmail);
+    </script>
+</body>
+</html>
