@@ -304,6 +304,14 @@
     "Providing feedback on a task"
 	];
 
+	const autoDraftButton = document.getElementById('auto-draft-button');
+	const modal = new bootstrap.Modal(document.getElementById('modal'));
+	const searchBar = document.getElementById('auto-draft-search-bar');
+	const suggestionsList = document.getElementById('auto-draft-suggestions');
+	const emailDetails = document.getElementById('email-details');
+	const generateButton = document.getElementById('generate-button');
+	const selectedText = document.getElementById('composebody');
+
 	// Show the modal when the Auto-Draft button is clicked
 	function showModal() {
 		const modal = new bootstrap.Modal(document.getElementById('modal'));
@@ -312,8 +320,6 @@
 
 	// Search functionality for phrases
 	function searchPhrases() {
-		const searchBar = document.getElementById('search-bar');
-		const suggestionsList = document.getElementById('suggestions');
 		const query = searchBar.value.toLowerCase();
 		suggestionsList.innerHTML = '';
 
