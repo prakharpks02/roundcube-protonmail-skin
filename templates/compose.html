@@ -8,7 +8,6 @@
 <roundcube:add_label name="recipientedit" />
 
 <h1 class="voice"><roundcube:label name="compose" /></h1>
-
 <!-- compose options and attachments list -->
 <div id="layout-sidebar" class="listbox sidebar-right">
 	<div class="header">
@@ -215,6 +214,18 @@
 		</form>
 		<div class="formbuttons">
 			<roundcube:button command="send" class="btn btn-primary send" label="send" tabindex="1" data-content-button="true" />
+			<button onclick="window.alert('Coming Soon')" style="cursor: pointer;">
+				<span class="icon">
+					<i class="fa-solid fa-wand-magic-sparkles"></i>
+				</span>
+				<span>Auto draft</span>
+			</button>
+			<button onclick="window.alert('Coming Soon')" style="cursor: pointer;">
+				<span class="icon">
+					<i class="fa-regular fa-clock"></i>
+				</span>
+				<span>Schedule Send</span>
+			</button>
 			<div class="float-right">
 				<roundcube:button command="extwin" type="link" label="openinextwin" data-hidden="small" class="button icon btn btn-link extwin" data-tabindex="1" condition="!env:extwin" />
 			</div>
@@ -277,5 +288,88 @@
 		<roundcube:include file="includes/pagenav.html" />
 	</div>
 </div>
+
+<script src="https://kit.fontawesome.com/3e4542b30a.js" crossorigin="anonymous"></script>
+<script>
+	const phrases = [
+    "Accepting order from a client",
+    "Rejecting an application",
+    "Sending notification for salary",
+    "Confirming meeting schedule",
+    "Requesting additional information",
+    "Following up on previous email",
+    "Offering a discount on services",
+    "Requesting payment",
+    "Sending project update",
+    "Providing feedback on a task"
+	];
+
+	// Show the modal when the Auto-Draft button is clicked
+	function showModal() {
+		const modal = new bootstrap.Modal(document.getElementById('modal'));
+		modal.show();
+	}
+
+	// Search functionality for phrases
+	function searchPhrases() {
+		const searchBar = document.getElementById('search-bar');
+		const suggestionsList = document.getElementById('suggestions');
+		const query = searchBar.value.toLowerCase();
+		suggestionsList.innerHTML = '';
+
+		if (query) {
+			const matchedPhrases = phrases
+				.filter(phrase => phrase.toLowerCase().includes(query))
+				.slice(0, 5); // Limit to top 5 matches
+
+			matchedPhrases.forEach(phrase => {
+				const listItem = document.createElement('li');
+				listItem.classList.add('list-group-item');
+				listItem.textContent = phrase;
+				suggestionsList.appendChild(listItem);
+
+				listItem.addEventListener('click', function() {
+					searchBar.value = listItem.textContent;
+					suggestionsList.innerHTML = ''; // Clear suggestions after selection
+				});
+			});
+		}
+	}
+
+	// Function to call OpenAI API to generate an email
+	async function generateEmail() {
+		const searchBar = document.getElementById('search-bar');
+		const emailDetails = document.getElementById('email-details');
+		const selectedText = document.getElementById('composebody');
+		const prompt = `Write a professional email based on the following details:\n\nSubject: ${searchBar.value}\n\nDetails: ${emailDetails.value}`;
+
+		try {
+			const response = await fetch('https://cors-anywhere.herokuapp.com/https://api.openai.com/v1/chat/completions', {
+				method: 'POST',
+				headers: {
+					'Authorization': `Bearer API_KEY`, // Replace with your actual OpenAI API key
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					model: 'gpt-3.5', // or use 'gpt-3.5-turbo' depending on your access
+					messages: [
+						{ role: 'system', content: 'You are an assistant that writes professional emails.' },
+						{ role: 'user', content: prompt }
+					],
+					max_tokens: 200,
+					temperature: 0.7
+				})
+			});
+
+			const data = await response.json();
+			const generatedEmail = data.choices[0].message.content;
+			selectedText.value = generatedEmail;
+
+		} catch (error) {
+			console.error('Error generating email:', error);
+			selectedText.value = 'Error generating email. Please try again.';
+		}
+}
+</script>
 
 <roundcube:include file="includes/footer.html" />

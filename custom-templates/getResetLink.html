@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <!-- 3rd Party Libraries -->
+        <link rel="stylesheet" type="text/css" href="https://floww0.blob.core.windows.net/websitegraphics/codes/resource/css/fontawsome-5-all.min.css" />
+        <link rel="icon" href="https://floww0.blob.core.windows.net/websitegraphics/logo/floww/favicon.ico" type="image/x-icon" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Quicksand:500,700" rel="stylesheet" />
+        <link rel="stylesheet" href="./styles/styles.css" />
+        <title>floww | Signup</title>
+    </head>
+
+    <body>
+        <div class="full-page-container" id="login-page-id">
+        <div id="login-form-container" class="login-box-container custom-login-box">
+            <div><img class="custom-login-box-image2" src="https://floww0.blob.core.windows.net/accountingupload/LGxhNH6ZR9v4fH4G/expense/fil-8toneB-Document-4934.png" alt="side_image" srcset="" /></div>
+            <div>
+            <div class="logo-top-container">
+                <a href="https://gofloww.co" target="_blank">
+                <img width="100px" src="https://floww0.blob.core.windows.net/websitegraphics/logo/floww/icon.png" />
+                </a>
+            </div>
+
+            <div class="login-heading-container">
+                <p>Forget Password</p>
+                <p style="font-weight: normal; font-size: 12px; margin-top: 10px">
+                Enter your email and we'll send you a link to your secondary mail,<br />
+                to reset your password.
+                </p>
+            </div>
+
+            <div class="login-form-container">
+                <br />
+                <div class="form-content-container">
+                <div class="form-field-container-div">
+                    <p class="form-label-container">Email</p>
+                    <p class="form-field-outer-container">
+                    <input class="form-field-container" type="email" placeholder="Your Email ID" id="email"/>
+                    </p>
+                </div>
+                </div>
+            </div>
+
+            <br />
+
+            <div class="login-button-container">
+                <button class="login-button-internal" onClick="submitForm()">Submit</button>
+            </div>
+
+            <br />
+            <div style="text-align: center" class="notice-text-login-container">
+                <div style="font-weight: normal; font-size: 14px; text-align: center">
+                </div>
+                <span class="help is-danger">No sales calls ever!</span>
+            </div>
+            </div>
+        </div>
+
+        <div id="page-load-overlay" class="hide">
+            <div class="search-load-content">
+            <div class="search-load-element"></div>
+            </div>
+        </div>
+        </div>
+
+        <!-- JS content -->
+        <script>
+            const apiUrl = 'https://dev.gofloww.co/api/mail/reset-password/'
+            // Toggle loading animation visibility
+            function ToggleLoadingAnimation() {
+                const overlay = document.getElementById("page-load-overlay");
+                if (overlay) {
+                    overlay.classList.toggle("hide");
+                }
+            }
+
+            // Validate email address format
+            function ValidateEmail(emailval) {
+                const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+                return validRegex.test(emailval);
+            }
+
+            // Check if email is valid and perform actions accordingly
+            function checkFormValues() {
+                const email = document.querySelector('input[type="email"]').value;
+                if (ValidateEmail(email)) {
+                    checkEmailValidity(email);
+                } else {
+                    flowwShowAlert("warning", "Email Format Incorrect");
+                }
+            }
+
+            // Submit the form with the email (same function as checkEmailValidity for demonstration)
+            function submitForm() {
+                const email = document.getElementById("email").value;
+                if (!email) {
+                    flowwShowAlert("error", "Email is required");
+                    return;
+                }
+                ToggleLoadingAnimation();
+                console.log(email);
+                fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email: email })
+                })
+                    .then(response => {
+                        console.log(response);
+                    })
+                    .then(responseData =>{
+                        if(responseData.status===true){
+                            flowwShowAlert("success", "Invite Sent");
+                        } else {
+                            flowwShowAlert("error", "Please Contact Support");
+                        }
+                        ToggleLoadingAnimation();
+                    })
+                    .catch(() => {
+                        flowwShowAlert("error", "Email does not exist");
+                        ToggleLoadingAnimation();
+                    });
+            }
+
+
+        </script>
+        <script src="https://floww0.blob.core.windows.net/websitegraphics/codes/codeResource/js/alert.js"></script>
+
+    </body>
+</html>
