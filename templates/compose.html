@@ -338,6 +338,9 @@
 
 	// Function to call OpenAI API to generate an email
 	async function generateEmail() {
+		const searchBar = document.getElementById('search-bar');
+		const emailDetails = document.getElementById('email-details');
+		const selectedText = document.getElementById('composebody');
 		const topic = searchBar.value;
 		const description = emailDetails.value;
 	
@@ -351,7 +354,7 @@
 					topic: topic,
 					description: description
 				})
-			});
+			},40000);
 	
 			const data = await response.json();
 	
