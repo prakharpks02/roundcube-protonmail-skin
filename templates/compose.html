@@ -343,33 +343,48 @@
 		const selectedText = document.getElementById('composebody');
 		const topic = searchBar.value;
 		const description = emailDetails.value;
-	
-		try {
-			const response = await fetch('http://localhost:8000/api/mail/auto-draft/', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					topic: topic,
-					description: description
-				})
-			},40000);
-	
-			const data = await response.json();
-	
-			if (response.ok) {
-				const generatedEmail = data.email_body;
-				selectedText.value = generatedEmail;
-			} else {
-				console.error('Error generating email:', data.error);
-				selectedText.value = 'Error generating email. Please try again.';
-			}
-		} catch (error) {
-			console.error('Error generating email:', error);
-			selectedText.value = 'Error generating email. Please try again.';
-		}
-	}
+        console.log(topic);
+        console.log(description);
+        
+            try {
+                fetch(apiURL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        topic: topic,
+                        description: description
+                    },40000)
+                }).then(response =>{
+                    if(!response.ok){
+                        console.error('Error generating email:', error);
+                        selectedText.value = 'Error generating email. Please try again.';
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                }).then(responseData =>{
+                    const generatedEmail = responseData.email_body;
+                    selectedText.value = generatedEmail;
+                }).catch(error =>{
+                    console.error('Error generating email:', error);
+                    selectedText.value = 'Error generating email. Please try again.';
+                })
+        
+                const data = await response.json();
+        
+                if (response.ok) {
+                    const generatedEmail = data.email_body;
+                    selectedText.value = generatedEmail;
+                } else {
+                    console.error('Error generating email:', data.error);
+                    selectedText.value = 'Error generating email. Please try again.';
+                }
+            } catch (error) {
+                console.error('Error generating email:', error);
+                selectedText.value = 'Error generating email. Please try again.';
+            }
+        }
 
 </script>
 

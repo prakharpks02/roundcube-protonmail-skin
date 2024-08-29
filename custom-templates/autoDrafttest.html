@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container my-5">
-        <button id="auto-draft-button" class="btn btn-primary">Auto-Draft</button>
+        <button id="auto-draft-button" class="btn btn-primary" onclick="showModal()">Auto-Draft</button>
     </div>
     <div>   
         <textarea name="_message" id="composebody" cols="70" rows="20" class="form-control" tabindex="1" data-html-editor="1" spellcheck="false" style="height: 466.85px;"></textarea>
@@ -27,7 +27,7 @@
                     <!-- Search Bar for Phrases -->
                     <div class="mb-3">
                         <label for="search-bar" class="form-label">Search for a phrase</label>
-                        <input type="text" id="search-bar" class="form-control" placeholder="Search for a phrase...">
+                        <input type="text" id="search-bar" class="form-control" placeholder="Search for a phrase..." oninput="searchPhrases()">
                         <ul id="suggestions" class="list-group mt-2"></ul>
                     </div>
 
@@ -38,7 +38,7 @@
                     </div>
 
                     <!-- Generate Email Button -->
-                    <button id="generate-button" class="btn btn-success">Generate Email</button>
+                    <button id="generate-button" class="btn btn-success" onclick="generateEmail()">Generate Email</button>
                 </div>
             </div>
         </div>
@@ -50,62 +50,62 @@
 
     <script>
         const phrases = [
-            "Accepting order from a client",
-            "Rejecting an application",
-            "Sending notification for salary",
-            "Confirming meeting schedule",
-            "Requesting additional information",
-            "Following up on previous email",
-            "Offering a discount on services",
-            "Requesting payment",
-            "Sending project update",
-            "Providing feedback on a task"
-        ];
+    "Accepting order from a client",
+    "Rejecting an application",
+    "Sending notification for salary",
+    "Confirming meeting schedule",
+    "Requesting additional information",
+    "Following up on previous email",
+    "Offering a discount on services",
+    "Requesting payment",
+    "Sending project update",
+    "Providing feedback on a task"
+	];
+    const apiURL= 'http://localhost:8000/api/mail/auto-draft/'
+	// Show the modal when the Auto-Draft button is clicked
+	function showModal() {
+		const modal = new bootstrap.Modal(document.getElementById('modal'));
+		modal.show();
+	}
 
-        const autoDraftButton = document.getElementById('auto-draft-button');
-        const modal = new bootstrap.Modal(document.getElementById('modal'));
-        const searchBar = document.getElementById('search-bar');
-        const suggestionsList = document.getElementById('suggestions');
-        const emailDetails = document.getElementById('email-details');
-        const generateButton = document.getElementById('generate-button');
-        const selectedText = document.getElementById('composebody');
+	// Search functionality for phrases
+	function searchPhrases() {
+		const searchBar = document.getElementById('search-bar');
+		const suggestionsList = document.getElementById('suggestions');
+		const query = searchBar.value.toLowerCase();
+		suggestionsList.innerHTML = '';
 
-        // Show the modal when the Auto-Draft button is clicked
-        autoDraftButton.addEventListener('click', function() {
-            modal.show();
-        });
+		if (query) {
+			const matchedPhrases = phrases
+				.filter(phrase => phrase.toLowerCase().includes(query))
+				.slice(0, 5); // Limit to top 5 matches
 
-        // Search functionality for phrases
-        searchBar.addEventListener('input', function() {
-            const query = searchBar.value.toLowerCase();
-            suggestionsList.innerHTML = '';
+			matchedPhrases.forEach(phrase => {
+				const listItem = document.createElement('li');
+				listItem.classList.add('list-group-item');
+				listItem.textContent = phrase;
+				suggestionsList.appendChild(listItem);
 
-            if (query) {
-                const matchedPhrases = phrases
-                    .filter(phrase => phrase.toLowerCase().includes(query))
-                    .slice(0, 5); // Limit to top 5 matches
+				listItem.addEventListener('click', function() {
+					searchBar.value = listItem.textContent;
+					suggestionsList.innerHTML = ''; // Clear suggestions after selection
+				});
+			});
+		}
+	}
 
-                matchedPhrases.forEach(phrase => {
-                    const listItem = document.createElement('li');
-                    listItem.classList.add('list-group-item');
-                    listItem.textContent = phrase;
-                    suggestionsList.appendChild(listItem);
-
-                    listItem.addEventListener('click', function() {
-                        searchBar.value = listItem.textContent;
-                        suggestionsList.innerHTML = ''; // Clear suggestions after selection
-                    });
-                });
-            }
-        });
-
-        // Function to call auto-draft API to generate an email
-        async function generateEmail() {
-            const topic = searchBar.value;
-            const description = emailDetails.value;
+	// Function to call OpenAI API to generate an email
+	async function generateEmail() {
+		const searchBar = document.getElementById('search-bar');
+		const emailDetails = document.getElementById('email-details');
+		const selectedText = document.getElementById('composebody');
+		const topic = searchBar.value;
+		const description = emailDetails.value;
+        console.log(topic);
+        console.log(description);
         
             try {
-                const response = await fetch('http://localhost:8000/api/mail/auto-draft/', {
+                fetch(apiURL, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -113,8 +113,21 @@
                     body: JSON.stringify({
                         topic: topic,
                         description: description
-                    })
-                });
+                    },40000)
+                }).then(response =>{
+                    if(!response.ok){
+                        console.error('Error generating email:', error);
+                        selectedText.value = 'Error generating email. Please try again.';
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                }).then(responseData =>{
+                    const generatedEmail = responseData.email_body;
+                    selectedText.value = generatedEmail;
+                }).catch(error =>{
+                    console.error('Error generating email:', error);
+                    selectedText.value = 'Error generating email. Please try again.';
+                })
         
                 const data = await response.json();
         
@@ -131,9 +144,7 @@
             }
         }
         
-
-        // Event listener for Generate Email button
-        generateButton.addEventListener('click', generateEmail);
+	
     </script>
 </body>
 </html>
