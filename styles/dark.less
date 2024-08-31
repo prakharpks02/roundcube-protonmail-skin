@@ -1153,41 +1153,63 @@ html.dark-mode {
         }
     }
 
-    // Modal styling
-    .modal-content {
-        background-color: @color-dark-modal-background;
-        color: @color-dark-font;
-        border: 1px solid @color-dark-border;
+     /* Modal overall styling */
+     #auto-draft-modal .modal-content {
+        background-color: #2a2a2a; /* Dark background for the modal */
+        color: #f0f0f0;            /* Light text color for readability */
+        border: 1px solid #444444; /* Border color for the modal */
     }
 
-    .modal-header {
-        background-color: @color-dark-modal-header-background;
-        border-bottom: 1px solid @color-dark-border;
+    /* Modal header styling */
+    #auto-draft-modal .modal-header {
+        background-color: #333333; /* Slightly darker header */
+        border-bottom: 1px solid #444444; /* Border at the bottom of the header */
     }
 
-    .modal-title {
-        color: @color-dark-font;
+    #auto-draft-modal .modal-title {
+        color: #ffffff; /* White text for the modal title */
     }
 
-    .modal-body {
-        background-color: @color-dark-modal-body-background;
+    /* Modal body styling */
+    #auto-draft-modal .modal-body {
+        background-color: #2a2a2a; /* Same background as modal content */
     }
 
-    .modal-footer {
-        background-color: @color-dark-modal-footer-background;
-        border-top: 1px solid @color-dark-border;
+    /* Input and textarea fields styling */
+    #auto-draft-modal .form-control {
+        background-color: #444444; /* Dark background for input fields */
+        color: #f0f0f0;            /* Light text color for input fields */
+        border: 1px solid #555555; /* Border for input fields */
     }
 
-    .modal-backdrop {
-        background-color: rgba(0, 0, 0, 0.75); // Darken the modal backdrop
+    /* Label styling */
+    #auto-draft-modal .form-label {
+        color: #cccccc; /* Light gray color for labels */
     }
 
-    .btn-close {
-        color: @color-dark-font;
-        opacity: 0.6;
+    /* Suggestions list styling */
+    #auto-draft-modal #suggestions {
+        background-color: #3a3a3a; /* Dark background for suggestion list */
+        color: #ffffff;            /* White text for suggestions */
+        border: 1px solid #555555; /* Border for suggestion list */
+    }
 
-        &:hover {
-            opacity: 1;
-        }
+    /* Button styling */
+    #auto-draft-modal .btn-success {
+        background-color: #4CAF50; /* Standard green for success buttons */
+        border-color: #45a049;     /* Darker border color for buttons */
+    }
+
+    #auto-draft-modal .btn-success:hover {
+        background-color: #45a049; /* Slightly darker green on hover */
+    }
+
+    /* Close button styling */
+    #auto-draft-modal .btn-close {
+        filter: invert(1); /* Invert close button icon color for dark background */
+    }
+
+    #auto-draft-modal .btn-close:hover {
+        filter: invert(0.8); /* Slightly lighter on hover */
     }
 }
