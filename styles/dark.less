@@ -1152,4 +1152,42 @@ html.dark-mode {
             opacity: 1;
         }
     }
+
+    // Modal styling
+    .modal-content {
+        background-color: @color-dark-modal-background;
+        color: @color-dark-font;
+        border: 1px solid @color-dark-border;
+    }
+
+    .modal-header {
+        background-color: @color-dark-modal-header-background;
+        border-bottom: 1px solid @color-dark-border;
+    }
+
+    .modal-title {
+        color: @color-dark-font;
+    }
+
+    .modal-body {
+        background-color: @color-dark-modal-body-background;
+    }
+
+    .modal-footer {
+        background-color: @color-dark-modal-footer-background;
+        border-top: 1px solid @color-dark-border;
+    }
+
+    .modal-backdrop {
+        background-color: rgba(0, 0, 0, 0.75); // Darken the modal backdrop
+    }
+
+    .btn-close {
+        color: @color-dark-font;
+        opacity: 0.6;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
 }
