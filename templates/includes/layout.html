@@ -42,19 +42,19 @@
 </head>
 <body class="task-<roundcube:exp expression="env:error_task ?: env:task ?: 'error'"> action-<roundcube:exp expression="asciiwords(env:action, true, '-') ?: 'none'">">
 	<!--Modal for auto draft-->
-	<div id="auto-draft-modal" class="modal fade ui-dialog ui-container-all ui-widget-content ui-front ui-dialog-buttons ui-draggable ui-resizable" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-		<div class="modal-dialog ui-dialog" >
-			<div class="modal-content ui-content">
-				<div class="modal-header ui-header">
-					<h5 class="ui-dialog-title" id="modalLabel">Email Auto-Drafting Tool</h5>
-					<button type="button" class="ui-dialog-titlebar-close btn btn-secondary btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
+	<div id="auto-draft-modal" class="modal fade" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modalLabel">Email Auto-Drafting Tool</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					<!-- Search Bar for Phrases -->
 					<div class="mb-3">
 						<label for="search-bar" class="form-label">Search for a phrase</label>
 						<input type="text" id="search-bar" class="form-control" placeholder="Search for a phrase..." oninput="searchPhrases()">
-						<ul id="suggestions" class="list-group select-menu mt-2"></ul>
+						<ul id="suggestions" class="list-group mt-2"></ul>
 					</div>
 
 					<!-- Detailed Information for the Email -->
@@ -62,7 +62,6 @@
 						<label for="email-details" class="form-label">Email Details</label>
 						<textarea id="email-details" class="form-control" placeholder="Enter the details of the email..." rows="4"></textarea>
 					</div>
-
 					<!-- Generate Email Button -->
 					<button id="generate-button" class="btn btn-success" onclick="generateEmail()">Generate Email</button>
 				</div>
