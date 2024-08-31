@@ -129,15 +129,15 @@
                     selectedText.value = 'Error generating email. Please try again.';
                 })
         
-                const data = await response.json();
+                //const data = await response.json();
         
-                if (response.ok) {
-                    const generatedEmail = data.email_body;
-                    selectedText.value = generatedEmail;
-                } else {
-                    console.error('Error generating email:', data.error);
-                    selectedText.value = 'Error generating email. Please try again.';
-                }
+                //if (response.ok) {
+                //    const generatedEmail = data.email_body;
+                //    selectedText.value = generatedEmail;
+               // } else {
+                //    console.error('Error generating email:', data.error);
+                //    selectedText.value = 'Error generating email. Please try again.';
+                //}
             } catch (error) {
                 console.error('Error generating email:', error);
                 selectedText.value = 'Error generating email. Please try again.';
