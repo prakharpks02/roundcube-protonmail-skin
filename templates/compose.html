@@ -325,6 +325,7 @@
 			matchedPhrases.forEach(phrase => {
 				const listItem = document.createElement('li');
 				listItem.classList.add('list-group-item');
+				listItem.classList.add('selected');
 				listItem.textContent = phrase;
 				suggestionsList.appendChild(listItem);
 
