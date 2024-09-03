@@ -438,11 +438,12 @@
             option.addEventListener('click', function() {
                 document.querySelectorAll('.schedule-option').forEach(opt => opt.classList.remove('active'));
                 this.classList.add('active');
-                updateSelectedDateTime(this.getAttribute('data-date'));
+				console.log(this.getAttribute('date-date'))
+                //updateSelectedDateTime(this.getAttribute('data-date'));
                 
                 // Close the modal after selecting a date
-                var scheduleSendModal = new bootstrap.Modal(document.getElementById('scheduleSendModal'));
-                scheduleSendModal.hide();
+                //var scheduleSendModal = new bootstrap.Modal(document.getElementById('scheduleSendModal'));
+                //scheduleSendModal.hide();
             });
         });
     }
