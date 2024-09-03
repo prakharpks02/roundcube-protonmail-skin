@@ -20,6 +20,37 @@
 	<roundcube:object name="meta" />
 	<roundcube:object name="links" />
 	<link rel="stylesheet" href="/deps/bootstrap.min.css">
+	<style>
+        .schedule-option {
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .schedule-option:hover {
+            background-color: #f0f0f0;
+        }
+        .schedule-option.active {
+            background-color: #e9ecef;
+        }
+        .modal-footer {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .custom-schedule {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .custom-schedule i {
+            margin-right: 10px;
+        }
+        #selectedDateTime {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+    </style>
 	<roundcube:if condition="config:devel_mode" />
 		<link rel="stylesheet/less" href="/styles/styles.less">
 		<roundcube:link rel="stylesheet/less" href="/styles/print.less" condition="env:action == 'print'" />
