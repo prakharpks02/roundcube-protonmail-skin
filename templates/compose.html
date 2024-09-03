@@ -220,7 +220,7 @@
 				</span>
 				<span>AI draft</span>
 			</button>
-			<button onclick="window.alert('Coming Soon')" class="btn btn-secondary" tabindex="1" style="cursor: pointer;">
+			<button id="schedule-send-button" data-bs-toggle="modal" data-bs-target="#scheduleSendModal" class="btn btn-secondary" tabindex="1" style="cursor: pointer;">
 				<span class="icon">
 					<i class="fa-regular fa-clock"></i>
 				</span>
@@ -347,45 +347,119 @@
         console.log(topic);
         console.log(description);
         
-            try {
-                fetch(apiURL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        topic: topic,
-                        description: description
-                    },40000)
-                }).then(response =>{
-                    if(!response.ok){
-                        console.error('Error generating email:', error);
-                        selectedText.value = 'Error generating email. Please try again.';
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                }).then(responseData =>{
-                    const generatedEmail = responseData.email_body;
-                    selectedText.value = generatedEmail;
-                }).catch(error =>{
-                    console.error('Error generating email:', error);
-                    selectedText.value = 'Error generating email. Please try again.';
-                })
+		try {
+			fetch(apiURL, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					topic: topic,
+					description: description
+				},40000)
+			}).then(response =>{
+				if(!response.ok){
+					console.error('Error generating email:', error);
+					selectedText.value = 'Error generating email. Please try again.';
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			}).then(responseData =>{
+				const generatedEmail = responseData.email_body;
+				selectedText.value = generatedEmail;
+			}).catch(error =>{
+				console.error('Error generating email:', error);
+				selectedText.value = 'Error generating email. Please try again.';
+			})
+	
+			const data = await response.json();
+	
+			if (response.ok) {
+				const generatedEmail = data.email_body;
+				selectedText.value = generatedEmail;
+			} else {
+				console.error('Error generating email:', data.error);
+				selectedText.value = 'Error generating email. Please try again.';
+			}
+		} catch (error) {
+			console.error('Error generating email:', error);
+			selectedText.value = 'Error generating email. Please try again.';
+		}
+    }
+
+	function formatDate(date) {
+        const options = { day: 'numeric', month: 'short' };
+        return date.toLocaleDateString('en-GB', options);
+    }
+
+    function formatTime(date) {
+        const options = { hour: '2-digit', minute: '2-digit' };
+        return date.toLocaleTimeString('en-GB', options);
+    }
+
+    function generateScheduleOptions() {
+        const now = new Date();
         
-                const data = await response.json();
-        
-                if (response.ok) {
-                    const generatedEmail = data.email_body;
-                    selectedText.value = generatedEmail;
-                } else {
-                    console.error('Error generating email:', data.error);
-                    selectedText.value = 'Error generating email. Please try again.';
-                }
-            } catch (error) {
-                console.error('Error generating email:', error);
-                selectedText.value = 'Error generating email. Please try again.';
-            }
-        }
+        // Calculate Tomorrow Morning at 08:00 AM
+        const tomorrowMorning = new Date(now);
+        tomorrowMorning.setDate(now.getDate() + 1);
+        tomorrowMorning.setHours(8, 0, 0, 0);
+
+        // Calculate This Afternoon at 01:00 PM
+        const thisAfternoon = new Date(now);
+        thisAfternoon.setHours(13, 0, 0, 0);
+
+        // Calculate Next Monday Morning at 08:00 AM
+        const nextMondayMorning = new Date(now);
+        const dayOfWeek = nextMondayMorning.getDay();
+        const daysUntilMonday = (dayOfWeek === 0) ? 1 : (8 - dayOfWeek);
+        nextMondayMorning.setDate(now.getDate() + daysUntilMonday);
+        nextMondayMorning.setHours(8, 0, 0, 0);
+
+        // Insert the options into the modal
+        const scheduleOptions = document.getElementById('scheduleOptions');
+        scheduleOptions.innerHTML = `
+            <div class="schedule-option active" id="option1" data-date="${tomorrowMorning.toISOString()}">
+                <span>Tomorrow morning</span>
+                <span class="float-end">${formatDate(tomorrowMorning)}, ${formatTime(tomorrowMorning)}</span>
+            </div>
+            <div class="schedule-option" id="option2" data-date="${thisAfternoon.toISOString()}">
+                <span>This afternoon</span>
+                <span class="float-end">${formatDate(thisAfternoon)}, ${formatTime(thisAfternoon)}</span>
+            </div>
+            <div class="schedule-option" id="option3" data-date="${nextMondayMorning.toISOString()}">
+                <span>Monday morning</span>
+                <span class="float-end">${formatDate(nextMondayMorning)}, ${formatTime(nextMondayMorning)}</span>
+            </div>
+        `;
+
+        // Activate option selection
+        $('.schedule-option').on('click', function() {
+            $('.schedule-option').removeClass('active');
+            $(this).addClass('active');
+			console.log($(this).data('date'));
+            updateSelectedDateTime($(this).data('date'));
+        });
+    }
+
+    // Update the selected date and time on the page
+    function updateSelectedDateTime(dateString) {
+        const date = new Date(dateString);
+        const formattedDateTime = `${formatDate(date)}, ${formatTime(date)}`;
+        document.getElementById('selectedDateTime').innerText = `Selected Date & Time: ${formattedDateTime}`;
+    }
+
+    // Generate options when the modal is shown
+    $('#scheduleSendModal').on('show.bs.modal', generateScheduleOptions);
+
+    // Handle custom schedule button click
+    $('#customScheduleBtn').on('click', function() {
+        const selectedDate = $('#scheduleDate').val();
+        const selectedTime = $('#scheduleTime').val();
+        const formattedDateTime = `${selectedDate}, ${selectedTime}`;
+        document.getElementById('selectedDateTime').innerText = `Selected Date & Time: ${formattedDateTime}`;
+        $('#customDateTimeModal').modal('hide');
+    });
 
 </script>
 
