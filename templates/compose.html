@@ -473,8 +473,11 @@
 
 	function openCustomDateTimeModal() {
 		// Close the schedule-send-modal
-		var scheduleSendModal = new bootstrap.Modal(document.getElementById('schedule-send-modal'));
-		scheduleSendModal.hide();
+		var scheduleSendModal = document.getElementById('schedule-send-modal');
+		var bootstrapModal = bootstrap.Modal.getInstance(scheduleSendModal); // Get the modal instance
+		if (bootstrapModal) {
+			bootstrapModal.hide(); // Hide the existing modal
+		}
 	
 		// Open the custom-date-time-modal
 		var customDateTimeModal = new bootstrap.Modal(document.getElementById('custom-date-time-modal'));
