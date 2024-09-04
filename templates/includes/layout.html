@@ -112,7 +112,7 @@
 					<div id="scheduleOptions"></div> <!-- Dynamic options will be inserted here -->
 				</div>
 				<div class="modal-footer">
-					<div class="custom-schedule" data-bs-toggle="modal" data-bs-target="#customDateTimeModal">
+					<div class="custom-schedule" data-toggle="modal" data-target="#custom-date-time-modal">
 						<i class="bi bi-calendar3"></i>
 						<span>Select date and time</span>
 					</div>
@@ -122,8 +122,8 @@
 	</div>
 	
 	<!-- Custom Date/Time Picker Modal -->
-	<div class="modal fade" id="customDateTimeModal" tabindex="-1" aria-labelledby="customDateTimeModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
+	<div class="modal fade" id="custom-date-time-modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+		<div class="modal-dialog">
 			<div class="modal-content ui-widget-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="customDateTimeModalLabel">Select date and time</h5>
@@ -142,8 +142,8 @@
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-primary" id="customScheduleBtn">Schedule send</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary" id="customScheduleBtn" onclick="handleCustomScheduleClick()">Schedule send</button>
 				</div>
 			</div>
 		</div>

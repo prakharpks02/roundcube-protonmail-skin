@@ -460,16 +460,16 @@
     document.getElementById('scheduleSendModal').addEventListener('shown.bs.modal', generateScheduleOptions);
 
     // Handle custom schedule button click
-    document.getElementById('customScheduleBtn').addEventListener('click', function() {
-        const selectedDate = document.getElementById('scheduleDate').value;
-        const selectedTime = document.getElementById('scheduleTime').value;
-        const formattedDateTime = `${selectedDate}, ${selectedTime}`;
-        document.getElementById('selectedDateTime').innerText = `Selected Date & Time: ${formattedDateTime}`;
-        
-        // Close the custom date-time picker modal
-        var customDateTimeModal = new bootstrap.Modal(document.getElementById('customDateTimeModal'));
-        customDateTimeModal.hide();
-    });
+	function handleCustomScheduleClick() {
+		const selectedDate = document.getElementById('scheduleDate').value;
+		const selectedTime = document.getElementById('scheduleTime').value;
+		const formattedDateTime = `${selectedDate}, ${selectedTime}`;
+		document.getElementById('selectedDateTime').innerText = `Selected Date & Time: ${formattedDateTime}`;
+		
+		// Close the custom date-time picker modal
+		var customDateTimeModal = new bootstrap.Modal(document.getElementById('custom-date-time-modal'));
+		customDateTimeModal.hide();
+	}
 
 </script>
 
