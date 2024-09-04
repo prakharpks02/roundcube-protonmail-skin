@@ -105,14 +105,13 @@
 			<div class="modal-content ui-widget-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="scheduleSendModalLabel">Schedule send</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					<p>India Standard Time</p>
 					<div id="scheduleOptions"></div> <!-- Dynamic options will be inserted here -->
 				</div>
 				<div class="modal-footer">
-					<div class="custom-schedule" data-toggle="modal" data-target="#custom-date-time-modal">
+					<div class="custom-schedule" onclick="openCustomDateTimeModal()"">
 						<i class="bi bi-calendar3"></i>
 						<span>Select date and time</span>
 					</div>
@@ -127,7 +126,6 @@
 			<div class="modal-content ui-widget-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="customDateTimeModalLabel">Select date and time</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					<form>

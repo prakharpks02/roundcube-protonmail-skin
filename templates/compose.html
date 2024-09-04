@@ -471,6 +471,16 @@
 		customDateTimeModal.hide();
 	}
 
+	function openCustomDateTimeModal() {
+		// Close the schedule-send-modal
+		var scheduleSendModal = new bootstrap.Modal(document.getElementById('schedule-send-modal'));
+		scheduleSendModal.hide();
+	
+		// Open the custom-date-time-modal
+		var customDateTimeModal = new bootstrap.Modal(document.getElementById('custom-date-time-modal'));
+		customDateTimeModal.show();
+	}
+
 </script>
 
 <roundcube:include file="includes/footer.html" />
