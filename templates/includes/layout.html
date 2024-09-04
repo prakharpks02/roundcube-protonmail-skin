@@ -50,6 +50,13 @@
             font-size: 1.2em;
             font-weight: bold;
         }
+		
+		.dark-mode .schedule-option:hover {
+			background-color: #8a6eff;
+		}
+		.dark-mode .schedule-option.active {
+			background-color: #8a6eff;
+		}
     </style>
 	<roundcube:if condition="config:devel_mode" />
 		<link rel="stylesheet/less" href="/styles/styles.less">
@@ -111,7 +118,7 @@
 					<div id="scheduleOptions"></div> <!-- Dynamic options will be inserted here -->
 				</div>
 				<div class="modal-footer">
-					<div class="custom-schedule" onclick="openCustomDateTimeModal()"">
+					<div class="custom-schedule" data-toggle="modal" data-target="#custom-date-time-modal" data-dismiss="modal">
 						<i class="bi bi-calendar3"></i>
 						<span>Select date and time</span>
 					</div>
@@ -141,7 +148,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-primary" id="customScheduleBtn" onclick="handleCustomScheduleClick()">Schedule send</button>
+					<button type="button" class="btn btn-primary" id="customScheduleBtn"  onclick="handleCustomScheduleClick()">Schedule send</button>
 				</div>
 			</div>
 		</div>

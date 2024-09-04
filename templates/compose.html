@@ -464,24 +464,12 @@
 		const selectedDate = document.getElementById('scheduleDate').value;
 		const selectedTime = document.getElementById('scheduleTime').value;
 		const formattedDateTime = `${selectedDate}, ${selectedTime}`;
+		console.log(formattedDateTime);
 		document.getElementById('selectedDateTime').innerText = `Selected Date & Time: ${formattedDateTime}`;
 		
 		// Close the custom date-time picker modal
 		var customDateTimeModal = new bootstrap.Modal(document.getElementById('custom-date-time-modal'));
 		customDateTimeModal.hide();
-	}
-
-	function openCustomDateTimeModal() {
-		// Close the schedule-send-modal
-		var scheduleSendModal = document.getElementById('schedule-send-modal');
-		var bootstrapModal = bootstrap.Modal.getInstance(scheduleSendModal); // Get the modal instance
-		if (bootstrapModal) {
-			bootstrapModal.hide(); // Hide the existing modal
-		}
-	
-		// Open the custom-date-time-modal
-		var customDateTimeModal = new bootstrap.Modal(document.getElementById('custom-date-time-modal'));
-		customDateTimeModal.show();
 	}
 
 </script>
