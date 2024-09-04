@@ -399,39 +399,76 @@
 
     function generateScheduleOptions() {
 		const now = new Date();
-		
+	
 		// Calculate Tomorrow Morning at 08:00 AM
-		const tomorrowMorning = new Date(now);
+		let tomorrowMorning = new Date(now);
 		tomorrowMorning.setDate(now.getDate() + 1);
 		tomorrowMorning.setHours(8, 0, 0, 0);
 	
 		// Calculate This Afternoon at 01:00 PM
-		const thisAfternoon = new Date(now);
+		let thisAfternoon = new Date(now);
 		thisAfternoon.setHours(13, 0, 0, 0);
 	
+		// If the current time is past today's afternoon, set thisAfternoon to tomorrow afternoon
+		if (now.getHours() >= 13) {
+			thisAfternoon = new Date(now);
+			thisAfternoon.setDate(now.getDate() + 1);
+			thisAfternoon.setHours(13, 0, 0, 0);
+		}
+	
+		// If the current time is past today's morning, set tomorrowMorning to the next day
+		if (now.getHours() >= 8) {
+			tomorrowMorning = new Date(now);
+			tomorrowMorning.setDate(now.getDate() + 2);
+			tomorrowMorning.setHours(8, 0, 0, 0);
+		}
+	
 		// Calculate Next Monday Morning at 08:00 AM
-		const nextMondayMorning = new Date(now);
+		let nextMondayMorning = new Date(now);
 		const dayOfWeek = nextMondayMorning.getDay();
 		const daysUntilMonday = (dayOfWeek === 0) ? 1 : (8 - dayOfWeek);
 		nextMondayMorning.setDate(now.getDate() + daysUntilMonday);
 		nextMondayMorning.setHours(8, 0, 0, 0);
 	
+		// If the current day is Monday and time has passed 08:00 AM, set nextMondayMorning to the next Monday
+		if (dayOfWeek === 1 && now.getHours() >= 8) {
+			nextMondayMorning.setDate(now.getDate() + 7);
+		}
+	
 		// Insert the options into the modal
 		const scheduleOptions = document.getElementById('scheduleOptions');
 		scheduleOptions.innerHTML = `
-			<div class="schedule-option active" id="option1" data-date="${tomorrowMorning.toISOString()}" onclick="selectOption('option1')">
+			<div class="schedule-option active" id="option1" onclick="selectOption('${formatDate(tomorrowMorning)}', '${formatTime(tomorrowMorning)}')">
 				<span>Tomorrow morning</span>
 				<span class="float-end">${formatDate(tomorrowMorning)}, ${formatTime(tomorrowMorning)}</span>
 			</div>
-			<div class="schedule-option" id="option2" data-date="${thisAfternoon.toISOString()}" onclick="selectOption('option2')">
-				<span>This afternoon</span>
+			<div class="schedule-option" id="option2" onclick="selectOption('${formatDate(thisAfternoon)}', '${formatTime(thisAfternoon)}')">
+				<span>${now.getHours() >= 13 ? 'Tomorrow afternoon' : 'This afternoon'}</span>
 				<span class="float-end">${formatDate(thisAfternoon)}, ${formatTime(thisAfternoon)}</span>
 			</div>
-			<div class="schedule-option" id="option3" data-date="${nextMondayMorning.toISOString()}" onclick="selectOption('option3')">
+			<div class="schedule-option" id="option3" onclick="selectOption('${formatDate(nextMondayMorning)}', '${formatTime(nextMondayMorning)}')">
 				<span>Monday morning</span>
 				<span class="float-end">${formatDate(nextMondayMorning)}, ${formatTime(nextMondayMorning)}</span>
 			</div>
 		`;
+	}
+	
+	// Function to format the date into a readable format
+	function formatDate(date) {
+		return date.toLocaleDateString(undefined, {
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric'
+		});
+	}
+	
+	// Function to format the time into a readable format
+	function formatTime(date) {
+		return date.toLocaleTimeString(undefined, {
+			hour: '2-digit',
+			minute: '2-digit',
+			hour12: true
+		});
 	}
 	
 	function selectOption(optionId) {
