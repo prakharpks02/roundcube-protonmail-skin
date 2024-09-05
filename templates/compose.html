@@ -832,6 +832,7 @@
 		const searchBar = document.getElementById('search-bar');
 		const emailDetails = document.getElementById('email-details');
 		const selectedText = document.getElementById('composebody');
+		const existingText = selectedText.value;
 		const topic = searchBar.value;
 		const description = emailDetails.value;
         console.log(topic);
@@ -856,10 +857,10 @@
                     return response.json();
                 }).then(responseData =>{
                     const generatedEmail = responseData.email_body;
-                    selectedText.value = generatedEmail;
+                    selectedText.value = `${generatedEmail}\n\n${existingText}`;
                 }).catch(error =>{
                     console.error('Error generating email:', error);
-                    selectedText.value = 'Error generating email. Please try again.';
+                    selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
                 })
         
                 const data = await response.json();
@@ -869,11 +870,11 @@
                     selectedText.value = generatedEmail;
                 } else {
                     console.error('Error generating email:', data.error);
-                    selectedText.value = 'Error generating email. Please try again.';
+                    selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
                 }
             } catch (error) {
                 console.error('Error generating email:', error);
-                selectedText.value = 'Error generating email. Please try again.';
+                selectedText.value = `Error generating email. Please try again.\n\n${existingText}`
             }
         }
 
