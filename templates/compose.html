@@ -851,7 +851,7 @@
                 }).then(response =>{
                     if(!response.ok){
                         console.error('Error generating email:', error);
-                        selectedText.value = 'Error generating email. Please try again.';
+                        selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
                         throw new Error('Network response was not ok');
                     }
                     return response.json();
