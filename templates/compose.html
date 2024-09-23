@@ -986,8 +986,19 @@
 		if (selectedOption) {
 			selectedOption.classList.add('active');
 		}
-		console.log({ optionId, date, time });
-		const selectedDateTime = { id: optionId, date: date, time: time };
+
+		const subjectValue = document.getElementById('compose-subject').value;
+		const fromSelect = document.getElementById('_from');
+		const fromText = fromSelect.options[fromSelect.selectedIndex].text;
+		const newSubject = `<Scheduled email: ${date} ${time}>${subjectValue}`
+		document.getElementById('compose-subject').value = newSubject;
+		const data = {
+			from: fromText,
+			subject: newSubject ,
+			date: date,
+			time: time
+		}
+		console.log(data);
 	}
 	
 
@@ -1005,10 +1016,20 @@
 	function handleCustomScheduleClick() {
 		const selectedDate = document.getElementById('scheduleDate').value;
 		const selectedTime = document.getElementById('scheduleTime').value;
-		const formattedDateTime = `${selectedDate}, ${selectedTime}`;
-		console.log(formattedDateTime);
-		document.getElementById('selectedDateTime').innerText = `Selected Date & Time: ${formattedDateTime}`;
-		
+
+		const subjectValue = document.getElementById('compose-subject').value;
+		const fromSelect = document.getElementById('_from');
+		const fromText = fromSelect.options[fromSelect.selectedIndex].text;
+		const newSubject = `<Scheduled email: ${selectedDate} ${selectedTime}>${subjectValue}`
+		document.getElementById('compose-subject').value = newSubject;
+		const data = {
+			from: fromText,
+			subject: newSubject ,
+			date: selectedDate,
+			time: selectedTime
+		}
+		console.log(data);
+
 		// Close the custom date-time picker modal
 		var customDateTimeModal = new bootstrap.Modal(document.getElementById('custom-date-time-modal'));
 		customDateTimeModal.hide();
