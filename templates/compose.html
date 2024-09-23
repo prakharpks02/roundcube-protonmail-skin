@@ -928,15 +928,15 @@
 		// Insert the options into the modal
 		const scheduleOptions = document.getElementById('scheduleOptions');
 		scheduleOptions.innerHTML = `
-			<div class="schedule-option active" id="option1" onclick="selectOption('option1', '${formatDate(tomorrowMorning)}', '${formatTime(tomorrowMorning)}')">
+			<div class="schedule-option active" id="option1" onclick="selectOption('option1', '${formatDateNumeric(tomorrowMorning)}', '${formatTimeNumeric(tomorrowMorning)}')">
 				<span>Tomorrow morning</span>
 				<span class="float-end">${formatDate(tomorrowMorning)}, ${formatTime(tomorrowMorning)}</span>
 			</div>
-			<div class="schedule-option" id="option2" onclick="selectOption('option2', '${formatDate(thisAfternoon)}', '${formatTime(thisAfternoon)}')">
+			<div class="schedule-option" id="option2" onclick="selectOption('option2', '${formatDateNumeric(thisAfternoon)}', '${formatTimeNumeric(thisAfternoon)}')">
 				<span>${now.getHours() >= 13 ? 'Tomorrow afternoon' : 'This afternoon'}</span>
 				<span class="float-end">${formatDate(thisAfternoon)}, ${formatTime(thisAfternoon)}</span>
 			</div>
-			<div class="schedule-option" id="option3" onclick="selectOption('option3', '${formatDate(nextMondayMorning)}', '${formatTime(nextMondayMorning)}')">
+			<div class="schedule-option" id="option3" onclick="selectOption('option3', '${formatDateNumeric(nextMondayMorning)}', '${formatTimeNumeric(nextMondayMorning)}')">
 				<span>Monday morning</span>
 				<span class="float-end">${formatDate(nextMondayMorning)}, ${formatTime(nextMondayMorning)}</span>
 			</div>
@@ -959,6 +959,19 @@
 			minute: '2-digit',
 			hour12: true
 		});
+	}
+
+	function formatDateNumeric(date){
+		const year = date.getFullYear();
+		const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+		const day = String(date.getDate()).padStart(2, '0');
+		return `${year}-${month}-${day}`;
+	}
+
+	function formatTimeNumberic(date){
+		const hours = String(date.getHours()).padStart(2, '0');
+		const minutes = String(date.getMinutes()).padStart(2, '0');
+		return `${hours}:${minutes}`;
 	}
 	
 	function selectOption(optionId, date, time) {
