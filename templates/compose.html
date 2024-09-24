@@ -793,7 +793,8 @@
 "Request feedback on a new training program",
 "Confirm receipt of an important document",
 ];
-	const apiURL= 'https://dev.gofloww.co/api/mail/auto-draft/'
+	const autoDraftApiURL= 'https://dev.gofloww.co/api/mail/auto-draft/'
+	const scheduleSendApiURL = 'http://localhost:8000/mail/schedule-send'
 	// Show the modal when the Auto-Draft button is clicked
 	function showModal() {
 		const modal = new bootstrap.Modal(document.getElementById('modal'));
@@ -838,7 +839,7 @@
         console.log(topic);
         console.log(description);
 		try {
-			fetch(apiURL, {
+			fetch(autoDraftApiURL, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -876,6 +877,26 @@
 			selectedText.value = `Error generating email. Please try again.\n\n${existingText}`
 		}
     }
+
+	function scheduleMessage(data){
+		return fetch(scheduleSendApiURL, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(data),
+		}).then((response) => {
+			if(!response.ok){
+				console.error('Error generating email:', error);
+				throw new Error('Network response was not ok');
+			}
+			return response.json();
+		}).then((result) =>{
+			return result;
+		}).catch((error)=>{
+			console.error('Error Scheduling email:', error);
+		})
+	}
 
 	function formatDate(date) {
         const options = { day: 'numeric', month: 'short' };
@@ -998,6 +1019,15 @@
 			date: date,
 			time: time
 		}
+		scheduleMessage(data)
+			.then((result) => {
+				console.log("Message Scheduled Successfully:", result);
+				rcmail.command('savedraft','',this,event)
+				window.location.href = "http://roundcube.modoboa.prakhardev.xyz/?_task=mail&_mbox=Drafts"; //change in production
+			})
+			.catch((error) =>{
+				console.error("Error scheduling message:", error);
+			});
 		console.log(data);
 	}
 	
@@ -1028,6 +1058,15 @@
 			date: selectedDate,
 			time: selectedTime
 		}
+		scheduleMessage(data)
+			.then((result) => {
+				console.log("Message Scheduled Successfully:", result);
+				rcmail.command('savedraft','',this,event)
+				window.location.href = "http://roundcube.modoboa.prakhardev.xyz/?_task=mail&_mbox=Drafts"; //change in production
+			})
+			.catch((error) =>{
+				console.error("Error scheduling message:", error);
+			});
 		console.log(data);
 
 		// Close the custom date-time picker modal
