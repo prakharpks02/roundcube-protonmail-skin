@@ -794,7 +794,7 @@
 "Confirm receipt of an important document",
 ];
 	const autoDraftApiURL= 'https://dev.gofloww.co/api/mail/auto-draft/'
-	const scheduleSendApiURL = 'http://localhost:8000/mail/schedule-send'
+	const scheduleSendApiURL = 'http://localhost:8000/mail/schedule-send/'
 	// Show the modal when the Auto-Draft button is clicked
 	function showModal() {
 		const modal = new bootstrap.Modal(document.getElementById('modal'));
@@ -995,7 +995,7 @@
 		return `${hours}:${minutes}`;
 	}
 	
-	function selectOption(optionId, date, time) {
+	async function selectOption(optionId, date, time) {
 		// Deselect all options
 		const options = document.getElementById('scheduleOptions').children;
 		for (let i = 0; i < options.length; i++) {
@@ -1019,10 +1019,11 @@
 			date: date,
 			time: time
 		}
+		await rcmail.command('savedraft','',this,event)
 		scheduleMessage(data)
 			.then((result) => {
 				console.log("Message Scheduled Successfully:", result);
-				rcmail.command('savedraft','',this,event)
+				//rcmail.command('savedraft','',this,event)
 				window.location.href = "http://roundcube.modoboa.prakhardev.xyz/?_task=mail&_mbox=Drafts"; //change in production
 			})
 			.catch((error) =>{
