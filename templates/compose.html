@@ -867,7 +867,7 @@
         
                 if (response.ok) {
                     const generatedEmail = data.email_body;
-                    selectedText.value = generatedEmail;
+                    selectedText.value = `${generatedEmail}\n\n${existingText}`;
                 } else {
                     console.error('Error generating email:', data.error);
                     selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
