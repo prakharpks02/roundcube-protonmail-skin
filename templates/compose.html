@@ -220,7 +220,7 @@
 				</span>
 				<span>AI draft</span>
 			</button>
-			<button onclick="window.alert('Coming Soon')" class="btn btn-secondary" tabindex="1" style="cursor: pointer;">
+			<button id="schedule-send-button" data-toggle="modal" data-target="#schedule-send-modal" onclick="generateScheduleOptions()" tabindex="1" class="btn btn-secondary" style="cursor: pointer;">
 				<span class="icon">
 					<i class="fa-regular fa-clock"></i>
 				</span>
@@ -793,8 +793,11 @@
 "Request feedback on a new training program",
 "Confirm receipt of an important document",
 ];
-	const apiURL= 'https://console.gofloww.co/api/mail/auto-draft/'
-	// Show the modal when the Auto-Draft button is clicked
+  
+	const autoDraftApiURL= 'https://console.gofloww.co/api/mail/auto-draft/'
+	const scheduleSendApiURL = 'https://console.gofloww.co/api/mail/schedule-send/'
+	
+  // Show the modal when the Auto-Draft button is clicked
 	function showModal() {
 		const modal = new bootstrap.Modal(document.getElementById('modal'));
 		modal.show();
@@ -837,46 +840,282 @@
 		const description = emailDetails.value;
         console.log(topic);
         console.log(description);
+		
+     try {
+      fetch(autoDraftApiURL, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+              topic: topic,
+              description: description
+          },40000)
+      }).then(response =>{
+          if(!response.ok){
+              console.error('Error generating email:', error);
+              //selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
+              throw new Error('Network response was not ok');
+          }
+          return response.json();
+      }).then(responseData =>{
+          const generatedEmail = responseData.email_body;
+          selectedText.value = `${generatedEmail}\n\n${existingText}`;
+      }).catch(error =>{
+          console.error('Error generating email:', error);
+          selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
+      })
+
+      //const data = await response.json();
+
+      //if (response.ok) {
+      //    const generatedEmail = data.email_body;
+      //    selectedText.value = `${generatedEmail}\n\n${existingText}`;
+      //} else {
+      //    console.error('Error generating email:', data.error);
+      //    selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
+      //}
+  } catch (error) {
+      console.error('Error generating email:', error);
+      selectedText.value = `Error generating email. Please try again.\n\n${existingText}`
+  }
+
+	function scheduleMessage(data){
+		return fetch(scheduleSendApiURL, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(data),
+		}).then((response) => {
+			if(!response.ok){
+				console.error('Error generating email:', error);
+				throw new Error('Network response was not ok');
+			}
+			return response.json();
+		}).then((result) =>{
+			return result;
+		}).catch((error)=>{
+			console.error('Error Scheduling email:', error);
+		})
+	}
+
+	function formatDate(date) {
+        const options = { day: 'numeric', month: 'short' };
+        return date.toLocaleDateString('en-GB', options);
+    }
+
+    function formatTime(date) {
+        const options = { hour: '2-digit', minute: '2-digit' };
+        return date.toLocaleTimeString('en-GB', options);
+    }
+
+    function generateScheduleOptions() {
+		const now = new Date();
+	
+		// Calculate Tomorrow Morning at 08:00 AM
+		let tomorrowMorning = new Date(now);
+		tomorrowMorning.setDate(now.getDate() + 1);
+		tomorrowMorning.setHours(8, 0, 0, 0);
+	
+		// Calculate This Afternoon at 01:00 PM
+		let thisAfternoon = new Date(now);
+		thisAfternoon.setHours(13, 0, 0, 0);
+	
+		// If the current time is past today's afternoon, set thisAfternoon to tomorrow afternoon
+		if (now.getHours() >= 13) {
+			thisAfternoon = new Date(now);
+			thisAfternoon.setDate(now.getDate() + 1);
+			thisAfternoon.setHours(13, 0, 0, 0);
+		}
+	
+		// If the current time is past today's morning, set tomorrowMorning to the next day
+		if (now.getHours() >= 8) {
+			tomorrowMorning = new Date(now);
+			tomorrowMorning.setDate(now.getDate() + 2);
+			tomorrowMorning.setHours(8, 0, 0, 0);
+		}
+	
+		// Calculate Next Monday Morning at 08:00 AM
+		let nextMondayMorning = new Date(now);
+		const dayOfWeek = nextMondayMorning.getDay();
+		const daysUntilMonday = (dayOfWeek === 0) ? 1 : (8 - dayOfWeek);
+		nextMondayMorning.setDate(now.getDate() + daysUntilMonday);
+		nextMondayMorning.setHours(8, 0, 0, 0);
+	
+		// If the current day is Monday and time has passed 08:00 AM, set nextMondayMorning to the next Monday
+		if (dayOfWeek === 1 && now.getHours() >= 8) {
+			nextMondayMorning.setDate(now.getDate() + 7);
+		}
+	
+		// Insert the options into the modal
+		const scheduleOptions = document.getElementById('scheduleOptions');
+		scheduleOptions.innerHTML = `
+			<div class="schedule-option active" id="option1" onclick="selectOption('option1', '${formatDateNumeric(tomorrowMorning)}', '${formatTimeNumeric(tomorrowMorning)}')">
+				<span>Tomorrow morning</span>
+				<span class="float-end">${formatDate(tomorrowMorning)}, ${formatTime(tomorrowMorning)}</span>
+			</div>
+			<div class="schedule-option" id="option2" onclick="selectOption('option2', '${formatDateNumeric(thisAfternoon)}', '${formatTimeNumeric(thisAfternoon)}')">
+				<span>${now.getHours() >= 13 ? 'Tomorrow afternoon' : 'This afternoon'}</span>
+				<span class="float-end">${formatDate(thisAfternoon)}, ${formatTime(thisAfternoon)}</span>
+			</div>
+			<div class="schedule-option" id="option3" onclick="selectOption('option3', '${formatDateNumeric(nextMondayMorning)}', '${formatTimeNumeric(nextMondayMorning)}')">
+				<span>Monday morning</span>
+				<span class="float-end">${formatDate(nextMondayMorning)}, ${formatTime(nextMondayMorning)}</span>
+			</div>
+		`;
+	}
+	
+	// Function to format the date into a readable format
+	function formatDate(date) {
+		return date.toLocaleDateString(undefined, {
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric'
+		});
+	}
+	
+	// Function to format the time into a readable format
+	function formatTime(date) {
+		return date.toLocaleTimeString(undefined, {
+			hour: '2-digit',
+			minute: '2-digit',
+			hour12: true
+		});
+	}
+
+	function formatDateNumeric(date){
+		const year = date.getFullYear();
+		const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+		const day = String(date.getDate()).padStart(2, '0');
+		return `${year}-${month}-${day}`;
+	}
+
+	function formatTimeNumeric(date){
+		const hours = String(date.getHours()).padStart(2, '0');
+		const minutes = String(date.getMinutes()).padStart(2, '0');
+		return `${hours}:${minutes}`;
+	}
+	
+	async function selectOption(optionId, date, time) {
+		// Deselect all options
+		const options = document.getElementById('scheduleOptions').children;
+		for (let i = 0; i < options.length; i++) {
+			options[i].classList.remove('active');
+		}
+	
+		// Select the clicked option by its ID
+		const selectedOption = document.getElementById(optionId);
+		if (selectedOption) {
+			selectedOption.classList.add('active');
+		}
+
+		const subjectValue = document.getElementById('compose-subject').value;
+		const fromSelect = document.getElementById('_from');
+		const fromText = fromSelect.options[fromSelect.selectedIndex].text;
+		const newSubject = `<Scheduled email: ${date} ${time}>${subjectValue}`
+		document.getElementById('compose-subject').value = newSubject;
+		const data = {
+			from: fromText,
+			subject: newSubject ,
+			date: date,
+			time: time
+		}
+		await rcmail.command('savedraft','',this,event)
+		scheduleMessage(data)
+			.then((result) => {
+				console.log("Message Scheduled Successfully:", result);
+				//rcmail.command('savedraft','',this,event)
+				window.location.href = "http://roundcube.modoboa.prakhardev.xyz/?_task=mail&_mbox=Drafts"; //change in production
+			})
+			.catch((error) =>{
+				console.error("Error scheduling message:", error);
+			});
+		console.log(data);
+	}
+	
+
+    // Update the selected date and time on the page
+    function updateSelectedDateTime(dateString) {
+        const date = new Date(dateString);
+        const formattedDateTime = `${formatDate(date)}, ${formatTime(date)}`;
+        document.getElementById('selectedDateTime').innerText = `Selected Date & Time: ${formattedDateTime}`;
+    }
+
+    // Generate options when the modal is shown
+    document.getElementById('scheduleSendModal').addEventListener('shown.bs.modal', generateScheduleOptions);
+
+    // Handle custom schedule button click
+	function handleCustomScheduleClick() {
+		const selectedDate = document.getElementById('scheduleDate').value;
+		const selectedTime = document.getElementById('scheduleTime').value;
+
+		const subjectValue = document.getElementById('compose-subject').value;
+		const fromSelect = document.getElementById('_from');
+		const fromText = fromSelect.options[fromSelect.selectedIndex].text;
+		const newSubject = `<Scheduled email: ${selectedDate} ${selectedTime}>${subjectValue}`
+		document.getElementById('compose-subject').value = newSubject;
+		const data = {
+			from: fromText,
+			subject: newSubject ,
+			date: selectedDate,
+			time: selectedTime
+		}
+		scheduleMessage(data)
+			.then((result) => {
+				console.log("Message Scheduled Successfully:", result);
+				rcmail.command('savedraft','',this,event)
+				window.location.href = "http://roundcube.modoboa.prakhardev.xyz/?_task=mail&_mbox=Drafts"; //change in production
+			})
+			.catch((error) =>{
+				console.error("Error scheduling message:", error);
+			});
+		console.log(data);
+
+		// Close the custom date-time picker modal
+		var customDateTimeModal = new bootstrap.Modal(document.getElementById('custom-date-time-modal'));
+		customDateTimeModal.hide();
+	}
         
-            try {
-                fetch(apiURL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        topic: topic,
-                        description: description
-                    },40000)
-                }).then(response =>{
-                    if(!response.ok){
-                        console.error('Error generating email:', error);
-                        //selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                }).then(responseData =>{
-                    const generatedEmail = responseData.email_body;
-                    selectedText.value = `${generatedEmail}\n\n${existingText}`;
-                }).catch(error =>{
-                    console.error('Error generating email:', error);
-                    selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
-                })
-        
-                //const data = await response.json();
-        
-                //if (response.ok) {
-                //    const generatedEmail = data.email_body;
-                //    selectedText.value = `${generatedEmail}\n\n${existingText}`;
-                //} else {
-                //    console.error('Error generating email:', data.error);
-                //    selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
-                //}
-            } catch (error) {
+    try {
+        fetch(apiURL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                topic: topic,
+                description: description
+            },40000)
+        }).then(response =>{
+            if(!response.ok){
                 console.error('Error generating email:', error);
-                selectedText.value = `Error generating email. Please try again.\n\n${existingText}`
+                //selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
+                throw new Error('Network response was not ok');
             }
-        }
+            return response.json();
+        }).then(responseData =>{
+            const generatedEmail = responseData.email_body;
+            selectedText.value = `${generatedEmail}\n\n${existingText}`;
+        }).catch(error =>{
+            console.error('Error generating email:', error);
+            selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
+        })
+
+        //const data = await response.json();
+
+        //if (response.ok) {
+        //    const generatedEmail = data.email_body;
+        //    selectedText.value = `${generatedEmail}\n\n${existingText}`;
+        //} else {
+        //    console.error('Error generating email:', data.error);
+        //    selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
+        //}
+    } catch (error) {
+        console.error('Error generating email:', error);
+        selectedText.value = `Error generating email. Please try again.\n\n${existingText}`
+    }
+  }
 
 </script>
 
