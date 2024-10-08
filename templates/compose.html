@@ -806,7 +806,21 @@
 		const replyAssistButton = document.getElementById('reply-assist-btn');
 
 		if (emailSubject.includes('Re:')) {
-			replyAssistButton.disabled = false;  // Enable the button
+			const replyAssistButton = document.createElement('a');
+            replyAssistButton.id = 'reply-assist-btn';
+            replyAssistButton.className = 'mce-i-html';
+            replyAssistButton.href = '#';
+            replyAssistButton.tabIndex = -1;
+            replyAssistButton.title = 'Reply Assist';
+            replyAssistButton.style.pointerEvents = 'none';
+            replyAssistButton.style.opacity = '0.5';
+            replyAssistButton.onclick = function() {
+                replyAssist();  // Call the replyAssist function when clicked
+                return false;  // Prevent default action
+            };
+
+            // Append the button to the toolbar (or wherever you want it)
+            document.getElementById('toolbar').appendChild(replyAssistButton);  // Enable the button
 		}
 	}
 	// Search functionality for phrases

@@ -3809,18 +3809,7 @@ function rcube_elastic_ui()
                         return false;
                     }
                 }),
-            // Create the reply assist button
-            reply_assist_btn = $('<a id="reply-assist-btn" class="mce-i-html" href="#" tabindex="-1" title="Reply Assist" style="pointer-events: none; opacity: 0.5;" onclick="replyAssist(); return false;></a>')
-                .attr('title', 'Reply Assist')
-                .css({
-                    'pointer-events': 'none',
-                    'opacity': '0.5'
-                })
-                .on('click', function(e) {
-                    replyAssist();  // Call the replyAssist function when clicked
-                    return false;
-                }),
-            toolbar = $('<div class="editor-toolbar">').append(plain_btn).append(reply_assist_btn);
+            toolbar = $('<div class="editor-toolbar">').append(plain_btn);
         
         if (parent.is('td')) {
             sw = $('input[type="checkbox"]', parent.parent().next());
