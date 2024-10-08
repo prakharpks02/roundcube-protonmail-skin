@@ -793,13 +793,22 @@
 "Request feedback on a new training program",
 "Confirm receipt of an important document",
 ];
-	const apiURL= 'https://dev.gofloww.co/api/mail/auto-draft/'
+	const autoDraftApiURL= 'https://dev.gofloww.co/api/mail/auto-draft/'
+	const replyAssistApiURL = 'http://127.0.0.1/api/mail/reply-assist/'
 	// Show the modal when the Auto-Draft button is clicked
 	function showModal() {
 		const modal = new bootstrap.Modal(document.getElementById('modal'));
 		modal.show();
 	}
+	// to check if reply
+	function checksubject(){
+		const emailSubject= document.getElementById('compose-subject');
+		const replyAssistButton = document.getElementById('reply-assist-btn');
 
+		if (emailSubject.includes('Re:')) {
+			replyAssistButton.disabled = false;  // Enable the button
+		}
+	}
 	// Search functionality for phrases
 	function searchPhrases() {
 		const searchBar = document.getElementById('search-bar');
@@ -835,48 +844,72 @@
 		const existingText = selectedText.value;
 		const topic = searchBar.value;
 		const description = emailDetails.value;
-        console.log(topic);
-        console.log(description);
-        
-            try {
-                fetch(apiURL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        topic: topic,
-                        description: description
-                    },40000)
-                }).then(response =>{
-                    if(!response.ok){
-                        console.error('Error generating email:', error);
-                        //selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                }).then(responseData =>{
-                    const generatedEmail = responseData.email_body;
-                    selectedText.value = `${generatedEmail}\n\n${existingText}`;
-                }).catch(error =>{
-                    console.error('Error generating email:', error);
-                    selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
-                })
-        
-                //const data = await response.json();
-        
-                //if (response.ok) {
-                //    const generatedEmail = data.email_body;
-                //    selectedText.value = `${generatedEmail}\n\n${existingText}`;
-                //} else {
-                //    console.error('Error generating email:', data.error);
-                //    selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
-                //}
-            } catch (error) {
-                console.error('Error generating email:', error);
-                selectedText.value = `Error generating email. Please try again.\n\n${existingText}`
-            }
-        }
+
+		try {
+			fetch(autoDraftApiURL, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					topic: topic,
+					description: description
+				},40000)
+			}).then(response =>{
+				if(!response.ok){
+					console.error('Error generating email:', error);
+					//selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			}).then(responseData =>{
+				const generatedEmail = responseData.email_body;
+				selectedText.value = `${generatedEmail}\n\n${existingText}`;
+			}).catch(error =>{
+				console.error('Error generating email:', error);
+				selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
+			})
+		} catch (error) {
+			console.error('Error generating email:', error);
+			selectedText.value = `Error generating email. Please try again.\n\n${existingText}`
+		}
+    }
+	async function replyAssist() {
+		
+		const emailSubject= document.getElementById('compose-subject');
+		const selectedText = document.getElementById('composebody');
+		const existingText = selectedText.value;
+		console.log({subject: emailSubject.value, email_body: existingText});
+
+		
+		//try {
+		//	fetch(replyAssistApiURL, {
+		//		method: 'POST',
+		//		headers: {
+		//			'Content-Type': 'application/json'
+		//		},
+		//		body: JSON.stringify({
+		//			subject: emailSubject.value,
+		//			email_body: existingText
+		//		},40000)
+		//	}).then(response =>{
+		//		if(!response.ok){
+		//			console.error('Error generating reply:', error);
+		//			throw new Error('Network response was not ok');
+		//		}
+		//		return response.json();
+		//	}).then(responseData =>{
+		//		const generatedEmail = responseData.email_body;
+		//		selectedText.value = `${generatedEmail}\n\n${existingText}`;
+		//	}).catch(error =>{
+		//		console.error('Error generating email:', error);
+		//		selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
+		//	})
+		//} catch (error) {
+		//	console.error('Error generating email:', error);
+		//	selectedText.value = `Error generating email. Please try again.\n\n${existingText}`
+		//}
+	}
 
 </script>
 
