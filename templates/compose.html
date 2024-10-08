@@ -802,9 +802,9 @@
 	}
 	// to check if reply
 	function checksubject(){
-		const emailSubject= document.getElementById('compose-subject');
+		const emailSubject= document.getElementById('compose-subject').value;
 		const replyAssistButton = document.getElementById('reply-assist-btn');
-
+		const toolbar = document.getElementsByClassName('editor-toolbar');
 		if (emailSubject.includes('Re:')) {
 			const replyAssistButton = document.createElement('a');
             replyAssistButton.id = 'reply-assist-btn';
@@ -818,9 +818,10 @@
                 replyAssist();  // Call the replyAssist function when clicked
                 return false;  // Prevent default action
             };
-
-            // Append the button to the toolbar (or wherever you want it)
-            document.getElementById('toolbar').appendChild(replyAssistButton);  // Enable the button
+			
+			if (toolbar) {
+				toolbar.appendChild(replyAssistButton);
+			}
 		}
 	}
 	// Search functionality for phrases
