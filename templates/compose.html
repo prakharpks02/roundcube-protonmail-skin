@@ -804,7 +804,7 @@
 	function checksubject(){
 		const emailSubject= document.getElementById('compose-subject').value;
 		const replyAssistButton = document.getElementById('reply-assist-btn');
-		const toolbar = document.getElementsByClassName('editor-toolbar');
+		const toolbar = document.getElementsByClassName('editor-toolbar')[0];
 		if (emailSubject.includes('Re:')) {
 			const replyAssistButton = document.createElement('a');
             replyAssistButton.id = 'reply-assist-btn';
@@ -812,13 +812,14 @@
             replyAssistButton.href = '#';
             replyAssistButton.tabIndex = -1;
             replyAssistButton.title = 'Reply Assist';
-            replyAssistButton.style.pointerEvents = 'none';
-            replyAssistButton.style.opacity = '0.5';
+            replyAssistButton.display = 'inline-block';
+            replyAssistButton.style.opacity = '1';
+			replyAssistButton.textContent = 'Reply Assist';
             replyAssistButton.onclick = function() {
                 replyAssist();  // Call the replyAssist function when clicked
                 return false;  // Prevent default action
             };
-			
+
 			if (toolbar) {
 				toolbar.appendChild(replyAssistButton);
 			}
