@@ -826,6 +826,12 @@
                 return false;  // Prevent default action
             };
 
+			// Apply gradient text effect
+			replyAssistButton.style.backgroundImage = 'linear-gradient(90deg, #00ceb1 0%, #1E92FB 100%)';
+			replyAssistButton.style.webkitBackgroundClip = 'text';  // For Webkit browsers (Chrome, Safari)
+			replyAssistButton.style.backgroundClip = 'text';        // Standard property
+			replyAssistButton.style.color = 'transparent';
+
 			if (toolbar) {
 				toolbar.appendChild(replyAssistButton);
 			}
