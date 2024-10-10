@@ -807,9 +807,12 @@
 		const toolbar = document.getElementsByClassName('editor-toolbar')[0];
 		
 		if (emailSubject.includes('Re:')) {
-			const htmlButton = document.querySelector('a.mce-i-html'); // Select the element
-			htmlButton.style.display = 'inline-block'; // Set display to inline-block
+			const htmlButton = document.querySelector('a.mce-i-html'); 
+			htmlButton.style.display = 'inline-block'; 
 			htmlButton.style.marginRight = '10px';
+
+			toolbar.style.display = "flex";
+			toolbar.style.alignItems =  "center";
 			const replyAssistButton = document.createElement('a');
             replyAssistButton.id = 'reply-assist-btn';
             replyAssistButton.href = '#';
