@@ -909,34 +909,33 @@
 		const existingText = selectedText.value;
 		console.log({subject: emailSubject.value, email_body: existingText});
 
-		
-		//try {
-		//	fetch(replyAssistApiURL, {
-		//		method: 'POST',
-		//		headers: {
-		//			'Content-Type': 'application/json'
-		//		},
-		//		body: JSON.stringify({
-		//			subject: emailSubject.value,
-		//			email_body: existingText
-		//		},40000)
-		//	}).then(response =>{
-		//		if(!response.ok){
-		//			console.error('Error generating reply:', error);
-		//			throw new Error('Network response was not ok');
-		//		}
-		//		return response.json();
-		//	}).then(responseData =>{
-		//		const generatedEmail = responseData.email_body;
-		//		selectedText.value = `${generatedEmail}\n\n${existingText}`;
-		//	}).catch(error =>{
-		//		console.error('Error generating email:', error);
-		//		selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
-		//	})
-		//} catch (error) {
-		//	console.error('Error generating email:', error);
-		//	selectedText.value = `Error generating email. Please try again.\n\n${existingText}`
-		//}
+		try {
+			fetch(replyAssistApiURL, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					subject: emailSubject.value,
+					email_body: existingText
+				},40000)
+			}).then(response =>{
+				if(!response.ok){
+					console.error('Error generating reply:', error);
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			}).then(responseData =>{
+				const generatedEmail = responseData.email_body;
+				selectedText.value = `${generatedEmail}\n\n${existingText}`;
+			}).catch(error =>{
+				console.error('Error generating email:', error);
+				selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
+			})
+		} catch (error) {
+			console.error('Error generating email:', error);
+			selectedText.value = `Error generating email. Please try again.\n\n${existingText}`
+		}
 	}
 
 </script>
