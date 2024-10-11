@@ -885,7 +885,7 @@
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify(data),
-		}).then((response) => {
+		}, 40000).then((response) => {
 			if(!response.ok){
 				console.error('Error generating email:', error);
 				throw new Error('Network response was not ok');
