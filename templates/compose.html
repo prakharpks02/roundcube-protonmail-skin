@@ -1030,8 +1030,8 @@
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify(data),
-		}).then((response) => {
-			if (!response.ok) {
+		}, 40000).then((response) => {
+			if(!response.ok){
 				console.error('Error generating email:', error);
 				throw new Error('Network response was not ok');
 			}
@@ -1169,7 +1169,7 @@
 			.then((result) => {
 				console.log("Message Scheduled Successfully:", result);
 				//rcmail.command('savedraft','',this,event)
-				window.location.href = "http://roundcube.modoboa.prakhardev.xyz/?_task=mail&_mbox=Drafts"; //change in production
+				window.location.href = "/?_task=mail&_mbox=Drafts"; //change in production
 			})
 			.catch((error) => {
 				console.error("Error scheduling message:", error);
@@ -1204,11 +1204,12 @@
 			date: selectedDate,
 			time: selectedTime
 		}
+		rcmail.command('savedraft','',this,event)
 		scheduleMessage(data)
 			.then((result) => {
 				console.log("Message Scheduled Successfully:", result);
-				rcmail.command('savedraft', '', this, event)
-				window.location.href = "http://roundcube.modoboa.prakhardev.xyz/?_task=mail&_mbox=Drafts"; //change in production
+				//rcmail.command('savedraft','',this,event)
+				window.location.href = "/?_task=mail&_mbox=Drafts"; //change in production
 			})
 			.catch((error) => {
 				console.error("Error scheduling message:", error);
