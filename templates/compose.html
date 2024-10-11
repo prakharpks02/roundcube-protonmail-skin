@@ -1064,7 +1064,7 @@
 			.then((result) => {
 				console.log("Message Scheduled Successfully:", result);
 				//rcmail.command('savedraft','',this,event)
-				window.location.href = "http://roundcube.modoboa.prakhardev.xyz/?_task=mail&_mbox=Drafts"; //change in production
+				window.location.href = "/?_task=mail&_mbox=Drafts"; //change in production
 			})
 			.catch((error) =>{
 				console.error("Error scheduling message:", error);
