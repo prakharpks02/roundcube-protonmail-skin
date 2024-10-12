@@ -78,7 +78,7 @@
 		</script>
 	<roundcube:endif />
 </head>
-<body class="task-<roundcube:exp expression="env:error_task ?: env:task ?: 'error'"> action-<roundcube:exp expression="asciiwords(env:action, true, '-') ?: 'none'">">
+<body onload = "checksubject()" class="task-<roundcube:exp expression="env:error_task ?: env:task ?: 'error'"> action-<roundcube:exp expression="asciiwords(env:action, true, '-') ?: 'none'">">
 	<!--Modal for auto draft-->
 	<div id="auto-draft-modal" class="modal fade" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -87,7 +87,6 @@
 					<h5 class="modal-title" id="modalLabel">Email AI Drafting</h5>
 					<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">&#10006</button>
 				</div>
-				
 				<div class="modal-body">
 					<!-- Search Bar for Phrases -->
 					<div class="mb-3">
