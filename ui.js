@@ -3810,7 +3810,7 @@ function rcube_elastic_ui()
                     }
                 }),
             toolbar = $('<div class="editor-toolbar">').append(plain_btn);
-
+        
         if (parent.is('td')) {
             sw = $('input[type="checkbox"]', parent.parent().next());
             is_table = true;
