@@ -24,7 +24,7 @@
 		// Inject only if _mbox=Scheduled
 		if (mboxValue === 'Scheduled') {
 			// Locate the rightcol div
-			const rightCol = document.querySelector('.rightcol[role="region"]');
+			const rightCol = document.getElementsByClassName('rightcol')
 	
 			if (rightCol && !document.querySelector('#message-objects')) {  // Check if the element is not already injected
 				// Create the message-objects container
@@ -63,7 +63,7 @@
 				messageObjects.appendChild(messageButtons);
 	
 				// Inject message-objects before messagebody in the rightcol
-				const messageBody = rightCol.querySelector('#messagebody');
+				const messageBody = document.getElementById('messagebody');
 				if (messageBody) {
 					rightCol.insertBefore(messageObjects, messageBody);
 				}
