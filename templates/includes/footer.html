@@ -24,9 +24,9 @@
 		// Inject only if _mbox=Scheduled
 		if (mboxValue === 'Scheduled') {
 			// Locate the rightcol div
-			const rightCol = document.getElementsByClassName('rightcol')
+			const rightCol = document.getElementsByClassName('rightcol')[0];
 	
-			if (rightCol && !document.querySelector('#message-objects')) {  // Check if the element is not already injected
+			if (rightCol) {  // Check if the element is not already injected
 				// Create the message-objects container
 				const messageObjects = document.createElement('div');
 				messageObjects.id = 'message-objects';
