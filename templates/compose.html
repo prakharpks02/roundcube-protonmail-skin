@@ -1044,7 +1044,7 @@
 			}
 		});
 	
-		if (emailList.length === 0) return [];
+		if (emailList.length === 0) return "";
 		return emailList.join(', ').replace(/,,+/g, ',').replace(/,\s*$/, '').trim();
 	}
 	
