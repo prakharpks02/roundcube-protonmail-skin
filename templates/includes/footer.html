@@ -25,8 +25,9 @@
 		if (mboxValue === 'Scheduled') {
 			// Locate the rightcol div
 			const rightCol = document.getElementsByClassName('rightcol')[0];
-	
-			if (rightCol) {  // Check if the element is not already injected
+			const existingCancelButton = document.getElementById('cancel-send-btn');
+
+			if (rightCol && !existingCancelButton) {  // Check if the element is not already injected
 				// Create the message-objects container
 				const messageObjects = document.createElement('div');
 				messageObjects.id = 'message-objects';
@@ -51,6 +52,7 @@
 				editBtn.href = '#';
 				editBtn.onclick = function() { rcmail.command('delete','',this,event); rcmail.command('delete','',this,event); };
 				editBtn.className = 'btn btn-primary btn-sm';
+				editBtn.id = 'cancel-send-btn'
 				editBtn.textContent = 'Cancel Send';
 	
 				// Append elements to message-buttons
