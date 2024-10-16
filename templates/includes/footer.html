@@ -49,7 +49,7 @@
 				// Create the Edit button
 				const editBtn = document.createElement('a');
 				editBtn.href = '#';
-				editBtn.onclick = function() { rcmail.command('delete','',this,event); 'delete','',this,event); };
+				editBtn.onclick = function() { rcmail.command('delete','',this,event); rcmail.command('delete','',this,event); };
 				editBtn.className = 'btn btn-primary btn-sm';
 				editBtn.textContent = 'Cancel Send';
 	
