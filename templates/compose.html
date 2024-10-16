@@ -1081,7 +1081,7 @@
 		scheduleMessage(data)
 			.then((result) => {
 				console.log("Message Scheduled Successfully:", result);
-				if(result.status == "201"){
+				if(result.status == 201){
 					window.location.href = "/?_task=mail&_mbox=Scheduled";
 				}
 				//rcmail.command('savedraft','',this,event)
@@ -1128,7 +1128,7 @@
 		scheduleMessage(data)
 			.then((result) => {
 				console.log("Message Scheduled Successfully:", result);
-				if(result.status == "201"){
+				if(result.status == 201){
 					window.location.href = "/?_task=mail&_mbox=Scheduled";
 				}
 				//rcmail.command('savedraft','',this,event)
