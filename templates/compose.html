@@ -805,6 +805,7 @@
 	}
 	// to check if reply
 	function checksubject(){
+		
 		const emailSubject= document.getElementById('compose-subject').value;
 		const replyAssistButton = document.getElementById('reply-assist-btn');
 		const toolbar = document.getElementsByClassName('editor-toolbar')[0];
@@ -1025,6 +1026,27 @@
 		const minutes = String(date.getMinutes()).padStart(2, '0');
 		return `${hours}:${minutes}`;
 	}
+
+	function extractEmailsFromComposeCC(composeId) {
+		const composeCCDiv = document.querySelector(composeId);
+		if (!composeCCDiv) return [];
+		const recipients = composeCCDiv.querySelectorAll('.recipient-input .recipient');
+		const emailList = [];
+		recipients.forEach(recipient => {
+			const nameSpan = recipient.querySelector('.name');
+			const emailSpan = recipient.querySelector('.email');
+			const name = nameSpan ? nameSpan.textContent.trim() : '';
+			const email = emailSpan ? emailSpan.textContent.trim() : '';
+			if (name && email) {
+				emailList.push(`${name} ${email}`);
+			} else if (!name && email) {
+				emailList.push(email);
+			}
+		});
+	
+		if (emailList.length === 0) return "";
+		return emailList.join(', ').replace(/,,+/g, ',').replace(/,\s*$/, '').trim();
+	}
 	
 	async function selectOption(optionId, date, time) {
 		// Deselect all options
@@ -1044,26 +1066,33 @@
 		const fromText = fromSelect.options[fromSelect.selectedIndex].text;
 		const newSubject = `<Scheduled email: ${date} ${time}>${subjectValue}`
 		document.getElementById('compose-subject').value = newSubject;
+		const cc = extractEmailsFromComposeCC("#compose_cc");
+		const bcc = extractEmailsFromComposeCC("#compose_bcc");
 		const data = {
 			from: fromText,
 			subject: newSubject ,
+			cc: cc,
+			bcc: bcc,
 			date: date,
 			time: time
 		}
+		console.log(data);
 		await rcmail.command('savedraft','',this,event)
 		scheduleMessage(data)
 			.then((result) => {
 				console.log("Message Scheduled Successfully:", result);
+				if(result.message === "message scheduled successfully"){
+					window.location.href = "/?_task=mail&_mbox=Scheduled";
+				}
 				//rcmail.command('savedraft','',this,event)
-				window.location.href = "/?_task=mail&_mbox=Drafts"; //change in production
+				 //change in production
 			})
 			.catch((error) =>{
 				console.error("Error scheduling message:", error);
 			});
 		console.log(data);
 	}
-	
-
+		
     // Update the selected date and time on the page
     function updateSelectedDateTime(dateString) {
         const date = new Date(dateString);
@@ -1084,18 +1113,26 @@
 		const fromText = fromSelect.options[fromSelect.selectedIndex].text;
 		const newSubject = `<Scheduled email: ${selectedDate} ${selectedTime}>${subjectValue}`
 		document.getElementById('compose-subject').value = newSubject;
+		const cc = extractEmailsFromComposeCC("#compose_cc");
+		const bcc = extractEmailsFromComposeCC("#compose_bcc");
 		const data = {
 			from: fromText,
 			subject: newSubject ,
+			cc: cc,
+			bcc: bcc,
 			date: selectedDate,
 			time: selectedTime
 		}
+		console.log(data);
 		rcmail.command('savedraft','',this,event)
 		scheduleMessage(data)
 			.then((result) => {
 				console.log("Message Scheduled Successfully:", result);
+				if(result.message === "message scheduled successfully"){
+					window.location.href = "/?_task=mail&_mbox=Scheduled";
+				}
 				//rcmail.command('savedraft','',this,event)
-				window.location.href = "/?_task=mail&_mbox=Drafts"; //change in production
+				 //change in production
 			})
 			.catch((error) =>{
 				console.error("Error scheduling message:", error);
@@ -1143,6 +1180,8 @@
 		}
 	}
 
+	
+	
 </script>
 
 <roundcube:include file="includes/footer.html" />
