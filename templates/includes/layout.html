@@ -78,7 +78,7 @@
 		</script>
 	<roundcube:endif />
 </head>
-<body onload = "checksubject()" class="task-<roundcube:exp expression="env:error_task ?: env:task ?: 'error'"> action-<roundcube:exp expression="asciiwords(env:action, true, '-') ?: 'none'">">
+<body onload = "checksubject() checkReply()" class="task-<roundcube:exp expression="env:error_task ?: env:task ?: 'error'"> action-<roundcube:exp expression="asciiwords(env:action, true, '-') ?: 'none'">">
 	<!--Modal for auto draft-->
 	<div id="auto-draft-modal" class="modal fade" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
 		<div class="modal-dialog">
