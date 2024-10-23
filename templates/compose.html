@@ -887,7 +887,8 @@
 				},
 				body: JSON.stringify({
 					topic: topic,
-					description: description
+					description: description,
+					from_email: "indranil@shreyanshandilya.me"
 				}, 40000)
 			}).then(response => {
 				if (!response.ok) {
