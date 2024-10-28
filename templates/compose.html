@@ -1286,9 +1286,8 @@
 
 		const existingCreditsItem = document.querySelector('.credits-menu-item');
 		if (existingCreditsItem) {
-			// If it exists, update the credits amount if necessary
-			existingCreditsItem.querySelector('.inner').textContent = creditsAvailable;
-			return; // Exit the function if it already exists
+			// If it exists, remove the existing credits item
+			toolbarMenu.removeChild(existingCreditsItem);
 		}
 	
 		// Create a new <li> element for credits
@@ -1351,11 +1350,9 @@
 
 		const existingCreditsItem = document.querySelector('.credits-menu-item');
 		if (existingCreditsItem) {
-			// If it exists, update the credits amount if necessary
-			existingCreditsItem.querySelector('.inner').textContent = creditsAvailable;
-			return; // Exit the function if it already exists
+			// If it exists, remove the existing credits item
+			toolbarMenu.removeChild(existingCreditsItem);
 		}
-	
 		// Create a new <li> element for credits
 		const newListItem = document.createElement('li');
 		newListItem.setAttribute('role', 'menuitem');
