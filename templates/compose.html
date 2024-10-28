@@ -1406,9 +1406,9 @@
 	}
 	
 	function detectViewAndDisplayCredits() {
-		const isMobile = window.matchMedia("(max-width: 600px)").matches;
-	
-		if (isMobile) {
+		//const isMobile = window.matchMedia("(max-width: 600px)").matches;
+		var clonedAutoDraftButton = $('#auto-draft-button-clone');
+		if (clonedAutoDraftButton.length > 0) {
 			displayCreditsMobile();
 		} else {
 			displayCreditsDesktop();
