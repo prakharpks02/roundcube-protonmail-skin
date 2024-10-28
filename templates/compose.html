@@ -877,6 +877,8 @@
 		const existingText = selectedText.value;
 		const topic = searchBar.value;
 		const description = emailDetails.value;
+		const fromSelect = document.getElementById('_from');
+		const from_email = fromSelect.options[fromSelect.selectedIndex].text;
 		console.log(topic);
 		console.log(description);
 
@@ -889,7 +891,7 @@
 				body: JSON.stringify({
 					topic: topic,
 					description: description,
-					from_email: "indranil@shreyanshandilya.me"
+					from_email: from_email,
 				}, 40000)
 			}).then(response => {
 				if (!response.ok) {
@@ -1151,6 +1153,8 @@
 		const emailSubject= document.getElementById('compose-subject');
 		const selectedText = document.getElementById('composebody');
 		const existingText = selectedText.value;
+		const fromSelect = document.getElementById('_from');
+		const from_email = fromSelect.options[fromSelect.selectedIndex].text; 
 		console.log({subject: emailSubject.value, email_body: existingText});
 
 		try {
@@ -1161,7 +1165,8 @@
 				},
 				body: JSON.stringify({
 					subject: emailSubject.value,
-					email_body: existingText
+					email_body: existingText,
+					from_email: from_email
 				},40000)
 			}).then(response =>{
 				if(!response.ok){
@@ -1253,7 +1258,7 @@
 		const fromText = fromSelect.options[fromSelect.selectedIndex].text;
 	
 		try {
-			const response = await fetch(replyAssistApiURL, {
+			const response = await fetch(getCreditsApiURL, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -1281,7 +1286,7 @@
 	async function displayCreditsDesktop() {
 		
 		// Fetch available credits
-		const creditsAvailable = 0;
+		const creditsAvailable = await getCredits();
 		const toolbarMenu = document.getElementById('toolbar-menu');
 
 		const existingCreditsItem = document.querySelector('.credits-menu-item');
@@ -1345,7 +1350,7 @@
 	}
 	
 	async function displayCreditsMobile(){
-		const creditsAvailable = 0;
+		const creditsAvailable = await getCredits();
 		const toolbarMenu = document.getElementById('toolbar-menu');
 
 		const existingCreditsItem = document.querySelector('.credits-menu-item');
