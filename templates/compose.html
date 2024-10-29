@@ -895,9 +895,9 @@
 				}, 40000)
 			}).then(response => {
 				if (!response.ok) {
-					console.error('Error generating email:', error);
+					const errorMessage = errorData.error || 'An unknown error occurred';
 					//selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
-					throw new Error('Network response was not ok');
+					throw new Error(errorMessage);
 				}
 				return response.json();
 			}).then(responseData => {
@@ -905,11 +905,13 @@
 				selectedText.value = `${generatedEmail}\n\n${existingText}`;
 			}).catch(error => {
 				console.error('Error generating email:', error);
+				showErrorModal('auto-draft-modal', 'Error', error.message);
 				selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
 			})
 
 		} catch (error) {
 			console.error('Error generating email:', error);
+			showErrorModal('auto-draft-modal', 'Error', error.message);
 			selectedText.value = `Error generating email. Please try again.\n\n${existingText}`
 		}
 	}
@@ -1170,8 +1172,11 @@
 				},40000)
 			}).then(response =>{
 				if(!response.ok){
-					console.error('Error generating reply:', error);
-					throw new Error('Network response was not ok');
+					return response.json().then(errorData => {
+						const errorMessage = errorData.error || 'An unknown error occurred';
+						throw new Error(errorMessage);  
+					});
+					
 				}
 				return response.json();
 			}).then(responseData =>{
@@ -1179,10 +1184,12 @@
 				selectedText.value = `${generatedEmail}\n\n${existingText}`;
 			}).catch(error =>{
 				console.error('Error generating email:', error);
+				showErrorModal('auto-draft-modal', 'Error', error.message);
 				selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
 			})
 		} catch (error) {
 			console.error('Error generating email:', error);
+			showErrorModal('auto-draft-modal', 'Error', error.message);
 			selectedText.value = `Error generating email. Please try again.\n\n${existingText}`
 		}
 	}
