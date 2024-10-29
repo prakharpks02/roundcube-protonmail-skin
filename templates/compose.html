@@ -905,13 +905,13 @@
 				selectedText.value = `${generatedEmail}\n\n${existingText}`;
 			}).catch(error => {
 				console.error('Error generating email:', error);
-				showErrorModal('auto-draft-modal', 'Error', error.message);
+				showErrorModal('error-modal', 'Error', error.message);
 				selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
 			})
 
 		} catch (error) {
 			console.error('Error generating email:', error);
-			showErrorModal('auto-draft-modal', 'Error', error.message);
+			showErrorModal('error-modal', 'Error', error.message);
 			selectedText.value = `Error generating email. Please try again.\n\n${existingText}`
 		}
 	}
@@ -1184,12 +1184,12 @@
 				selectedText.value = `${generatedEmail}\n\n${existingText}`;
 			}).catch(error =>{
 				console.error('Error generating email:', error);
-				showErrorModal('auto-draft-modal', 'Error', error.message);
+				showErrorModal('error-modal', 'Error', error.message);
 				selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
 			})
 		} catch (error) {
 			console.error('Error generating email:', error);
-			showErrorModal('auto-draft-modal', 'Error', error.message);
+			showErrorModal('error-modal', 'Error', error.message);
 			selectedText.value = `Error generating email. Please try again.\n\n${existingText}`
 		}
 	}
