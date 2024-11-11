@@ -895,9 +895,12 @@
 				}, 40000)
 			}).then(response => {
 				if (!response.ok) {
-					const errorMessage = response.json().error || 'An unknown error occurred';
+					return response.json().then(errorData => {
+						const errorMessage = errorData.error || 'An unknown error occurred';
+						throw new Error(errorMessage);  
+					});
 					//selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
-					throw new Error(errorMessage);
+					
 				}
 				return response.json();
 			}).then(responseData => {
