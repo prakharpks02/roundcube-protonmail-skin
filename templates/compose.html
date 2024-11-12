@@ -794,9 +794,10 @@
 		"Confirm receipt of an important document",
 	];
 
-	const autoDraftApiURL = 'https://console.gofloww.co/api/mail/auto-draft/'
+	const autoDraftApiURL = 'https://dev.gofloww.co/api/mail/auto-draft/'
 	const scheduleSendApiURL = 'https://console.gofloww.co/api/mail/schedule-send/'
-	const replyAssistApiURL = 'https://console.gofloww.co/api/mail/reply-assist/'
+	const replyAssistApiURL = 'https://dev.gofloww.co/api/mail/reply-assist/'
+	const getCreditsApiURL = 'https://dev.gofloww.co/api/mail/get-email-credits/'
 
 	// Show the modal when the Auto-Draft button is clicked
 	function showModal() {
@@ -824,7 +825,7 @@
             replyAssistButton.title = 'Reply Assist';
             replyAssistButton.style.display = 'inline-block';
             replyAssistButton.style.opacity = '1';
-			replyAssistButton.textContent = 'Reply Assist';
+			replyAssistButton.innerHTML = 'Reply Assist (2 <i class="fa-solid fa-coins"></i>)';
             replyAssistButton.onclick = function() {
                 replyAssist();  // Call the replyAssist function when clicked
                 return false;  // Prevent default action
@@ -876,6 +877,8 @@
 		const existingText = selectedText.value;
 		const topic = searchBar.value;
 		const description = emailDetails.value;
+		const fromSelect = document.getElementById('_from');
+		const from_email = fromSelect.options[fromSelect.selectedIndex].text;
 		console.log(topic);
 		console.log(description);
 
@@ -887,13 +890,17 @@
 				},
 				body: JSON.stringify({
 					topic: topic,
-					description: description
+					description: description,
+					from_email: from_email,
 				}, 40000)
 			}).then(response => {
 				if (!response.ok) {
-					console.error('Error generating email:', error);
+					return response.json().then(errorData => {
+						const errorMessage = errorData.error || 'An unknown error occurred';
+						throw new Error(errorMessage);  
+					});
 					//selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
-					throw new Error('Network response was not ok');
+					
 				}
 				return response.json();
 			}).then(responseData => {
@@ -901,11 +908,13 @@
 				selectedText.value = `${generatedEmail}\n\n${existingText}`;
 			}).catch(error => {
 				console.error('Error generating email:', error);
+				showErrorModal('error-modal', 'Error', error.message);
 				selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
 			})
 
 		} catch (error) {
 			console.error('Error generating email:', error);
+			showErrorModal('error-modal', 'Error', error.message);
 			selectedText.value = `Error generating email. Please try again.\n\n${existingText}`
 		}
 	}
@@ -1149,6 +1158,8 @@
 		const emailSubject= document.getElementById('compose-subject');
 		const selectedText = document.getElementById('composebody');
 		const existingText = selectedText.value;
+		const fromSelect = document.getElementById('_from');
+		const from_email = fromSelect.options[fromSelect.selectedIndex].text; 
 		console.log({subject: emailSubject.value, email_body: existingText});
 
 		try {
@@ -1159,12 +1170,16 @@
 				},
 				body: JSON.stringify({
 					subject: emailSubject.value,
-					email_body: existingText
+					email_body: existingText,
+					from_email: from_email
 				},40000)
 			}).then(response =>{
 				if(!response.ok){
-					console.error('Error generating reply:', error);
-					throw new Error('Network response was not ok');
+					return response.json().then(errorData => {
+						const errorMessage = errorData.error || 'An unknown error occurred';
+						throw new Error(errorMessage);  
+					});
+					
 				}
 				return response.json();
 			}).then(responseData =>{
@@ -1172,15 +1187,18 @@
 				selectedText.value = `${generatedEmail}\n\n${existingText}`;
 			}).catch(error =>{
 				console.error('Error generating email:', error);
+				showErrorModal('error-modal', 'Error', error.message);
 				selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
 			})
 		} catch (error) {
 			console.error('Error generating email:', error);
+			showErrorModal('error-modal', 'Error', error.message);
 			selectedText.value = `Error generating email. Please try again.\n\n${existingText}`
 		}
 	}
 
 	function convertMobileView(){
+		detectViewAndDisplayCredits();
 		var clonedAutoDraftButton = $('#auto-draft-button-clone');
 		var clonedScheduleSendButton = $('#schedule-send-button-clone');
 
@@ -1245,8 +1263,183 @@
         }
 	}
 
+	async function getCredits() {
+		const fromSelect = document.getElementById('_from');
+		const fromText = fromSelect.options[fromSelect.selectedIndex].text;
 	
+		try {
+			const response = await fetch(getCreditsApiURL, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ email: fromText }, 40000)
+			});
 	
+			if (!response.ok) {
+				console.error('Error Getting Credit info:', response.statusText);
+				throw new Error('Network response was not ok');
+			}
+	
+			const responseData = await response.json();
+			const credit_limit = responseData.credit_limit;
+			const credit_used = responseData.credit_used;
+			const credits_available = credit_limit - credit_used;
+			return credits_available;
+			
+		} catch (error) {
+			console.error('Error Getting Credits:', error);
+			return 0;
+		}
+	}
+
+	async function displayCreditsDesktop() {
+		
+		// Fetch available credits
+		const creditsAvailable = await getCredits();
+		const toolbarMenu = document.getElementById('toolbar-menu');
+
+		const existingCreditsItem = document.querySelector('.credits-menu-item');
+		if (existingCreditsItem) {
+			// If it exists, remove the existing credits item
+			toolbarMenu.removeChild(existingCreditsItem);
+		}
+	
+		// Create a new <li> element for credits
+		const newListItem = document.createElement('li');
+		newListItem.setAttribute('role', 'menuitem');
+		newListItem.classList.add('credits-menu-item'); // Add a class for styling
+	
+		// Set up the HTML for the new list item with the icon above the text
+		newListItem.innerHTML = `
+			<a href="#" class="credits-display">
+				<div class="icon-wrapper">
+					<i class="fa-solid fa-coins" aria-hidden="true"></i>
+				</div>
+				<span class="inner">${creditsAvailable}</span>
+			</a>
+		`;
+	
+		// Append the new <li> to the toolbar menu
+		toolbarMenu.appendChild(newListItem);
+	
+		// Inject CSS styles for positioning, layout, and removing ::before
+		const style = document.createElement('style');
+		style.innerHTML = `
+			.credits-display {
+				display: flex;
+				flex-direction: column; /* Stack icon above text */
+				align-items: center;
+				text-decoration: none;
+				padding: 8px;
+				color: inherit;
+				position: relative;
+			}
+	
+			/* Remove any ::before content on .credits-display */
+			.credits-display::before {
+				content: none !important;
+			}
+	
+			.icon-wrapper {
+				display: flex;
+				justify-content: center;
+				margin-bottom: 5px; /* Space between icon and text */
+			}
+	
+			.credits-display i {
+				font-size: 1.2em; /* Adjust icon size as needed */
+			}
+	
+			.credits-display .inner {
+				font-size: 0.9em; /* Adjust text size as needed */
+				color: inherit;
+			}
+		`;
+		document.head.appendChild(style);
+	}
+	
+	async function displayCreditsMobile(){
+		const creditsAvailable = await getCredits();
+		const toolbarMenu = document.getElementById('toolbar-menu');
+
+		const existingCreditsItem = document.querySelector('.credits-menu-item');
+		if (existingCreditsItem) {
+			// If it exists, remove the existing credits item
+			toolbarMenu.removeChild(existingCreditsItem);
+		}
+		// Create a new <li> element for credits
+		const newListItem = document.createElement('li');
+		newListItem.setAttribute('role', 'menuitem');
+		newListItem.classList.add('credits-menu-item'); // Add a class for styling
+	
+		// Set up the HTML for the new list item with the icon and text
+		newListItem.innerHTML = `
+			<a href="#" class="credits-display">
+				<i class="fa-solid fa-coins" aria-hidden="true"></i>
+				<span class="inner">${creditsAvailable} credits left</span>
+			</a>
+		`;
+	
+		// Append the new <li> to the toolbar menu
+		toolbarMenu.appendChild(newListItem);
+	
+		// Inject CSS styles for positioning, layout, and responsive behavior
+		const style = document.createElement('style');
+		style.innerHTML = `
+			.credits-display {
+				display: flex;
+				align-items: center;
+				text-decoration: none;
+				padding: 8px;
+				color: inherit;
+			}
+	
+			.credits-display i {
+				margin-right: 5px; /* Space between icon and text */
+				font-size: 1.2em;
+			}
+	
+			.credits-display .inner {
+				font-size: 0.9em;
+			}
+	
+			/* Responsive style for mobile */
+			@media (max-width: 600px) {
+				.credits-display {
+					flex-direction: row; /* Keep icon on the left and text on the right */
+					justify-content: flex-start;
+				}
+	
+				.credits-display .inner {
+					font-size: 1em; /* Slightly larger font for mobile */
+				}
+			}
+		`;
+		document.head.appendChild(style);
+	
+	}
+	
+	function detectViewAndDisplayCredits() {
+		const isMobile = window.matchMedia("(max-width: 1024px)").matches;
+		if (isMobile) {
+			displayCreditsMobile();
+		} else {
+			displayCreditsDesktop();
+		}
+	}
+	
+	function showErrorModal(modalId, title, message) {
+		// Set the modal title
+		document.querySelector(`#${modalId} .modal-title`).textContent = title;
+	
+		// Set the modal message
+		document.querySelector(`#${modalId} .modal-body`).textContent = message;
+	
+		// Show the modal using Bootstrap's modal function
+		$(`#${modalId}`).modal('show');
+	}
+
 </script>
 
 <roundcube:include file="includes/footer.html" />

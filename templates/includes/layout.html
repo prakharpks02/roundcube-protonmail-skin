@@ -101,7 +101,9 @@
 						<textarea id="email-details" class="form-control" placeholder="Enter the details of the email..." rows="4"></textarea>
 					</div>
 					<!-- Generate Email Button -->
-					<button id="generate-button" class="btn btn-success" onclick="generateEmail()" data-dismiss="modal">Generate Email</button>
+					<button id="generate-button" class="btn btn-success" onclick="generateEmail()" data-dismiss="modal">
+						Generate Email (1 <i class="fa-solid fa-coins"></i>)
+					</button>
 				</div>
 			</div>
 		</div>
@@ -155,7 +157,22 @@
 				</div>
 			</div>
 		</div>
-	</div>	
+	</div>
+	
+	<!---Error Modal-->
+	<div id="error-modal" class="modal fade" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content ui-widget-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modalLabel">Error</h5>
+					<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">&#10006;</button>
+				</div>
+				<div class="modal-body text-center">
+					Something went wrong.
+				</div>
+			</div>
+		</div>
+	</div>
 	<roundcube:if condition="!env:framed || env:extwin" />
 		<div id="<roundcube:exp expression="env:action == 'print' ? 'print-' : ''">layout">
 	<roundcube:endif />
