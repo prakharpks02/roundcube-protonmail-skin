@@ -806,7 +806,8 @@
 	}
 	// to check if reply
 	function checkReply(){
-		
+		// Temporary fix for identities bug
+		document.querySelector("a[href='#identities']").remove();
 		const emailSubject= document.getElementById('compose-subject').value;
 		const replyAssistButton = document.getElementById('reply-assist-btn');
 		const toolbar = document.getElementsByClassName('editor-toolbar')[0];
