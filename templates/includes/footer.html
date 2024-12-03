@@ -132,7 +132,8 @@
 	}
 
 	function translateEmail() {
-		const messageBody = document.getElementById('messagebody');
+		const frame = document.querySelector('#layout-content .iframe-wrapper #messagecontframe');
+		const messageBody = frame.contentDocument.getElementById('messagebody');
 		const content = messageBody.getElementsByClassName('pre')[0];
 		const emailBody = content.innerHTML;
 
@@ -175,6 +176,14 @@
 
 		
 	}
+
+	document.addEventListener('DOMContentLoaded', function() {
+		// Check if the target div is present
+		const targetDiv = document.querySelector('.content.frame-content');
+		if (targetDiv) {
+		injectTranslateLink();
+		}
+	});
 </script>
 
 
