@@ -14,9 +14,9 @@
 			<roundcube:include file="includes/mail-menu.html" />
 		</div>
 	<roundcube:endif />
-	<div class="content frame-content" role="main"  onload = "injectTranslateLink();">
+	<div class="content frame-content" role="main">
 		<div id="message-header">
-			<h2 class="subject">
+			<h2 class="subject" onload = "injectTranslateLink();">
 				<span class="voice"><roundcube:label name="subject" />: </span>
 				<roundcube:object name="messageHeaders" valueOf="subject" />
 				<roundcube:if condition="!env:message_context && !env:extwin">
