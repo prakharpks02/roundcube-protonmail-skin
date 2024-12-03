@@ -136,6 +136,9 @@
 		const messageBody = frame.contentDocument.getElementById('messagebody');
 		const content = messageBody.getElementsByClassName('pre')[0];
 		const emailBody = content.innerHTML;
+		const sidebar = document.getElementById('layout-sidebar');
+		const username = sidebar.getElementsByClassName('username')[0];
+		const from_email = username.textContent;
 		const translateApiURL = 'http://localhost:8000/api/mail/translate/'
 		if(content){
 			const emailBody = content.innerHTML;
