@@ -192,6 +192,17 @@
 			};
 		}
 	});
+
+	function showErrorModal(modalId, title, message) {
+		// Set the modal title
+		document.querySelector(`#${modalId} .modal-title`).textContent = title;
+	
+		// Set the modal message
+		document.querySelector(`#${modalId} .modal-body`).textContent = message;
+	
+		// Show the modal using Bootstrap's modal function
+		$(`#${modalId}`).modal('show');
+	}
 </script>
 
 
