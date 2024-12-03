@@ -159,8 +159,8 @@
 					}
 					return response.json();
 				}).then(responseData =>{
-					const generatedEmail = responseData.email_body;
-					preElement.innerHTML = `${generatedEmail}\n\n${existingText}`;
+					const translatedEmail = responseData.email_body;
+					content.innerHTML = translatedEmail;
 				}).catch(error =>{
 					console.error('Error translating email:', error);
 					showErrorModal('error-modal', 'Error', error.message);
