@@ -131,16 +131,13 @@
 	}
 
 	function translateEmail() {
-		const fromSelect = document.querySelector('.header-title.username');
-		const from_email = fromSelect.textContent;
-		const contentElement = document.getElementsByClassName('content')[0]; // Assuming 'content' is a unique class
-		const messageContentElement = contentElement.getElementsByClassName('frame-content')[0]; 
-		const messageBodyElement = messageContentElement.getElementsByClassName('message-body')[0]; // Adjust class name if needed
-		const preElement = messageBodyElement.getElementsByClassName('pre')[0]; // Select the first 'pre' element within messageBody
+		const messageBody = document.getElementById('messagebody');
+		const content = messageBody.getElementsByClassName('pre')[0];
+		const emailBody = content.innerHTML;
 
-		if(preElement){
-			const content = preElement.innerHTML;
-			console.log(content);
+		if(content){
+			const emailBody = content.innerHTML;
+			console.log(email_body);
 			//try {
 			//	fetch(translateApiURL, {
 			//		method: 'POST',
