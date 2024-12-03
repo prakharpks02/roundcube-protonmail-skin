@@ -131,15 +131,6 @@
 	}
 
 	function translateEmail() {
-		const fromSelect = document.getElementsByClassName('username')[0];
-		const from_email = fromSelect.value;
-		const preElement = document.querySelector('div.content.frame-content > div#message-content div#messagebody div.message-part div.pre');
-		if(preElement){
-			const content = preElement.innerHTML;
-			console.log(content);
-		}
-	}
-	function translateEmail() {
 		const fromSelect = document.querySelector('.header-title.username');
 		const from_email = fromSelect.textContent;
 		const contentElement = document.getElementsByClassName('content')[0]; // Assuming 'content' is a unique class

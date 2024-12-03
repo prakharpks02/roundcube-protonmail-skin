@@ -15,8 +15,8 @@
 		</div>
 	<roundcube:endif />
 	<div class="content frame-content" role="main">
-		<div id="message-header">
-			<h2 class="subject" onload = "injectTranslateLink();">
+		<div id="message-header" onload = "injectTranslateLink();">
+			<h2 class="subject" >
 				<span class="voice"><roundcube:label name="subject" />: </span>
 				<roundcube:object name="messageHeaders" valueOf="subject" />
 				<roundcube:if condition="!env:message_context && !env:extwin">
