@@ -176,12 +176,18 @@
 
 		
 	}
-
 	document.addEventListener('DOMContentLoaded', function() {
-		// Check if the target div is present
-		const targetDiv = document.querySelector('.content.frame-content');
-		if (targetDiv) {
-		injectTranslateLink();
+		const iframe = document.querySelector('iframe');
+		
+		if (iframe) {
+			iframe.onload = function() {
+				try {
+					const iframeDocument = iframe.contentDocument;
+					injectTranslateLink(iframeDocument);
+				} catch (e) {
+					console.error('Error accessing iframe content: ', e);
+				}
+			};
 		}
 	});
 </script>
