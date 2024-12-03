@@ -98,7 +98,7 @@
 
 	function injectTranslateLink() {
 		// Select the 'header-links' element inside the specific structure
-		const headerLinks = document.querySelector('.content.frame-content #message-header .header .header-content .header-links');
+		const headerLinks = document.getElementsByClassName('header-links')[0];
 		
 		if (headerLinks) {
 			// Create a new <a> element
@@ -131,8 +131,8 @@
 	}
 
 	function translateEmail() {
-		const fromSelect = document.querySelector('.header-title.username');
-		const from_email = fromSelect.textContent;
+		const fromSelect = document.getElementsByClassName('username')[0];
+		const from_email = fromSelect.value;
 		const preElement = document.querySelector('div.content.frame-content > div#message-content div#messagebody div.message-part div.pre');
 		if(preElement){
 			const content = preElement.innerHTML;
@@ -142,7 +142,11 @@
 	function translateEmail() {
 		const fromSelect = document.querySelector('.header-title.username');
 		const from_email = fromSelect.textContent;
-		const preElement = document.querySelector('div.content.frame-content > div#message-content div#messagebody div.message-part div.pre');
+		const contentElement = document.getElementsByClassName('content')[0]; // Assuming 'content' is a unique class
+		const messageContentElement = contentElement.getElementsByClassName('frame-content')[0]; 
+		const messageBodyElement = messageContentElement.getElementsByClassName('message-body')[0]; // Adjust class name if needed
+		const preElement = messageBodyElement.getElementsByClassName('pre')[0]; // Select the first 'pre' element within messageBody
+
 		if(preElement){
 			const content = preElement.innerHTML;
 			console.log(content);
