@@ -142,7 +142,10 @@
 		const translateApiURL = 'http://localhost:8000/api/mail/translate/'
 		if(content){
 			const emailBody = content.innerHTML;
-			console.log(emailBody);
+			console.log( JSON.stringify({
+				email_body: content,
+				from_email: from_email
+			}));
 			try {
 				fetch(translateApiURL, {
 					method: 'POST',
