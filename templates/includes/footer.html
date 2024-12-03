@@ -95,6 +95,93 @@
 			injectEditButton();  // Call function after popstate event
 		});
 	}
+
+	function injectTranslateLink() {
+		// Select the 'header-links' element inside the specific structure
+		const headerLinks = document.querySelector('.content.frame-content #message-header .header .header-content .header-links');
+		
+		if (headerLinks) {
+			// Create a new <a> element
+			const translateLink = document.createElement('a');
+			
+			
+			translateLink.href = "#translate";
+			translateLink.textContent = "Translate to English";
+			translateLink.onclick = function() {
+				translateEmail();
+				return false; // Prevent default anchor behavior
+			};
+			
+			
+			translateLink.style.backgroundImage = 'linear-gradient(90deg, #00ceb1 0%, #1E92FB 100%)';
+			translateLink.style.webkitBackgroundClip = 'text';  // For Webkit browsers (Chrome, Safari)
+			translateLink.style.backgroundClip = 'text';        // Standard property
+			translateLink.style.color = 'transparent';          // Makes the text color transparent
+			
+			
+			translateLink.style.marginLeft = '10px'; 
+			
+			
+			headerLinks.appendChild(translateLink);
+	
+			console.log("Translate link added successfully.");
+		} else {
+			console.log("Element with the specific 'header-links' selector not found.");
+		}
+	}
+
+	function translateEmail() {
+		const fromSelect = document.querySelector('.header-title.username');
+		const from_email = fromSelect.textContent;
+		const preElement = document.querySelector('div.content.frame-content > div#message-content div#messagebody div.message-part div.pre');
+		if(preElement){
+			const content = preElement.innerHTML;
+			console.log(content);
+		}
+	}
+	function translateEmail() {
+		const fromSelect = document.querySelector('.header-title.username');
+		const from_email = fromSelect.textContent;
+		const preElement = document.querySelector('div.content.frame-content > div#message-content div#messagebody div.message-part div.pre');
+		if(preElement){
+			const content = preElement.innerHTML;
+			console.log(content);
+			//try {
+			//	fetch(translateApiURL, {
+			//		method: 'POST',
+			//		headers: {
+			//			'Content-Type': 'application/json'
+			//		},
+			//		body: JSON.stringify({
+			//			email_body: content,
+			//			from_email: from_email
+			//		},40000)
+			//	}).then(response =>{
+			//		if(!response.ok){
+			//			return response.json().then(errorData => {
+			//				const errorMessage = errorData.error || 'An unknown error occurred';
+			//				throw new Error(errorMessage);  
+			//			});
+			//		}
+			//		return response.json();
+			//	}).then(responseData =>{
+			//	}).then(responseData =>{
+			//		const generatedEmail = responseData.email_body;
+			//		preElement.innerHTML = `${generatedEmail}\n\n${existingText}`;
+			//	}).catch(error =>{
+			//		console.error('Error translating email:', error);
+			//		showErrorModal('error-modal', 'Error', error.message);
+			//		
+			//	})
+			//} catch (error) {
+			//	console.error('Error translating email:', error);
+			//	showErrorModal('error-modal', 'Error', error.message);
+			//	
+			//}
+		}
+
+		
+	}
 </script>
 
 
