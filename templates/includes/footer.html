@@ -136,42 +136,41 @@
 		const messageBody = frame.contentDocument.getElementById('messagebody');
 		const content = messageBody.getElementsByClassName('pre')[0];
 		const emailBody = content.innerHTML;
-
+		const translateApiURL = 'http://localhost:8000/api/mail/translate/'
 		if(content){
 			const emailBody = content.innerHTML;
 			console.log(emailBody);
-			//try {
-			//	fetch(translateApiURL, {
-			//		method: 'POST',
-			//		headers: {
-			//			'Content-Type': 'application/json'
-			//		},
-			//		body: JSON.stringify({
-			//			email_body: content,
-			//			from_email: from_email
-			//		},40000)
-			//	}).then(response =>{
-			//		if(!response.ok){
-			//			return response.json().then(errorData => {
-			//				const errorMessage = errorData.error || 'An unknown error occurred';
-			//				throw new Error(errorMessage);  
-			//			});
-			//		}
-			//		return response.json();
-			//	}).then(responseData =>{
-			//	}).then(responseData =>{
-			//		const generatedEmail = responseData.email_body;
-			//		preElement.innerHTML = `${generatedEmail}\n\n${existingText}`;
-			//	}).catch(error =>{
-			//		console.error('Error translating email:', error);
-			//		showErrorModal('error-modal', 'Error', error.message);
-			//		
-			//	})
-			//} catch (error) {
-			//	console.error('Error translating email:', error);
-			//	showErrorModal('error-modal', 'Error', error.message);
-			//	
-			//}
+			try {
+				fetch(translateApiURL, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						email_body: content,
+						from_email: from_email
+					},40000)
+				}).then(response =>{
+					if(!response.ok){
+						return response.json().then(errorData => {
+							const errorMessage = errorData.error || 'An unknown error occurred';
+							throw new Error(errorMessage);  
+						});
+					}
+					return response.json();
+				}).then(responseData =>{
+					const generatedEmail = responseData.email_body;
+					preElement.innerHTML = `${generatedEmail}\n\n${existingText}`;
+				}).catch(error =>{
+					console.error('Error translating email:', error);
+					showErrorModal('error-modal', 'Error', error.message);
+					
+				})
+			} catch (error) {
+				console.error('Error translating email:', error);
+				showErrorModal('error-modal', 'Error', error.message);
+				
+			}
 		}
 
 		
