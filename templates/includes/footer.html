@@ -98,7 +98,8 @@
 
 	function injectTranslateLink() {
 		// Select the 'header-links' element inside the specific structure
-		const headerLinks = document.getElementsByClassName('header-links')[0];
+		const frame = document.querySelector('#layout-content .iframe-wrapper #messagecontframe');
+		const headerLinks = frame.contentDocument.getElementsByClassName('header-links')[0];
 		
 		if (headerLinks) {
 			// Create a new <a> element
