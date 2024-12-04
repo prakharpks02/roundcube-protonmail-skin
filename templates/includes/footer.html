@@ -130,8 +130,8 @@
 
 			// Dynamically add/update the CSS rule
 			styleSheet.insertRule(
-				`.translate-link::before {
-					content: "\\f1ab";  // Replace this with the desired Unicode content for the icon
+				`#message-header .header-links a.translate-link:before {
+					content: "\\f1ab" !important;
 				}`,
 			styleSheet.cssRules.length);
 	
