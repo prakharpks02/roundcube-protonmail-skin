@@ -105,33 +105,50 @@
 			// Create a new <a> element
 			const translateLink = document.createElement('a');
 			translateLink.href = "#translate";
-			translateLink.className = "translate-link"; // Add custom class for styling
-			
+			translateLink.className = "translate-link"; // Add a custom class for potential additional styling
+	
+			// Create a <span> container for the icon
+			const iconContainer = document.createElement('span');
+			iconContainer.className = "icon";
+			iconContainer.style.display = "inline-block";
+			iconContainer.style.textAlign = "center";
+	
 			// Create the <i> element for the Font Awesome icon
 			const iconElement = document.createElement('i');
 			iconElement.className = "fa-solid fa-language";
-			
-			// Create a span for the text
+			iconElement.setAttribute("aria-hidden", "true");
+			iconElement.style.fontSize = "20px";
+			iconElement.style.background = "linear-gradient(90deg, #00ceb1 0%, #1E92FB 100%)";
+			iconElement.style.webkitBackgroundClip = "text";
+			iconElement.style.backgroundClip = "text";
+			iconElement.style.color = "transparent";
+	
+			// Append the <i> element to the <span> container
+			iconContainer.appendChild(iconElement);
+	
+			// Add a line break for layout consistency
+			const lineBreak = document.createElement('br');
+			iconContainer.appendChild(lineBreak);
+	
+			// Create a <span> for the text
 			const textElement = document.createElement('span');
-			textElement.innerText = " Translate to English";
-			
-			// Append the <i> and text to the link
-			translateLink.appendChild(iconElement);
+			textElement.innerText = "Translate to English";
+			textElement.style.display = "inline-block";
+			textElement.style.marginLeft = "5px";
+	
+			// Append the <span> (icon) and text to the <a> element
+			translateLink.appendChild(iconContainer);
 			translateLink.appendChild(textElement);
-			
+	
 			// Attach the click handler
 			translateLink.onclick = function() {
 				translateEmail();
 				return false; // Prevent default anchor behavior
 			};
-			
-			// Apply the same gradient styling
-			translateLink.style.backgroundImage = 'linear-gradient(90deg, #00ceb1 0%, #1E92FB 100%)';
-			translateLink.style.webkitBackgroundClip = 'text';  // For Webkit browsers (Chrome, Safari)
-			translateLink.style.backgroundClip = 'text';        // Standard property
-			translateLink.style.color = 'transparent';          // Makes the text color transparent
-			translateLink.style.marginLeft = '10px'; 
-			
+	
+			// Add margin for spacing
+			translateLink.style.marginLeft = "10px";
+	
 			// Append the link to the header links
 			headerLinks.appendChild(translateLink);
 	
@@ -140,6 +157,7 @@
 			console.log("Element with the specific 'header-links' selector not found.");
 		}
 	}
+	
 	
 
 	function translateEmail() {
