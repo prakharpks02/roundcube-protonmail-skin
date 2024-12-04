@@ -121,16 +121,22 @@
 			};
 			translateLink.innerHTML = 'Translate to English'
 			
-			const style = document.createElement('style');
-            style.innerHTML = `
-                #message-header .header-links a.headers-link:before  {
-				content: '\\f1ab';
-				}
-			`;
 			document.head.appendChild(style);
 	
 			// Append the link to the header links
 			headerLinks.appendChild(translateLink);
+
+			const translateLink = headerLinks.querySelector('.translate-link');
+
+			// Add a custom CSS rule targeting this specific element's ::before pseudo-element
+			const styleSheet = document.styleSheets[0];  // Get the first stylesheet
+
+			// Dynamically add/update the CSS rule
+			styleSheet.insertRule(
+				`.translate-link::before {
+					content: "\\f1ab";  // Replace this with the desired Unicode content for the icon
+				}`,
+			styleSheet.cssRules.length);
 	
 			console.log("Translate link added successfully.");
 		} else {
