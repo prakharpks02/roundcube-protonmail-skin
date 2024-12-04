@@ -105,20 +105,27 @@
 			// Create a new <a> element
 			const translateLink = document.createElement('a');
 			
+			// Set the href and class attributes
 			translateLink.href = "#translate";
-			translateLink.innerHTML = '<i class="fa-solid fa-language"></i> Translate to English';
+			translateLink.className = "translate-link fa-solid fa-language"; // Add custom class and Font Awesome class
 			
+			// Set the inner text for the link
+			translateLink.innerText = " Translate to English"; // Space before text ensures proper separation
+			
+			// Attach the click handler
 			translateLink.onclick = function() {
 				translateEmail();
 				return false; // Prevent default anchor behavior
 			};
 			
+			// Apply the same gradient styling
 			translateLink.style.backgroundImage = 'linear-gradient(90deg, #00ceb1 0%, #1E92FB 100%)';
 			translateLink.style.webkitBackgroundClip = 'text';  // For Webkit browsers (Chrome, Safari)
 			translateLink.style.backgroundClip = 'text';        // Standard property
 			translateLink.style.color = 'transparent';          // Makes the text color transparent
 			translateLink.style.marginLeft = '10px'; 
 			
+			// Append the link to the header links
 			headerLinks.appendChild(translateLink);
 	
 			console.log("Translate link added successfully.");
@@ -126,6 +133,7 @@
 			console.log("Element with the specific 'header-links' selector not found.");
 		}
 	}
+	
 
 	function translateEmail() {
 		const frame = document.querySelector('#layout-content .iframe-wrapper #messagecontframe');
@@ -135,7 +143,7 @@
 		const sidebar = document.getElementById('layout-sidebar');
 		const username = sidebar.getElementsByClassName('username')[0];
 		const from_email = username.textContent;
-		const translateApiURL = 'http://dev.gofloww.co/api/mail/translate/'
+		const translateApiURL = 'https://dev.gofloww.co/api/mail/translate/'
 		if(content){
 			const emailBody = content.innerHTML;
 			console.log( JSON.stringify({
