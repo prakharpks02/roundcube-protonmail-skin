@@ -99,7 +99,12 @@
 	function injectTranslateLink() {
 		// Select the 'header-links' element inside the specific structure
 		const frame = document.querySelector('#layout-content .iframe-wrapper #messagecontframe');
-		const headerLinks = frame.contentDocument.getElementsByClassName('header-links')[0];
+		let headerLinks;
+		if(frame){
+			headerLinks = frame.contentDocument.getElementsByClassName('header-links')[0];
+		}else{
+			headerLinks = document.getElementsByClassName('header-links')[0];
+		}
 		
 		if (headerLinks) {
 			// Create a new <a> element
@@ -124,23 +129,7 @@
 	
 			// Append the link to the header links
 			headerLinks.appendChild(translateLink);
-
-			const style = document.createElement('style');
-
-			// Add the CSS rule inside the <style> element
-			style.innerHTML = `
-			#message-header .header-links a.translate-link:before {
-				content: "\\f1ab" !important;
-			}
-			`;
-
-			// Append the <style> element to the document's <head>
-			document.head.appendChild(style);
-	
-			console.log("Translate link added successfully.");
-		} else {
-			console.log("Element with the specific 'header-links' selector not found.");
-		}
+		} 
 	}
 	
 	
