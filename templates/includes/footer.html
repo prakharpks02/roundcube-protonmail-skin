@@ -99,45 +99,28 @@
 	function injectTranslateLink() {
 		// Select the 'header-links' element inside the specific structure
 		const frame = document.querySelector('#layout-content .iframe-wrapper #messagecontframe');
-		const headerLinks = frame.contentDocument.getElementsByClassName('header-links')[0];
+		const headerLinks = frame.contentDocument.getElementsByClassName('headers-links')[0];
 		
 		if (headerLinks) {
 			// Create a new <a> element
 			const translateLink = document.createElement('a');
 			translateLink.href = "#translate";
-			translateLink.className = "translate-link"; // Add a custom class
+			translateLink.className = "translate-link headers-all"; // Add a custom class
 	
 			// Apply gradient styling to the link
 			translateLink.style.backgroundImage = 'linear-gradient(90deg, #00ceb1 0%, #1E92FB 100%)';
 			translateLink.style.webkitBackgroundClip = 'text';  // For Webkit browsers (Chrome, Safari)
 			translateLink.style.backgroundClip = 'text';        // Standard property
 			translateLink.style.color = 'transparent';          // Makes the text color transparent
-			translateLink.style.marginLeft = '10px';
 	
 			// Attach the click handler
 			translateLink.onclick = function () {
 				translateEmail();
 				return false; // Prevent default anchor behavior
 			};
-	
-			// Create the <i> tag for the icon
-			const icon = document.createElement('i');
-			icon.style.fontFamily = "Font Awesome 6 Free"; // Specify the font family for Font Awesome
-			icon.style.fontWeight = "900"; // Ensure the correct font weight for the icon
-			icon.style.fontSize = "1.5rem"; // Adjust size
-			icon.style.backgroundImage = 'linear-gradient(90deg, #00ceb1 0%, #1E92FB 100%)'; // Gradient
-			icon.style.webkitBackgroundClip = "text"; // Text clipping for WebKit
-			icon.style.backgroundClip = "text"; // Standard background clip
-			icon.style.color = "transparent"; // Make text transparent
-			icon.style.marginRight = "5px"; // Add space between icon and text
-			icon.style.verticalAlign = "middle"; // Align icon with text
-			icon.innerHTML = "\uf1ab"; // Unicode for the 'language' icon
-	
 			// Add text to the link
 			const textNode = document.createTextNode("Translate to English");
 	
-			// Append the icon and text to the link
-			translateLink.appendChild(icon);
 			translateLink.appendChild(textNode);
 	
 			// Append the link to the header links
