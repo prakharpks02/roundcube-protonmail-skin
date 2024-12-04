@@ -105,14 +105,14 @@
 			// Create a new <a> element
 			const translateLink = document.createElement('a');
 			translateLink.href = "#translate";
-			translateLink.className = "translate-link header-all"; // Add a custom class
+			translateLink.className = "translate-link headers-all"; // Add a custom class
 	
 			// Apply gradient styling to the link
 			translateLink.style.backgroundImage = 'linear-gradient(90deg, #00ceb1 0%, #1E92FB 100%)';
 			translateLink.style.webkitBackgroundClip = 'text';  // For Webkit browsers (Chrome, Safari)
 			translateLink.style.backgroundClip = 'text';        // Standard property
 			translateLink.style.color = 'transparent';          // Makes the text color transparent
-			translateLink.style.marginLeft = '10px';
+			translateLink.style.marginLeft = '5px';
 	
 			// Attach the click handler
 			translateLink.onclick = function () {
@@ -121,6 +121,13 @@
 			};
 			translateLink.innerHTML = 'Translate to English'
 			
+			const style = document.createElement('style');
+            style.innerHTML = `
+                a.translate-link:before {
+				content: '\\f1ab';
+				}
+			`;
+			document.head.appendChild(style);
 	
 			// Append the link to the header links
 			headerLinks.appendChild(translateLink);
