@@ -125,15 +125,17 @@
 			// Append the link to the header links
 			headerLinks.appendChild(translateLink);
 
-			// Add a custom CSS rule targeting this specific element's ::before pseudo-element
-			const styleSheet = document.styleSheets[0];  // Get the first stylesheet
+			const style = document.createElement('style');
 
-			// Dynamically add/update the CSS rule
-			styleSheet.insertRule(
-				`#message-header .header-links a.translate-link:before {
-					content: "\\f1ab" !important;
-				}`,
-			styleSheet.cssRules.length);
+			// Add the CSS rule inside the <style> element
+			style.innerHTML = `
+			#message-header .header-links a.translate-link:before {
+				content: "\\f1ab" !important;
+			}
+			`;
+
+			// Append the <style> element to the document's <head>
+			document.head.appendChild(style);
 	
 			console.log("Translate link added successfully.");
 		} else {
