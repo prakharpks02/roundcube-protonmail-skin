@@ -104,13 +104,20 @@
 		if (headerLinks) {
 			// Create a new <a> element
 			const translateLink = document.createElement('a');
-			
-			// Set the href and class attributes
 			translateLink.href = "#translate";
-			translateLink.className = "translate-link fa-solid fa-language"; // Add custom class and Font Awesome class
+			translateLink.className = "translate-link"; // Add custom class for styling
 			
-			// Set the inner text for the link
-			translateLink.innerText = " Translate to English"; // Space before text ensures proper separation
+			// Create the <i> element for the Font Awesome icon
+			const iconElement = document.createElement('i');
+			iconElement.className = "fa-solid fa-language";
+			
+			// Create a span for the text
+			const textElement = document.createElement('span');
+			textElement.innerText = " Translate to English";
+			
+			// Append the <i> and text to the link
+			translateLink.appendChild(iconElement);
+			translateLink.appendChild(textElement);
 			
 			// Attach the click handler
 			translateLink.onclick = function() {
