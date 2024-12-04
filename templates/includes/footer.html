@@ -106,7 +106,7 @@
 			const translateLink = document.createElement('a');
 			
 			translateLink.href = "#translate";
-			translateLink.innerHTML = 'Translate to English';
+			translateLink.innerHTML = '<i class="fa-solid fa-language"></i> Translate to English';
 			
 			translateLink.onclick = function() {
 				translateEmail();
@@ -118,12 +118,6 @@
 			translateLink.style.backgroundClip = 'text';        // Standard property
 			translateLink.style.color = 'transparent';          // Makes the text color transparent
 			translateLink.style.marginLeft = '10px'; 
-			
-			const languageIcon = document.createElement('i');
-			languageIcon.className = 'fa-solid fa-language'; 
-			languageIcon.style.marginRight = '5px'; 
-
-			translateLink.prepend(languageIcon);
 			
 			headerLinks.appendChild(translateLink);
 	
@@ -141,7 +135,7 @@
 		const sidebar = document.getElementById('layout-sidebar');
 		const username = sidebar.getElementsByClassName('username')[0];
 		const from_email = username.textContent;
-		const translateApiURL = 'http://localhost:8000/api/mail/translate/'
+		const translateApiURL = 'http://dev.gofloww.co/api/mail/translate/'
 		if(content){
 			const emailBody = content.innerHTML;
 			console.log( JSON.stringify({
