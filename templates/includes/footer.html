@@ -119,10 +119,8 @@
 				translateEmail();
 				return false; // Prevent default anchor behavior
 			};
-			// Add text to the link
-			const textNode = document.createTextNode("Translate to English");
-	
-			translateLink.appendChild(textNode);
+			translateLink.innerHTML = 'Translate to English'
+			
 	
 			// Append the link to the header links
 			headerLinks.appendChild(translateLink);
