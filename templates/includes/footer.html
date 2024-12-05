@@ -162,18 +162,25 @@
 	
 		// Get the translation list element
 		const translationList = document.getElementById('translation-list');
-	
+		const frame = document.querySelector('#layout-content .iframe-wrapper #messagecontframe');
+		if(frame){
+			const translationList2 = frame.contentDocument.getElementById('translation-list');
+			translationList2.innerHTML = '';
+		}
+		
 		// Clear existing items
 		translationList.innerHTML = '';
-	
+		
 		// Create and append each language as a menu item
 		languages.forEach((language) => {
 			const listItem = document.createElement('li');
 			listItem.textContent = language;
 			listItem.classList.add('list-group-item');
-			listItem.classList.add('selected');
+				listItem.classList.add('selected');
 			listItem.onclick = () => translateEmail(language); // Attach the translateEmail function
 			translationList.appendChild(listItem);
+			if(frame){translationList2.appendChild(listItem);}
+			
 		});
 	}
 	
