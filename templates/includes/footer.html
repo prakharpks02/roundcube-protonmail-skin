@@ -189,8 +189,14 @@
 
 	function translateEmail(language) {
 		const frame = document.querySelector('#layout-content .iframe-wrapper #messagecontframe');
-		const messageBody = frame.contentDocument.getElementById('messagebody');
-		const content = messageBody.getElementsByClassName('pre')[0];
+		let content;
+		if(frame){
+			const messageBody = frame.contentDocument.getElementById('messagebody');
+			content = messageBody.getElementsByClassName('pre')[0];
+		}else{
+			const messageBody = document.getElementById('messagebody');
+			content = messageBody.getElementsByClassName('pre')[0];
+		}
 		const emailBody = content.innerHTML;
 		const sidebar = document.getElementById('layout-sidebar');
 		const username = sidebar.getElementsByClassName('username')[0];
