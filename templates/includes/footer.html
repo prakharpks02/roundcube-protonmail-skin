@@ -170,7 +170,8 @@
 		languages.forEach((language) => {
 			const listItem = document.createElement('li');
 			listItem.textContent = language;
-			listItem.className = 'list-group-item'; // Match styling with the original example
+			listItem.classList.add('list-group-item');
+			listItem.classList.add('selected');
 			listItem.onclick = () => translateEmail(language); // Attach the translateEmail function
 			translationList.appendChild(listItem);
 		});

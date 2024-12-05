@@ -186,16 +186,11 @@
 					<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">&#10006</button>
 				</div>
 				<div class="modal-body">
-					<!-- Search Bar for Translation -->
-					<div class="mb-3">
-						<label for="translation-search-bar" class="form-label">Search for language to translate</label>
-						<input type="text" id="translation-search-bar" class="form-control" placeholder="Type text to search..." oninput="searchTranslations()">
-					</div>
 	
 					<!-- Scrollable Menu -->
 					<div class="mb-3">
 						<label for="translation-menu" class="form-label">Available Translations</label>
-						<div id="translation-menu" class="form-control" style="height: 200px; overflow-y: scroll;">
+						<div id="translation-menu" class="form-control" style="height: 300px; overflow-y: scroll;">
 							<!-- Add dynamically generated translations here -->
 							<ul id="translation-list" class="list-group listing"></ul>
 						</div>
