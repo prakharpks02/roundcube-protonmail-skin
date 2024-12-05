@@ -177,7 +177,6 @@
 			listItem.textContent = language;
 			listItem.classList.add('list-group-item');
 			listItem.classList.add('selected');
-			listItem.setAttribute("data-dismiss", "modal" );
 	
 			listItem.onclick = () => translateEmail(language); // Attach the translateEmail function
 			translationList.appendChild(listItem);
