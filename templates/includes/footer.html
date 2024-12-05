@@ -113,8 +113,7 @@
 			translateLink.className = "translate-link headers-all"; // Add a custom class
 			translateLink.setAttribute("data-toggle", "modal");
 			translateLink.setAttribute("data-target", "#translate-modal");
-
-	
+			
 			// Apply gradient styling to the link
 			translateLink.style.backgroundImage = 'linear-gradient(90deg, #00ceb1 0%, #1E92FB 100%)';
 			translateLink.style.webkitBackgroundClip = 'text';  // For Webkit browsers (Chrome, Safari)
@@ -177,7 +176,9 @@
 			const listItem = document.createElement('li');
 			listItem.textContent = language;
 			listItem.classList.add('list-group-item');
-				listItem.classList.add('selected');
+			listItem.classList.add('selected');
+			listItem.setAttribute("data-dismiss", "modal" );
+	
 			listItem.onclick = () => translateEmail(language); // Attach the translateEmail function
 			translationList.appendChild(listItem);
 			if(frame){translationList2.appendChild(listItem);}
@@ -200,6 +201,7 @@
 			const emailBody = content.innerHTML;
 			console.log( JSON.stringify({
 				email_body: emailBody,
+				language: language
 				from_email: from_email
 			}));
 			try {
