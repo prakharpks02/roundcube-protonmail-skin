@@ -161,10 +161,11 @@
 		];
 	
 		// Get the translation list element
+		let translationList2;
 		const translationList = document.getElementById('translation-list');
 		const frame = document.querySelector('#layout-content .iframe-wrapper #messagecontframe');
 		if(frame){
-			const translationList2 = frame.contentDocument.getElementById('translation-list');
+			translationList2 = frame.contentDocument.getElementById('translation-list');
 			translationList2.innerHTML = '';
 		}
 		
