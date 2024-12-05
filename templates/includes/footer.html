@@ -111,6 +111,9 @@
 			const translateLink = document.createElement('a');
 			translateLink.href = "#translate";
 			translateLink.className = "translate-link headers-all"; // Add a custom class
+			translateLink.setAttribute("data-toggle", "modal");
+			translateLink.setAttribute("data-target", "#translate-modal");
+
 	
 			// Apply gradient styling to the link
 			translateLink.style.backgroundImage = 'linear-gradient(90deg, #00ceb1 0%, #1E92FB 100%)';
@@ -124,17 +127,58 @@
 				translateEmail();
 				return false; // Prevent default anchor behavior
 			};
-			translateLink.innerHTML = 'Translate to English'
+			translateLink.innerHTML = 'Translate'
 			
 	
 			// Append the link to the header links
 			headerLinks.appendChild(translateLink);
 		} 
 	}
-	
-	
 
-	function translateEmail() {
+	function populateTranslationMenu() {
+		// List of languages ChatGPT supports for translation
+		const languages = [
+			"English", // Keep English as the first item
+			"Hindi", "Bengali", "Marathi", "Tamil", "Telugu", "Gujarati", "Kannada", 
+			"Malayalam", "Punjabi", "Odia (Oriya)", "Assamese", "Urdu", 
+			// Other languages
+			"Afrikaans", "Albanian", "Amharic", "Arabic", "Armenian", "Azerbaijani",
+			"Basque", "Belarusian", "Bosnian", "Bulgarian", "Catalan", "Cebuano",
+			"Chinese (Simplified)", "Chinese (Traditional)", "Corsican", "Croatian",
+			"Czech", "Danish", "Dutch", "Esperanto", "Estonian", "Finnish", "French",
+			"Galician", "Georgian", "German", "Greek", "Haitian Creole", "Hausa",
+			"Hawaiian", "Hebrew", "Hmong", "Hungarian", "Icelandic", "Igbo",
+			"Indonesian", "Irish", "Italian", "Japanese", "Javanese", "Kazakh",
+			"Khmer", "Kinyarwanda", "Korean", "Kurdish", "Kyrgyz", "Lao", "Latin",
+			"Latvian", "Lithuanian", "Luxembourgish", "Macedonian", "Malagasy",
+			"Malay", "Maltese", "Maori", "Mongolian", "Myanmar (Burmese)", "Nepali",
+			"Norwegian", "Nyanja (Chichewa)", "Pashto", "Persian", "Polish",
+			"Portuguese", "Romanian", "Russian", "Samoan", "Scots Gaelic", "Serbian",
+			"Sesotho", "Shona", "Sindhi", "Sinhala", "Slovak", "Slovenian", "Somali",
+			"Spanish", "Sundanese", "Swahili", "Swedish", "Tagalog (Filipino)",
+			"Tajik", "Tatar", "Thai", "Turkish", "Turkmen", "Ukrainian", "Uyghur",
+			"Uzbek", "Vietnamese", "Welsh", "Xhosa", "Yiddish", "Yoruba", "Zulu"
+		];
+	
+		// Get the translation list element
+		const translationList = document.getElementById('translation-list');
+	
+		// Clear existing items
+		translationList.innerHTML = '';
+	
+		// Create and append each language as a menu item
+		languages.forEach((language) => {
+			const listItem = document.createElement('li');
+			listItem.textContent = language;
+			listItem.className = 'list-group-item'; // Match styling with the original example
+			listItem.onclick = () => translateEmail(language); // Attach the translateEmail function
+			translationList.appendChild(listItem);
+		});
+	}
+	
+	document.getElementById('translate-modal').addEventListener('shown.bs.modal', populateTranslationMenu);
+
+	function translateEmail(language) {
 		const frame = document.querySelector('#layout-content .iframe-wrapper #messagecontframe');
 		const messageBody = frame.contentDocument.getElementById('messagebody');
 		const content = messageBody.getElementsByClassName('pre')[0];
@@ -156,6 +200,7 @@
 						'Content-Type': 'application/json'
 					},
 					body: JSON.stringify({
+						language: language,
 						email_body: emailBody,
 						from_email: from_email
 					},40000)
