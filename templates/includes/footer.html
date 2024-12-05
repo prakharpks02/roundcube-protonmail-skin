@@ -241,8 +241,8 @@
 	}
 	document.addEventListener('DOMContentLoaded', function() {
 		const iframe = document.querySelector('iframe');
-		
-		if (iframe) {
+		const headerLinks = document.getElementsByClassName('header-links')[0];
+		if (iframe || headerLinks) {
 			iframe.onload = function() {
 				try {
 					const iframeDocument = iframe.contentDocument;
