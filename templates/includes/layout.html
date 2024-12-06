@@ -61,6 +61,23 @@
 			background-color: #8a6eff;
 		}
     </style>
+	<style>
+		.modal-content {
+			max-width: 300px; 
+			margin: auto; 
+		}
+		.list-group-item {
+			border: none; 	
+			padding: 5px; 	
+		}
+		.list-group {
+			margin: 0;
+			padding: 0;
+		}
+		#translation-menu {
+			padding: 0;
+		}
+	</style>
 	<roundcube:if condition="config:devel_mode" />
 		<link rel="stylesheet/less" href="/styles/styles.less">
 		<roundcube:link rel="stylesheet/less" href="/styles/print.less" condition="env:action == 'print'" />
