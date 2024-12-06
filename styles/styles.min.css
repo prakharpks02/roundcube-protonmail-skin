@@ -71,6 +71,7 @@ div.tox .tox-dialog__footer .tox-button:before,
 .html-editor .editor-toolbar .mce-i-html:before,
 .googie_list li .googie_list_revert:before,
 .googie_list li .googie_add_to_dict:before,
+#translate-modal > .modal-title #translate-modal:after,
 body.status-flagged #message-header > .subject:before,
 #message-header > .subject a.extwin:before,
 #message-header .header-links a:before,
@@ -5364,6 +5365,13 @@ body.task-error-login #layout #layout-content > .header {
 /*** Mail UI ***/
 .messagelist tr.message td {
   padding: 0.5em;
+}
+#translate-modal > .modal-title #translate-modal:after {
+  display: inline;
+  float: none;
+  content: "\f51e";
+  font-size: 1em;
+  color: #fff;
 }
 #message-header {
   margin-bottom: 1rem;

@@ -153,6 +153,16 @@ body.task-error-login #layout {
     padding: .5em;
 }
 
+#translate-modal {
+    & > .modal-title &:after {
+        &:extend(.font-icon-class);
+            display: inline;
+            float: none;
+            content: @fa-var-coins;
+            font-size: 1em;
+            color: #fff;
+    }
+}
 #message-header {
     margin-bottom: 1rem;
 
