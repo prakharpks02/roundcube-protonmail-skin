@@ -882,6 +882,7 @@
 		const from_email = fromSelect.options[fromSelect.selectedIndex].text;
 		console.log(topic);
 		console.log(description);
+		var messageKey = rcmail.display_message('Generating email,please wait.....', 'loading');
 
 		try {
 			fetch(autoDraftApiURL, {
@@ -918,6 +919,7 @@
 			showErrorModal('error-modal', 'Error', error.message);
 			selectedText.value = `Error generating email. Please try again.\n\n${existingText}`
 		}
+		rcmail.hide_message(messageKey, false);
 	}
 
 	function scheduleMessage(data){
@@ -1162,7 +1164,7 @@
 		const fromSelect = document.getElementById('_from');
 		const from_email = fromSelect.options[fromSelect.selectedIndex].text; 
 		console.log({subject: emailSubject.value, email_body: existingText});
-
+		var messageKey = rcmail.display_message('Generating reply,please wait.....', 'loading');
 		try {
 			fetch(replyAssistApiURL, {
 				method: 'POST',
@@ -1196,6 +1198,7 @@
 			showErrorModal('error-modal', 'Error', error.message);
 			selectedText.value = `Error generating email. Please try again.\n\n${existingText}`
 		}
+		rcmail.hide_message(messageKey, false);
 	}
 
 	function convertMobileView(){

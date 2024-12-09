@@ -209,7 +209,7 @@
 				language: language,
 				from_email: from_email
 			}));
-			rcmail.show_loading(true);
+			var messageKey = rcmail.display_message('Translating,please wait.....', 'loading');
 			try {
 				fetch(translateApiURL, {
 					method: 'POST',
@@ -242,7 +242,7 @@
 				showErrorModal('error-modal', 'Error', error.message);
 				
 			}
-			rcmail.hide_loading();
+			rcmail.hide_message(messageKey, false);
 		}
 
 		
