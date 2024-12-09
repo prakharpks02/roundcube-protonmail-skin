@@ -882,16 +882,16 @@
 
 	// Function to call OpenAI API to generate an email
 	async function generateEmail() {
-		const searchBar = document.getElementById('search-bar');
+		//const searchBar = document.getElementById('search-bar');
 		const emailDetails = document.getElementById('email-details');
 		const selectedText = document.getElementById('composebody');
 		const existingText = selectedText.value;
-		const topic = searchBar.value;
+		//const topic = searchBar.value;
 		const description = emailDetails.value;
 		const fromSelect = document.getElementById('_from');
 		const from_email = fromSelect.options[fromSelect.selectedIndex].text;
-		console.log(topic);
-		console.log(description);
+		//console.log(topic);
+		//console.log(description);
 		var messageKey = rcmail.display_message('Generating email,please wait.....', 'loading');
 
 		try {
@@ -901,8 +901,8 @@
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
-					topic: topic,
-					description: description,
+					topic: description,
+					description: '',
 					from_email: from_email,
 				}, 40000)
 			}).then(response => {
