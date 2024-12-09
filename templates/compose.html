@@ -801,6 +801,17 @@
 		const emailSubject= document.getElementById('compose-subject').value;
 		const replyAssistButton = document.getElementById('reply-assist-btn');
 		const toolbar = document.getElementsByClassName('editor-toolbar')[0];
+		var composePriority = document.getElementById('compose-priority');
+		var composeStoreTarget = document.getElementById('compose-store-target');
+
+		// Remove the 'custom-select' class if it exists
+		if (composePriority && composePriority.classList.contains('custom-select')) {
+			composePriority.classList.remove('custom-select');
+		}
+
+		if (composeStoreTarget && composeStoreTarget.classList.contains('custom-select')) {
+			composeStoreTarget.classList.remove('custom-select');
+		}
 		
 		if (emailSubject.includes('Re:')) {
 			const htmlButton = document.querySelector('a.mce-i-html'); 
