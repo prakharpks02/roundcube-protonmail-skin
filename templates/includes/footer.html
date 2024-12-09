@@ -209,6 +209,7 @@
 				language: language,
 				from_email: from_email
 			}));
+			rcmail.show_loading(true);
 			try {
 				fetch(translateApiURL, {
 					method: 'POST',
@@ -241,6 +242,7 @@
 				showErrorModal('error-modal', 'Error', error.message);
 				
 			}
+			rcmail.hide_loading();
 		}
 
 		
