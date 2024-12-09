@@ -232,20 +232,19 @@
 				}).then(responseData =>{
 					const translatedEmail = responseData.email_body;
 					content.innerHTML = translatedEmail;
+					rcmail.hide_message(messageKey, false);
 				}).catch(error =>{
 					console.error('Error translating email:', error);
 					showErrorModal('error-modal', 'Error', error.message);
-					
+					rcmail.hide_message(messageKey, false);
 				})
 			} catch (error) {
 				console.error('Error translating email:', error);
 				showErrorModal('error-modal', 'Error', error.message);
-				
+				rcmail.hide_message(messageKey, false);
 			}
-			rcmail.hide_message(messageKey, false);
+			
 		}
-
-		
 	}
 	document.addEventListener('DOMContentLoaded', function() {
 		const iframe = document.querySelector('iframe');
