@@ -86,16 +86,6 @@
 			<a href="#responses" class="responses" label="responses" title="<roundcube:label name='insertresponse' />" unselectable="on" tabindex="2" data-popup="responses-menu">
 				<span class="inner"><roundcube:label name="responses" /></span>
 			</a>
-			<roundcube:if condition="!empty(env:spell_langs)" />
-			<span class="dropbutton">
-				<roundcube:button command="spellcheck" type="link" class="spellcheck disabled"
-					classAct="spellcheck" classSel="button spellcheck pressed"
-					label="spellcheck" title="checkspelling" tabindex="2" innerclass="inner" />
-				<a href="#languages" class="dropdown" tabindex="2" data-popup="spell-menu">
-					<span class="inner"><roundcube:label name="language" /></span>
-				</a>
-			</span>
-			<roundcube:endif />
 			<span class="dropbutton" style="display:none">
 				<roundcube:button command="compose-encrypted" type="link" class="encrypt disabled"
 					classAct="encrypt" classSel="encrypt selected" innerclass="inner"
