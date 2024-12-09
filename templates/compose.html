@@ -812,6 +812,15 @@
 		if (composeStoreTarget && composeStoreTarget.classList.contains('custom-select')) {
 			composeStoreTarget.classList.remove('custom-select');
 		}
+
+		// Removing the open in new window text
+		var formButtonsDiv = document.querySelector('.formbuttons');
+		if (formButtonsDiv) {
+			var openInNewWindowButton = formButtonsDiv.querySelector('.float-right .button.icon');
+			if (openInNewWindowButton) {
+				openInNewWindowButton.textContent = '';
+			}
+		}
 		
 		if (emailSubject.includes('Re:')) {
 			const htmlButton = document.querySelector('a.mce-i-html'); 
