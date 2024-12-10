@@ -273,6 +273,25 @@
 		// Show the modal using Bootstrap's modal function
 		$(`#${modalId}`).modal('show');
 	}
+
+	function replaceLogoutButton() {
+		// Select the existing logout button
+		const oldLogoutButton = document.getElementsByClassName('logout')[0];
+		
+		if (oldLogoutButton) {
+		  // Create the new button
+			const newButton = document.createElement('button');
+			newButton.type = 'button';
+			newButton.className = 'btn btn-warning';
+			newButton.setAttribute('data-toggle', 'modal');
+			newButton.setAttribute('data-target', '#logout-modal');
+			newButton.textContent = 'Logout';
+		  // Replace the old button with the new one
+			oldLogoutButton.parentNode.replaceChild(newButton, oldLogoutButton);
+		} else {
+			console.error('Logout button not found');
+		}
+	}
 </script>
 
 
