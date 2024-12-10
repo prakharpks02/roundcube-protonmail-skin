@@ -176,9 +176,9 @@
 			const listItem = document.createElement('li');
 			listItem.textContent = language;
 			listItem.classList.add('list-group-item');
-			if (index === 0) listItem.classList.add('selected');
+			listItem.classList.add('selected');
 			listItem.setAttribute('data-dismiss','modal');
-			//listItem.onclick = () => translateEmail(language); // Attach the translateEmail function
+			listItem.onclick = () => translateEmail(language); // Attach the translateEmail function
 			translationList.appendChild(listItem);
 			if(frame){translationList2.appendChild(listItem);}
 			
@@ -187,12 +187,7 @@
 	
 	document.getElementById('translate-modal').addEventListener('shown.bs.modal', populateTranslationMenu);
 
-	function getSelectedLanguage() {
-		const selectedItem = document.querySelector('#translation-list .selected');
-		return selectedItem ? selectedItem.textContent : "English"; // Default to English
-	}
-
-	function translateEmail() {
+	function translateEmail(language) {
 		const frame = document.querySelector('#layout-content .iframe-wrapper #messagecontframe');
 		let content;
 		if(frame){
@@ -206,7 +201,6 @@
 		const sidebar = document.getElementById('layout-sidebar');
 		const username = sidebar.getElementsByClassName('username')[0];
 		const from_email = username.textContent;
-		const language = getSelectedLanguage();
 		const translateApiURL = 'https://dev.gofloww.co/api/mail/translate/'
 		if(content){
 			const emailBody = content.innerHTML;
