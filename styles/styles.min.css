@@ -918,6 +918,13 @@ fieldset.tab-pane table.table thead th {
 table.table tr.deleted td {
   color: rgba(44, 54, 58, 0.5) !important;
 }
+.span.translate.before {
+  content: "\f07c";
+  display: inline !important;
+  float: none !important;
+  vertical-align: middle;
+  margin-right: 0.4rem !important;
+}
 /* Bootstrap's .table style overwrites */
 .table thead th {
   border-width: 1px;
