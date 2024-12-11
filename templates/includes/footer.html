@@ -97,7 +97,13 @@
 	}
 
 	function injectTranslateLink() {
-		// Select the 'header-links' element inside the specific structure
+		const element = document.querySelector('.pagenav-text#rcmcountdisplay');
+
+		if (element) {
+			let text = element.textContent;
+			text = text.replace('Messages', '').replace(' to ', '-').trim();
+			element.textContent = text;
+		}
 		const frame = document.querySelector('#layout-content .iframe-wrapper #messagecontframe');
 		let headerLinks;
 		if(frame){
