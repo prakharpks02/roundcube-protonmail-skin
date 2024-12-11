@@ -141,6 +141,7 @@
 			coins.style.webkitBackgroundClip = 'text';  
 			coins.style.backgroundClip = 'text';       
 			coins.style.color = 'transparent';
+			coins.style.marginLeft = '-6px';
 
 			coins.onclick = function(){
 				populateTranslationMenu();
@@ -282,6 +283,15 @@
 		}else{
 			injectTranslateLink();
 		}
+
+		const options = document.getElementById('listmenulink');
+		const options_mobile = document.getElementById('listmenulink-clone');
+		if(options){
+			options.onclick= changeDropdownsOptions();
+		}
+		if(options_mobile){
+			options_mobile.onclick = changeDropdownsOptions();
+		}
 	});
 
 	function showErrorModal(modalId, title, message) {
@@ -308,6 +318,18 @@
 		} else {
 			console.error('Logout button not found');
 		}
+	}
+
+	function changeDropdownsOptions(){
+		['sort_col', 'sort_ord', 'mode'].forEach((name) => {
+			const elements = document.getElementsByName(name);
+			elements.forEach((el) => {
+				if (el.classList.contains('custom-select')) {
+					el.classList.remove('custom-select');
+					el.classList.add('dropdown');
+				}
+			});
+		});
 	}
 </script>
 
