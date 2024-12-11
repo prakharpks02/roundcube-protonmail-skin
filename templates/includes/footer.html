@@ -287,10 +287,21 @@
 		const options = document.getElementById('listmenulink');
 		const options_mobile = document.getElementById('listmenulink-clone');
 		if(options){
-			options.onclick= changeDropdownsOptions();
+			const existingOnClick = options.onclick;
+			options.onclick = function(event) {
+			if (existingOnClick) {
+				existingOnClick.call(this, event);
+			}
+			changeDropdownsOptions();
+    };
 		}
 		if(options_mobile){
-			options_mobile.onclick = changeDropdownsOptions();
+			const existingOnClick = options_mobile.onclick;
+			options_mobile.onclick = function(event) {
+			if (existingOnClick) {
+				existingOnClick.call(this, event);
+			}
+			changeDropdownsOptions();
 		}
 	});
 
