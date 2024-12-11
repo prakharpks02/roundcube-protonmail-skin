@@ -120,23 +120,37 @@
 			translateLink.setAttribute("data-toggle", "modal");
 			translateLink.setAttribute("data-target", "#translate-modal");
 			
-			// Apply gradient styling to the link
 			translateLink.style.backgroundImage = 'linear-gradient(90deg, #00ceb1 0%, #1E92FB 100%)';
-			translateLink.style.webkitBackgroundClip = 'text';  // For Webkit browsers (Chrome, Safari)
-			translateLink.style.backgroundClip = 'text';        // Standard property
-			translateLink.style.color = 'transparent';          // Makes the text color transparent
+			translateLink.style.webkitBackgroundClip = 'text';  
+			translateLink.style.backgroundClip = 'text';       
+			translateLink.style.color = 'transparent';          
 			translateLink.style.marginLeft = '5px';
 	
-			// Attach the click handler
 			translateLink.onclick = function () {
 				populateTranslationMenu();
-				return false; // Prevent default anchor behavior
+				return false; 
 			};
-			translateLink.innerHTML = 'Translate'
-			
-	
-			// Append the link to the header links
+			translateLink.innerHTML = 'Translate('
+
 			headerLinks.appendChild(translateLink);
+
+			const coins = document.createElement('a');
+			coins.href = "#translate";
+			coins.className = "coins headers-all";
+			coins.style.backgroundImage = 'linear-gradient(90deg, #00ceb1 0%, #1E92FB 100%)';
+			coins.style.webkitBackgroundClip = 'text';  
+			coins.style.backgroundClip = 'text';       
+			coins.style.color = 'transparent';
+
+			coins.onclick = function(){
+				populateTranslationMenu();
+				return false;
+			}
+
+			coins.innerHTML = ')';
+			
+			headerLinks.appendChild(coins);
+			
 		} 
 	}
 
