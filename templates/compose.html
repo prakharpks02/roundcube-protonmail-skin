@@ -985,11 +985,11 @@
 		}
 	
 		// If the current time is past today's morning, set tomorrowMorning to the next day
-		if (now.getHours() >= 8) {
-			tomorrowMorning = new Date(now);
-			tomorrowMorning.setDate(now.getDate() + 2);
-			tomorrowMorning.setHours(8, 0, 0, 0);
-		}
+		//if (now.getHours() >= 8) {
+		//	tomorrowMorning = new Date(now);
+		//	tomorrowMorning.setDate(now.getDate() + 2);
+		//	tomorrowMorning.setHours(8, 0, 0, 0);
+		//}
 	
 		// Calculate Next Monday Morning at 08:00 AM
 		let nextMondayMorning = new Date(now);
