@@ -2727,7 +2727,7 @@ function rcube_elastic_ui()
         rcmail.simple_dialog(dialog, $(elem).text(), support_func, {
             button: support_button,
             button_class: 'help',
-            
+            cancel_button: false,
             height: 400
         });
     };
