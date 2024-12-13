@@ -2724,12 +2724,12 @@ function rcube_elastic_ui()
             support_func = function(e) { support_url.indexOf('mailto:') < 0 ? window.open(support_url) : location.href = support_url; };
         }
 
-        // rcmail.simple_dialog(dialog, $(elem).text(), support_func, {
-        //     button: support_button,
-        //     button_class: 'help',
-        //     cancel_button: 'close',
-        //     height: 400
-        // });
+        rcmail.simple_dialog(dialog, $(elem).text(), support_func, {
+            button: support_button,
+            button_class: 'help',
+            
+            height: 400
+        });
     };
 
     /**
