@@ -107,6 +107,15 @@
 			console.error('Error accessing iframe content: ', e);
 		}
 		
+		// remove close in about
+		try{
+			const button = document.querySelector('button.cancel.mainaction.btn.btn-primary');
+			if (button) {
+				button.remove();
+}
+		}catch (e) {
+			console.error('Error accessing iframe content: ', e);
+		}
 
 		// to change formating of the page number
 		const element = document.querySelector('.pagenav-text#rcmcountdisplay');
