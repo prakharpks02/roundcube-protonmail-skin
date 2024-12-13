@@ -99,8 +99,12 @@
 	function removeOrignalFolders(){
 		// to remove display orignal folders
 		const settings_frame = document.querySelector('#layout-content .iframe-wrapper #preferences-frame');
-		const row = settings_frame.contentDocument.getElementsByClassName('form-check')[0];
-		row.remove();
+		if(settings_frame){
+			const row = settings_frame.contentDocument.getElementsByClassName('form-check')[0];
+			if(row){		
+				row.remove();
+			}
+		}
 	}
 
 	function injectTranslateLink() {
@@ -280,7 +284,7 @@
 		}
 	}
 	document.addEventListener('DOMContentLoaded', function() {
-		
+		removeOrignalFolders();
 		modifyLogoutButton();
 		const iframe = document.querySelector('iframe');
 		const headerLinks = document.getElementsByClassName('header-links')[0];
