@@ -99,9 +99,9 @@
 	function injectTranslateLink() {
 
 		// to remove display orignal folders
-		//const settings_frame = document.querySelector('#layout-content .iframe-wrapper #preferences-frame');
-		//const row = settings_frame.contentDocument.getElementsByClassName('form-check')[0];
-		//row.remove();
+		const settings_frame = document.querySelector('#layout-content .iframe-wrapper #preferences-frame');
+		const row = settings_frame.contentDocument.getElementsByClassName('form-check')[0];
+		row.remove();
 
 		// to change formating of the page number
 		const element = document.querySelector('.pagenav-text#rcmcountdisplay');
