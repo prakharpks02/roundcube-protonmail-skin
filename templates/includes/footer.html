@@ -323,12 +323,8 @@
 		}
 
 		const settings_frame = document.querySelector('#layout-content .iframe-wrapper #preferences-frame');
-		if(settings_frame){
-			const row = settings_frame.contentDocument.getElementsByClassName('form-check')[0];
-			if(row){		
-				row.remove();
-			}
-		}
+		const row = settings_frame.contentDocument.getElementsByClassName('form-check')[0];
+		row.remove();
 	});
 
 	function showErrorModal(modalId, title, message) {
