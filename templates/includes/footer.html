@@ -96,7 +96,7 @@
 		});
 	}
 
-	function removeOrignalFolders(){
+	document.addEventListener('DOMContentLoaded', function(){
 		// to remove display orignal folders
 		const settings_frame = document.querySelector('#layout-content .iframe-wrapper #preferences-frame');
 		if(settings_frame){
@@ -105,7 +105,7 @@
 				row.remove();
 			}
 		}
-	}
+	});
 
 	function injectTranslateLink() {
 
@@ -284,7 +284,7 @@
 		}
 	}
 	document.addEventListener('DOMContentLoaded', function() {
-		removeOrignalFolders();
+		//removeOrignalFolders();
 		modifyLogoutButton();
 		const iframe = document.querySelector('iframe');
 		const headerLinks = document.getElementsByClassName('header-links')[0];
