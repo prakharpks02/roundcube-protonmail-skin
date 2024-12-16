@@ -98,14 +98,19 @@
 
 	function injectTranslateLink() {
 
-		// remove folders option
+		// remove options from prefernces
 		try{
-			const settings_frame = document.querySelector('#layout-content .iframe-wrapper #preferences-frame');
-			const row = settings_frame.contentDocument.getElementsByClassName('form-check')[0];
-			row.remove();
-		}catch (e) {
-			console.error('Error accessing iframe content: ', e);
+			const SpecialFolders = document.getElementById('rcmrowfolders');
+			const ServerSettings = document.getElementById('rcmrowserver');
+			const Encryption=  document.getElementById('rcmrowencryption');
+			
+			SpecialFolders.remove();
+			ServerSettings.remove();
+			Encryption.remove();
+		}catch(e){
+			console.log(e);
 		}
+		
 
 		// to change formating of the page number
 		const element = document.querySelector('.pagenav-text#rcmcountdisplay');
