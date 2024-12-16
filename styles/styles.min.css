@@ -2153,7 +2153,7 @@ a.toolbar-button {
   content: "\f0c0";
 }
 .menu a.options:before {
-  content: "\f1de";
+  content: "\f0ad";
 }
 .menu a.settings:before {
   content: "\f013";
@@ -2395,7 +2395,7 @@ a.toolbar-button {
   content: "\f2ed";
 }
 .menu a.select:before {
-  content: "\f245";
+  content: "\f14a";
 }
 .menu a.select.all:before {
   content: "\f069";
