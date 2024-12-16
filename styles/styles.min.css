@@ -3110,10 +3110,10 @@ html.ie11 .listing.iconized li a:before {
   font-weight: 400;
 }
 .listing.iconized tr.mailview > td.section:before {
-  content: "\f01c";
+  content: "\f013";
 }
 .listing.iconized tr.compose > td.section:before {
-  content: "\f1d8";
+  content: "\f1de";
 }
 .listing.iconized tr.addressbook > td.section:before {
   content: "\f0c0";

@@ -98,15 +98,19 @@
 
 	function injectTranslateLink() {
 
-		// remove options from prefernces
+		// edit options from prefernces
 		try{
 			const SpecialFolders = document.getElementById('rcmrowfolders');
 			const ServerSettings = document.getElementById('rcmrowserver');
 			const Encryption=  document.getElementById('rcmrowencryption');
-			
+			const DisplaySettings = document.getElementById('rcmrowview');
+			const Composing = document.getElementById('rcmrowcompose');
 			SpecialFolders.remove();
 			ServerSettings.remove();
 			Encryption.remove();
+
+			DisplaySettings.querySelector('td').innerHTML = 'Advance Setting';
+			Composing.querySelector('td').innerHTML = 'prefernces';
 		}catch(e){
 			console.log(e);
 		}
