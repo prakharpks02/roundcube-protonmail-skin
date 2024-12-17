@@ -242,6 +242,35 @@
 		</div>
 		</div>
 	</div>
+
+	<!-- Template Modal -->
+	<div id="template-modal" class="modal fade" tabindex="-1" aria-labelledby="templateModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content ui-widget-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="templateModalLabel">Manage Templates</h5>
+					<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">&#10006;</button>
+				</div>
+				<div class="modal-body">
+					<!-- Section to Add Own Templates -->
+					<div class="mb-3 text-center">
+						<button id="add-template-btn" class="btn btn-primary">Add Your Template</button>
+					</div>
+
+					<!-- Section to Display Your Templates -->
+					<div class="mb-3">
+						<label for="template-display" class="form-label">Your Templates</label>
+						<div id="template-display" class="form-control" style="height: 300px; overflow-y: scroll;">
+							<!-- Dynamically added templates will appear here -->
+							<ul id="template-list" class="list-group">
+								<li class="list-group-item text-muted text-center">No templates added yet.</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	
 	
 	<roundcube:if condition="!env:framed || env:extwin" />
