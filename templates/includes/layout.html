@@ -80,6 +80,13 @@
 		#translation-menu {
 			padding: 0;
 		}
+		#template-display::-webkit-scrollbar {
+			display: none; /* Hide scrollbar */
+		}
+		#template-display {
+			overflow-y: scroll;
+			max-height: 300px;
+		}
 	</style>
 	<roundcube:if condition="config:devel_mode" />
 		<link rel="stylesheet/less" href="/styles/styles.less">
@@ -260,7 +267,7 @@
 					<!-- Section to Display Your Templates -->
 					<div class="mb-3">
 						<label for="template-display" class="form-label">Your Templates</label>
-						<div id="template-display" class="form-control" style="height: 300px; overflow-y: scroll;">
+						<div id="template-display" class="form-control" style="height: 300px; overflow-y: scroll; scrollbar-width: none; -ms-overflow-style: none;">
 							<!-- Dynamically added templates will appear here -->
 							<ul id="template-list" class="list-group">
 								<li class="list-group-item text-muted text-center">No templates added yet.</li>
