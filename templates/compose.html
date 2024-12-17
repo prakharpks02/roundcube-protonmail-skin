@@ -204,18 +204,25 @@
 		</form>
 		<div class="formbuttons">
 			<roundcube:button command="send" class="btn btn-primary send" label="send" tabindex="1" data-content-button="true" />
-			<button id="auto-draft-button" data-toggle="modal" data-target="#auto-draft-modal" tabindex="1" class="btn btn-secondary" style="cursor: pointer; background-image: linear-gradient(90deg, #00ceb1 0%, #1E92FB 100%);">
-				<span class="icon">
-					<i class="fa-solid fa-wand-magic-sparkles"></i>
-				</span>
-				<span>AI draft</span>
-			</button>
 			<button id="schedule-send-button" data-toggle="modal" data-target="#schedule-send-modal" onclick="generateScheduleOptions()" tabindex="1" class="btn btn-secondary" style="cursor: pointer;">
 				<span class="icon">
 					<i class="fa-regular fa-clock"></i>
 				</span>
 				<span>Schedule Send</span>
 			</button>
+			<button id="templates-button" data-toggle="modal" data-target="#schedule-send-modal" onclick="generateScheduleOptions()" tabindex="1" class="btn btn-secondary" style="cursor: pointer;">
+				<span class="icon">
+					<i class="fa-solid fa-file"></i>
+				</span>
+				<span>Templates</span>
+			</button>
+			<button id="auto-draft-button" data-toggle="modal" data-target="#auto-draft-modal" tabindex="1" class="btn btn-secondary" style="cursor: pointer; background-image: linear-gradient(90deg, #00ceb1 0%, #1E92FB 100%);">
+				<span class="icon">
+					<i class="fa-solid fa-wand-magic-sparkles"></i>
+				</span>
+				<span>AI draft</span>
+			</button>
+			
 			<div class="float-right">
 				<roundcube:button command="extwin" type="link" label="openinextwin" data-hidden="small" class="button icon btn btn-link extwin" data-tabindex="1" condition="!env:extwin" />
 			</div>
