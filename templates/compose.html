@@ -1529,8 +1529,8 @@
 			if(response.ok){
 				const selectedText = document.getElementById('composebody');
 				const existingText = selectedText.value;
-				const templateConten = responseData.template.template_content;
-				selectedText.value = `${generatedEmail}\n\n${existingText}`;
+				const templateContent = responseData.template.template_content;
+				selectedText.value = `${templateContent}\n\n${existingText}`;
 				rcmail.hide_message(messageKey, false);
 			}else{
 				showErrorModal('error-modal', 'Error', responseData.error);
