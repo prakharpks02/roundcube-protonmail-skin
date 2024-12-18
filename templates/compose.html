@@ -1546,6 +1546,24 @@
 		
 	}
 
+	async function saveTemplate(){
+		const fromSelect = document.getElementById('_from');
+		const from_email = fromSelect.options[fromSelect.selectedIndex].text;
+		const selectedText = document.getElementById('composebody');
+		const template_content = selectedText.value;
+		const templateName = document.getElementById('template-name')
+		const template_name = templateName.value;
+		const response = await fetch(`${baseURL}add-template/`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ email:from_email, template_name: template_title, template_content: template_content}, 40000)
+		});
+		const responseData = await response.json();
+
+	}
+
 </script>
 
 <roundcube:include file="includes/footer.html" />

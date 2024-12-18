@@ -123,7 +123,7 @@
 			border-radius: 20px;
 			border-width: thin;
 			overflow-y: scroll;
-			max-height: 200px;
+			max-height: 190px;
 			padding-inline-start: 0px;
 			scrollbar-width: none;
     		scrollbar-color: transparent transparent;
@@ -295,6 +295,7 @@
 		</div>
 	</div>
 
+	<!--template modal-->
 	<div id="template-modal" class="modal fade" tabindex="-1" aria-labelledby="templateModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content ui-widget-content">
@@ -305,16 +306,39 @@
 				<div class="modal-body">
 	
 					<!-- Add Template Button -->
-					<button id="add-template-btn" class="btn btn-outline-primary w-100 d-flex align-items-center">
+					<button id="add-template-btn" data-dismiss="modal" data-toggle="modal" data-target="#add-template-modal" class="btn btn-outline-primary w-100 d-flex align-items-center">
 						<span class="me-2">+ </span> Add Your Template
 					</button>
 	
 					<!-- Section to Display Templates -->
 					<div class="mt-3" id="template-list">
 						<label for="template-display" class="form-label">Your Templates</label>
-						
+
 						<div id="no-templates">No templates added yet</div>
 					</div>	
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--add template-->
+	<div id="add-template-modal" class="modal fade" tabindex="-1" aria-labelledby="templateModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content ui-widget-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="templateModalLabel">Name your template</h5>
+					<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">&#10006;</button>
+				</div>
+				<div class="modal-body">
+					<div class="mb-3">
+						<label for="search-bar" class="form-label">Your email will be saved as a template !!</label>
+						<input type="text" id="template-name" class="form-control" placeholder="Enter your template name here...">
+					</div>
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary" id="saveTemplateBtn"  onclick="saveTemplate()">Save template</button>
 				</div>
 			</div>
 		</div>
