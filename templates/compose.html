@@ -1484,7 +1484,7 @@
 			templates = response.templates;
 			const templateContainer = document.getElementById("template-list");
 			const noTemplatesMessage = document.getElementById("no-templates");
-			
+			console.log(response);
 			if (noTemplatesMessage) noTemplatesMessage.style.display = "none";
 			console.log(templates)
 			templates.forEach(template => {
