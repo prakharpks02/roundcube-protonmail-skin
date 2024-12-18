@@ -103,13 +103,6 @@
 		#translation-menu {
 			padding: 0;
 		}
-		#template-display::-webkit-scrollbar {
-			display: none; /* Hide scrollbar */
-		}
-		#template-display {
-			overflow-y: scroll;
-			max-height: 300px;
-		}
 		.modal-content {
 			border-radius: 20px;
 			border-color: #4a4658;
@@ -123,6 +116,17 @@
 			justify-content: center;
 			border-radius: 20px;
 			border-width: thin;
+		}
+		.templates{
+			border-color: #4a4658;
+			border-style: solid;
+			border-radius: 20px;
+			border-width: thin;
+			overflow-y: scroll;
+			max-height: 300px;
+		}
+		.templates::-webkit-scrollbar {
+			display: none; /* Hide scrollbar */
 		}
 		
 		

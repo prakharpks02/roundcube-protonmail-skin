@@ -1486,7 +1486,7 @@
 			const noTemplatesMessage = document.getElementById("no-templates");
 
 			if (templateContainer) {
-				const listItems = document.getElementsByClassName('template-item');
+				const listItems = document.getElementsByClassName('templates');
 				if(listItems){
 					Array.from(listItems).forEach(listItem =>{
 						listItem.remove();
@@ -1495,7 +1495,8 @@
 			}
 			if (noTemplatesMessage) noTemplatesMessage.style.display = "none";
 			console.log(templates)
-
+			const ul = document.createElement("ul");
+			ul.className = "templates";
 			templates.forEach(template => {
 				const li = document.createElement("li");
 				li.className = "list-group-item template-item";
@@ -1507,8 +1508,9 @@
 					getTemplate(template.template_id)
 				}
 				
-				templateContainer.appendChild(li);
+				ul.appendChild(li);
 			})
+			templateContainer.appendChild(ul);
 		}
 	}
 
