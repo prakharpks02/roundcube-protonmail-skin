@@ -5640,6 +5640,18 @@ body.status-flagged #message-header > .subject:before {
   font-size: 1.2em;
   font-weight: bold;
 }
+/**Extra UI ***/
+.list-group-item {
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-bottom: solid;
+  border-width: thin;
+  border-color: #4a4658;
+}
+.list-group-item:hover {
+  background-color: #4417ff;
+  cursor: pointer;
+}
 /*** Settings UI ***/
 .settings-default-icon tr > td.section::before,
 .settings-default-icon li > a:before {
@@ -6426,6 +6438,7 @@ html.dark-mode .formcontent .hint {
 }
 html.dark-mode .list-group-item {
   background-color: #1c1b24;
+  border-bottom: #1c1b24;
 }
 html.dark-mode .popover {
   background-color: #161b1d;
