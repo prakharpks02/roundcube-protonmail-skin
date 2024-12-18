@@ -5650,6 +5650,7 @@ body.status-flagged #message-header > .subject:before {
 }
 .list-group-item:hover {
   background-color: #4a4658;
+  color: #ffff;
   cursor: pointer;
 }
 /*** Settings UI ***/
@@ -6439,6 +6440,12 @@ html.dark-mode .formcontent .hint {
 html.dark-mode .list-group-item {
   background-color: #1c1b24;
   border-bottom: #1c1b24;
+  border-color: #4a4658;
+}
+html.dark-mode .list-group-item:hover {
+  background-color: #6d4aff;
+  color: #ffff;
+  cursor: pointer;
 }
 html.dark-mode .popover {
   background-color: #161b1d;
