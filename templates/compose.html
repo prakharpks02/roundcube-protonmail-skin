@@ -1467,7 +1467,7 @@
 		// Show the modal using Bootstrap's modal function
 		$(`#${modalId}`).modal('show');
 	}
-
+	
 	async function getTemplates(){
 		const fromSelect = document.getElementById('_from');
 		const from_email = fromSelect.options[fromSelect.selectedIndex].text;
@@ -1481,10 +1481,10 @@
 		});
 		const responseData = await response.json();
 		if(response.ok){
-			templates = response['templates'];
+			templates = responseData.templates;
 			const templateContainer = document.getElementById("template-list");
 			const noTemplatesMessage = document.getElementById("no-templates");
-			console.log(response);
+			
 			if (noTemplatesMessage) noTemplatesMessage.style.display = "none";
 			console.log(templates)
 			templates.forEach(template => {
