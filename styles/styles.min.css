@@ -5646,6 +5646,7 @@ body.status-flagged #message-header > .subject:before {
   transition: background-color 0.3s ease;
   border-bottom: solid;
   border-width: thin;
+  padding-left: 20px;
   border-color: #4a4658;
 }
 .list-group-item:hover {
