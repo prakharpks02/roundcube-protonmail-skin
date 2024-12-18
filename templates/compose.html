@@ -1547,20 +1547,39 @@
 	}
 
 	async function saveTemplate(){
-		const fromSelect = document.getElementById('_from');
-		const from_email = fromSelect.options[fromSelect.selectedIndex].text;
-		const selectedText = document.getElementById('composebody');
-		const template_content = selectedText.value;
-		const templateName = document.getElementById('template-name')
-		const template_name = templateName.value;
-		const response = await fetch(`${baseURL}add-template/`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({ email:from_email, template_name: template_title, template_content: template_content}, 40000)
-		});
-		const responseData = await response.json();
+		var messageKey = rcmail.display_message('Adding template ,please wait.....', 'uploading');
+		try{
+			const fromSelect = document.getElementById('_from');
+			const from_email = fromSelect.options[fromSelect.selectedIndex].text;
+			const selectedText = document.getElementById('composebody');
+			const template_content = selectedText.value;
+			const templateName = document.getElementById('template-name')
+			const template_name = templateName.value;
+			const response = await fetch(`${baseURL}add-template/`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ email:from_email, template_name: template_name, template_content: template_content}, 40000)
+			});
+			const responseData = await response.json();
+			if(response.ok){
+				rcmail.hide_message(messageKey, false);
+				messageKey = rcmail.display_message('Template added successfully', 'confirmation');
+				setTimeout(rcmail.hide_message(messageKey, false),5);
+			}else{
+				rcmail.hide_message(messageKey, false);
+				messageKey = rcmail.display_message('Could not add the template', 'warning');
+				setTimeout(rcmail.hide_message(messageKey, false),5);
+			}
+		}catch(e) {
+			console.log('Error: ',e);
+			rcmail.hide_message(messageKey, false);
+			messageKey = rcmail.display_message('Could not add the template', 'warning');
+			setTimeout(rcmail.hide_message(messageKey, false),5);
+		}
+		
+		
 
 	}
 
