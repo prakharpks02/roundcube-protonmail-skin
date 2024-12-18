@@ -119,7 +119,7 @@ a {
   color: #6d4aff;
 }
 a:hover {
-  color: #4417ff;
+  color: #4a4658;
 }
 a.disabled {
   pointer-events: none;
@@ -4841,7 +4841,7 @@ div.tox .tox-dialog .tox-dialog__body-nav-item--active {
   border-color: transparent;
 }
 div.tox .tox-dialog .tox-dialog__body-nav-item--active:hover {
-  color: #4417ff;
+  color: #4a4658;
 }
 div.tox .tox-dialog__body-content {
   overflow: unset;
@@ -5649,7 +5649,7 @@ body.status-flagged #message-header > .subject:before {
   border-color: #4a4658;
 }
 .list-group-item:hover {
-  background-color: #4417ff;
+  background-color: #4a4658;
   cursor: pointer;
 }
 /*** Settings UI ***/
