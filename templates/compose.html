@@ -1481,7 +1481,7 @@
 		});
 		const responseData = await response.json();
 		if(response.ok){
-			templates = response.templates;
+			templates = response['templates'];
 			const templateContainer = document.getElementById("template-list");
 			const noTemplatesMessage = document.getElementById("no-templates");
 			console.log(response);
