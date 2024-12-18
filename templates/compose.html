@@ -1484,16 +1484,21 @@
 			templates = responseData.templates;
 			const templateContainer = document.getElementById("template-list");
 			const noTemplatesMessage = document.getElementById("no-templates");
+
 			if (templateContainer) {
-				while (templateContainer.firstChild) {
-					templateContainer.removeChild(templateContainer.firstChild);
+				const listItems = document.getElementsByClassName('template-item');
+				if(listItems){
+					listItems.forEach(listItem =>{
+						listItem.remove();
+					})
 				}
 			}
 			if (noTemplatesMessage) noTemplatesMessage.style.display = "none";
 			console.log(templates)
+
 			templates.forEach(template => {
 				const li = document.createElement("li");
-				li.className = "list-group-item";
+				li.className = "list-group-item template-item";
 				li.id = template.template_id;
 				li.textContent = template.template_name;
 				templateContainer.appendChild(li);
