@@ -1565,22 +1565,19 @@
 			const responseData = await response.json();
 			if(response.ok){
 				rcmail.hide_message(messageKey, false);
-				messageKey = rcmail.display_message('Template added successfully', 'confirmation');
-				setTimeout(rcmail.hide_message(messageKey, false),5);
+				rcmail.display_message('Template added successfully', 'confirmation');
+				
 			}else{
 				rcmail.hide_message(messageKey, false);
 				messageKey = rcmail.display_message('Could not add the template', 'warning');
-				setTimeout(rcmail.hide_message(messageKey, false),5);
+				
 			}
 		}catch(e) {
 			console.log('Error: ',e);
 			rcmail.hide_message(messageKey, false);
-			messageKey = rcmail.display_message('Could not add the template', 'warning');
-			setTimeout(rcmail.hide_message(messageKey, false),5);
+			rcmail.display_message('Could not add the template', 'warning');
+			
 		}
-		
-		
-
 	}
 
 </script>
