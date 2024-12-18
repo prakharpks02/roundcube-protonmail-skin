@@ -210,7 +210,7 @@
 				</span>
 				<span>Schedule Send</span>
 			</button>
-			<button id="templates-button" data-toggle="modal" data-target="#template-modal" onclick="generateScheduleOptions()" tabindex="1" class="btn btn-secondary" style="cursor: pointer;">
+			<button id="templates-button" data-toggle="modal" data-target="#template-modal" onclick="getTemplates()" tabindex="1" class="btn btn-secondary" style="cursor: pointer;">
 				<span class="icon">
 					<i class="fa-solid fa-file"></i>
 				</span>
@@ -795,6 +795,7 @@
 	const scheduleSendApiURL = 'https://dev.gofloww.co/api/mail/schedule-send/'
 	const replyAssistApiURL = 'https://dev.gofloww.co/api/mail/reply-assist/'
 	const getCreditsApiURL = 'https://dev.gofloww.co/api/mail/get-email-credits/'
+	const baseURL= 'https://dev.gofloww.co/api/mail/'
 
 	// Show the modal when the Auto-Draft button is clicked
 	function showModal() {
@@ -1465,6 +1466,40 @@
 	
 		// Show the modal using Bootstrap's modal function
 		$(`#${modalId}`).modal('show');
+	}
+
+	async function getTemplates(){
+		const fromSelect = document.getElementById('_from');
+		const from_email = fromSelect.options[fromSelect.selectedIndex].text;
+		
+		const response = await fetch(`${baseURL}get-template-list/`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ email: from_email}, 40000)
+		});
+		const responseData = await response.json();
+		if(response.ok){
+			templates = response.templates;
+			const templateContainer = document.getElementById("template-list");
+			const noTemplatesMessage = document.getElementById("no-templates");
+			if (templateContainer) {
+				while (templateContainer.firstChild) {
+					templateContainer.removeChild(templateContainer.firstChild);
+				}
+			}
+			if (noTemplatesMessage) noTemplatesMessage.style.display = "none";
+			templates.forEach(template => {
+				const li = document.createElement("li");
+				li.className = "list-group-item";
+				li.id = template.template_id;
+				li.textContent = template.template_name;
+				templateContainer.appendChild(li);
+			})
+		}
+
+
 	}
 
 </script>
