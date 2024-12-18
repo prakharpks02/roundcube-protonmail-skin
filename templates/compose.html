@@ -1484,7 +1484,11 @@
 			templates = responseData.templates;
 			const templateContainer = document.getElementById("template-list");
 			const noTemplatesMessage = document.getElementById("no-templates");
-			
+			if (templateContainer) {
+				while (templateContainer.firstChild) {
+					templateContainer.removeChild(templateContainer.firstChild);
+				}
+			}
 			if (noTemplatesMessage) noTemplatesMessage.style.display = "none";
 			console.log(templates)
 			templates.forEach(template => {
