@@ -1487,11 +1487,7 @@
 
 			if (templateContainer) {
 				const listItems = document.getElementsByClassName('template-item');
-				if(listItems){
-					listItems.forEach(listItem =>{
-						listItem.remove();
-					})
-				}
+				console.log(listItems);
 			}
 			if (noTemplatesMessage) noTemplatesMessage.style.display = "none";
 			console.log(templates)
