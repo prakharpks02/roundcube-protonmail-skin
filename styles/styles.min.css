@@ -6442,7 +6442,6 @@ html.dark-mode .formcontent .hint {
 }
 html.dark-mode .list-group-item {
   background-color: #1c1b24;
-  border-bottom: #1c1b24;
   border-color: #4a4658;
 }
 html.dark-mode .list-group-item:hover {
