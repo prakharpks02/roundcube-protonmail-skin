@@ -97,6 +97,26 @@
 			overflow-y: scroll;
 			max-height: 300px;
 		}
+		.modal-content {
+			border-radius: 20px;
+			border-color: #4a4658;
+		}
+		#no-templates{
+			border-color: #4a4658;
+			border-style: solid;
+			height: 50px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 20px;
+			border-width: thin;
+		}
+		#add-template-button{
+			border: 2px dashed #4a4658;
+			justify-content: flex-start;
+			border-radius: 10px;
+		}
+		
 	</style>
 	<roundcube:if condition="config:devel_mode" />
 		<link rel="stylesheet/less" href="/styles/styles.less">
@@ -282,7 +302,7 @@
 								<li class="list-group-item text-muted text-center">No templates added yet.</li>
 							</ul>
 						</div-->
-						<div id="no- templates">No templates added yet</div>
+						<div id="no-templates">No templates added yet</div>
 					</div>	
 				</div>
 			</div>
