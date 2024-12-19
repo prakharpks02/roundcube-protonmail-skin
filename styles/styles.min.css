@@ -529,7 +529,7 @@ font.bold {
 }
 .popup .listbox .footer {
   border-top: 1px solid #d4dbde;
-  background-color: #fbfbfb;
+  background-color: #f1f3f3;
 }
 .contact-header {
   display: flex;
@@ -1955,7 +1955,7 @@ html.layout-phone .menu.pagenav input {
 }
 .menu.pagenav.pagenav-list {
   cursor: pointer;
-  background-color: #fbfbfb;
+  background-color: #f1f3f3;
   border-bottom: 1px solid #f1f3f4;
 }
 .menu.pagenav.pagenav-list a {
@@ -2454,7 +2454,7 @@ a.toolbar-button {
   height: 36px;
   min-height: 36px;
   line-height: 36px;
-  background-color: #fbfbfb;
+  background-color: #f1f3f3;
   border-bottom: 1px solid #f1f3f4;
   display: flex;
   align-items: center;
@@ -2942,7 +2942,6 @@ html:not(.touch) .listing:not(.withselection) tbody tr > td.selection + td {
 html:not(.touch) .listing li > a:focus,
 html:not(.touch) .listing.focus tbody tr.focused > td:first-child,
 html:not(.touch) .listing.focus:not(.withselection) tbody tr.focused > td.selection + td {
-  border-left: 2px solid #bfb0ff;
   outline: 0;
 }
 table.listing {
@@ -5373,6 +5372,12 @@ body.task-error-login #layout #layout-content > .header {
 .messagelist tr.message td {
   padding: 0.5em;
 }
+#messagelist-content {
+  border-radius: 24px;
+  border-right: none;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 6px;
+  margin: 0.5rem 0.3rem;
+}
 #translate-modal > .modal-title #translate-modal:after {
   display: inline;
   float: none;
@@ -5660,6 +5665,17 @@ body.status-flagged #message-header > .subject:before {
 .btn {
   border-radius: 10px;
 }
+.searchbar {
+  height: 46px;
+  min-height: 36px;
+  line-height: 46px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  border-radius: 20px;
+  margin: 0.5rem 0.2rem;
+}
 /*** Settings UI ***/
 .settings-default-icon tr > td.section::before,
 .settings-default-icon li > a:before {
@@ -5707,7 +5723,6 @@ html.dark-mode body {
 html.dark-mode #logo {
   opacity: 0.8;
 }
-html.dark-mode #layout > div > .searchbar,
 html.dark-mode #layout > div > .scroller {
   border-right-color: #4a4658;
 }
