@@ -5976,6 +5976,9 @@ html.dark-mode .messagelist tr.deleted td.subject span.fromto {
 html.dark-mode .messagelist span.attachment span {
   color: #cccccc;
 }
+html.dark-mode #messagelist-content {
+  box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 6px;
+}
 html.dark-mode .folderlist li.mailbox .unreadcount {
   background-color: #4a4658;
   color: #ffffff;
