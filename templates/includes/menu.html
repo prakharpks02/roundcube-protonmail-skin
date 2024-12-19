@@ -7,10 +7,10 @@
 	<div id="taskmenu" class="menu toolbar" role="navigation" aria-labelledby="aria-label-tasknav">
 		<roundcube:if condition="env:action == 'compose' and env:task == 'mail'" />
 			<roundcube:button command="compose" type="link" class="compose selected"
-				 title="writenewmessage"  />
+				label="compose" title="writenewmessage" innerclass="inner" />
 		<roundcube:else />
 			<roundcube:button command="compose" type="link" class="compose"
-				 title="writenewmessage" 
+				label="compose" title="writenewmessage" innerclass="inner"
 				data-fab="true" data-fab-task="mail" data-fab-action="none" />
 		<roundcube:endif />
 		<roundcube:if condition="env:action == 'compose' and env:task == 'mail'" />
