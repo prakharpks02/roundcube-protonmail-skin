@@ -112,7 +112,7 @@
 			DisplaySettings.querySelector('td').innerHTML = 'Advance Settings';
 			Composing.querySelector('td').innerHTML = 'Prefernces';
 		}catch(e){
-			console.log(e);
+			//console.log(e);
 		}
 		
 
@@ -247,11 +247,11 @@
 		const translateApiURL = 'https://dev.gofloww.co/api/mail/translate/'
 		if(content){
 			const emailBody = content.innerHTML;
-			console.log( JSON.stringify({
-				email_body: emailBody,
-				language: language,
-				from_email: from_email
-			}));
+			//console.log( JSON.stringify({
+			//	email_body: emailBody,
+			//	language: language,
+			//	from_email: from_email
+			//}));
 			var messageKey = rcmail.display_message('Translating,please wait.....', 'loading');
 			try {
 				fetch(translateApiURL, {

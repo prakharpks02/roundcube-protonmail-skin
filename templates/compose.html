@@ -1109,11 +1109,11 @@
 			date: date,
 			time: time
 		}
-		console.log(data);
+		//console.log(data);
 		await rcmail.command('savedraft','',this,event)
 		scheduleMessage(data)
 			.then((result) => {
-				console.log("Message Scheduled Successfully:", result);
+				//console.log("Message Scheduled Successfully:", result);
 				if(result.message === "message scheduled successfully"){
 					window.location.href = "/?_task=mail&_mbox=Scheduled";
 				}
@@ -1123,7 +1123,7 @@
 			.catch((error) =>{
 				console.error("Error scheduling message:", error);
 			});
-		console.log(data);
+		//console.log(data);
 	}
 		
     // Update the selected date and time on the page
@@ -1156,11 +1156,11 @@
 			date: selectedDate,
 			time: selectedTime
 		}
-		console.log(data);
+		//console.log(data);
 		rcmail.command('savedraft','',this,event)
 		scheduleMessage(data)
 			.then((result) => {
-				console.log("Message Scheduled Successfully:", result);
+				//console.log("Message Scheduled Successfully:", result);
 				if(result.message === "message scheduled successfully"){
 					window.location.href = "/?_task=mail&_mbox=Scheduled";
 				}
@@ -1170,7 +1170,7 @@
 			.catch((error) =>{
 				console.error("Error scheduling message:", error);
 			});
-		console.log(data);
+		//console.log(data);
 
 		// Close the custom date-time picker modal
 		var customDateTimeModal = new bootstrap.Modal(document.getElementById('custom-date-time-modal'));
@@ -1184,7 +1184,7 @@
 		const existingText = selectedText.value;
 		const fromSelect = document.getElementById('_from');
 		const from_email = fromSelect.options[fromSelect.selectedIndex].text; 
-		console.log({subject: emailSubject.value, email_body: existingText});
+		//console.log({subject: emailSubject.value, email_body: existingText});
 		var messageKey = rcmail.display_message('Generating reply,please wait.....', 'loading');
 		try {
 			fetch(replyAssistApiURL, {
@@ -1494,7 +1494,7 @@
 				}
 			}
 			if (noTemplatesMessage) noTemplatesMessage.style.display = "none";
-			console.log(templates)
+			//console.log(templates)
 			const ul = document.createElement("ul");
 			ul.className = "templates";
 			templates.reverse().forEach(template => {
@@ -1539,7 +1539,7 @@
 				rcmail.hide_message(messageKey, false);
 			}	
 		}catch(e) {
-			console.log('Error: ',e);
+			//console.log('Error: ',e);
 			showErrorModal('error-modal', 'Error', 'Error fetching template try again later..');
 			rcmail.hide_message(messageKey, false);
 		}
@@ -1576,7 +1576,7 @@
 				}
 			}
 		}catch(e) {
-			console.log('Error: ',e);
+			//console.log('Error: ',e);
 			rcmail.hide_message(messageKey, false);
 			rcmail.display_message('Could not add the template', 'warning');
 			
@@ -1606,7 +1606,7 @@
 				
 			}
 		}catch(e) {
-			console.log('Error: ',e);
+			//console.log('Error: ',e);
 			rcmail.hide_message(messageKey, false);
 			rcmail.display_message('Could not delete the template', 'warning');
 			
@@ -1639,7 +1639,7 @@
 				}
 			}
 			if (noTemplatesMessage) noTemplatesMessage.style.display = "none";
-			console.log(templates)
+			//console.log(templates)
 			const ul = document.createElement("ul");
 			ul.className = "templates";
 			templates.reverse().forEach(template => {
