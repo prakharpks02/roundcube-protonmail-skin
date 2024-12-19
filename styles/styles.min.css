@@ -178,7 +178,6 @@ html.iframe body {
 #layout > div > .scroller {
   flex: 1;
   position: relative;
-  border-right: 1px solid #d4dbde;
 }
 #layout > div > .header,
 #layout > div > .footer {
@@ -2451,9 +2450,9 @@ a.toolbar-button {
 }
 /*** Searchbar and searchoptions widgets ***/
 .searchbar {
-  height: 36px;
-  min-height: 36px;
-  line-height: 36px;
+  height: 46px;
+  min-height: 46px;
+  line-height: 46px;
   background-color: #f1f3f3;
   border-bottom: 1px solid #f1f3f4;
   display: flex;
@@ -2467,7 +2466,7 @@ a.toolbar-button {
 }
 .searchbar form:before {
   content: "\f002";
-  height: 36px;
+  height: 46px;
   color: #737677;
   margin: 0 0 0 0.75rem;
 }
@@ -2487,7 +2486,7 @@ a.toolbar-button {
 }
 .searchbar a:before {
   width: 2rem;
-  height: 36px;
+  height: 46px;
   margin: 0;
 }
 .searchbar a.options:before {
