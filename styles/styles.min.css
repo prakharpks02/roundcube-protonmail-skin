@@ -1902,8 +1902,10 @@ html.touch .popover .listing li a:before {
   background-color: #ebebeb;
 }
 .menu span.inner {
-  font-size: 90%;
-  font-weight: normal;
+  padding: 3px 5px !important;
+  line-height: 1rem !important;
+  display: none !important;
+  font-size: 0.9rem !important;
 }
 .menu .dropbutton {
   display: inline-block;
