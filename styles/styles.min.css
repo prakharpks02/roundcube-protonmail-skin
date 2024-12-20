@@ -219,7 +219,7 @@ html.iframe body {
   order: 99;
 }
 #layout > div > .footer {
-  border: 1px solid #ddd;
+  border-top: 1px solid #ddd;
   background-color: #fff;
 }
 #layout > div > .footer.small {
@@ -5698,6 +5698,10 @@ body.status-flagged #message-header > .subject:before {
   border-radius: 0 !important;
   box-shadow: none !important;
   margin: 0 !important;
+}
+.pagenav div {
+  margin-right: 0.3rem;
+  border-right: 1px solid #ddd;
 }
 /*** Settings UI ***/
 .settings-default-icon tr > td.section::before,
