@@ -2589,8 +2589,9 @@ a.toolbar-button {
   #taskmenu .special-buttons {
     position: absolute;
     bottom: 0;
-    left: 0;
     background-color: #fff;
+    left: auto;
+    right: 0;
   }
   #taskmenu .action-buttons a {
     color: #382295;
