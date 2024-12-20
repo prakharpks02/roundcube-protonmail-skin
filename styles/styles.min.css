@@ -233,6 +233,7 @@ html.iframe body {
   max-width: 30%;
   min-width: 220px;
   background-color: #fff;
+  border-left: thin solid #ddd;
 }
 #layout-sidebar.sidebar-right {
   order: 2;
