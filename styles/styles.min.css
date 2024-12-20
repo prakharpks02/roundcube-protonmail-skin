@@ -1305,7 +1305,7 @@ html.touch .btn:focus {
 }
 .ui-menu .ui-state-active {
   border: 0 !important;
-  background-color: #382295 !important;
+  background-color: #DED8F4 !important;
 }
 .ui-menu .ui-menu-item {
   white-space: nowrap;
@@ -2039,8 +2039,8 @@ html.layout-phone .menu.pagenav input {
   min-width: 1.18em;
 }
 .popover .menu li a:not(.disabled):hover {
-  color: #fff;
-  background-color: #382295;
+  color: #382295;
+  background-color: #DED8F4;
 }
 .popover .menu li a[aria-haspopup] {
   display: flex;
@@ -2060,7 +2060,7 @@ html.layout-small .popover .menu li a[aria-haspopup]:after {
   margin: 0 0.6em !important;
 }
 .popover .menu li a[aria-haspopup]:hover:after {
-  color: #fff;
+  color: #382295;
 }
 .popover .menu li a[aria-haspopup] > span {
   overflow: hidden;
@@ -2087,7 +2087,7 @@ html.layout-small .popover .menu li a[aria-haspopup]:after {
   background-color: #f6f6f6;
 }
 .popover .menu .dropbutton a.dropdown:hover {
-  background-color: #382295;
+  background-color: #DED8F4;
 }
 .popover .menu .dropbutton a.dropdown:before,
 .popover .menu .dropbutton a.dropdown span.inner {
@@ -3159,12 +3159,12 @@ html.ie11 .listing.iconized li a:before {
   border-left: 0;
 }
 .popupmenu .listing li > a:not(.disabled):hover {
-  color: #fff;
-  background-color: #382295;
+  color: #382295;
+  background-color: #DED8F4;
 }
 .popupmenu .listing li.selected {
-  color: #fff;
-  background-color: #382295;
+  color: #382295;
+  background-color: #DED8F4;
 }
 .popupmenu .listing td {
   overflow: hidden;
@@ -5274,8 +5274,8 @@ html.layout-phone .image-selector .attachmentslist {
   width: auto;
 }
 .googie_list li.googie_list_onhover {
-  color: #fff;
-  background-color: #382295;
+  color: #382295;
+  background-color: #DED8F4;
 }
 .googie_list li .googie_list_revert:before {
   content: "\f0e2";
