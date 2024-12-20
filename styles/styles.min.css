@@ -279,7 +279,7 @@ html.iframe #layout-content {
   overflow: auto;
 }
 #layout-menu {
-  border-left: "thin solid #ddd";
+  border-left: thin solid #ddd;
 }
 #layout-menu.popover {
   left: 0 !important;
