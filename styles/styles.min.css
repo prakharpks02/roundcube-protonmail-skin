@@ -196,8 +196,8 @@ html.iframe body {
 }
 #layout > div > .header {
   border-bottom: 1px solid #ddd;
-  color: #382295;
-  background-color: #DED8F4;
+  color: #404040;
+  background-color: #fff;
 }
 #layout > div > .header .header-title {
   overflow: hidden;
@@ -379,7 +379,7 @@ html.layout-phone #layout-menu .popover-header a .inner {
     border: 0 !important;
   }
   #layout > div > .header {
-    background-color: #DED8F4;
+    background-color: #fff;
   }
   #layout > div > .header a.button {
     margin: 0 0.3rem !important;
@@ -397,7 +397,7 @@ html.layout-phone #layout-menu .popover-header a .inner {
     display: none;
   }
   #layout > div > .footer {
-    background-color: #DED8F4;
+    background-color: #fff;
   }
   a.toolbar-list-button {
     display: none;
@@ -1332,11 +1332,11 @@ html.touch .btn:focus {
   line-height: 58px;
   font-size: 1.25rem;
   padding: 0 3rem 0 1rem;
-  color: #382295;
+  color: #404040;
 }
 .ui-dialog .ui-dialog-titlebar-close {
   border: 0;
-  color: #382295;
+  color: #404040;
   background: transparent;
   right: 0;
   top: 0;
@@ -1418,7 +1418,7 @@ html.touch .btn:focus {
   .ui-dialog .ui-dialog-titlebar {
     height: 58px;
     text-align: center;
-    background-color: #DED8F4;
+    background-color: #fff;
   }
   .ui-dialog .ui-dialog-title {
     line-height: 58px;
@@ -1436,7 +1436,7 @@ html.touch .btn:focus {
     text-align: center !important;
     border-top: 1px solid #ddd;
     height: 58px !important;
-    background-color: #DED8F4;
+    background-color: #fff;
   }
   .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
     justify-content: space-around;
@@ -1849,7 +1849,7 @@ html.touch .popover .listing li a:before {
 }
 .menu a:not(.disabled):focus,
 .menu a:not(.disabled):hover {
-  background-color: #d4ccf1;
+  background-color: #f7f7f7;
 }
 .menu.toolbar li {
   display: inline-block;
@@ -1883,7 +1883,7 @@ html.touch .popover .listing li a:before {
   width: 1em;
 }
 .menu.toolbar .dropbutton:not(.disabled):hover {
-  background-color: #d4ccf1;
+  background-color: #f7f7f7;
 }
 .menu.toolbar .dropbutton a.dropdown {
   padding: 0 0.3rem;
@@ -1892,7 +1892,7 @@ html.touch .popover .listing li a:before {
   line-height: 58px;
 }
 .menu.toolbar .dropbutton a.dropdown:hover {
-  background-color: #c3b8eb;
+  background-color: #ebebeb;
 }
 .menu span.inner {
   font-size: 90%;
@@ -2102,7 +2102,7 @@ html.layout-small .popover .menu li a[aria-haspopup]:after {
   }
   .header a.button.icon:not(.disabled):focus,
   .header a.button.icon:not(.disabled):hover {
-    background-color: #d4ccf1;
+    background-color: #f7f7f7;
     outline: 0;
   }
   .header a.button.icon:before {
@@ -4416,11 +4416,11 @@ fieldset .file-upload {
   display: block;
 }
 .file-upload.droptarget.active {
-  border-color: #917dda;
+  border-color: #c4c4c4;
 }
 .file-upload.droptarget.hover {
-  border-color: #917dda;
-  background-color: #d4ccf1;
+  border-color: #c4c4c4;
+  background-color: #f7f7f7;
 }
 /*** Smart recipient input field ***/
 .recipient-input {
@@ -4873,7 +4873,7 @@ div.tox .tox-dialog__header {
   padding: 0;
 }
 div.tox .tox-dialog__header .tox-button {
-  color: #382295;
+  color: #404040;
   right: 0;
   height: 57.3px;
   width: 2.25em;
@@ -5001,7 +5001,7 @@ div.tox .tox-dialog__title {
   font-weight: bold;
   padding: 0 0 0 1rem;
   width: 100%;
-  color: #382295;
+  color: #404040;
 }
 div.tox .tox-tbtn {
   height: 28px;
@@ -5101,7 +5101,7 @@ div.tox .tox-collection__item-label {
     border-width: 0 !important;
   }
   div.tox .tox-dialog__header {
-    background-color: #DED8F4;
+    background-color: #fff;
   }
   div.tox .tox-dialog__header .tox-button {
     display: none;
@@ -5112,7 +5112,7 @@ div.tox .tox-collection__item-label {
     padding: 0 1rem;
   }
   div.tox .tox-dialog__footer {
-    background-color: #DED8F4;
+    background-color: #fff;
   }
   div.tox .tox-dialog__footer .tox-button {
     color: #2c363a !important;
