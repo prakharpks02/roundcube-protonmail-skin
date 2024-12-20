@@ -5692,7 +5692,7 @@ body.status-flagged #message-header > .subject:before {
   border-radius: 20px;
   margin: 0.5rem 0.2rem;
 }
-.listing .mailbox {
+#layout-sidebar .scroller li {
   border-bottom: transparent;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
