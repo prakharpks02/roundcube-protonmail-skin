@@ -2573,7 +2573,7 @@ a.toolbar-button {
 @media screen and (min-width: 481px) {
   #taskmenu a {
     color: #404040;
-    padding: 0.45rem 0;
+    padding: 1.2rem 0;
     min-width: unset;
   }
   #taskmenu a.selected {
