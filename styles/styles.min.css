@@ -1859,7 +1859,6 @@ html.touch .popover .listing li a:before {
   color: #404040;
   display: block;
   float: left;
-  border: 0 !important;
   height: 58px;
   min-width: 3.2rem;
   max-width: 6rem;
@@ -5777,10 +5776,6 @@ html.dark-mode #layout-menu {
 html.dark-mode #layout-menu .popover-header,
 html.dark-mode #layout-menu .special-buttons {
   background: transparent !important;
-}
-html.dark-mode #layout-menu .popover-header a,
-html.dark-mode #layout-menu .special-buttons a {
-  border-left: thin solid #ddd !important;
 }
 @media screen and (max-width: 480px) {
   html.dark-mode #layout-menu {
