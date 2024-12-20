@@ -5699,7 +5699,7 @@ body.status-flagged #message-header > .subject:before {
   box-shadow: none !important;
   margin: 0 !important;
 }
-.pagenav div {
+.pagenav.menu.footer {
   margin-right: 0.3rem;
   border-right: 1px solid #ddd;
 }
