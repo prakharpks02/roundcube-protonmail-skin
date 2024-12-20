@@ -5700,7 +5700,7 @@ body.status-flagged #message-header > .subject:before {
   margin: 0 !important;
 }
 .pagenav.menu.footer {
-  margin-right: 0.3rem;
+  margin-right: 0.3rem !important;
   border-right: 1px solid #ddd;
 }
 /*** Settings UI ***/
