@@ -426,6 +426,9 @@ html.layout-phone #layout-menu .popover-header a .inner {
 @media screen and (min-width: 1025px) {
   #layout-menu {
     width: 78px;
+    order: 4;
+    border-right: none !important;
+    background-color: transparent;
   }
 }
 @media screen and (min-width: 1201px) {
