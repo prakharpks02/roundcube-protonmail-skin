@@ -434,7 +434,7 @@ html.layout-phone #layout-menu .popover-header a .inner {
 #layout-menu {
   order: 4;
   border-right: none !important;
-  background-color: transparent;
+  background-color: #fff;
 }
 @media screen and (min-width: 1201px) {
   #layout-list > .header > .header-title:not(.all-sizes),
@@ -511,7 +511,7 @@ font.bold {
   font-size: 1.25em;
 }
 .listbox .scroller {
-  width: 100%;
+  width: 98%;
   overflow-x: hidden;
   overflow-y: auto;
   border: thin solid #ddd;
