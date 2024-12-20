@@ -2595,6 +2595,7 @@ a.toolbar-button {
     background-color: #fff;
     left: auto;
     right: 0;
+    border-left: thin solid #ddd;
   }
   #taskmenu .action-buttons a {
     color: #382295;
@@ -5776,7 +5777,6 @@ html.dark-mode #layout-menu {
 html.dark-mode #layout-menu .popover-header,
 html.dark-mode #layout-menu .special-buttons {
   background: transparent !important;
-  border-left: thin solid #ddd;
 }
 @media screen and (max-width: 480px) {
   html.dark-mode #layout-menu {
