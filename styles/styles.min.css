@@ -1152,7 +1152,7 @@ a.button.icon.dropdown:before {
   font-size: 1em;
 }
 a.button.icon > span.inner {
-  display: none;
+  display: none !important;
 }
 html.touch .btn:focus {
   box-shadow: none !important;
@@ -5709,14 +5709,8 @@ body.status-flagged #message-header > .subject:before {
 .header li {
   padding-top: 0.8rem;
 }
-.refresh {
-  padding-top: 0.8rem;
-}
-.refresh span.inner {
-  padding: 3px 5px !important;
-  line-height: 1rem !important;
-  display: none !important;
-  font-size: 0.9rem !important;
+a.refresh {
+  padding: 1.2rem;
 }
 /*** Settings UI ***/
 .settings-default-icon tr > td.section::before,
