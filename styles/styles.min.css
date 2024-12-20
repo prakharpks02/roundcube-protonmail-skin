@@ -2576,15 +2576,15 @@ a.toolbar-button {
   }
   #taskmenu a.selected {
     color: #382295;
-    background: #382295;
+    background: #DED8F4;
   }
   #taskmenu a.selected:hover {
     color: #382295;
-    background: #382295;
+    background: #DED8F4;
   }
   #taskmenu a:hover {
     color: #382295;
-    background: #382295;
+    background: #DED8F4;
   }
   #taskmenu .special-buttons {
     position: absolute;
@@ -2598,7 +2598,7 @@ a.toolbar-button {
   }
   #taskmenu .action-buttons a:hover {
     color: #382295;
-    background: #382295;
+    background: #DED8F4;
   }
   #taskmenu a.logout {
     color: #ff5552 !important;
@@ -2630,7 +2630,7 @@ a.toolbar-button {
     float: none;
   }
   #taskmenu a:focus {
-    background-color: #382295;
+    background-color: #DED8F4;
   }
   #taskmenu span.inner {
     padding: 0 0.1em;
