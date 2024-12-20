@@ -178,10 +178,11 @@ html.iframe body {
 #layout > div > .scroller {
   flex: 1;
   position: relative;
-  border-radius: 24px;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
   border-right: none;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 6px;
-  margin: 0.5rem 0.3rem;
+  margin: 0.5rem 0.3rem 0 0.3rem;
 }
 #layout > div > .header,
 #layout > div > .footer {
@@ -218,7 +219,7 @@ html.iframe body {
   order: 99;
 }
 #layout > div > .footer {
-  border-top: 1px solid #ddd;
+  border: 1px solid #ddd;
   background-color: #fff;
 }
 #layout > div > .footer.small {
@@ -5387,12 +5388,6 @@ body.task-error-login #layout #layout-content > .header {
 /*** Mail UI ***/
 .messagelist tr.message td {
   padding: 0.5em;
-}
-#messagelist-content {
-  border-radius: 24px;
-  border-right: none;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 6px;
-  margin: 0.5rem 0.3rem;
 }
 #translate-modal > .modal-title #translate-modal:after {
   display: inline;
