@@ -278,6 +278,9 @@ html.iframe #layout-content {
 #layout-content.only > .scroller {
   overflow: auto;
 }
+#layout-menu {
+  border-left: "thin solid #ddd";
+}
 #layout-menu.popover {
   left: 0 !important;
 }
@@ -5773,6 +5776,7 @@ html.dark-mode #layout-menu {
 html.dark-mode #layout-menu .popover-header,
 html.dark-mode #layout-menu .special-buttons {
   background: transparent !important;
+  border-left: "thin solid #ddd";
 }
 @media screen and (max-width: 480px) {
   html.dark-mode #layout-menu {
