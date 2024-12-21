@@ -5712,6 +5712,17 @@ body.status-flagged #message-header > .subject:before {
 a.refresh {
   padding: 1.2rem;
 }
+.toggle-password {
+  position: absolute;
+  top: 20%;
+  right: 15px;
+}
+.toggle-password::before {
+  content: var(--icon-content, "\f06e");
+  font-family: Icons;
+  font-size: 1rem;
+  cursor: pointer;
+}
 /*** Settings UI ***/
 .settings-default-icon tr > td.section::before,
 .settings-default-icon li > a:before {

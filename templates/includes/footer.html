@@ -381,6 +381,21 @@
 		}
 	}
 
+	function showPassword() {
+		const passwordInput = document.getElementById('rcmloginpwd');
+		const toggleButton = document.querySelector('.toggle-password');
+		
+		if (passwordInput.type === 'password') {
+			passwordInput.type = 'text';
+			toggleButton.textContent = ''; // Clear text
+			toggleButton.style.setProperty('--icon-content', '"\\f070"'); // Eye-slash
+		} else {
+			passwordInput.type = 'password';
+			toggleButton.textContent = ''; // Clear text
+			toggleButton.style.setProperty('--icon-content', '"\\f06e"'); // Eye
+		}
+	}
+
 </script>
 
 
