@@ -2465,7 +2465,6 @@ a.toolbar-button {
   min-height: 46px;
   line-height: 46px;
   background-color: #f1f3f3;
-  border-bottom: 1px solid #f1f3f4;
   display: flex;
   align-items: center;
   overflow: hidden;
