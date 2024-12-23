@@ -2613,13 +2613,6 @@ a.toolbar-button {
   #taskmenu a.logout:hover {
     color: #ff5552 !important;
   }
-  #taskmenu span.inner {
-    font-size: 100%;
-    padding: 3px 5px !important;
-    line-height: 1rem !important;
-    display: none !important;
-    font-size: 0.9rem !important;
-  }
 }
 @media screen and (min-width: 481px) and (max-width: 1024px) {
   #taskmenu a {
@@ -2647,7 +2640,11 @@ a.toolbar-button {
     background-color: #DED8F4;
   }
   #taskmenu span.inner {
-    padding: 0 0.1em;
+    font-size: 100%;
+    padding: 3px 5px !important;
+    line-height: 1rem !important;
+    display: none !important;
+    font-size: 0.9rem !important;
   }
 }
 /**
