@@ -6025,7 +6025,8 @@ html.dark-mode .messagelist span.attachment span {
   color: #bac4c4;
 }
 html.dark-mode #messagelist-content {
-  border: thin solid #23292C;
+  border: thin solid #516065;
+  box-shadow: none;
 }
 html.dark-mode .folderlist li.mailbox .unreadcount {
   background-color: #516065;
