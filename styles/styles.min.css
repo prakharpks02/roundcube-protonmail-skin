@@ -5746,12 +5746,10 @@ a.refresh {
     left: 3rem;
   }
 }
-span.inner {
-  font-size: 100%;
-  padding: 3px 5px !important;
-  line-height: 1rem !important;
-  display: none !important;
-  font-size: 0.9rem !important;
+.pagenav.menu.footer {
+  margin-right: 0.5rem !important;
+  border-left: thin solid;
+  margin-left: 0.3rem !important;
 }
 /*** Settings UI ***/
 .settings-default-icon tr > td.section::before,
