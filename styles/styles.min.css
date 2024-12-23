@@ -6034,6 +6034,7 @@ html.dark-mode .messagelist span.attachment span {
 }
 html.dark-mode #layout-list .scroller {
   border: thin solid #516065;
+  border-bottom: none !important;
   box-shadow: none;
 }
 html.dark-mode .folderlist li.mailbox .unreadcount {
