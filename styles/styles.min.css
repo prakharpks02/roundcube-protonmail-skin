@@ -5755,6 +5755,9 @@ html.dark-mode .scroller {
   scrollbar-width: thin;
   box-shadow: none;
 }
+html.dark-mode a {
+  color: #7B69C5;
+}
 html.dark-mode:not(.touch) ::-webkit-scrollbar {
   width: 6px;
 }
