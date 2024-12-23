@@ -829,6 +829,9 @@
 				openInNewWindowButton.textContent = '';
 			}
 		}
+
+		var OpenInNewWindowButton = document.getElementsByClassName('extwin')[0];
+		OpenInNewWindowButton.setAttribute("title", "Open in New Window");
 		
 		if (emailSubject.includes('Re:')) {
 			const htmlButton = document.querySelector('a.mce-i-html'); 
