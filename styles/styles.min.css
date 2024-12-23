@@ -5890,6 +5890,10 @@ html.dark-mode .menu.toolbar a.selected {
   background-color: #303638;
   color: #7B69C5;
 }
+html.dark-mode #taskmenu .action-buttons a:hover {
+  color: #7B69C5;
+  background: #303638;
+}
 html.dark-mode pre,
 html.dark-mode .popover .menu li a[aria-haspopup]::after,
 html.dark-mode .menu.pagenav .pagenav-text,
