@@ -5754,6 +5754,8 @@ html.dark-mode .table-responsive,
 html.dark-mode .table-responsive-sm,
 html.dark-mode .scroller {
   scrollbar-width: thin;
+  border: thin solid #516065;
+  box-shadow: none;
 }
 html.dark-mode:not(.touch) ::-webkit-scrollbar {
   width: 6px;
