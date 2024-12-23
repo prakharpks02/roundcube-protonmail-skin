@@ -5804,7 +5804,6 @@ html.dark-mode #layout-menu {
 html.dark-mode #layout-menu .popover-header,
 html.dark-mode #layout-menu .special-buttons {
   background: transparent !important;
-  border-left: none !important;
 }
 @media screen and (max-width: 480px) {
   html.dark-mode #layout-menu {
@@ -5816,6 +5815,9 @@ html.dark-mode #layout-menu .special-buttons {
 }
 html.dark-mode #layout-menu .special-buttons a:not(:focus) {
   background: #23292C;
+}
+html.dark-mode #layout-menu .special-buttons a {
+  border-left: none !important;
 }
 html.dark-mode.layout-phone #layout-menu {
   background: #161b1d;

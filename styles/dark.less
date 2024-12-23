@@ -94,7 +94,6 @@ html.dark-mode {
         .popover-header,
         .special-buttons {
             background: transparent !important;
-            border-left: none !important;
         }
 
         @media screen and (max-width: @screen-width-xs) {
@@ -107,6 +106,10 @@ html.dark-mode {
 
         .special-buttons a:not(:focus) {
             background: @color-dark-background;
+        }
+
+        .special-buttons a{
+            border-left: none !important;
         }
     }
 
