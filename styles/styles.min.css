@@ -6032,7 +6032,7 @@ html.dark-mode .messagelist tr.deleted td.subject span.fromto {
 html.dark-mode .messagelist span.attachment span {
   color: #bac4c4;
 }
-html.dark-mode #messagelist-content {
+html.dark-mode #layout-list .scroller {
   border: thin solid #516065;
   box-shadow: none;
 }
