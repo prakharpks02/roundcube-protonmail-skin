@@ -5754,7 +5754,6 @@ html.dark-mode .table-responsive,
 html.dark-mode .table-responsive-sm,
 html.dark-mode .scroller {
   scrollbar-width: thin;
-  border: thin solid #516065;
   box-shadow: none;
 }
 html.dark-mode:not(.touch) ::-webkit-scrollbar {
@@ -6026,7 +6025,7 @@ html.dark-mode .messagelist span.attachment span {
   color: #bac4c4;
 }
 html.dark-mode #messagelist-content {
-  box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 6px;
+  border: thin solid #23292C;
 }
 html.dark-mode .folderlist li.mailbox .unreadcount {
   background-color: #516065;

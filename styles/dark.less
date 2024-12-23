@@ -27,7 +27,6 @@ html.dark-mode {
     .scroller {
         // Firefox does not inherit scrollbar size from the html element
         scrollbar-width: thin;
-        border: thin solid @color-dark-border;
         box-shadow: none;
     }
 
@@ -375,7 +374,7 @@ html.dark-mode {
         }
     }
     #messagelist-content{
-        box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 6px;
+        border: thin solid @color-dark-background;
     }
 
     .folderlist li.mailbox .unreadcount {
