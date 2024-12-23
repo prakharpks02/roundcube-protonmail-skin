@@ -5821,8 +5821,7 @@ html.dark-mode.layout-phone #layout-menu {
   background: #161b1d;
 }
 html.dark-mode .searchbar {
-  background-color: transparent;
-  border-color: #516065;
+  background-color: #303638;
 }
 html.dark-mode .searchbar form:before,
 html.dark-mode .searchbar a,
