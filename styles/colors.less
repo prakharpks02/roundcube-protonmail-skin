@@ -222,14 +222,15 @@
 @color-dark-background:     #23292C;
 @color-dark-font:           #F1F3F3;
 @color-dark-border:         #516065;
+@color-selected-dark:       #303638;
 @color-dark-hint:           darken(@color-dark-font, 20%);
-@color-dark-information:    shade(@color-main, 40%);
+@color-dark-information:    shade(@color-dark-main, 40%);
 @color-dark-success:        shade(@color-success, 40%);
 @color-dark-warning:        shade(@color-warning, 40%);
 @color-dark-error:          shade(@color-error, 40%);
 
 @color-dark-list-selected:              @color-dark-font;
-@color-dark-list-selected-background:   @color-main;
+@color-dark-list-selected-background:   @color-selected-dark;
 @color-dark-list-badge:                 lighten(@color-dark-font, 10%);
 @color-dark-list-badge-background:      @color-dark-border;
 @color-dark-list-deleted:               darken(@color-dark-hint, 15%);
@@ -266,7 +267,7 @@
 @color-dark-scrollbar-thumb:            @color-dark-main;
 @color-dark-scrollbar-track:            @color-dark-border;
 
-@color-dark-blockquote-0:               lighten(@color-main, 10%);
+@color-dark-blockquote-0:               lighten(@color-dark-main, 10%);
 @color-dark-blockquote-1:               lighten(@color-success, 10%);
 @color-dark-blockquote-2:               lighten(@color-error, 10%);
 @color-dark-blockquote-0-border:        @color-dark-blockquote-0;

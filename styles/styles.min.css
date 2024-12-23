@@ -5839,7 +5839,7 @@ html.dark-mode #messagestack div i.icon:before {
 }
 html.dark-mode .ui.alert.boxinformation,
 html.dark-mode #messagestack .alert-info {
-  background-color: #221459;
+  background-color: #4a3f76;
 }
 html.dark-mode .ui.alert.boxerror,
 html.dark-mode #messagestack .alert-danger {
@@ -5881,11 +5881,11 @@ html.dark-mode .iframe-loader .spinner-border {
 }
 html.dark-mode #taskmenu a,
 html.dark-mode .menu.toolbar a {
-  color: #F1F3F3;
+  color: #7B69C5;
 }
 html.dark-mode #taskmenu a.selected,
 html.dark-mode .menu.toolbar a.selected {
-  background-color: #382295;
+  background-color: #303638;
 }
 html.dark-mode pre,
 html.dark-mode .popover .menu li a[aria-haspopup]::after,
@@ -5943,14 +5943,14 @@ html.dark-mode .header a.button.icon:not(.disabled):hover,
 html.dark-mode .menu.toolbar .dropbutton:not(.disabled):hover,
 html.dark-mode .menu a:not(.disabled):focus,
 html.dark-mode .menu a:not(.disabled):hover {
-  background-color: #382295;
+  background-color: #303638;
 }
 html.dark-mode .menu.toolbar a.selected {
   color: #41b849;
   background: transparent;
 }
 html.dark-mode .menu.toolbar .dropbutton a.dropdown:hover {
-  background-color: #4027aa;
+  background-color: #3c4346;
 }
 html.dark-mode .listing tbody td,
 html.dark-mode .listing tbody td a,
@@ -5968,7 +5968,7 @@ html.dark-mode .listing li.selected > a,
 html.dark-mode .listing li.selected > div > a,
 html.dark-mode .listing tr.selected td {
   color: #F1F3F3;
-  background-color: #382295;
+  background-color: #303638;
 }
 html.dark-mode .listing li.selected ul {
   background-color: #23292C;
@@ -6164,13 +6164,13 @@ html.dark-mode .file-upload.droptarget.active {
 }
 html.dark-mode .file-upload.droptarget.hover {
   border-color: #F1F3F3;
-  background-color: #382295;
+  background-color: #303638;
 }
 html.dark-mode .file-upload .attachmentslist {
   background: transparent;
 }
 html.dark-mode .image-upload {
-  background-color: #382295;
+  background-color: #303638;
 }
 html.dark-mode .image-upload a.button {
   background-color: rgba(35, 41, 44, 0.25);
@@ -6188,14 +6188,14 @@ html.dark-mode .CodeMirror-selected,
 html.dark-mode .CodeMirror-line::selection,
 html.dark-mode .CodeMirror-line > span::selection,
 html.dark-mode .CodeMirror-line > span > span::selection {
-  background: #382295;
+  background: #303638;
 }
 html.dark-mode .CodeMirror-gutters {
-  background-color: #28196b;
+  background-color: #181c1d;
   border: 0;
 }
 html.dark-mode .CodeMirror-activeline-background {
-  background: #382295;
+  background: #303638;
 }
 html.dark-mode .skinselection .skinthumbnail {
   border-color: #7c949c;
@@ -6210,7 +6210,7 @@ html.dark-mode .html-editor .editor-toolbar .mce-i-html {
 }
 html.dark-mode .html-editor .editor-toolbar .mce-i-html:hover,
 html.dark-mode .html-editor .editor-toolbar .mce-i-html:focus {
-  background-color: #5133d0;
+  background-color: #535e61;
   border-color: transparent;
 }
 html.dark-mode .tox.tox-tinymce {
@@ -6248,16 +6248,16 @@ html.dark-mode .tox .tox-tbtn:focus,
 html.dark-mode .tox .tox-split-button:focus,
 html.dark-mode .tox .tox-swatches__picker-btn:focus {
   color: #F1F3F3;
-  background: #5133d0;
+  background: #535e61;
   box-shadow: none;
 }
 html.dark-mode .tox .tox-tbtn--enabled {
-  background: #5133d0;
+  background: #535e61;
 }
 html.dark-mode .tox .tox-button--naked:focus:not(:disabled),
 html.dark-mode .tox .tox-button--naked.tox-button--icon:hover:not(:disabled) {
   color: #ffffff;
-  background-color: #5133d0;
+  background-color: #535e61;
   border-color: transparent;
 }
 html.dark-mode .tox .tox-button--naked:disabled {
@@ -6357,11 +6357,11 @@ html.dark-mode .tox .tox-collection--grid .tox-collection__item {
 html.dark-mode .tox .tox-collection__item--active,
 html.dark-mode .tox .tox-collection__item--active:not(.tox-collection__item--state-disabled) {
   color: #F1F3F3;
-  background-color: #382295;
+  background-color: #303638;
 }
 html.dark-mode .tox .tox-collection__item--enabled {
   color: #F1F3F3;
-  background-color: #382295;
+  background-color: #303638;
 }
 html.dark-mode .message-part,
 html.dark-mode .message-htmlpart {
@@ -6370,8 +6370,8 @@ html.dark-mode .message-htmlpart {
 html.dark-mode .message-part blockquote,
 html.dark-mode .message-htmlpart blockquote {
   background-color: #23292C;
-  border-color: #482bbf;
-  color: #482bbf;
+  border-color: #9b8ed3;
+  color: #9b8ed3;
 }
 html.dark-mode .message-part blockquote span.blockquote-link,
 html.dark-mode .message-htmlpart blockquote span.blockquote-link {
@@ -6403,7 +6403,7 @@ html.dark-mode #message-header .header-headers .header-title {
   font-weight: normal;
 }
 html.dark-mode .message-partheaders {
-  background-color: #382295;
+  background-color: #303638;
   border: 0;
 }
 html.dark-mode .message-partheaders table.headers-table {
@@ -6414,7 +6414,7 @@ html.dark-mode .message-partheaders table.headers-table * {
 }
 html.dark-mode p.image-attachment {
   border-color: #516065;
-  background-color: #382295;
+  background-color: #303638;
 }
 html.dark-mode p.image-attachment span {
   color: #bac4c4;
@@ -6476,10 +6476,10 @@ html.dark-mode .ui-datepicker.ui-widget-content .ui-state-default {
 html.dark-mode .ui-datepicker .ui-state-highlight,
 html.dark-mode .ui-datepicker.ui-widget-content .ui-state-highlight {
   color: #382295;
-  background-color: #382295;
+  background-color: #303638;
 }
 html.dark-mode .ui-datepicker .ui-datepicker-days-cell-over a {
-  background-color: #482bbf;
+  background-color: #485053;
 }
 html.dark-mode .ui-menu {
   scrollbar-width: thin;
@@ -6491,7 +6491,7 @@ html.dark-mode .ui-menu .ui-menu-item {
   border-bottom: 1px solid #516065;
 }
 html.dark-mode .ui-menu .ui-state-active {
-  background-color: #382295 !important;
+  background-color: #303638 !important;
 }
 html.dark-mode .minicolors-panel {
   box-shadow: none;
@@ -6587,7 +6587,7 @@ html.dark-mode .table-widget table.options-table tr:last-child td {
   border-color: #516065;
 }
 html.dark-mode .table-widget table.options-table tr.selected td {
-  background-color: #382295;
+  background-color: #303638;
   color: #F1F3F3;
 }
 html.dark-mode #rcmdraglayer {
@@ -6609,7 +6609,7 @@ html.dark-mode .quota-info .root {
 }
 html.dark-mode img.contactphoto,
 html.dark-mode #contactpic {
-  background-color: #382295 !important;
+  background-color: #303638 !important;
 }
 html.dark-mode .pgpkeyimport div.key.revoked,
 html.dark-mode .pgpkeyimport div.key.disabled {
