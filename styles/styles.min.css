@@ -180,7 +180,6 @@ html.iframe body {
   position: relative;
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
-  border-right: none;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 6px;
   margin: 0.5rem 0.3rem 0 0.3rem;
 }
@@ -519,7 +518,6 @@ font.bold {
   width: 98%;
   overflow-x: hidden;
   overflow-y: auto;
-  border: thin solid #ddd;
 }
 .listbox .navlist {
   height: 0;
