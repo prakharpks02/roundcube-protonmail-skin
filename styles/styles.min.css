@@ -5799,7 +5799,7 @@ html.dark-mode #layout > div > .footer a.button {
 }
 html.dark-mode #layout-menu {
   background: unset;
-  border-right: 1px solid #516065;
+  border-left: thin solid #516065;
 }
 html.dark-mode #layout-menu .popover-header,
 html.dark-mode #layout-menu .special-buttons {
