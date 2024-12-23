@@ -1232,6 +1232,7 @@
 		detectViewAndDisplayCredits();
 		var clonedAutoDraftButton = $('#auto-draft-button-clone');
 		var clonedScheduleSendButton = $('#schedule-send-button-clone');
+		var clonedtemplateButton = $('templates-button-clone');
 
         if (clonedAutoDraftButton.length) {
             // Ensure it's a jQuery object
@@ -1292,6 +1293,35 @@
                                     .addClass('btn')
                                     .removeClass('button');
         }
+
+		if (clonedtemplateButton.length) {
+            clonedtemplateButton = $(clonedtemplateButton);
+
+            // Remove 'disabled' class
+            clonedtemplateButton.removeClass('disabled');
+
+            // Clear existing content and add new icon and text
+            clonedtemplateButton.html(`
+                <span class="icon" style="display: inline-block; text-align: center;">
+                    <i class="fa-solid fa-file" aria-hidden="true" style="font-size: 20px;"></i>
+                    <br/>
+                </span>
+                <span style="display: block; text-align: center;">Templates</span>
+            `);
+
+            // Add the onclick event to open the modal and execute the function
+            clonedtemplateButton.on('click', function(e) {
+                e.preventDefault();
+                getTemplates(); // Call your existing function
+                $('#template-modal').modal('show'); // Show the modal
+            });
+
+            // Ensure tabindex and class adjustments
+            clonedtemplateButton.attr('tabindex', '0')
+                                    .addClass('btn')
+                                    .removeClass('button');
+        }
+
 	}
 
 	async function getCredits() {
