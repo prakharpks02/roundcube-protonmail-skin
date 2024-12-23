@@ -5724,6 +5724,9 @@ a.refresh {
   font-size: 1rem;
   cursor: pointer;
 }
+.ui-alert .btn {
+  border: none !important;
+}
 /*** Settings UI ***/
 .settings-default-icon tr > td.section::before,
 .settings-default-icon li > a:before {
