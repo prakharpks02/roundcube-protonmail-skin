@@ -5727,6 +5727,14 @@ a.refresh {
 .ui-alert .btn {
   border: none !important;
 }
+.credits-menu-item {
+  padding-top: 1rem;
+}
+.credits-menu-item span.inner {
+  display: initial;
+  position: absolute;
+  top: 10px;
+}
 /*** Settings UI ***/
 .settings-default-icon tr > td.section::before,
 .settings-default-icon li > a:before {
