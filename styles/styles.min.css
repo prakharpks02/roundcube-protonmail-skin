@@ -1900,11 +1900,14 @@ html.touch .popover .listing li a:before {
 .menu.toolbar .dropbutton a.dropdown:hover {
   background-color: #ebebeb;
 }
-.menu span.inner {
-  padding: 3px 5px !important;
-  line-height: 1rem !important;
-  display: none !important;
-  font-size: 0.9rem !important;
+@media screen and (min-width: 1025px) {
+  .menu span.inner {
+    font-size: 100%;
+    padding: 3px 5px !important;
+    line-height: 1rem !important;
+    display: none;
+    font-size: 0.9rem !important;
+  }
 }
 .menu .dropbutton {
   display: inline-block;
