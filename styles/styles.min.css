@@ -5881,11 +5881,12 @@ html.dark-mode .iframe-loader .spinner-border {
 }
 html.dark-mode #taskmenu a,
 html.dark-mode .menu.toolbar a {
-  color: #7B69C5;
+  color: #F1F3F3;
 }
 html.dark-mode #taskmenu a.selected,
 html.dark-mode .menu.toolbar a.selected {
   background-color: #303638;
+  color: #7B69C5;
 }
 html.dark-mode pre,
 html.dark-mode .popover .menu li a[aria-haspopup]::after,
