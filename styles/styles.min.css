@@ -5748,7 +5748,7 @@ a.refresh {
 }
 .pagenav.menu.footer {
   margin-right: 0.5rem !important;
-  border-left: thin solid;
+  border-left: thin solid #ddd;
   margin-left: 0.3rem !important;
 }
 /*** Settings UI ***/
@@ -6657,4 +6657,9 @@ html.dark-mode .pgpkeyimport div.key.disabled {
 }
 html.dark-mode .pgpkeyimport li.uid::before {
   opacity: 1;
+}
+html.dark-mode .pagenav.menu.footer {
+  margin-right: 0.5rem !important;
+  border-left: thin solid #516065;
+  margin-left: 0.3rem !important;
 }
