@@ -1565,7 +1565,7 @@
 				const selectedText = document.getElementById('composebody');
 				const existingText = selectedText.value;
 				const templateContent = responseData.template.template_content;
-				selectedText.value = `${existingText}`;
+				selectedText.value = `${templateContent}`;
 				rcmail.hide_message(messageKey, false);
 			}else{
 				showErrorModal('error-modal', 'Error', responseData.error);
