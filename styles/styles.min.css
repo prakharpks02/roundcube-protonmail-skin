@@ -5774,6 +5774,9 @@ a.input-group-text.icon.add.active {
   border-top-right-radius: 20px !important;
   border-bottom-right-radius: 20px !important;
 }
+.folderlist li a[rel="Scheduled"]:before {
+  content: "\f017" !important;
+}
 /*** Settings UI ***/
 .settings-default-icon tr > td.section::before,
 .settings-default-icon li > a:before {
