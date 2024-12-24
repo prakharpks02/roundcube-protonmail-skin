@@ -5745,6 +5745,9 @@ a.refresh {
     top: -1.2rem;
     left: 3rem;
   }
+  .menu.toolbar li {
+    padding-top: 0;
+  }
 }
 .pagenav.menu.footer {
   margin-right: 0.4rem !important;
