@@ -98,6 +98,18 @@
 
 	function injectTranslateLink() {
 
+		//changes in footer on compose page
+			
+		const elements = document.querySelectorAll('.pagenav.menu.footer');
+		if(elements){
+			elements.forEach(element => {
+				element.style.setProperty('border-left', 'none', 'important');
+				element.style.setProperty('margin-left', '0', 'important');
+			});
+		}
+		
+		
+
 		// edit options from prefernces
 		try{
 			const SpecialFolders = document.getElementById('rcmrowfolders');
