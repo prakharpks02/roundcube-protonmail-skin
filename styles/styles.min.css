@@ -5757,7 +5757,7 @@ a.refresh {
   }
 }
 #_from,
-#_subject {
+#compose-subject {
   border-radius: 20px;
 }
 ul.form-control.recipient-input.ac-input.rounded-left.ui-sortable {
