@@ -5761,6 +5761,9 @@ a.refresh {
     margin-left: 1rem !important;
   }
 }
+.ui-dialog {
+  border-radius: 20px;
+}
 #_from,
 #compose-subject {
   border-radius: 20px;
