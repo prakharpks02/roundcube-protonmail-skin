@@ -906,7 +906,7 @@
 		var messageKey = rcmail.display_message('Generating email,please wait.....', 'loading');
 
 		try {
-			fetch(autoDraftApiURL, {
+			fetch(`${baseURL}auto-draft/`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -947,7 +947,7 @@
 	}
 
 	function scheduleMessage(data){
-		return fetch(scheduleSendApiURL, {
+		return fetch(`${baseURL}schedule-send/`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -1224,7 +1224,7 @@
 		//console.log({subject: emailSubject.value, email_body: existingText});
 		var messageKey = rcmail.display_message('Generating reply,please wait.....', 'loading');
 		try {
-			fetch(replyAssistApiURL, {
+			fetch(`${baseURL}reply-assist/`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -1363,7 +1363,7 @@
 		const fromText = fromSelect.options[fromSelect.selectedIndex].text;
 	
 		try {
-			const response = await fetch(getCreditsApiURL, {
+			const response = await fetch(`${baseURL}get-email-credits/`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'

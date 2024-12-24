@@ -255,7 +255,7 @@
 		const sidebar = document.getElementById('layout-sidebar');
 		const username = sidebar.getElementsByClassName('username')[0];
 		const from_email = username.textContent;
-		const translateApiURL = 'https://dev.gofloww.co/api/mail/translate/'
+		const baseURL = 'https://dev.gofloww.co/mail/'
 		if(content){
 			const emailBody = content.innerHTML;
 			//console.log( JSON.stringify({
@@ -265,7 +265,7 @@
 			//}));
 			var messageKey = rcmail.display_message('Translating,please wait.....', 'loading');
 			try {
-				fetch(translateApiURL, {
+				fetch(`${baseURL}translate/`, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json'
