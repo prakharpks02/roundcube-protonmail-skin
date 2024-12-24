@@ -5745,6 +5745,8 @@ a.refresh {
     top: -1.2rem;
     left: 3rem;
   }
+}
+@media screen and (max-width: 1024px) {
   .menu.toolbar li {
     padding-top: 0;
   }
