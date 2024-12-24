@@ -5751,6 +5751,23 @@ a.refresh {
   border-left: thin solid #ddd;
   margin-left: 0.3rem !important;
 }
+@media screen and (min-width: 1025px) {
+  #compose-content {
+    margin-left: 1rem !important;
+  }
+}
+#_from {
+  border-radius: 20px;
+}
+ul.form-control.recipient-input.ac-input.rounded-left.ui-sortable {
+  border-top-left-radius: 20px !important;
+  border-bottom-left-radius: 20px !important;
+}
+a.input-group-text.icon.delete,
+a.input-group-text.icon.add {
+  border-top-right-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
+}
 /*** Settings UI ***/
 .settings-default-icon tr > td.section::before,
 .settings-default-icon li > a:before {
