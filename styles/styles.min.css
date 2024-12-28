@@ -6685,7 +6685,7 @@ html.dark-mode .pgpkeyimport li.uid::before {
   opacity: 1;
 }
 html.dark-mode .pagenav.menu.footer {
-  margin-right: 0.5rem !important;
+  margin-right: 0.4rem !important;
   border-left: thin solid #516065;
   margin-left: 0.3rem !important;
 }
