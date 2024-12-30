@@ -14,10 +14,10 @@
 				data-fab="true" data-fab-task="mail" data-fab-action="none" />
 		<roundcube:endif />
 		<roundcube:if condition="env:action == 'compose' and env:task == 'mail'" />
-			<roundcube:button command="mail" label="mail" type="link" innerClass="inner" title="mailbox"
+			<roundcube:button command="mail" label="mail" type="link" innerClass="inner" title="mail"
 				class="mail" />
 		<roundcube:else />
-			<roundcube:button command="mail" label="mail" type="link" innerClass="inner" title="mailbox"
+			<roundcube:button command="mail" label="mail" type="link" innerClass="inner" title="mail"
 				class="mail" classSel="mail selected" />
 		<roundcube:endif />
 		<roundcube:button command="addressbook" label="contacts" type="link" innerClass="inner" title="contacts"
