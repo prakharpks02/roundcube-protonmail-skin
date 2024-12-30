@@ -21,6 +21,12 @@
 	<roundcube:object name="links" />
 	<link rel="stylesheet" href="/deps/bootstrap.min.css">
 	<style>
+		#message-header .header-links a.translate-link:before {
+			content: "\f1ab" !important;
+		}
+		#message-header .header-links a.coins:before {
+			content: "\f51e" !important;
+		}
         .schedule-option {
             cursor: pointer;
             padding: 10px;
@@ -57,7 +63,86 @@
 		.dark-mode .schedule-option.active {
 			background-color: #8a6eff;
 		}
+
+		#add-template-btn {
+			border: 2px dashed #4a4658;
+			justify-content: flex-start;
+			border-radius: 10px;
+		}
+	
+		/* Adjust Scroll Area when No Templates */
+		#template-display.empty {
+			height: auto;
+		}
+
+		.dark-mode #add-template-btn:hover {
+			background-color: #8a6eff;;
+		}
+
+		#add-template-btn:hover {
+			background-color: #4a4658;
+		}
+
+		.btn-outline-primary{
+			color: #4a4658
+		}
     </style>
+	<style>
+		#translate-modal .modal-dialog .modal-content {
+			max-width: 300px; 
+			margin: auto; 
+		}
+		.list-group-item {
+			border: none; 	
+			padding: 5px; 	
+		}
+		.list-group {
+			margin: 0;
+			padding: 0;
+		}
+		#translation-menu {
+			padding: 0;
+		}
+		.modal-content {
+			border-radius: 20px;
+			border-color: #4a4658;
+		}
+		#no-templates{
+			border-color: #4a4658;
+			border-style: solid;
+			height: 50px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 20px;
+			border-width: thin;
+		}
+		#no-templates-delete{
+			border-color: #4a4658;
+			border-style: solid;
+			height: 50px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 20px;
+			border-width: thin;
+		}
+		.templates{
+			border-color: #4a4658;
+			border-style: solid;
+			border-radius: 20px;
+			border-width: thin;
+			overflow-y: scroll;
+			max-height: 190px;
+			padding-inline-start: 0px;
+			scrollbar-width: none;
+    		scrollbar-color: transparent transparent;
+		}
+
+		
+		
+		
+	</style>
 	<roundcube:if condition="config:devel_mode" />
 		<link rel="stylesheet/less" href="/styles/styles.less">
 		<roundcube:link rel="stylesheet/less" href="/styles/print.less" condition="env:action == 'print'" />
@@ -78,22 +163,22 @@
 		</script>
 	<roundcube:endif />
 </head>
-<body onload = "checksubject(); checkReply(); convertMobileView()" class="task-<roundcube:exp expression="env:error_task ?: env:task ?: 'error'"> action-<roundcube:exp expression="asciiwords(env:action, true, '-') ?: 'none'">">
+<body onload = "checksubject(); checkReply(); convertMobileView(); injectTranslateLink(); modifyLogoutButton();" class="task-<roundcube:exp expression="env:error_task ?: env:task ?: 'error'"> action-<roundcube:exp expression="asciiwords(env:action, true, '-') ?: 'none'">">
 	<!--Modal for auto draft-->
 	<div id="auto-draft-modal" class="modal fade" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content ui-widget-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="modalLabel">Email AI Drafting</h5>
+					<h5 class="modal-title" id="modalLabel">Email AI Drafting </h5>
 					<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">&#10006</button>
 				</div>
 				<div class="modal-body">
 					<!-- Search Bar for Phrases -->
-					<div class="mb-3">
+					<!--div class="mb-3">
 						<label for="search-bar" class="form-label">Search for a phrase</label>
 						<input type="text" id="search-bar" class="form-control" placeholder="Search for a phrase..." oninput="searchPhrases()">
 						<ul id="suggestions" class="list-group listing mt-2"></ul>
-					</div>
+					</div-->
 
 					<!-- Detailed Information for the Email -->
 					<div class="mb-3">
@@ -173,6 +258,145 @@
 			</div>
 		</div>
 	</div>
+
+	<!--translage modal-->
+	<div id="translate-modal" class="modal fade" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content ui-widget-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modalLabel">Translate</h5>
+					<a class="button unread translate" title="Show unread messages"></a>
+					<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">&#10006</button>
+				</div>
+				<div class="modal-body">
+	
+					<!-- Scrollable Menu -->
+					<div class="mb-3">
+						<label for="translation-menu" class="form-label">Available Translations</label>
+						<div id="translation-menu" class="form-control" style="height: 300px; overflow-y: scroll;">
+							<!-- Add dynamically generated translations here -->
+							<ul id="translation-list" class="list-group listing"></ul>
+						</div>
+					</div>
+	
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--logout modal-->
+	<div id="logout-modal" class="modal fade" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+		<div class="modal-content ui-widget-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="logoutModalLabel">Confirm Logout</h5>
+				<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">&#10006;</button>
+			</div>
+			<div class="modal-body">
+				<p>Are you sure you want to log out?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+				<a href="/?_task=logout" class="btn btn-danger" onclick="return rcmail.command('switch-task', 'logout', this, event)">
+				Logout
+				</a>
+			</div>
+		</div>
+		</div>
+	</div>
+
+	<!--template modal-->
+	<div id="template-modal" class="modal fade" tabindex="-1" aria-labelledby="templateModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content ui-widget-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="templateModalLabel">Manage Templates</h5>
+					<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">&#10006;</button>
+				</div>
+				<div class="modal-body">
+	
+					<!-- Add Template Button -->
+					<button id="add-template-btn" data-dismiss="modal" data-toggle="modal" data-target="#add-template-modal" class="btn btn-outline-primary w-100 d-flex align-items-center">
+						<span class="me-2">+ </span> Add Your Template
+					</button>
+	
+					<!-- Section to Display Templates -->
+					<div class="mt-3" id="template-list">
+						<label for="template-display" class="form-label">Your Templates</label>
+
+						<div id="no-templates">No templates added yet</div>
+					</div>	
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--add template-->
+	<div id="add-template-modal" class="modal fade" tabindex="-1" aria-labelledby="templateModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content ui-widget-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="templateModalLabel">Name your template</h5>
+					<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">&#10006;</button>
+				</div>
+				<div class="modal-body">
+					<div class="mb-3">
+						<label for="search-bar" class="form-label">Your email will be saved as a template !!</label>
+						<input type="text" id="template-name" class="form-control" placeholder="Enter your template name here...">
+					</div>
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" id="saveTemplateBtn"  onclick="saveTemplate()">Save template</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--template limit modal-->
+	<div id="template-limit-modal" class="modal fade" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content ui-widget-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="logoutModalLabel">Template limit reached</h5>
+					<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">&#10006;</button>
+				</div>
+				<div class="modal-body">
+					<p>Would you like to delete a template to make space?</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+					<a href="#" class="btn btn-danger" data-dismiss="modal" data-toggle="modal" data-target="#delete-template-modal" onclick="getTemplatesToDelete()">
+					Delete a template
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--delete template modal-->
+	<div id="delete-template-modal" class="modal fade" tabindex="-1" aria-labelledby="templateModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content ui-widget-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="templateModalLabel">Delete Templates</h5>
+					<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">&#10006;</button>
+				</div>
+				<div class="modal-body">
+	
+					<!-- Section to Display Templates -->
+					<div class="mt-3" id="delete-template-list">
+						<label for="template-display" class="form-label">Your Templates</label>
+
+						<div id="no-templates-delete">No templates to delete</div>
+					</div>	
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
 	<roundcube:if condition="!env:framed || env:extwin" />
 		<div id="<roundcube:exp expression="env:action == 'print' ? 'print-' : ''">layout">
 	<roundcube:endif />

@@ -40,13 +40,13 @@
         li {
             display: inline-block;
             height: @layout-touch-header-height;
+            padding-top: 0.8rem;
         }
 
         a {
             color: @color-toolbar-button;
             display: block;
             float: left;
-            border: 0 !important;
             height: @layout-header-height;
             min-width: 3.2rem;
             max-width: 6rem;
@@ -92,9 +92,14 @@
         }
     }
 
-    span.inner {
-        font-size: 90%;
-        font-weight: normal;
+    @media screen and (min-width: (@screen-width-medium + 1px)) {
+        span.inner {
+            font-size: 100%;
+            padding: 3px 5px !important;
+            line-height: 1rem !important;
+            display: none;
+            font-size: .9rem !important;
+        }
     }
 
     .dropbutton {
@@ -417,7 +422,7 @@ a.toolbar-button {
         content: @fa-var-users;
     }
     &.options:before {
-        content: @fa-var-sliders-h;
+        content: @fa-var-wrench;
     }
     &.settings:before {
         content: @fa-var-cog;
@@ -653,7 +658,7 @@ a.toolbar-button {
         content: @fa-var-trash-alt;
     }
     &.select:before {
-        content: @fa-var-mouse-pointer;
+        content: @fa-var-check-square;
     }
     &.select.all:before {
         content: @fa-var-asterisk;
@@ -713,7 +718,6 @@ a.toolbar-button {
     min-height: @layout-searchbar-height; // because of Flexbox
     line-height: @layout-searchbar-height;
     background-color: @color-searchbar-background;
-    border-bottom: 1px solid @color-list-border;
     display: flex;
     align-items: center;
     overflow: hidden;
@@ -856,15 +860,12 @@ a.toolbar-button {
             }
         }
 
-        span.inner {
-            font-size: 100%;
-        }
     }
 
     @media screen and (min-width: (@screen-width-xs + 1px)) {
         a {
             color: @color-taskmenu-button;
-            padding: .45rem 0;
+            padding: 1.2rem 0;
             min-width: unset;
 
             &.selected {
@@ -886,8 +887,13 @@ a.toolbar-button {
         .special-buttons {
             position: absolute;
             bottom: 0;
-            left: 0;
-            background-color: @color-taskmenu-background;
+            background-color: @color-taskmenu-background;        
+            left: auto;
+            right: 0;
+        }
+
+        .special-buttons a{
+            border-left: thin solid #ddd !important;
         }
 
         .action-buttons {
@@ -909,6 +915,8 @@ a.toolbar-button {
                 color: @color-taskmenu-button-logout-hover !important;
             }
         }
+
+        
     }
 
     @media screen and (min-width: (@screen-width-xs + 1px)) and (max-width: @screen-width-medium) {
@@ -943,7 +951,11 @@ a.toolbar-button {
         }
 
         span.inner {
-            padding: 0 .1em;
+            font-size: 100%;
+            padding: 3px 5px !important;
+            line-height: 1rem !important;
+            display: none;
+            font-size: .9rem !important;
         }
     }
 }

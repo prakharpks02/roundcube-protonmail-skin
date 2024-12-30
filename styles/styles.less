@@ -153,6 +153,23 @@ body.task-error-login #layout {
     padding: .5em;
 }
 
+// #messagelist-content{
+//     border-radius: 24px;
+//     border-right: none;
+//     box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 6px;
+//     margin: 0.5rem 0.3rem;
+// }
+
+#translate-modal {
+    & > .modal-title &:after {
+        &:extend(.font-icon-class);
+            display: inline;
+            float: none;
+            content: @fa-var-coins;
+            font-size: 1em;
+            color: #fff;
+    }
+}
 #message-header {
     margin-bottom: 1rem;
 
@@ -462,6 +479,160 @@ body.task-error-login #layout {
     font-size: 1.2em;
     font-weight: bold;
 }
+
+/**Extra UI ***/
+.list-group-item{
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-bottom: solid;
+    border-width: thin;
+    padding-left: 20px;
+    border-color: @color-dark-border;
+}
+
+.list-group-item:hover {
+    background-color: @color-link-hover; 
+    color: #ffff;
+    cursor: pointer;
+}
+
+.templates::-webkit-scrollbar {
+    display: none;
+}
+
+.btn {
+    border-radius: 10px;
+}
+
+.searchbar {
+    height: 46px;
+    min-height: 36px;
+    line-height: 46px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    border-radius: 20px;
+    margin: 0.5rem 0.2rem;
+    
+}
+
+#layout-sidebar .scroller li {
+    border-bottom: transparent;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    margin: 0.3rem 1.8rem 0 0;
+    
+}
+
+#layout-sidebar .scroller {
+    padding-top: 1.2rem;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+}
+// #layout-menu{
+//     order: 4;
+//     border-right: none !important;
+// }
+
+.pagenav.menu.footer {
+    margin-right: 0.3rem !important;
+    border-right: 1px solid #ddd;
+}
+
+.header li {
+    padding-top: 0.8rem;
+}
+
+a.refresh {
+    padding: 1.2rem;
+}
+
+.toggle-password {
+    position: absolute;
+    top: 20%;
+    right: 15px;
+    margin-top: 1.1rem;
+    z-index: 10;
+    opacity: 50%
+}
+
+.toggle-password::before {
+    content: var(--icon-content, "\f06e");
+    font-family: Icons;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.ui-alert .btn{
+    border: none !important;
+}
+
+.credits-menu-item {
+    padding-top: 1rem;
+    span.inner {
+        display: initial;
+        position: absolute;
+        top: 10px;
+    }
+}
+
+@media screen and (min-width: (@screen-width-xs + 1px)) and (max-width: @screen-width-medium){
+    .credits-menu-item {
+        .icon-wrapper{
+            justify-content: left;
+        }
+        span.inner{
+            position: absolute;
+            display: initial;
+            top: -1.2rem;
+            left: 3rem;
+        }
+        
+    }
+    
+}
+@media screen and (max-width: @screen-width-medium){
+    .menu.toolbar li{
+        padding-top: 0;
+    }
+}
+
+.pagenav.menu.footer {
+    margin-right: 0.3rem !important;
+    border-left: thin solid @color-border;
+    margin-left: 0.3rem !important;
+}
+
+@media screen and (min-width: (@screen-width-medium + 1px)){
+    #compose-content {
+        margin-left: 1rem !important;
+    }
+}
+
+
+#_from,
+#compose-subject{
+    border-radius: 20px;
+}
+
+ul.form-control.recipient-input.ac-input.rounded-left.ui-sortable{
+    border-top-left-radius: 20px !important;
+    border-bottom-left-radius: 20px !important;
+}
+
+a.input-group-text.icon.delete,
+a.input-group-text.icon.add.active {
+    border-top-right-radius: 20px !important;
+    border-bottom-right-radius: 20px !important;
+}
+
+.folderlist li a[rel="Scheduled"]:before {
+    content: "\f017" !important;
+}
+
 
 /*** Settings UI ***/
 

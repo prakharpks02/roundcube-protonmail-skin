@@ -48,14 +48,14 @@
 			<div class="form-group row">
 				<label for="compose-priority" class="col-form-label col-6"><roundcube:label name="priority" /></label>
 				<div class="col-6">
-					<roundcube:object name="prioritySelector" id="compose-priority" noform="true" tabindex="2" class="custom-select" />
+					<roundcube:object name="prioritySelector" id="compose-priority" noform="true" tabindex="2" class="dropdown" />
 				</div>
 			</div>
 			<roundcube:if condition="!config:no_save_sent_messages" />
 			<div class="form-group row">
 				<label for="compose-store-target" class="col-form-label col-6"><roundcube:label name="savesentmessagein" /></label>
 				<div class="col-6">
-					<roundcube:object name="storetarget" id="compose-store-target" noform="true" tabindex="2" class="custom-select" />
+					<roundcube:object name="storetarget" id="compose-store-target" noform="true" tabindex="2" class="dropdown" />
 				</div>
 			</div>
 			<roundcube:endif />
@@ -86,16 +86,6 @@
 			<a href="#responses" class="responses" label="responses" title="<roundcube:label name='insertresponse' />" unselectable="on" tabindex="2" data-popup="responses-menu">
 				<span class="inner"><roundcube:label name="responses" /></span>
 			</a>
-			<roundcube:if condition="!empty(env:spell_langs)" />
-			<span class="dropbutton">
-				<roundcube:button command="spellcheck" type="link" class="spellcheck disabled"
-					classAct="spellcheck" classSel="button spellcheck pressed"
-					label="spellcheck" title="checkspelling" tabindex="2" innerclass="inner" />
-				<a href="#languages" class="dropdown" tabindex="2" data-popup="spell-menu">
-					<span class="inner"><roundcube:label name="language" /></span>
-				</a>
-			</span>
-			<roundcube:endif />
 			<span class="dropbutton" style="display:none">
 				<roundcube:button command="compose-encrypted" type="link" class="encrypt disabled"
 					classAct="encrypt" classSel="encrypt selected" innerclass="inner"
@@ -214,18 +204,25 @@
 		</form>
 		<div class="formbuttons">
 			<roundcube:button command="send" class="btn btn-primary send" label="send" tabindex="1" data-content-button="true" />
-			<button id="auto-draft-button" data-toggle="modal" data-target="#auto-draft-modal" tabindex="1" class="btn btn-secondary" style="cursor: pointer; background-image: linear-gradient(90deg, #00ceb1 0%, #1E92FB 100%);">
-				<span class="icon">
-					<i class="fa-solid fa-wand-magic-sparkles"></i>
-				</span>
-				<span>AI draft</span>
-			</button>
 			<button id="schedule-send-button" data-toggle="modal" data-target="#schedule-send-modal" onclick="generateScheduleOptions()" tabindex="1" class="btn btn-secondary" style="cursor: pointer;">
 				<span class="icon">
 					<i class="fa-regular fa-clock"></i>
 				</span>
 				<span>Schedule Send</span>
 			</button>
+			<button id="templates-button" data-toggle="modal" data-target="#template-modal" onclick="getTemplates()" tabindex="1" class="btn btn-secondary" style="cursor: pointer;">
+				<span class="icon">
+					<i class="fa-solid fa-file"></i>
+				</span>
+				<span>Templates</span>
+			</button>
+			<button id="auto-draft-button" data-toggle="modal" data-target="#auto-draft-modal" tabindex="1" class="btn btn-secondary" style="cursor: pointer; background-image: linear-gradient(90deg, #00ceb1 0%, #1E92FB 100%);">
+				<span class="icon">
+					<i class="fa-solid fa-wand-magic-sparkles"></i>
+				</span>
+				<span>AI draft</span>
+			</button>
+			
 			<div class="float-right">
 				<roundcube:button command="extwin" type="link" label="openinextwin" data-hidden="small" class="button icon btn btn-link extwin" data-tabindex="1" condition="!env:extwin" />
 			</div>
@@ -794,10 +791,11 @@
 		"Confirm receipt of an important document",
 	];
 
-	const autoDraftApiURL = 'https://console.gofloww.co/api/mail/auto-draft/'
-	const scheduleSendApiURL = 'https://console.gofloww.co/api/mail/schedule-send/'
-	const replyAssistApiURL = 'https://console.gofloww.co/api/mail/reply-assist/'
-	const getCreditsApiURL = 'https://console.gofloww.co/api/mail/get-email-credits/'
+	const autoDraftApiURL = 'https://dev.gofloww.co/api/mail/auto-draft/'
+	const scheduleSendApiURL = 'https://dev.gofloww.co/api/mail/schedule-send/'
+	const replyAssistApiURL = 'https://dev.gofloww.co/api/mail/reply-assist/'
+	const getCreditsApiURL = 'https://dev.gofloww.co/api/mail/get-email-credits/'
+	const baseURL= 'https://dev.gofloww.co/api/mail/'
 
 	// Show the modal when the Auto-Draft button is clicked
 	function showModal() {
@@ -811,6 +809,29 @@
 		const emailSubject= document.getElementById('compose-subject').value;
 		const replyAssistButton = document.getElementById('reply-assist-btn');
 		const toolbar = document.getElementsByClassName('editor-toolbar')[0];
+		var composePriority = document.getElementById('compose-priority');
+		var composeStoreTarget = document.getElementById('compose-store-target');
+
+		// Remove the 'custom-select' class if it exists
+		if (composePriority && composePriority.classList.contains('custom-select')) {
+			composePriority.classList.remove('custom-select');
+		}
+
+		if (composeStoreTarget && composeStoreTarget.classList.contains('custom-select')) {
+			composeStoreTarget.classList.remove('custom-select');
+		}
+
+		// Removing the open in new window text
+		var formButtonsDiv = document.querySelector('.formbuttons');
+		if (formButtonsDiv) {
+			var openInNewWindowButton = formButtonsDiv.querySelector('.float-right .button.icon');
+			if (openInNewWindowButton) {
+				openInNewWindowButton.textContent = '';
+			}
+		}
+
+		var OpenInNewWindowButton = document.getElementsByClassName('extwin')[0];
+		OpenInNewWindowButton.setAttribute("title", "Open in New Window");
 		
 		if (emailSubject.includes('Re:')) {
 			const htmlButton = document.querySelector('a.mce-i-html'); 
@@ -872,26 +893,27 @@
 
 	// Function to call OpenAI API to generate an email
 	async function generateEmail() {
-		const searchBar = document.getElementById('search-bar');
+		//const searchBar = document.getElementById('search-bar');
 		const emailDetails = document.getElementById('email-details');
 		const selectedText = document.getElementById('composebody');
 		const existingText = selectedText.value;
-		const topic = searchBar.value;
+		//const topic = searchBar.value;
 		const description = emailDetails.value;
 		const fromSelect = document.getElementById('_from');
 		const from_email = fromSelect.options[fromSelect.selectedIndex].text;
-		console.log(topic);
-		console.log(description);
+		//console.log(topic);
+		//console.log(description);
+		var messageKey = rcmail.display_message('Generating email,please wait.....', 'loading');
 
 		try {
-			fetch(autoDraftApiURL, {
+			fetch(`${baseURL}auto-draft/`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
-					topic: topic,
-					description: description,
+					topic: description,
+					description: '',
 					from_email: from_email,
 				}, 40000)
 			}).then(response => {
@@ -907,21 +929,25 @@
 			}).then(responseData => {
 				const generatedEmail = responseData.email_body;
 				selectedText.value = `${generatedEmail}\n\n${existingText}`;
+				rcmail.hide_message(messageKey, false);
 			}).catch(error => {
 				console.error('Error generating email:', error);
 				showErrorModal('error-modal', 'Error', error.message);
 				selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
+				rcmail.hide_message(messageKey, false);
 			})
 
 		} catch (error) {
 			console.error('Error generating email:', error);
 			showErrorModal('error-modal', 'Error', error.message);
-			selectedText.value = `Error generating email. Please try again.\n\n${existingText}`
+			selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
+			rcmail.hide_message(messageKey, false);
 		}
+		
 	}
 
 	function scheduleMessage(data){
-		return fetch(scheduleSendApiURL, {
+		return fetch(`${baseURL}schedule-send/`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -969,13 +995,6 @@
 			thisAfternoon.setHours(13, 0, 0, 0);
 		}
 	
-		// If the current time is past today's morning, set tomorrowMorning to the next day
-		if (now.getHours() >= 8) {
-			tomorrowMorning = new Date(now);
-			tomorrowMorning.setDate(now.getDate() + 2);
-			tomorrowMorning.setHours(8, 0, 0, 0);
-		}
-	
 		// Calculate Next Monday Morning at 08:00 AM
 		let nextMondayMorning = new Date(now);
 		const dayOfWeek = nextMondayMorning.getDay();
@@ -987,23 +1006,64 @@
 		if (dayOfWeek === 1 && now.getHours() >= 8) {
 			nextMondayMorning.setDate(now.getDate() + 7);
 		}
+
+		const scheduleOptionsArray = [
+		{
+			id: 'option1',
+			label: 'Tomorrow morning',
+			date: tomorrowMorning,
+			numericDate: formatDateNumeric(tomorrowMorning),
+			numericTime: formatTimeNumeric(tomorrowMorning),
+			formattedDate: formatDate(tomorrowMorning),
+			formattedTime: formatTime(tomorrowMorning)
+		},
+		{
+			id: 'option2',
+			label: now.getHours() >= 13 ? 'Tomorrow afternoon' : 'This afternoon',
+			date: thisAfternoon,
+			numericDate: formatDateNumeric(thisAfternoon),
+			numericTime: formatTimeNumeric(thisAfternoon),
+			formattedDate: formatDate(thisAfternoon),
+			formattedTime: formatTime(thisAfternoon)
+		},
+		{
+			id: 'option3',
+			label: 'Monday morning',
+			date: nextMondayMorning,
+			numericDate: formatDateNumeric(nextMondayMorning),
+			numericTime: formatTimeNumeric(nextMondayMorning),
+			formattedDate: formatDate(nextMondayMorning),
+			formattedTime: formatTime(nextMondayMorning)
+		}
+		];
+
+		// Sort the array by the date property
+		scheduleOptionsArray.sort((a, b) => a.date - b.date);
+
+		// Render the sorted schedule options into the modal
+		scheduleOptions.innerHTML = scheduleOptionsArray.map(option => `
+			<div class="schedule-option" id="${option.id}" onclick="selectOption('${option.id}', '${option.numericDate}', '${option.numericTime}')">
+				<span>${option.label}</span>
+				<span class="float-end">${option.formattedDate}, ${option.formattedTime}</span>
+			</div>
+		`).join('');
 	
 		// Insert the options into the modal
-		const scheduleOptions = document.getElementById('scheduleOptions');
-		scheduleOptions.innerHTML = `
-			<div class="schedule-option active" id="option1" onclick="selectOption('option1', '${formatDateNumeric(tomorrowMorning)}', '${formatTimeNumeric(tomorrowMorning)}')">
-				<span>Tomorrow morning</span>
-				<span class="float-end">${formatDate(tomorrowMorning)}, ${formatTime(tomorrowMorning)}</span>
-			</div>
-			<div class="schedule-option" id="option2" onclick="selectOption('option2', '${formatDateNumeric(thisAfternoon)}', '${formatTimeNumeric(thisAfternoon)}')">
-				<span>${now.getHours() >= 13 ? 'Tomorrow afternoon' : 'This afternoon'}</span>
-				<span class="float-end">${formatDate(thisAfternoon)}, ${formatTime(thisAfternoon)}</span>
-			</div>
-			<div class="schedule-option" id="option3" onclick="selectOption('option3', '${formatDateNumeric(nextMondayMorning)}', '${formatTimeNumeric(nextMondayMorning)}')">
-				<span>Monday morning</span>
-				<span class="float-end">${formatDate(nextMondayMorning)}, ${formatTime(nextMondayMorning)}</span>
-			</div>
-		`;
+		//const scheduleOptions = document.getElementById('scheduleOptions');
+		//scheduleOptions.innerHTML = `
+		//	<div class="schedule-option active" id="option1" onclick="selectOption('option1', '${formatDateNumeric(tomorrowMorning)}', '${formatTimeNumeric(tomorrowMorning)}')">
+		//		<span>Tomorrow morning</span>
+		//		<span class="float-end">${formatDate(tomorrowMorning)}, ${formatTime(tomorrowMorning)}</span>
+		//	</div>
+		//	<div class="schedule-option" id="option2" onclick="selectOption('option2', '${formatDateNumeric(thisAfternoon)}', '${formatTimeNumeric(thisAfternoon)}')">
+		//		<span>${now.getHours() >= 13 ? 'Tomorrow afternoon' : 'This afternoon'}</span>
+		//		<span class="float-end">${formatDate(thisAfternoon)}, ${formatTime(thisAfternoon)}</span>
+		//	</div>
+		//	<div class="schedule-option" id="option3" onclick="selectOption('option3', '${formatDateNumeric(nextMondayMorning)}', '${formatTimeNumeric(nextMondayMorning)}')">
+		//		<span>Monday morning</span>
+		//		<span class="float-end">${formatDate(nextMondayMorning)}, ${formatTime(nextMondayMorning)}</span>
+		//	</div>
+		//`;
 	}
 	
 	// Function to format the date into a readable format
@@ -1086,11 +1146,11 @@
 			date: date,
 			time: time
 		}
-		console.log(data);
+		//console.log(data);
 		await rcmail.command('savedraft','',this,event)
 		scheduleMessage(data)
 			.then((result) => {
-				console.log("Message Scheduled Successfully:", result);
+				//console.log("Message Scheduled Successfully:", result);
 				if(result.message === "message scheduled successfully"){
 					window.location.href = "/?_task=mail&_mbox=Scheduled";
 				}
@@ -1100,7 +1160,7 @@
 			.catch((error) =>{
 				console.error("Error scheduling message:", error);
 			});
-		console.log(data);
+		//console.log(data);
 	}
 		
     // Update the selected date and time on the page
@@ -1133,11 +1193,11 @@
 			date: selectedDate,
 			time: selectedTime
 		}
-		console.log(data);
+		//console.log(data);
 		rcmail.command('savedraft','',this,event)
 		scheduleMessage(data)
 			.then((result) => {
-				console.log("Message Scheduled Successfully:", result);
+				//console.log("Message Scheduled Successfully:", result);
 				if(result.message === "message scheduled successfully"){
 					window.location.href = "/?_task=mail&_mbox=Scheduled";
 				}
@@ -1147,7 +1207,7 @@
 			.catch((error) =>{
 				console.error("Error scheduling message:", error);
 			});
-		console.log(data);
+		//console.log(data);
 
 		// Close the custom date-time picker modal
 		var customDateTimeModal = new bootstrap.Modal(document.getElementById('custom-date-time-modal'));
@@ -1161,10 +1221,10 @@
 		const existingText = selectedText.value;
 		const fromSelect = document.getElementById('_from');
 		const from_email = fromSelect.options[fromSelect.selectedIndex].text; 
-		console.log({subject: emailSubject.value, email_body: existingText});
-
+		//console.log({subject: emailSubject.value, email_body: existingText});
+		var messageKey = rcmail.display_message('Generating reply,please wait.....', 'loading');
 		try {
-			fetch(replyAssistApiURL, {
+			fetch(`${baseURL}reply-assist/`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -1186,22 +1246,27 @@
 			}).then(responseData =>{
 				const generatedEmail = responseData.email_body;
 				selectedText.value = `${generatedEmail}\n\n${existingText}`;
+				rcmail.hide_message(messageKey, false);
 			}).catch(error =>{
 				console.error('Error generating email:', error);
 				showErrorModal('error-modal', 'Error', error.message);
 				selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
+				rcmail.hide_message(messageKey, false);
 			})
 		} catch (error) {
 			console.error('Error generating email:', error);
 			showErrorModal('error-modal', 'Error', error.message);
-			selectedText.value = `Error generating email. Please try again.\n\n${existingText}`
+			selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
+			rcmail.hide_message(messageKey, false);
 		}
+		
 	}
 
 	function convertMobileView(){
 		detectViewAndDisplayCredits();
 		var clonedAutoDraftButton = $('#auto-draft-button-clone');
 		var clonedScheduleSendButton = $('#schedule-send-button-clone');
+		var clonedtemplateButton = $('#templates-button-clone');
 
         if (clonedAutoDraftButton.length) {
             // Ensure it's a jQuery object
@@ -1262,6 +1327,35 @@
                                     .addClass('btn')
                                     .removeClass('button');
         }
+
+		if (clonedtemplateButton.length) {
+            clonedtemplateButton = $(clonedtemplateButton);
+
+            // Remove 'disabled' class
+            clonedtemplateButton.removeClass('disabled');
+
+            // Clear existing content and add new icon and text
+            clonedtemplateButton.html(`
+                <span class="icon" style="display: inline-block; text-align: center;">
+                    <i class="fa-solid fa-file" aria-hidden="true" style="font-size: 20px;"></i>
+                    <br/>
+                </span>
+                <span style="display: block; text-align: center;">Templates</span>
+            `);
+
+            // Add the onclick event to open the modal and execute the function
+            clonedtemplateButton.on('click', function(e) {
+                e.preventDefault();
+                getTemplates(); // Call your existing function
+                $('#template-modal').modal('show'); // Show the modal
+            });
+
+            // Ensure tabindex and class adjustments
+            clonedtemplateButton.attr('tabindex', '0')
+                                    .addClass('btn')
+                                    .removeClass('button');
+        }
+
 	}
 
 	async function getCredits() {
@@ -1269,7 +1363,7 @@
 		const fromText = fromSelect.options[fromSelect.selectedIndex].text;
 	
 		try {
-			const response = await fetch(getCreditsApiURL, {
+			const response = await fetch(`${baseURL}get-email-credits/`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -1439,6 +1533,197 @@
 	
 		// Show the modal using Bootstrap's modal function
 		$(`#${modalId}`).modal('show');
+	}
+	
+	async function getTemplates(){
+		const fromSelect = document.getElementById('_from');
+		const from_email = fromSelect.options[fromSelect.selectedIndex].text;
+		
+		const response = await fetch(`${baseURL}get-template-list/`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ email: from_email}, 40000)
+		});
+		const responseData = await response.json();
+		if(response.ok){
+			templates = responseData.templates;
+			const templateContainer = document.getElementById("template-list");
+			const noTemplatesMessage = document.getElementById("no-templates");
+
+			if (templateContainer) {
+				const listItems = document.getElementsByClassName('templates');
+				if(listItems){
+					Array.from(listItems).forEach(listItem =>{
+						listItem.remove();
+					})
+				}
+			}
+			if (noTemplatesMessage) noTemplatesMessage.style.display = "none";
+			//console.log(templates)
+			const ul = document.createElement("ul");
+			ul.className = "templates";
+			templates.reverse().forEach(template => {
+				const li = document.createElement("li");
+				li.className = "list-group-item template-item";
+				li.textContent = template.template_name;
+				li.cursor = 'pointer';
+				li.setAttribute("data-toggle", "modal");
+				li.setAttribute("data-target", "#template-modal");
+				li.onclick = function(){
+					getTemplate(template.template_id)
+				}
+				
+				ul.appendChild(li);
+			})
+			templateContainer.appendChild(ul);
+		}
+	}
+
+	async function getTemplate(template_id){
+		var messageKey = rcmail.display_message('Loading template,please wait.....', 'loading');
+		try{
+			const fromSelect = document.getElementById('_from');
+			const from_email = fromSelect.options[fromSelect.selectedIndex].text;
+			const response = await fetch(`${baseURL}get-template/`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ email:from_email, template_id: template_id}, 40000)
+			});
+			const responseData = await response.json();
+
+			if(response.ok){
+				const selectedText = document.getElementById('composebody');
+				const existingText = selectedText.value;
+				const templateContent = responseData.template.template_content;
+				selectedText.value = `${templateContent}`;
+				rcmail.hide_message(messageKey, false);
+			}else{
+				showErrorModal('error-modal', 'Error', responseData.error);
+				rcmail.hide_message(messageKey, false);
+			}	
+		}catch(e) {
+			//console.log('Error: ',e);
+			showErrorModal('error-modal', 'Error', 'Error fetching template try again later..');
+			rcmail.hide_message(messageKey, false);
+		}
+		
+	}
+
+	async function saveTemplate(){
+		var messageKey = rcmail.display_message('Adding template ,please wait.....', 'uploading');
+		try{
+			const fromSelect = document.getElementById('_from');
+			const from_email = fromSelect.options[fromSelect.selectedIndex].text;
+			const selectedText = document.getElementById('composebody');
+			const template_content = selectedText.value;
+			const templateName = document.getElementById('template-name')
+			const template_name = templateName.value;
+			const response = await fetch(`${baseURL}add-template/`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ email:from_email, template_name: template_name, template_content: template_content}, 40000)
+			});
+			const responseData = await response.json();
+			if(response.ok){
+				rcmail.hide_message(messageKey, false);
+				rcmail.display_message('Template added successfully', 'confirmation');
+				
+			}else{
+				rcmail.hide_message(messageKey, false);
+				if(responseData.error=="Template limit exceeded"){
+					$('#template-limit-modal').modal('show');
+				}else{
+					messageKey = rcmail.display_message('Could not add the template', 'warning');
+				}
+			}
+		}catch(e) {
+			//console.log('Error: ',e);
+			rcmail.hide_message(messageKey, false);
+			rcmail.display_message('Could not add the template', 'warning');
+			
+		}
+	}
+
+	async function deleteTemplate(template_id){
+		var messageKey = rcmail.display_message('Deleting template ,please wait.....', 'uploading');
+		try{
+			const fromSelect = document.getElementById('_from');
+			const from_email = fromSelect.options[fromSelect.selectedIndex].text;
+			const response = await fetch(`${baseURL}delete-template/`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ email:from_email, template_id:template_id}, 40000)
+			});
+			const responseData = await response.json();
+			if(response.ok){
+				rcmail.hide_message(messageKey, false);
+				rcmail.display_message('Template deleted successfully', 'confirmation');
+				
+			}else{
+				rcmail.hide_message(messageKey, false);
+				messageKey = rcmail.display_message('Could not delete the template', 'warning');
+				
+			}
+		}catch(e) {
+			//console.log('Error: ',e);
+			rcmail.hide_message(messageKey, false);
+			rcmail.display_message('Could not delete the template', 'warning');
+			
+		}
+	}
+
+	async function getTemplatesToDelete(){
+		const fromSelect = document.getElementById('_from');
+		const from_email = fromSelect.options[fromSelect.selectedIndex].text;
+		
+		const response = await fetch(`${baseURL}get-template-to-delete/`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ email: from_email}, 40000)
+		});
+		const responseData = await response.json();
+		if(response.ok){
+			templates = responseData.templates;
+			const templateContainer = document.getElementById("delete-template-list");
+			const noTemplatesMessage = document.getElementById("no-templates-delete");
+
+			if (templateContainer) {
+				const listItems = document.getElementsByClassName('templates');
+				if(listItems){
+					Array.from(listItems).forEach(listItem =>{
+						listItem.remove();
+					})
+				}
+			}
+			if (noTemplatesMessage) noTemplatesMessage.style.display = "none";
+			//console.log(templates)
+			const ul = document.createElement("ul");
+			ul.className = "templates";
+			templates.reverse().forEach(template => {
+				const li = document.createElement("li");
+				li.className = "list-group-item template-item";
+				li.textContent = template.template_name;
+				li.cursor = 'pointer';
+				li.setAttribute("data-toggle", "modal");
+				li.setAttribute("data-target", "#delete-template-modal");
+				li.onclick = function(){
+					deleteTemplate(template.template_id)
+				}
+				
+				ul.appendChild(li);
+			})
+			templateContainer.appendChild(ul);
+		}
 	}
 
 </script>

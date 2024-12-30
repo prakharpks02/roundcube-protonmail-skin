@@ -95,6 +95,318 @@
 			injectEditButton();  // Call function after popstate event
 		});
 	}
+
+	function injectTranslateLink() {
+
+		//changes in footer on compose page
+		if (window.location.href.includes('task=mail')){
+			const elements = document.querySelectorAll('.pagenav.menu.footer');
+			if(elements){
+				elements.forEach(element => {
+					element.style.setProperty('border-left', 'none', 'important');
+					element.style.setProperty('margin-left', '0', 'important');
+				});
+			}
+		}
+
+		// edit options from prefernces
+		try{
+			const SpecialFolders = document.getElementById('rcmrowfolders');
+			const ServerSettings = document.getElementById('rcmrowserver');
+			const Encryption=  document.getElementById('rcmrowencryption');
+			const DisplaySettings = document.getElementById('rcmrowmailview');
+			const Composing = document.getElementById('rcmrowcompose');
+			SpecialFolders.remove();
+			ServerSettings.remove();
+			Encryption.remove();
+
+			DisplaySettings.querySelector('td').innerHTML = 'Advance Settings';
+			Composing.querySelector('td').innerHTML = 'Prefernces';
+		}catch(e){
+			//console.log(e);
+		}
+		
+
+		// to change formating of the page number
+		const element = document.querySelector('.pagenav-text#rcmcountdisplay');
+
+		if (element) {
+			let text = element.textContent;
+			text = text.replace('Messages', '').replace(' to ', '-').trim();
+			element.textContent = text;
+		}
+
+		// injecting translate link
+		const frame = document.querySelector('#layout-content .iframe-wrapper #messagecontframe');
+		let headerLinks;
+		if(frame){
+			headerLinks = frame.contentDocument.getElementsByClassName('header-links')[0];
+		}else{
+			headerLinks = document.getElementsByClassName('header-links')[0];
+		}
+		
+		if (headerLinks) {
+			// Create a new <a> element
+			const translateLink = document.createElement('a');
+			translateLink.href = "#translate";
+			translateLink.className = "translate-link headers-all"; // Add a custom class
+			translateLink.setAttribute("data-toggle", "modal");
+			translateLink.setAttribute("data-target", "#translate-modal");
+			
+			translateLink.style.backgroundImage = 'linear-gradient(90deg, #00ceb1 0%, #1E92FB 100%)';
+			translateLink.style.webkitBackgroundClip = 'text';  
+			translateLink.style.backgroundClip = 'text';       
+			translateLink.style.color = 'transparent';          
+			translateLink.style.marginLeft = '5px';
+	
+			translateLink.onclick = function () {
+				populateTranslationMenu();
+				return false; 
+			};
+			translateLink.innerHTML = 'Translate(2'
+
+			headerLinks.appendChild(translateLink);
+
+			const coins = document.createElement('a');
+			coins.href = "#translate";
+			coins.className = "coins headers-all";
+			coins.style.backgroundImage = 'linear-gradient(90deg, #00ceb1 0%, #1E92FB 100%)';
+			coins.style.webkitBackgroundClip = 'text';  
+			coins.style.backgroundClip = 'text';       
+			coins.style.color = 'transparent';
+			coins.style.marginLeft = '-6px';
+
+			coins.onclick = function(){
+				populateTranslationMenu();
+				return false;
+			}
+
+			coins.innerHTML = ')';
+			
+			headerLinks.appendChild(coins);
+			
+		} 
+	}
+
+	function populateTranslationMenu() {
+		// List of languages ChatGPT supports for translation
+		const languages = [
+			"English", // Keep English as the first item
+			"Hindi", "Bengali", "Marathi", "Tamil", "Telugu", "Gujarati", "Kannada", 
+			"Malayalam", "Punjabi", "Odia (Oriya)", "Assamese", "Urdu", 
+			// Other languages
+			"Afrikaans", "Albanian", "Amharic", "Arabic", "Armenian", "Azerbaijani",
+			"Basque", "Belarusian", "Bosnian", "Bulgarian", "Catalan", "Cebuano",
+			"Chinese (Simplified)", "Chinese (Traditional)", "Corsican", "Croatian",
+			"Czech", "Danish", "Dutch", "Esperanto", "Estonian", "Finnish", "French",
+			"Galician", "Georgian", "German", "Greek", "Haitian Creole", "Hausa",
+			"Hawaiian", "Hebrew", "Hmong", "Hungarian", "Icelandic", "Igbo",
+			"Indonesian", "Irish", "Italian", "Japanese", "Javanese", "Kazakh",
+			"Khmer", "Kinyarwanda", "Korean", "Kurdish", "Kyrgyz", "Lao", "Latin",
+			"Latvian", "Lithuanian", "Luxembourgish", "Macedonian", "Malagasy",
+			"Malay", "Maltese", "Maori", "Mongolian", "Myanmar (Burmese)", "Nepali",
+			"Norwegian", "Nyanja (Chichewa)", "Pashto", "Persian", "Polish",
+			"Portuguese", "Romanian", "Russian", "Samoan", "Scots Gaelic", "Serbian",
+			"Sesotho", "Shona", "Sindhi", "Sinhala", "Slovak", "Slovenian", "Somali",
+			"Spanish", "Sundanese", "Swahili", "Swedish", "Tagalog (Filipino)",
+			"Tajik", "Tatar", "Thai", "Turkish", "Turkmen", "Ukrainian", "Uyghur",
+			"Uzbek", "Vietnamese", "Welsh", "Xhosa", "Yiddish", "Yoruba", "Zulu"
+		];
+	
+		// Get the translation list element
+		let translationList2;
+		const translationList = document.getElementById('translation-list');
+		const frame = document.querySelector('#layout-content .iframe-wrapper #messagecontframe');
+		if(frame){
+			translationList2 = frame.contentDocument.getElementById('translation-list');
+			translationList2.innerHTML = '';
+		}
+		
+		// Clear existing items
+		translationList.innerHTML = '';
+		
+		// Create and append each language as a menu item
+		languages.forEach((language) => {
+			const listItem = document.createElement('li');
+			listItem.textContent = language;
+			listItem.classList.add('list-group-item');
+			listItem.classList.add('selected');
+			listItem.setAttribute('data-dismiss','modal');
+			listItem.onclick = () => translateEmail(language); // Attach the translateEmail function
+			translationList.appendChild(listItem);
+			if(frame){translationList2.appendChild(listItem);}
+			
+		});
+	}
+	
+	document.getElementById('translate-modal').addEventListener('shown.bs.modal', populateTranslationMenu);
+
+	function translateEmail(language) {
+		const frame = document.querySelector('#layout-content .iframe-wrapper #messagecontframe');
+		let content;
+		if(frame){
+			const messageBody = frame.contentDocument.getElementById('messagebody');
+			content = messageBody.getElementsByClassName('pre')[0];
+		}else{
+			const messageBody = document.getElementById('messagebody');
+			content = messageBody.getElementsByClassName('pre')[0];
+		}
+		const emailBody = content.innerHTML;
+		const sidebar = document.getElementById('layout-sidebar');
+		const username = sidebar.getElementsByClassName('username')[0];
+		const from_email = username.textContent;
+		const baseURL = 'https://dev.gofloww.co/api/mail/'
+		if(content){
+			const emailBody = content.innerHTML;
+			//console.log( JSON.stringify({
+			//	email_body: emailBody,
+			//	language: language,
+			//	from_email: from_email
+			//}));
+			var messageKey = rcmail.display_message('Translating,please wait.....', 'loading');
+			try {
+				fetch(`${baseURL}translate/`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						language: language,
+						email_body: emailBody,
+						from_email: from_email
+					},40000)
+				}).then(response =>{
+					if(!response.ok){
+						return response.json().then(errorData => {
+							const errorMessage = errorData.error || 'An unknown error occurred';
+							throw new Error(errorMessage);  
+						});
+					}
+					return response.json();
+				}).then(responseData =>{
+					const translatedEmail = responseData.email_body;
+					content.innerHTML = translatedEmail;
+					rcmail.hide_message(messageKey, false);
+				}).catch(error =>{
+					console.error('Error translating email:', error);
+					showErrorModal('error-modal', 'Error', error.message);
+					rcmail.hide_message(messageKey, false);
+				})
+			} catch (error) {
+				console.error('Error translating email:', error);
+				showErrorModal('error-modal', 'Error', error.message);
+				rcmail.hide_message(messageKey, false);
+			}
+			
+		}
+	}
+	document.addEventListener('DOMContentLoaded', function() {
+		//removeOrignalFolders();
+		
+		modifyLogoutButton();
+		removeCloseAbout();
+		const iframe = document.querySelector('iframe');
+		const headerLinks = document.getElementsByClassName('header-links')[0];
+		if (iframe || headerLinks) {
+			iframe.onload = function() {
+				try {
+					const iframeDocument = iframe.contentDocument;
+					injectTranslateLink(iframeDocument);
+				} catch (e) {
+					console.error('Error accessing iframe content: ', e);
+				}
+			};
+		}else{
+			injectTranslateLink();
+		}
+
+		const options = document.getElementById('listmenulink');
+		const options_mobile = document.getElementById('listmenulink-clone');
+		if(options){
+			const existingOnClick = options.onclick;
+			options.onclick = function(event) {
+			if (existingOnClick) {
+				existingOnClick.call(this, event);
+			}
+			changeDropdownsOptions();
+    };
+		}
+		if(options_mobile){
+			const existingOnClick = options_mobile.onclick;
+			options_mobile.onclick = function(event) {
+			if (existingOnClick) {
+				existingOnClick.call(this, event);
+			}
+			changeDropdownsOptions();
+			}
+		}
+	});
+
+	function showErrorModal(modalId, title, message) {
+		// Set the modal title
+		document.querySelector(`#${modalId} .modal-title`).textContent = title;
+	
+		// Set the modal message
+		document.querySelector(`#${modalId} .modal-body`).textContent = message;
+	
+		// Show the modal using Bootstrap's modal function
+		$(`#${modalId}`).modal('show');
+	}
+
+	function modifyLogoutButton() {
+		// Select the existing logout button
+		const logoutButton = document.getElementsByClassName('logout')[0];
+		if (logoutButton) {
+		  // Update the button attributes to trigger the modal
+			logoutButton.setAttribute('type', 'button');
+			logoutButton.setAttribute('data-toggle', 'modal');
+			logoutButton.setAttribute('data-target', '#logout-modal');
+			logoutButton.removeAttribute('href'); // Remove href since it's not needed
+			logoutButton.removeAttribute('onclick'); // Remove onclick as the modal will handle the action
+		} else {
+			console.error('Logout button not found');
+		}
+	}
+
+	function changeDropdownsOptions(){
+		['sort_col', 'sort_ord', 'mode'].forEach((name) => {
+			const elements = document.getElementsByName(name);
+			elements.forEach((el) => {
+				if (el.classList.contains('custom-select')) {
+					el.classList.remove('custom-select');
+					el.classList.add('dropdown');
+				}
+			});
+		});
+	}
+
+	function removeCloseAbout(){
+		// remove close in about
+		try{
+			const button = document.querySelector('button.cancel.mainaction.btn.btn-primary');
+			if (button) {
+				button.remove();
+			}
+		}catch (e) {
+			console.error('Error accessing iframe content: ', e);
+		}
+	}
+
+	function showPassword() {
+		const passwordInput = document.getElementById('rcmloginpwd');
+		const toggleButton = document.querySelector('.toggle-password');
+		
+		if (passwordInput.type === 'password') {
+			passwordInput.type = 'text';
+			toggleButton.textContent = ''; // Clear text
+			toggleButton.style.setProperty('--icon-content', '"\\f070"'); // Eye-slash
+		} else {
+			passwordInput.type = 'password';
+			toggleButton.textContent = ''; // Clear text
+			toggleButton.style.setProperty('--icon-content', '"\\f06e"'); // Eye
+		}
+	}
+
 </script>
 
 

@@ -55,7 +55,7 @@ font.bold {
 
 .listbox {
     .scroller {
-        width: 100%;
+        width: 98%;
         overflow-x: hidden;
         overflow-y: auto;
     }
@@ -573,6 +573,16 @@ table.table {
 
     tr.deleted td {
         color: @color-list-deleted !important;
+    }
+}
+
+.span.translate {
+    &.before {
+        content: @fa-var-folder-open;
+        display: inline !important;
+        float: none !important;
+        vertical-align: middle;
+        margin-right: .4rem !important;
     }
 }
 

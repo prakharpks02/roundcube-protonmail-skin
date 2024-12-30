@@ -126,7 +126,7 @@ html:not(.touch) {
         li > a:focus,
         &.focus tbody tr.focused > td:first-child,
         &.focus:not(.withselection) tbody tr.focused > td.selection + td {
-            border-left: 2px solid @color-list-focus-indicator;
+            
             outline: 0;
         }
     }
@@ -330,10 +330,10 @@ html.ie11 .listing.iconized li a:before {
         .font-icon-regular(@fa-var-envelope);
     }
     &.mailview > td.section:before {
-        content: @fa-var-inbox;
+        content: @fa-var-cog;
     }
     &.compose > td.section:before {
-        content: @fa-var-paper-plane;
+        content: @fa-var-sliders-h;
     }
     &.addressbook > td.section:before {
         content: @fa-var-users;
