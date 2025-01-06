@@ -890,6 +890,19 @@
 			});
 		}
 	}
+	function convertToHtml(inputText) {
+		// Step 1: Split the input text by double line breaks (\n\n) to identify paragraphs
+		let paragraphs = inputText.split(/\n\n/);
+	
+		// Step 2: Wrap each paragraph in <p> tags and replace single line breaks (\n) within the paragraph with <br>
+		let htmlContent = paragraphs.map(paragraph => {
+			let sanitized = paragraph.replace(/\n/g, '<br>'); // Replace single \n with <br>
+			return `<p>${sanitized}</p>`; // Wrap in <p> tags
+		});
+	
+		// Step 3: Join all paragraphs together
+		return htmlContent.join('');
+	}
 
 	// Function to call OpenAI API to generate an email
 	async function generateEmail() {
@@ -940,7 +953,7 @@
 				if(htmlText){
 					var iframeDoc = htmlText.contentDocument;
 					var newParagraph = iframeDoc.createElement('p');
-					newParagraph.textContent = generatedEmail.replace(/\n/g, '<br>');;
+					newParagraph.textContent = convertToHtml(generateEmail);
 					var iframeBody = iframeDoc.body;
 					iframeBody.insertBefore(newParagraph, iframeBody.firstChild);
 				}
