@@ -891,16 +891,14 @@
 		}
 	}
 	function convertToHtml(inputText) {
-		// Step 1: Split the input text by double line breaks (\n\n) to identify paragraphs
+		if (/<[a-z][\s\S]*>/i.test(inputText)) {
+			return inputText;
+		}
 		let paragraphs = inputText.split(/\n\n/);
-	
-		// Step 2: Wrap each paragraph in <p> tags and replace single line breaks (\n) within the paragraph with <br>
 		let htmlContent = paragraphs.map(paragraph => {
-			let sanitized = paragraph.replace(/\n/g, '<br>'); // Replace single \n with <br>
-			return `<p>${sanitized}</p>`; // Wrap in <p> tags
+			let sanitized = paragraph.replace(/\n/g, '<br>');
+			return `<p>${sanitized}</p>`;
 		});
-	
-		// Step 3: Join all paragraphs together
 		return htmlContent.join('');
 	}
 
@@ -1650,17 +1648,11 @@
 				}	
 				if(htmlText){
 					const iframeDoc = htmlText.contentDocument;
-					//const parsedTemplate = JSON.parse(templateContent);
-					//if (isValidHtmlString(parsedTemplate)) {
-					//	iframeDoc.body.innerHTML = parsedTemplate;
-					//}
-					//else{
-						var newParagraph = iframeDoc.createElement('div');
-						newParagraph.innerHTML = convertToHtml(templateContent);
-						var iframeBody = iframeDoc.body;
-						iframeBody.innerHTML = ''; // Clear the existing content if needed
-						iframeBody.appendChild(newParagraph);
-					//}
+					var newParagraph = iframeDoc.createElement('div');
+					newParagraph.innerHTML = convertToHtml(templateContent);
+					var iframeBody = iframeDoc.body;
+					iframeBody.innerHTML = '';
+					iframeBody.appendChild(newParagraph);
 				}
 				rcmail.hide_message(messageKey, false);
 			}else{
