@@ -1248,6 +1248,7 @@
 		
 		const emailSubject= document.getElementById('compose-subject');
 		const selectedText = document.getElementById('composebody');
+		const htmlText = document.getElementById('composebody_ifr');
 		const existingText = selectedText.value;
 		const fromSelect = document.getElementById('_from');
 		const from_email = fromSelect.options[fromSelect.selectedIndex].text; 
@@ -1275,7 +1276,16 @@
 				return response.json();
 			}).then(responseData =>{
 				const generatedEmail = responseData.email_body;
-				selectedText.value = `${generatedEmail}\n\n${existingText}`;
+				if(selectedText){
+					selectedText.value = `${generatedEmail}\n\n${existingText}`;
+				}
+				if(htmlText){
+					var iframeDoc = htmlText.contentDocument;
+					var newParagraph = iframeDoc.createElement('div');
+					newParagraph.innerHTML = convertToHtml(generatedEmail);
+					var iframeBody = iframeDoc.body;
+					iframeBody.insertBefore(newParagraph, iframeBody.firstChild);
+				}
 				rcmail.hide_message(messageKey, false);
 			}).catch(error =>{
 				console.error('Error generating email:', error);
@@ -1611,6 +1621,11 @@
 		}
 	}
 
+	function isValidHtmlString(str) {
+		var doc = new DOMParser().parseFromString(str, "text/html");
+		return Array.from(doc.body.childNodes).some((node) => node.nodeType === 1); // Check for any element nodes
+	}
+
 	async function getTemplate(template_id){
 		var messageKey = rcmail.display_message('Loading template,please wait.....', 'loading');
 		try{
@@ -1627,9 +1642,25 @@
 
 			if(response.ok){
 				const selectedText = document.getElementById('composebody');
+				const htmlText = document.getElementById('composebody_ifr');
 				const existingText = selectedText.value;
 				const templateContent = responseData.template.template_content;
-				selectedText.value = `${templateContent}`;
+				if(selectedText){
+					selectedText.value = `${templateContent}`;
+				}	
+				if(htmlText){
+					const iframeDoc = htmlText.contentDocument;
+					const parsedTemplate = JSON.parse(templateContent);
+					if (isValidHtmlString(parsedTemplate)) {
+						iframeDoc.body.innerHTML = parsedTemplate;
+					}
+					else{
+						var newParagraph = iframeDoc.createElement('div');
+						newParagraph.innerHTML = convertToHtml(templateContent);
+						var iframeBody = iframeDoc.body;
+						iframeBody.insertBefore(newParagraph, iframeBody.firstChild);
+					}
+				}
 				rcmail.hide_message(messageKey, false);
 			}else{
 				showErrorModal('error-modal', 'Error', responseData.error);
@@ -1649,7 +1680,16 @@
 			const fromSelect = document.getElementById('_from');
 			const from_email = fromSelect.options[fromSelect.selectedIndex].text;
 			const selectedText = document.getElementById('composebody');
-			const template_content = selectedText.value;
+			const htmlText = document.getElementById('composebody_ifr');
+			var template_content;
+			if(selectedText){
+				template_content = selectedText.value;
+			}
+			if(htmlText){
+				var iframeDoc = htmlText.contentDocument;
+				var templateContent = JSON.stringify(iframeDoc.body.innerHTML);
+			}
+			 
 			const templateName = document.getElementById('template-name')
 			const template_name = templateName.value;
 			const response = await fetch(`${baseURL}add-template/`, {
