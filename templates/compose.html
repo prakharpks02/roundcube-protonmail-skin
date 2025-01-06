@@ -940,7 +940,7 @@
 				if(htmlText){
 					var iframeDoc = htmlText.contentDocument;
 					var newParagraph = iframeDoc.createElement('p');
-					newParagraph.textContent = generatedEmail;
+					newParagraph.textContent = generatedEmail.replace(/\n/g, '<br>');;
 					var iframeBody = iframeDoc.body;
 					iframeBody.insertBefore(newParagraph, iframeBody.firstChild);
 				}
