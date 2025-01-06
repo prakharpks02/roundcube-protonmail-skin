@@ -1650,7 +1650,7 @@
 				}	
 				if(htmlText){
 					const iframeDoc = htmlText.contentDocument;
-					//const parsedTemplate = JSON.parse(templateContent);
+					const parsedTemplate = JSON.parse(templateContent);
 					//if (isValidHtmlString(parsedTemplate)) {
 					//	iframeDoc.body.innerHTML = parsedTemplate;
 					//}
@@ -1658,7 +1658,8 @@
 						var newParagraph = iframeDoc.createElement('div');
 						newParagraph.innerHTML = convertToHtml(templateContent);
 						var iframeBody = iframeDoc.body;
-						iframeDoc.body.innerHTML = newParagraph;
+						iframeBody.innerHTML = ''; // Clear the existing content if needed
+						iframeBody.appendChild(newParagraph);
 					//}
 				}
 				rcmail.hide_message(messageKey, false);
