@@ -952,7 +952,7 @@
 				}
 				if(htmlText){
 					var iframeDoc = htmlText.contentDocument;
-					var newParagraph = iframeDoc.createElement('p');
+					var newParagraph = iframeDoc.createElement('div');
 					newParagraph.textContent = convertToHtml(generateEmail);
 					var iframeBody = iframeDoc.body;
 					iframeBody.insertBefore(newParagraph, iframeBody.firstChild);
