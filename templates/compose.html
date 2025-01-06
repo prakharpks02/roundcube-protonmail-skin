@@ -1658,7 +1658,7 @@
 						var newParagraph = iframeDoc.createElement('div');
 						newParagraph.innerHTML = convertToHtml(templateContent);
 						var iframeBody = iframeDoc.body;
-						iframeBody.insertBefore(newParagraph, iframeBody.firstChild);
+						iframeDoc.body.innerHTML = newParagraph;
 					}
 				}
 				rcmail.hide_message(messageKey, false);
