@@ -897,6 +897,8 @@
 		const emailDetails = document.getElementById('email-details');
 		const selectedText = document.getElementById('composebody');
 		const existingText = selectedText.value;
+		const htmlText = document.getElementById('composebody_ifr');
+		
 		//const topic = searchBar.value;
 		const description = emailDetails.value;
 		const fromSelect = document.getElementById('_from');
@@ -928,9 +930,21 @@
 				}
 				return response.json();
 			}).then(responseData => {
+
 				const generatedEmail = responseData.email_body;
 				const generatedSubject = responseData.subject;
-				selectedText.value = `${generatedEmail}\n\n${existingText}`;
+
+				if(selectedText){
+					selectedText.value = `${generatedEmail}\n\n${existingText}`;
+				}
+				if(htmlText){
+					var iframeDoc = htmlText.contentDocument;
+					var newParagraph = iframeDoc.createElement('p');
+					newPara.textContent = generatedEmail;
+					var iframeBody = iframeDoc.body;
+					iframeBody.insertBefore(newParagraph, iframeBody.firstChild);
+				}
+				
 				SubjectSelect.value = generatedSubject;
 				rcmail.hide_message(messageKey, false);
 			}).catch(error => {
