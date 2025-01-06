@@ -901,6 +901,7 @@
 		const description = emailDetails.value;
 		const fromSelect = document.getElementById('_from');
 		const from_email = fromSelect.options[fromSelect.selectedIndex].text;
+		const SubjectSelect = document.getElementById('compose-subject');
 		//console.log(topic);
 		//console.log(description);
 		var messageKey = rcmail.display_message('Generating email,please wait.....', 'loading');
@@ -928,7 +929,9 @@
 				return response.json();
 			}).then(responseData => {
 				const generatedEmail = responseData.email_body;
+				const generatedSubject = responseData.subject;
 				selectedText.value = `${generatedEmail}\n\n${existingText}`;
+				SubjectSelect.value = generatedSubject;
 				rcmail.hide_message(messageKey, false);
 			}).catch(error => {
 				console.error('Error generating email:', error);
