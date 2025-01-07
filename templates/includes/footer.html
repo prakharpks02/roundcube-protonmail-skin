@@ -253,8 +253,8 @@
     	translateLink.removeAttribute("data-target");;
 		const coins = translateLink.nextElementSibling;
 		coins.style.display = "none";
-		translateLink.onclick = function(){
-			
+		translateLink.onclick = function(event){
+			event.preventDefault();
 			RevertTranslation();
 			return false;
 		}
