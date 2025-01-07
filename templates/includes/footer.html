@@ -248,7 +248,7 @@
 			translateLink = document.getElementsByClassName('translate-link')[0];
 		}
 		translateLink.innerHTML = "See Orignal";
-		translateLink.dataTarget = "#";
+		translateLink.setAttribute("data-target", "#");
 		const coins = translateLink.nextElementSibling;
 		coins.style.display = "none";
 		translateLink.onclick = function(){
@@ -340,7 +340,7 @@
 			translateLink = document.getElementsByClassName('translate-link')[0];
 		}
 		translateLink.innerHTML = "Translate2(";
-		translateLink.dataTarget = "#translate-modal";
+		translateLink.setAttribute("data-target", "#translate-modal");
 		const coins = translateLink.nextElementSibling;
 		coins.style.display = "inline-block";
 		translateLink.onclick = function(){
