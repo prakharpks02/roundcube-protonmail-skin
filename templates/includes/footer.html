@@ -248,7 +248,8 @@
 			translateLink = document.getElementsByClassName('translate-link')[0];
 		}
 		translateLink.innerHTML = "See Orignal";
-		translateLink.setAttribute("data-target", "#");
+		translateLink.removeAttribute("data-modal"); // Remove the data-modal attribute
+    	translateLink.removeAttribute("data-target");;
 		const coins = translateLink.nextElementSibling;
 		coins.style.display = "none";
 		translateLink.onclick = function(){
@@ -258,7 +259,7 @@
 
 	}
 	
-	document.getElementById('translate-modal').addEventListener('shown.bs.modal', populateTranslationMenu);
+	//document.getElementById('translate-modal').addEventListener('shown.bs.modal', populateTranslationMenu);
 	let orignalText ;
 	function translateEmail(language) {
 		let frame = document.querySelector('#layout-content .iframe-wrapper #messagecontframe');
@@ -340,7 +341,8 @@
 			translateLink = document.getElementsByClassName('translate-link')[0];
 		}
 		translateLink.innerHTML = "Translate2(";
-		translateLink.setAttribute("data-target", "#translate-modal");
+		translateLink.setAttribute("data-modal", "modal-value");
+    translateLink.setAttribute("data-target", "#translate-modal");
 		const coins = translateLink.nextElementSibling;
 		coins.style.display = "inline-block";
 		translateLink.onclick = function(){
