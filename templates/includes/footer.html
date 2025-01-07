@@ -287,7 +287,7 @@
 		const from_email = username.textContent;
 		const baseURL = 'https://dev.gofloww.co/api/mail/'
 		if(content){
-			const emailBody = content.innerHTML;
+			const emailBody = JSON.stringify(content.innerHTML);
 			//console.log( JSON.stringify({
 			//	email_body: emailBody,
 			//	language: language,
