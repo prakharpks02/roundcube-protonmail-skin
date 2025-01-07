@@ -351,6 +351,7 @@
 			translateLink = document.getElementsByClassName('translate-link')[0];
 		}
 		translateLink.innerHTML = "Translate2(";
+		translateLink.setAttribute("data-toggle", "modal");
 		translateLink.setAttribute("data-modal", "modal-value");
     	translateLink.setAttribute("data-target", "#translate-modal");
 		const coins = translateLink.nextElementSibling;
