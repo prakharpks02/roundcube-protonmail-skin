@@ -271,14 +271,14 @@
 			content = messageBody.getElementsByClassName('pre')[0];
 			if(!content){
 				content = messageBody.getElementsByClassName('message-htmlpart')[0];
-				content = JSON.stringify(content);
+				
 			}
 		}else{
 			const messageBody = document.getElementById('messagebody');
 			content = messageBody.getElementsByClassName('pre')[0];
 			if(!content){
 				content = messageBody.getElementsByClassName('message-htmlpart')[0];
-				content = JSON.stringify(content);
+				
 			}
 		}
 		const emailBody = content.innerHTML;
