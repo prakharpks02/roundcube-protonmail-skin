@@ -315,7 +315,7 @@
 					return response.json();
 				}).then(responseData =>{
 					const translatedEmail = responseData.email_body;
-					orignalText = content.innerHTML;
+					orignalText = JSON.stringify(content.innerHTML);
 					content.innerHTML = translatedEmail;
 					convertTranslateLink();
 					rcmail.hide_message(messageKey, false);
@@ -343,7 +343,7 @@
 			const messageBody = document.getElementById('messagebody');
 			content = messageBody.getElementsByClassName('pre')[0];
 		}
-		content.innerHTML = orignalText;
+		content.innerHTML = JSON.parse(orignalText);
 		let translateLink;
 		if(frame){
 			translateLink = frame.contentDocument.getElementsByClassName('translate-link')[0];
