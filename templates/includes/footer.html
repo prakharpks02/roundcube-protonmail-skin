@@ -305,6 +305,7 @@
 					const translatedEmail = responseData.email_body;
 					orignalText = emailBody;
 					content.innerHTML = translatedEmail;
+					convertTranslateLink();
 					rcmail.hide_message(messageKey, false);
 				}).catch(error =>{
 					console.error('Error translating email:', error);
