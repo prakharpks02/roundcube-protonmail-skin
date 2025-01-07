@@ -315,7 +315,7 @@
 					return response.json();
 				}).then(responseData =>{
 					const translatedEmail = responseData.email_body;
-					orignalText = emailBody;
+					orignalText = content.innerHTML;
 					content.innerHTML = translatedEmail;
 					convertTranslateLink();
 					rcmail.hide_message(messageKey, false);
