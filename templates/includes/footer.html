@@ -248,11 +248,13 @@
 			translateLink = document.getElementsByClassName('translate-link')[0];
 		}
 		translateLink.innerHTML = "See Orignal";
+		translateLink.removeAttribute("data-toggle");
 		translateLink.removeAttribute("data-modal"); // Remove the data-modal attribute
     	translateLink.removeAttribute("data-target");;
 		const coins = translateLink.nextElementSibling;
 		coins.style.display = "none";
 		translateLink.onclick = function(){
+			
 			RevertTranslation();
 			return false;
 		}
@@ -342,7 +344,7 @@
 		}
 		translateLink.innerHTML = "Translate2(";
 		translateLink.setAttribute("data-modal", "modal-value");
-    translateLink.setAttribute("data-target", "#translate-modal");
+    	translateLink.setAttribute("data-target", "#translate-modal");
 		const coins = translateLink.nextElementSibling;
 		coins.style.display = "inline-block";
 		translateLink.onclick = function(){
