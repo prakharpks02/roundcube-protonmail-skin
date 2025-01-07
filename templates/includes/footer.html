@@ -238,11 +238,29 @@
 			
 		});
 	}
+
+	function convertTranslateLink(){
+		const frame = document.querySelector('#layout-content .iframe-wrapper #messagecontframe');
+		let translateLink;
+		if(frame){
+			translateLink = frame.contentDocument.getElementsByClassName('translate-link')[0];
+		}else{
+			translateLink = document.getElementsByClassName('translate-link')[0];
+		}
+		translateLink.innerHTML = "See Orignal";
+		const coins = translateLink.nextElementSibling;
+		coins.style.display = "none";
+		translateLink.onclick = function(){
+			RevertTranslation();
+			return false;
+		}
+
+	}
 	
 	document.getElementById('translate-modal').addEventListener('shown.bs.modal', populateTranslationMenu);
-
+	let orignalText ;
 	function translateEmail(language) {
-		const frame = document.querySelector('#layout-content .iframe-wrapper #messagecontframe');
+		let frame = document.querySelector('#layout-content .iframe-wrapper #messagecontframe');
 		let content;
 		if(frame){
 			const messageBody = frame.contentDocument.getElementById('messagebody');
@@ -285,6 +303,7 @@
 					return response.json();
 				}).then(responseData =>{
 					const translatedEmail = responseData.email_body;
+					orignalText = emailBody;
 					content.innerHTML = translatedEmail;
 					rcmail.hide_message(messageKey, false);
 				}).catch(error =>{
@@ -300,6 +319,33 @@
 			
 		}
 	}
+
+	function RevertTranslation(){
+		const frame = document.querySelector('#layout-content .iframe-wrapper #messagecontframe');
+		let content;
+		if(frame){
+			const messageBody = frame.contentDocument.getElementById('messagebody');
+			content = messageBody.getElementsByClassName('pre')[0];
+		}else{
+			const messageBody = document.getElementById('messagebody');
+			content = messageBody.getElementsByClassName('pre')[0];
+		}
+		content.innerHTML = orignalText;
+		let translateLink;
+		if(frame){
+			translateLink = frame.contentDocument.getElementsByClassName('translate-link')[0];
+		}else{
+			translateLink = document.getElementsByClassName('translate-link')[0];
+		}
+		translateLink.innerHTML = "Translate2(";
+		const coins = translateLink.nextElementSibling;
+		coins.style.display = "inline-block";
+		translateLink.onclick = function(){
+			populateTranslationMenu();
+			return false;
+		}
+	}
+
 	document.addEventListener('DOMContentLoaded', function() {
 		//removeOrignalFolders();
 		
