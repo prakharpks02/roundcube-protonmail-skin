@@ -339,9 +339,15 @@
 		if(frame){
 			const messageBody = frame.contentDocument.getElementById('messagebody');
 			content = messageBody.getElementsByClassName('pre')[0];
+			if(!content){
+				content = messageBody.getElementsByClassName('message-htmlpart')[0];
+			}
 		}else{
 			const messageBody = document.getElementById('messagebody');
 			content = messageBody.getElementsByClassName('pre')[0];
+			if(!content){
+				content = messageBody.getElementsByClassName('message-htmlpart')[0];
+			}
 		}
 		content.innerHTML = JSON.parse(orignalText);
 		let translateLink;
