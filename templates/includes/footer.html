@@ -263,29 +263,37 @@
 	
 	//document.getElementById('translate-modal').addEventListener('shown.bs.modal', populateTranslationMenu);
 	let orignalText ;
+	let orignalSubject ;
 	function translateEmail(language) {
 		let frame = document.querySelector('#layout-content .iframe-wrapper #messagecontframe');
 		let content;
+		let subject;
 		if(frame){
 			const messageBody = frame.contentDocument.getElementById('messagebody');
+			const headerBody = frame.contentDocument.getElementById('message-header');
 			content = messageBody.getElementsByClassName('pre')[0];
+			subject = headerBody.getElementsByClassName('subject')[0];
 			if(!content){
 				content = messageBody.getElementsByClassName('message-htmlpart')[0];
 				
 			}
 		}else{
 			const messageBody = document.getElementById('messagebody');
+			const headerBody = document.getElementById('message-header');
 			content = messageBody.getElementsByClassName('pre')[0];
+			subject = headerBody.getElementsByClassName('subject')[0];
 			if(!content){
 				content = messageBody.getElementsByClassName('message-htmlpart')[0];
 				
 			}
 		}
+		
 		const emailBody = content.innerHTML;
 		const sidebar = document.getElementById('layout-sidebar');
 		const username = sidebar.getElementsByClassName('username')[0];
 		const from_email = username.textContent;
 		const baseURL = 'https://a9b9-117-250-76-240.ngrok-free.app/api/mail/'
+		const subjectText = subject.innerText;
 		if(content){
 			const emailBody = JSON.stringify(content.innerHTML);
 			//console.log( JSON.stringify({
@@ -303,7 +311,8 @@
 					body: JSON.stringify({
 						language: language,
 						email_body: emailBody,
-						from_email: from_email
+						from_email: from_email,
+						subject: subjectText
 					},40000)
 				}).then(response =>{
 					if(!response.ok){
@@ -315,8 +324,11 @@
 					return response.json();
 				}).then(responseData =>{
 					const translatedEmail = responseData.email_body;
+					const translatedSubject = responseData.subject;
 					orignalText = JSON.stringify(content.innerHTML);
+					orignalSubject  =  subjectText;
 					content.innerHTML = translatedEmail;
+					subject.innerText = translatedSubject;
 					convertTranslateLink();
 					rcmail.hide_message(messageKey, false);
 				}).catch(error =>{
@@ -338,18 +350,23 @@
 		let content;
 		if(frame){
 			const messageBody = frame.contentDocument.getElementById('messagebody');
+			const headerBody = frame.contentDocument.getElementById('message-header');
 			content = messageBody.getElementsByClassName('pre')[0];
+			subject = headerBody.getElementsByClassName('subject')[0];
 			if(!content){
 				content = messageBody.getElementsByClassName('message-htmlpart')[0];
 			}
 		}else{
 			const messageBody = document.getElementById('messagebody');
+			const headerBody = document.getElementById('message-header');
 			content = messageBody.getElementsByClassName('pre')[0];
+			subject = headerBody.getElementsByClassName('subject')[0];
 			if(!content){
 				content = messageBody.getElementsByClassName('message-htmlpart')[0];
 			}
 		}
 		content.innerHTML = JSON.parse(orignalText);
+		subject.innerText = orignalSubject;
 		let translateLink;
 		if(frame){
 			translateLink = frame.contentDocument.getElementsByClassName('translate-link')[0];
