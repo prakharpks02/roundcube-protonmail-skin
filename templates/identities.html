@@ -27,9 +27,9 @@
 		<span class="header-title"></span>
 		<!-- toolbar -->
 		<div id="identitiestoolbar" class="toolbar menu">
-			<roundcube:button command="add" type="link" class="create disabled" classAct="create"
+			<!--roundcube:button command="add" type="link" class="create disabled" classAct="create"
 				label="create" title="newidentity" innerClass="inner" 
-				condition="config:identities_level:0<2" data-fab="true" />
+				condition="config:identities_level:0<2" data-fab="true" /-->
 			<roundcube:button command="delete" type="link" class="delete disabled" classAct="delete"
 				label="delete" title="delete" innerClass="inner"
 				condition="config:identities_level:0<2" />
@@ -39,5 +39,10 @@
 		<roundcube:object name="contentframe" id="preferences-frame" src="env:blankpage" title="arialabelidentityeditfrom" />
 	</div>
 </div>
+
+<script>
+	const emailInput = document.getElementById('rcmfd_email');
+	emailInput.readOnly = true;
+</script>
 
 <roundcube:include file="includes/footer.html" />
