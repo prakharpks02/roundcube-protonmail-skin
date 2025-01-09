@@ -2850,6 +2850,9 @@ function rcube_elastic_ui()
                 }
             }
         }
+
+        list.filter('[value="entire_message"]').prop('checked', true);
+
     };
 
     function set_searchmod(menu, elem)
