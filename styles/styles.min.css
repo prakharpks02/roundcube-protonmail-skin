@@ -5780,7 +5780,7 @@ a.input-group-text.icon.add.active {
   pointer-events: none !important;
 }
 [title="Advanced search"]:before {
-  content: "\f00e";
+  content: "\f00e" !important;
 }
 /*** Settings UI ***/
 .settings-default-icon tr > td.section::before,
