@@ -835,9 +835,10 @@
 		
 		if (emailSubject.includes('Re:')) {
 			let AiDraftButton = document.getElementById('auto-draft-button');
-			const AiDraftText = document.getElementById('ai-draft-text');
+			let AiDraftText = document.getElementById('ai-draft-text');
 			if(!AiDraftButton){
 				AiDraftButton = document.getElementById('auto-draft-button-clone');
+				AiDraftText = AiDraftButton.querySelector('ai-draft-text');
 			}
 			AiDraftText.textContent = ' Reply Assist ';
 			AiDraftButton.setAttribute('data-target', '#reply-assist-modal');
