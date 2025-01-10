@@ -107,7 +107,7 @@
 		
 	
 		if (!messageObjectsDiv) {
-			console.error("Parent element with ID 'message-objects' not found.");
+			//console.error("Parent element with ID 'message-objects' not found.");
 			return;
 		}
 	
@@ -143,7 +143,7 @@
 		if (warningDiv) {
 			warningDiv.style.display = 'none';
 		}
-		console.log("Sender trusted. Warning hidden.");
+		//console.log("Sender trusted. Warning hidden.");
 	}
 	
 
@@ -275,7 +275,7 @@
 			}
 		}
 
-		console.log("The email matches the name")
+		//console.log("The email matches the name")
 
 	}
 
@@ -423,12 +423,12 @@
 					convertTranslateLink();
 					rcmail.hide_message(messageKey, false);
 				}).catch(error =>{
-					console.error('Error translating email:', error);
+					//console.error('Error translating email:', error);
 					showErrorModal('error-modal', 'Error', error.message);
 					rcmail.hide_message(messageKey, false);
 				})
 			} catch (error) {
-				console.error('Error translating email:', error);
+				//console.error('Error translating email:', error);
 				showErrorModal('error-modal', 'Error', error.message);
 				rcmail.hide_message(messageKey, false);
 			}
@@ -489,7 +489,7 @@
 					const iframeDocument = iframe.contentDocument;
 					injectTranslateLink(iframeDocument);
 				} catch (e) {
-					console.error('Error accessing iframe content: ', e);
+					//console.error('Error accessing iframe content: ', e);
 				}
 			};
 		}else{
@@ -540,7 +540,7 @@
 			logoutButton.removeAttribute('href'); // Remove href since it's not needed
 			logoutButton.removeAttribute('onclick'); // Remove onclick as the modal will handle the action
 		} else {
-			console.error('Logout button not found');
+			//console.error('Logout button not found');
 		}
 	}
 
@@ -564,7 +564,7 @@
 				button.remove();
 			}
 		}catch (e) {
-			console.error('Error accessing iframe content: ', e);
+			//console.error('Error accessing iframe content: ', e);
 		}
 	}
 

@@ -935,14 +935,14 @@
 				SubjectSelect.value = generatedSubject;
 				rcmail.hide_message(messageKey, false);
 			}).catch(error => {
-				console.error('Error generating email:', error);
+				//console.error('Error generating email:', error);
 				showErrorModal('error-modal', 'Error', error.message);
 				selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
 				rcmail.hide_message(messageKey, false);
 			})
 
 		} catch (error) {
-			console.error('Error generating email:', error);
+			//console.error('Error generating email:', error);
 			showErrorModal('error-modal', 'Error', error.message);
 			selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
 			rcmail.hide_message(messageKey, false);
@@ -959,14 +959,14 @@
 			body: JSON.stringify(data),
 		}, 40000).then((response) => {
 			if(!response.ok){
-				console.error('Error generating email:', error);
+				//console.error('Error generating email:', error);
 				throw new Error('Network response was not ok');
 			}
 			return response.json();
 		}).then((result) =>{
 			return result;
 		}).catch((error)=>{
-			console.error('Error Scheduling email:', error);
+			//console.error('Error Scheduling email:', error);
 		})
 	}
 
@@ -1162,7 +1162,7 @@
 				 //change in production
 			})
 			.catch((error) =>{
-				console.error("Error scheduling message:", error);
+				//console.error("Error scheduling message:", error);
 			});
 		//console.log(data);
 	}
@@ -1209,7 +1209,7 @@
 				 //change in production
 			})
 			.catch((error) =>{
-				console.error("Error scheduling message:", error);
+				//console.error("Error scheduling message:", error);
 			});
 		//console.log(data);
 
@@ -1264,13 +1264,13 @@
 				}
 				rcmail.hide_message(messageKey, false);
 			}).catch(error =>{
-				console.error('Error generating email:', error);
+				//console.error('Error generating email:', error);
 				showErrorModal('error-modal', 'Error', error.message);
 				selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
 				rcmail.hide_message(messageKey, false);
 			})
 		} catch (error) {
-			console.error('Error generating email:', error);
+			//console.error('Error generating email:', error);
 			showErrorModal('error-modal', 'Error', error.message);
 			selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
 			rcmail.hide_message(messageKey, false);
@@ -1409,7 +1409,7 @@
 			});
 	
 			if (!response.ok) {
-				console.error('Error Getting Credit info:', response.statusText);
+				//console.error('Error Getting Credit info:', response.statusText);
 				throw new Error('Network response was not ok');
 			}
 	
@@ -1420,7 +1420,7 @@
 			return credits_available;
 			
 		} catch (error) {
-			console.error('Error Getting Credits:', error);
+			//console.error('Error Getting Credits:', error);
 			return 0;
 		}
 	}
@@ -1659,7 +1659,7 @@
 				rcmail.hide_message(messageKey, false);
 			}	
 		}catch(e) {
-			console.log('Error: ',e);
+			//console.log('Error: ',e);
 			showErrorModal('error-modal', 'Error', 'Error fetching template try again later..');
 			rcmail.hide_message(messageKey, false);
 		}
