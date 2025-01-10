@@ -1123,6 +1123,26 @@
 	}
 	
 	async function selectOption(optionId, date, time) {
+		const toEmail= document.getElementById('_to');
+		const subject = document.getElementById('compose-subject');
+
+		if (!toEmail || !subject) {
+			console.error("Required elements (_to or compose-subject) are not found in the DOM.");
+			return;
+		}
+		else if (!toEmail.value.trim() && !subject.value.trim()){
+			showErrorModal('error-modal', 'Error', "'To' email field is empty, 'Subject' email field is empty");
+			return;
+		}
+		else if (!toEmail.value.trim()) {
+			showErrorModal('error-modal', 'Error', "'To' email field is empty");
+			return;
+		}
+		else if (!subject.value.trim()) {
+			showErrorModal('error-modal', 'Error', "'Subject' email field is empty");
+			return;
+		}
+		
 		// Deselect all options
 		const options = document.getElementById('scheduleOptions').children;
 		for (let i = 0; i < options.length; i++) {
@@ -1179,6 +1199,26 @@
 
     // Handle custom schedule button click
 	function handleCustomScheduleClick() {
+		const toEmail= document.getElementById('_to');
+		const subject = document.getElementById('compose-subject');
+
+		if (!toEmail || !subject) {
+			console.error("Required elements (_to or compose-subject) are not found in the DOM.");
+			return;
+		}
+		else if (!toEmail.value.trim() && !subject.value.trim()){
+			showErrorModal('error-modal', 'Error', "'To' email field is empty, 'Subject' email field is empty");
+			return;
+		}
+		else if (!toEmail.value.trim()) {
+			showErrorModal('error-modal', 'Error', "'To' email field is empty");
+			return;
+		}
+		else if (!subject.value.trim()) {
+			showErrorModal('error-modal', 'Error', "'Subject' email field is empty");
+			return;
+		}
+
 		const selectedDate = document.getElementById('scheduleDate').value;
 		const selectedTime = document.getElementById('scheduleTime').value;
 
