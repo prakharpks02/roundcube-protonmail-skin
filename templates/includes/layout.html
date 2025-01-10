@@ -395,6 +395,36 @@
 			</div>
 		</div>
 	</div>
+
+	<!--Reply assist modal-->
+	<div id="reply-assist-modal" class="modal fade" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content ui-widget-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modalLabel">Reply Assist </h5>
+					<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">&#10006</button>
+				</div>
+				<div class="modal-body">
+					<!-- Search Bar for Phrases -->
+					<!--div class="mb-3">
+						<label for="search-bar" class="form-label">Search for a phrase</label>
+						<input type="text" id="search-bar" class="form-control" placeholder="Search for a phrase..." oninput="searchPhrases()">
+						<ul id="suggestions" class="list-group listing mt-2"></ul>
+					</div-->
+
+					<!-- Detailed Information for the Email -->
+					<div class="mb-3">
+						<label for="reply-details" class="form-label">Would you like to give some more details..</label>
+						<textarea id="reply-details" class="form-control" placeholder="Enter the details for your reply..." rows="4"></textarea>
+					</div>
+					<!-- Generate Email Button -->
+					<button id="generate-button" class="btn btn-success" onclick="replyAssist();" data-dismiss="modal">
+						Generate Reply (2 <i class="fa-solid fa-coins"></i>)
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	
 	
 	<roundcube:if condition="!env:framed || env:extwin" />

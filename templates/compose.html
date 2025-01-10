@@ -220,7 +220,7 @@
 				<span class="icon">
 					<i class="fa-solid fa-wand-magic-sparkles"></i>
 				</span>
-				<span>AI draft</span>
+				<span id="ai-draft-text">AI draft</span>
 			</button>
 			
 			<div class="float-right">
@@ -834,6 +834,11 @@
 		OpenInNewWindowButton.setAttribute("title", "Open in New Window");
 		
 		if (emailSubject.includes('Re:')) {
+			const AiDraftButton = document.getElementById('auto-draft-button');
+			const AiDraftText = document.getElementById('ai-draft-text');
+			AiDraftText.textContent = ' Reply Assist ';
+			AiDraftButton.setAttribute('data-target', 'reply-assist-modal');
+			
 			const htmlButton = document.querySelector('a.mce-i-html'); 
 			htmlButton.style.display = 'inline-block'; 
 			htmlButton.style.marginRight = '10px';
@@ -1243,13 +1248,14 @@
 	}
 
 	async function replyAssist() {
-		
+		const replyDetails = document.getElementById('reply-details');
 		const emailSubject= document.getElementById('compose-subject');
 		const selectedText = document.getElementById('composebody');
 		const htmlText = document.getElementById('composebody_ifr');
 		const existingText = selectedText.value;
 		const fromSelect = document.getElementById('_from');
-		const from_email = fromSelect.options[fromSelect.selectedIndex].text; 
+		const from_email = fromSelect.options[fromSelect.selectedIndex].text;
+		const context = replyDetails.value; 
 		//console.log({subject: emailSubject.value, email_body: existingText});
 		var messageKey = rcmail.display_message('Generating reply,please wait.....', 'loading');
 		try {
@@ -1261,7 +1267,8 @@
 				body: JSON.stringify({
 					subject: emailSubject.value,
 					email_body: existingText,
-					from_email: from_email
+					from_email: from_email,
+					context: context
 				},40000)
 			}).then(response =>{
 				if(!response.ok){
