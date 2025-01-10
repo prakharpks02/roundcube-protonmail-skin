@@ -96,6 +96,57 @@
 		});
 	}
 
+	function showEmailMismatchWarning() {
+		const frame = document.querySelector('#layout-content .iframe-wrapper #messagecontframe');
+		let messageObjectsDiv;
+		if(frame){
+			messageObjectsDiv = frame.contentDocument.getElementById('message-objects');
+		}else{
+			messageObjectsDiv = document.getElementById('message-objects');
+		}
+		
+	
+		if (!messageObjectsDiv) {
+			console.error("Parent element with ID 'message-objects' not found.");
+			return;
+		}
+	
+		const existingWarning = messageObjectsDiv.querySelector('#spam-message');
+		if (!existingWarning) {
+			const warningDiv = document.createElement('div');
+			warningDiv.id = 'spam-message';
+			warningDiv.className = 'ui alert alert-warning boxwarning';
+			warningDiv.style = '';
+	
+			// Add warning content
+			warningDiv.innerHTML = `
+				<i class="icon"></i>
+				<span>Would you like to trust the sender? Email and name do not match.</span>
+				&nbsp;<span class="boxbuttons">
+					<a href="#trust-sender" onclick="trustSender()" class="btn btn-primary btn-sm">Trust Sender</a>
+				</span>
+			`;
+	
+			messageObjectsDiv.appendChild(warningDiv);
+		}
+	}
+
+	function trustSender() {
+		const frame = document.querySelector('#layout-content .iframe-wrapper #messagecontframe');
+		let warningDiv;
+		if(frame){
+			warningDiv = frame.contentDocument.getElementById('spam-message');
+		}else{
+			warningDiv = document.getElementById('spam-message');
+		}
+		
+		if (warningDiv) {
+			warningDiv.style.display = 'none';
+		}
+		console.log("Sender trusted. Warning hidden.");
+	}
+	
+
 	function injectTranslateLink() {
 
 		//changes in footer on compose page
@@ -194,6 +245,7 @@
 		}else{
 			fromEmail = document.getElementsByClassName('from')[0];
 		}
+		
 		const input = fromEmail.textContent;
 		const regex = /^(.*)<(.+@.+\..+)>$/;
     	const match = input.match(regex);
@@ -218,7 +270,7 @@
 			const hasMatch = nameWords.some(word => emailLower.includes(word));
 
 			if (!hasMatch) {
-				console.warn("Warning: The name and email do not seem to match.");
+				showEmailMismatchWarning();
 				return false;
 			}
 		}
