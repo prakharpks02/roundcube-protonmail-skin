@@ -2850,6 +2850,7 @@ function rcube_elastic_ui()
                 }
             }
         }
+        
     };
 
     function set_searchmod(menu, elem)

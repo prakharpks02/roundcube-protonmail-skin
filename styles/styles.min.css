@@ -3303,7 +3303,7 @@ html.touch .folderlist li.mailbox .unreadcount {
   font-weight: 900;
 }
 .folderlist li.junk a:before {
-  content: "\f7e4";
+  content: "\f06a";
   font-weight: 900;
 }
 .folderlist li.archive > a:before {
@@ -3556,8 +3556,7 @@ html.touch .messagelist td.subject .subject {
 .attachmentslist {
   padding: 0;
   margin: 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   gap: 1em;
 }
 .attachmentslist:empty {
@@ -5776,6 +5775,12 @@ a.input-group-text.icon.add.active {
 }
 .folderlist li a[rel="Scheduled"]:before {
   content: "\f017" !important;
+}
+#rcmfd_email {
+  pointer-events: none !important;
+}
+[title="Advanced search"]:before {
+  content: "\f00e" !important;
 }
 /*** Settings UI ***/
 .settings-default-icon tr > td.section::before,

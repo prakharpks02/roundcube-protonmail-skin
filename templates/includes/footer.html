@@ -96,6 +96,57 @@
 		});
 	}
 
+	function showEmailMismatchWarning() {
+		const frame = document.querySelector('#layout-content .iframe-wrapper #messagecontframe');
+		let messageObjectsDiv;
+		if(frame){
+			messageObjectsDiv = frame.contentDocument.getElementById('message-objects');
+		}else{
+			messageObjectsDiv = document.getElementById('message-objects');
+		}
+		
+	
+		if (!messageObjectsDiv) {
+			//console.error("Parent element with ID 'message-objects' not found.");
+			return;
+		}
+	
+		const existingWarning = messageObjectsDiv.querySelector('#spam-message');
+		if (!existingWarning) {
+			const warningDiv = document.createElement('div');
+			warningDiv.id = 'spam-message';
+			warningDiv.className = 'ui alert alert-warning boxwarning';
+			warningDiv.style = '';
+	
+			// Add warning content
+			warningDiv.innerHTML = `
+				<i class="icon"></i>
+				<span>Would you like to trust the sender? Email and name do not match.</span>
+				&nbsp;<span class="boxbuttons">
+					<a href="#trust-sender" onclick="trustSender()" class="btn btn-primary btn-sm">Trust Sender</a>
+				</span>
+			`;
+	
+			messageObjectsDiv.appendChild(warningDiv);
+		}
+	}
+
+	function trustSender() {
+		const frame = document.querySelector('#layout-content .iframe-wrapper #messagecontframe');
+		let warningDiv;
+		if(frame){
+			warningDiv = frame.contentDocument.getElementById('spam-message');
+		}else{
+			warningDiv = document.getElementById('spam-message');
+		}
+		
+		if (warningDiv) {
+			warningDiv.style.display = 'none';
+		}
+		//console.log("Sender trusted. Warning hidden.");
+	}
+	
+
 	function injectTranslateLink() {
 
 		//changes in footer on compose page
@@ -121,7 +172,7 @@
 			Encryption.remove();
 
 			DisplaySettings.querySelector('td').innerHTML = 'Advance Settings';
-			Composing.querySelector('td').innerHTML = 'Prefernces';
+			Composing.querySelector('td').innerHTML = 'Preferences';
 		}catch(e){
 			//console.log(e);
 		}
@@ -185,7 +236,47 @@
 			
 			headerLinks.appendChild(coins);
 			
-		} 
+		}
+		
+		//Checking for spam email
+		let fromEmail;
+		if(frame){
+			fromEmail = frame.contentDocument.getElementsByClassName('from')[0];
+		}else{
+			fromEmail = document.getElementsByClassName('from')[0];
+		}
+		
+		const input = fromEmail.textContent;
+		const regex = /^(.*)<(.+@.+\..+)>$/;
+    	const match = input.match(regex);
+		let name = null;
+		let email = null;
+
+		if (match) {
+			// Extract name and email
+			name = match[1].trim();
+			email = match[2].trim();
+		} else if (input.includes('@')) {
+			// Only email is provided
+			email = input.trim();
+		}
+
+		// If both name and email are present, check for a match
+		if (name) {
+			const nameWords = name.toLowerCase().split(/\s+/);
+			const emailLower = email.toLowerCase();
+
+			// Check if any word from the name exists in the email
+			const hasMatch = nameWords.some(word => emailLower.includes(word));
+
+			if (!hasMatch) {
+				showEmailMismatchWarning();
+				return false;
+			}
+		}
+
+		//console.log("The email matches the name")
+
 	}
 
 	function populateTranslationMenu() {
@@ -238,26 +329,64 @@
 			
 		});
 	}
-	
-	document.getElementById('translate-modal').addEventListener('shown.bs.modal', populateTranslationMenu);
 
-	function translateEmail(language) {
+	function convertTranslateLink(){
 		const frame = document.querySelector('#layout-content .iframe-wrapper #messagecontframe');
+		let translateLink;
+		if(frame){
+			translateLink = frame.contentDocument.getElementsByClassName('translate-link')[0];
+		}else{
+			translateLink = document.getElementsByClassName('translate-link')[0];
+		}
+		translateLink.innerHTML = "See Orignal";
+		translateLink.removeAttribute("data-toggle");
+		translateLink.removeAttribute("data-modal"); // Remove the data-modal attribute
+    	translateLink.removeAttribute("data-target");;
+		const coins = translateLink.nextElementSibling;
+		coins.style.display = "none";
+		translateLink.onclick = function(event){
+			event.preventDefault();
+			RevertTranslation();
+			return false;
+		}
+
+	}
+	
+	//document.getElementById('translate-modal').addEventListener('shown.bs.modal', populateTranslationMenu);
+	let orignalText ;
+	let orignalSubject ;
+	function translateEmail(language) {
+		let frame = document.querySelector('#layout-content .iframe-wrapper #messagecontframe');
 		let content;
+		let subject;
 		if(frame){
 			const messageBody = frame.contentDocument.getElementById('messagebody');
+			const headerBody = frame.contentDocument.getElementById('message-header');
 			content = messageBody.getElementsByClassName('pre')[0];
+			subject = headerBody.getElementsByClassName('subject')[0];
+			if(!content){
+				content = messageBody.getElementsByClassName('message-htmlpart')[0];
+				
+			}
 		}else{
 			const messageBody = document.getElementById('messagebody');
+			const headerBody = document.getElementById('message-header');
 			content = messageBody.getElementsByClassName('pre')[0];
+			subject = headerBody.getElementsByClassName('subject')[0];
+			if(!content){
+				content = messageBody.getElementsByClassName('message-htmlpart')[0];
+				
+			}
 		}
+		
 		const emailBody = content.innerHTML;
 		const sidebar = document.getElementById('layout-sidebar');
 		const username = sidebar.getElementsByClassName('username')[0];
 		const from_email = username.textContent;
 		const baseURL = 'https://console.gofloww.co/api/mail/'
+		const subjectText = subject.innerText;
 		if(content){
-			const emailBody = content.innerHTML;
+			const emailBody = JSON.stringify(content.innerHTML);
 			//console.log( JSON.stringify({
 			//	email_body: emailBody,
 			//	language: language,
@@ -273,7 +402,8 @@
 					body: JSON.stringify({
 						language: language,
 						email_body: emailBody,
-						from_email: from_email
+						from_email: from_email,
+						subject: subjectText
 					},40000)
 				}).then(response =>{
 					if(!response.ok){
@@ -285,21 +415,67 @@
 					return response.json();
 				}).then(responseData =>{
 					const translatedEmail = responseData.email_body;
+					const translatedSubject = responseData.subject;
+					orignalText = JSON.stringify(content.innerHTML);
+					orignalSubject  =  subjectText;
 					content.innerHTML = translatedEmail;
+					subject.innerText = translatedSubject;
+					convertTranslateLink();
 					rcmail.hide_message(messageKey, false);
 				}).catch(error =>{
-					console.error('Error translating email:', error);
+					//console.error('Error translating email:', error);
 					showErrorModal('error-modal', 'Error', error.message);
 					rcmail.hide_message(messageKey, false);
 				})
 			} catch (error) {
-				console.error('Error translating email:', error);
+				//console.error('Error translating email:', error);
 				showErrorModal('error-modal', 'Error', error.message);
 				rcmail.hide_message(messageKey, false);
 			}
 			
 		}
 	}
+
+	function RevertTranslation(){
+		const frame = document.querySelector('#layout-content .iframe-wrapper #messagecontframe');
+		let content;
+		if(frame){
+			const messageBody = frame.contentDocument.getElementById('messagebody');
+			const headerBody = frame.contentDocument.getElementById('message-header');
+			content = messageBody.getElementsByClassName('pre')[0];
+			subject = headerBody.getElementsByClassName('subject')[0];
+			if(!content){
+				content = messageBody.getElementsByClassName('message-htmlpart')[0];
+			}
+		}else{
+			const messageBody = document.getElementById('messagebody');
+			const headerBody = document.getElementById('message-header');
+			content = messageBody.getElementsByClassName('pre')[0];
+			subject = headerBody.getElementsByClassName('subject')[0];
+			if(!content){
+				content = messageBody.getElementsByClassName('message-htmlpart')[0];
+			}
+		}
+		content.innerHTML = JSON.parse(orignalText);
+		subject.innerText = orignalSubject;
+		let translateLink;
+		if(frame){
+			translateLink = frame.contentDocument.getElementsByClassName('translate-link')[0];
+		}else{
+			translateLink = document.getElementsByClassName('translate-link')[0];
+		}
+		translateLink.innerHTML = "Translate2(";
+		translateLink.setAttribute("data-toggle", "modal");
+		translateLink.setAttribute("data-modal", "modal-value");
+    	translateLink.setAttribute("data-target", "#translate-modal");
+		const coins = translateLink.nextElementSibling;
+		coins.style.display = "inline-block";
+		translateLink.onclick = function(){
+			populateTranslationMenu();
+			return false;
+		}
+	}
+
 	document.addEventListener('DOMContentLoaded', function() {
 		//removeOrignalFolders();
 		
@@ -313,7 +489,7 @@
 					const iframeDocument = iframe.contentDocument;
 					injectTranslateLink(iframeDocument);
 				} catch (e) {
-					console.error('Error accessing iframe content: ', e);
+					//console.error('Error accessing iframe content: ', e);
 				}
 			};
 		}else{
@@ -364,7 +540,7 @@
 			logoutButton.removeAttribute('href'); // Remove href since it's not needed
 			logoutButton.removeAttribute('onclick'); // Remove onclick as the modal will handle the action
 		} else {
-			console.error('Logout button not found');
+			//console.error('Logout button not found');
 		}
 	}
 
@@ -388,7 +564,7 @@
 				button.remove();
 			}
 		}catch (e) {
-			console.error('Error accessing iframe content: ', e);
+			//console.error('Error accessing iframe content: ', e);
 		}
 	}
 

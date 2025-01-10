@@ -220,7 +220,7 @@
 				<span class="icon">
 					<i class="fa-solid fa-wand-magic-sparkles"></i>
 				</span>
-				<span>AI draft</span>
+				<span id="ai-draft-text">AI draft</span>
 			</button>
 			
 			<div class="float-right">
@@ -834,34 +834,10 @@
 		OpenInNewWindowButton.setAttribute("title", "Open in New Window");
 		
 		if (emailSubject.includes('Re:')) {
-			const htmlButton = document.querySelector('a.mce-i-html'); 
-			htmlButton.style.display = 'inline-block'; 
-			htmlButton.style.marginRight = '10px';
-
-			toolbar.style.display = "flex";
-			toolbar.style.alignItems =  "center";
-			const replyAssistButton = document.createElement('a');
-            replyAssistButton.id = 'reply-assist-btn';
-            replyAssistButton.href = '#';
-            replyAssistButton.tabIndex = -1;
-            replyAssistButton.title = 'Reply Assist';
-            replyAssistButton.style.display = 'inline-block';
-            replyAssistButton.style.opacity = '1';
-			replyAssistButton.innerHTML = 'Reply Assist (2 <i class="fa-solid fa-coins"></i>)';
-            replyAssistButton.onclick = function() {
-                replyAssist();  // Call the replyAssist function when clicked
-                return false;  // Prevent default action
-            };
-
-			// Apply gradient text effect
-			replyAssistButton.style.backgroundImage = 'linear-gradient(90deg, #00ceb1 0%, #1E92FB 100%)';
-			replyAssistButton.style.webkitBackgroundClip = 'text';  // For Webkit browsers (Chrome, Safari)
-			replyAssistButton.style.backgroundClip = 'text';        // Standard property
-			replyAssistButton.style.color = 'transparent';
-
-			if (toolbar) {
-				toolbar.appendChild(replyAssistButton);
-			}
+			let AiDraftButton = document.getElementById('auto-draft-button');
+			let AiDraftText = document.getElementById('ai-draft-text');
+			AiDraftText.textContent = ' Reply Assist ';
+			AiDraftButton.setAttribute('data-target', '#reply-assist-modal');
 		}
 	}
 	// Search functionality for phrases
@@ -890,6 +866,17 @@
 			});
 		}
 	}
+	function convertToHtml(inputText) {
+		if (/<[a-z][\s\S]*>/i.test(inputText)) {
+			return inputText;
+		}
+		let paragraphs = inputText.split(/\n\n/);
+		let htmlContent = paragraphs.map(paragraph => {
+			let sanitized = paragraph.replace(/\n/g, '<br>');
+			return `<p>${sanitized}</p>`;
+		});
+		return htmlContent.join('');
+	}
 
 	// Function to call OpenAI API to generate an email
 	async function generateEmail() {
@@ -897,10 +884,13 @@
 		const emailDetails = document.getElementById('email-details');
 		const selectedText = document.getElementById('composebody');
 		const existingText = selectedText.value;
+		const htmlText = document.getElementById('composebody_ifr');
+		
 		//const topic = searchBar.value;
 		const description = emailDetails.value;
 		const fromSelect = document.getElementById('_from');
 		const from_email = fromSelect.options[fromSelect.selectedIndex].text;
+		const SubjectSelect = document.getElementById('compose-subject');
 		//console.log(topic);
 		//console.log(description);
 		var messageKey = rcmail.display_message('Generating email,please wait.....', 'loading');
@@ -927,18 +917,32 @@
 				}
 				return response.json();
 			}).then(responseData => {
+
 				const generatedEmail = responseData.email_body;
-				selectedText.value = `${generatedEmail}\n\n${existingText}`;
+				const generatedSubject = responseData.subject;
+
+				if(selectedText){
+					selectedText.value = `${generatedEmail}\n\n${existingText}`;
+				}
+				if(htmlText){
+					var iframeDoc = htmlText.contentDocument;
+					var newParagraph = iframeDoc.createElement('div');
+					newParagraph.innerHTML = convertToHtml(generatedEmail);
+					var iframeBody = iframeDoc.body;
+					iframeBody.insertBefore(newParagraph, iframeBody.firstChild);
+				}
+				
+				SubjectSelect.value = generatedSubject;
 				rcmail.hide_message(messageKey, false);
 			}).catch(error => {
-				console.error('Error generating email:', error);
+				//console.error('Error generating email:', error);
 				showErrorModal('error-modal', 'Error', error.message);
 				selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
 				rcmail.hide_message(messageKey, false);
 			})
 
 		} catch (error) {
-			console.error('Error generating email:', error);
+			//console.error('Error generating email:', error);
 			showErrorModal('error-modal', 'Error', error.message);
 			selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
 			rcmail.hide_message(messageKey, false);
@@ -955,14 +959,14 @@
 			body: JSON.stringify(data),
 		}, 40000).then((response) => {
 			if(!response.ok){
-				console.error('Error generating email:', error);
+				//console.error('Error generating email:', error);
 				throw new Error('Network response was not ok');
 			}
 			return response.json();
 		}).then((result) =>{
 			return result;
 		}).catch((error)=>{
-			console.error('Error Scheduling email:', error);
+			//console.error('Error Scheduling email:', error);
 		})
 	}
 
@@ -1119,48 +1123,69 @@
 	}
 	
 	async function selectOption(optionId, date, time) {
-		// Deselect all options
-		const options = document.getElementById('scheduleOptions').children;
-		for (let i = 0; i < options.length; i++) {
-			options[i].classList.remove('active');
-		}
-	
-		// Select the clicked option by its ID
-		const selectedOption = document.getElementById(optionId);
-		if (selectedOption) {
-			selectedOption.classList.add('active');
-		}
+		const toEmail= document.getElementById('_to');
+		const subject = document.getElementById('compose-subject');
 
-		const subjectValue = document.getElementById('compose-subject').value;
-		const fromSelect = document.getElementById('_from');
-		const fromText = fromSelect.options[fromSelect.selectedIndex].text;
-		const newSubject = `<Scheduled email: ${date} ${time}>${subjectValue}`
-		document.getElementById('compose-subject').value = newSubject;
-		const cc = extractEmailsFromComposeCC("#compose_cc");
-		const bcc = extractEmailsFromComposeCC("#compose_bcc");
-		const data = {
-			from: fromText,
-			subject: newSubject ,
-			cc: cc,
-			bcc: bcc,
-			date: date,
-			time: time
+		if (!toEmail || !subject) {
+			console.error("Required elements (_to or compose-subject) are not found in the DOM.");
+			return;
 		}
-		//console.log(data);
-		await rcmail.command('savedraft','',this,event)
-		scheduleMessage(data)
-			.then((result) => {
-				//console.log("Message Scheduled Successfully:", result);
-				if(result.message === "message scheduled successfully"){
-					window.location.href = "/?_task=mail&_mbox=Scheduled";
-				}
-				//rcmail.command('savedraft','',this,event)
-				 //change in production
-			})
-			.catch((error) =>{
-				console.error("Error scheduling message:", error);
-			});
-		//console.log(data);
+		else if (!toEmail.value.trim() && !subject.value.trim()){
+			showErrorModal('error-modal', 'Error', "'To' email field is empty, 'Subject' email field is empty");
+			return;
+		}
+		else if (!toEmail.value.trim()) {
+			showErrorModal('error-modal', 'Error', "'To' email field is empty");
+			return;
+		}
+		else if (!subject.value.trim()) {
+			showErrorModal('error-modal', 'Error', "'Subject' email field is empty");
+			return;
+		}
+		else{
+			// Deselect all options
+			const options = document.getElementById('scheduleOptions').children;
+			for (let i = 0; i < options.length; i++) {
+				options[i].classList.remove('active');
+			}
+		
+			// Select the clicked option by its ID
+			const selectedOption = document.getElementById(optionId);
+			if (selectedOption) {
+				selectedOption.classList.add('active');
+			}
+
+			const subjectValue = document.getElementById('compose-subject').value;
+			const fromSelect = document.getElementById('_from');
+			const fromText = fromSelect.options[fromSelect.selectedIndex].text;
+			const newSubject = `<Scheduled email: ${date} ${time}>${subjectValue}`
+			document.getElementById('compose-subject').value = newSubject;
+			const cc = extractEmailsFromComposeCC("#compose_cc");
+			const bcc = extractEmailsFromComposeCC("#compose_bcc");
+			const data = {
+				from: fromText,
+				subject: newSubject ,
+				cc: cc,
+				bcc: bcc,
+				date: date,
+				time: time
+			}
+			//console.log(data);
+			await rcmail.command('savedraft','',this,event)
+			scheduleMessage(data)
+				.then((result) => {
+					//console.log("Message Scheduled Successfully:", result);
+					if(result.message === "message scheduled successfully"){
+						window.location.href = "/?_task=mail&_mbox=Scheduled";
+					}
+					//rcmail.command('savedraft','',this,event)
+					//change in production
+				})
+				.catch((error) =>{
+					//console.error("Error scheduling message:", error);
+				});
+			//console.log(data);
+		}
 	}
 		
     // Update the selected date and time on the page
@@ -1175,52 +1200,75 @@
 
     // Handle custom schedule button click
 	function handleCustomScheduleClick() {
-		const selectedDate = document.getElementById('scheduleDate').value;
-		const selectedTime = document.getElementById('scheduleTime').value;
+		const toEmail= document.getElementById('_to');
+		const subject = document.getElementById('compose-subject');
 
-		const subjectValue = document.getElementById('compose-subject').value;
-		const fromSelect = document.getElementById('_from');
-		const fromText = fromSelect.options[fromSelect.selectedIndex].text;
-		const newSubject = `<Scheduled email: ${selectedDate} ${selectedTime}>${subjectValue}`
-		document.getElementById('compose-subject').value = newSubject;
-		const cc = extractEmailsFromComposeCC("#compose_cc");
-		const bcc = extractEmailsFromComposeCC("#compose_bcc");
-		const data = {
-			from: fromText,
-			subject: newSubject ,
-			cc: cc,
-			bcc: bcc,
-			date: selectedDate,
-			time: selectedTime
+		if (!toEmail || !subject) {
+			console.error("Required elements (_to or compose-subject) are not found in the DOM.");
+			return;
 		}
-		//console.log(data);
-		rcmail.command('savedraft','',this,event)
-		scheduleMessage(data)
-			.then((result) => {
-				//console.log("Message Scheduled Successfully:", result);
-				if(result.message === "message scheduled successfully"){
-					window.location.href = "/?_task=mail&_mbox=Scheduled";
-				}
-				//rcmail.command('savedraft','',this,event)
-				 //change in production
-			})
-			.catch((error) =>{
-				console.error("Error scheduling message:", error);
-			});
-		//console.log(data);
+		else if (!toEmail.value.trim() && !subject.value.trim()){
+			showErrorModal('error-modal', 'Error', "'To' email field is empty, 'Subject' email field is empty");
+			return;
+		}
+		else if (!toEmail.value.trim()) {
+			showErrorModal('error-modal', 'Error', "'To' email field is empty");
+			return;
+		}
+		else if (!subject.value.trim()) {
+			showErrorModal('error-modal', 'Error', "'Subject' email field is empty");
+			return;
+		}
+		else{
+			const selectedDate = document.getElementById('scheduleDate').value;
+			const selectedTime = document.getElementById('scheduleTime').value;
 
-		// Close the custom date-time picker modal
-		var customDateTimeModal = new bootstrap.Modal(document.getElementById('custom-date-time-modal'));
-		customDateTimeModal.hide();
+			const subjectValue = document.getElementById('compose-subject').value;
+			const fromSelect = document.getElementById('_from');
+			const fromText = fromSelect.options[fromSelect.selectedIndex].text;
+			const newSubject = `<Scheduled email: ${selectedDate} ${selectedTime}>${subjectValue}`
+			document.getElementById('compose-subject').value = newSubject;
+			const cc = extractEmailsFromComposeCC("#compose_cc");
+			const bcc = extractEmailsFromComposeCC("#compose_bcc");
+			const data = {
+				from: fromText,
+				subject: newSubject ,
+				cc: cc,
+				bcc: bcc,
+				date: selectedDate,
+				time: selectedTime
+			}
+			//console.log(data);
+			rcmail.command('savedraft','',this,event)
+			scheduleMessage(data)
+				.then((result) => {
+					//console.log("Message Scheduled Successfully:", result);
+					if(result.message === "message scheduled successfully"){
+						window.location.href = "/?_task=mail&_mbox=Scheduled";
+					}
+					//rcmail.command('savedraft','',this,event)
+					//change in production
+				})
+				.catch((error) =>{
+					//console.error("Error scheduling message:", error);
+				});
+			//console.log(data);
+
+			// Close the custom date-time picker modal
+			var customDateTimeModal = new bootstrap.Modal(document.getElementById('custom-date-time-modal'));
+			customDateTimeModal.hide();
+		}
 	}
 
 	async function replyAssist() {
-		
+		const replyDetails = document.getElementById('reply-details');
 		const emailSubject= document.getElementById('compose-subject');
 		const selectedText = document.getElementById('composebody');
+		const htmlText = document.getElementById('composebody_ifr');
 		const existingText = selectedText.value;
 		const fromSelect = document.getElementById('_from');
-		const from_email = fromSelect.options[fromSelect.selectedIndex].text; 
+		const from_email = fromSelect.options[fromSelect.selectedIndex].text;
+		const context = replyDetails.value; 
 		//console.log({subject: emailSubject.value, email_body: existingText});
 		var messageKey = rcmail.display_message('Generating reply,please wait.....', 'loading');
 		try {
@@ -1232,7 +1280,8 @@
 				body: JSON.stringify({
 					subject: emailSubject.value,
 					email_body: existingText,
-					from_email: from_email
+					from_email: from_email,
+					context: context
 				},40000)
 			}).then(response =>{
 				if(!response.ok){
@@ -1245,16 +1294,25 @@
 				return response.json();
 			}).then(responseData =>{
 				const generatedEmail = responseData.email_body;
-				selectedText.value = `${generatedEmail}\n\n${existingText}`;
+				if(selectedText){
+					selectedText.value = `${generatedEmail}\n\n${existingText}`;
+				}
+				if(htmlText){
+					var iframeDoc = htmlText.contentDocument;
+					var newParagraph = iframeDoc.createElement('div');
+					newParagraph.innerHTML = convertToHtml(generatedEmail);
+					var iframeBody = iframeDoc.body;
+					iframeBody.insertBefore(newParagraph, iframeBody.firstChild);
+				}
 				rcmail.hide_message(messageKey, false);
 			}).catch(error =>{
-				console.error('Error generating email:', error);
+				//console.error('Error generating email:', error);
 				showErrorModal('error-modal', 'Error', error.message);
 				selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
 				rcmail.hide_message(messageKey, false);
 			})
 		} catch (error) {
-			console.error('Error generating email:', error);
+			//console.error('Error generating email:', error);
 			showErrorModal('error-modal', 'Error', error.message);
 			selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
 			rcmail.hide_message(messageKey, false);
@@ -1270,6 +1328,8 @@
 
         if (clonedAutoDraftButton.length) {
             // Ensure it's a jQuery object
+			const emailSubject= document.getElementById('compose-subject').value;
+			
             clonedAutoDraftButton = $(clonedAutoDraftButton);
 
             // Remove the ::before pseudo-element by setting its 'content' to 'none'
@@ -1279,19 +1339,38 @@
             clonedAutoDraftButton.removeClass('disabled');
 
             // Clear any existing content and add the new icon and text
-            clonedAutoDraftButton.html(`
+			if(emailSubject.includes('Re:')){
+				clonedAutoDraftButton.html(`
                 <span class="icon" style="display: inline-block; text-align: center;">
                     <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true" style="font-size: 20px; background: linear-gradient(90deg, #00ceb1 0%, #1E92FB 100%); -webkit-background-clip: text; color: transparent;"></i>
                     <br/>
                 </span>
-                <span style="display: block; text-align: center;">AI draft</span>
-            `);
+                <span style="display: block; text-align: center;" id="ai-draft-text">Reply Assist</span>
+            	`);
+			}else{
+				clonedAutoDraftButton.html(`
+                <span class="icon" style="display: inline-block; text-align: center;">
+                    <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true" style="font-size: 20px; background: linear-gradient(90deg, #00ceb1 0%, #1E92FB 100%); -webkit-background-clip: text; color: transparent;"></i>
+                    <br/>
+                </span>
+                <span style="display: block; text-align: center;" id="ai-draft-text">AI draft</span>
+            	`);
+			}
+           
 
             // Add the onclick event to open the modal
-            clonedAutoDraftButton.on('click', function(e) {
-                e.preventDefault(); // Prevent default anchor behavior
-                $('#auto-draft-modal').modal('show');
-            });
+			if(emailSubject.includes('Re:')){
+				clonedAutoDraftButton.on('click', function(e) {
+					e.preventDefault(); // Prevent default anchor behavior
+					$('#reply-assist-modal').modal('show');
+				});
+			}else{
+				clonedAutoDraftButton.on('click', function(e) {
+					e.preventDefault(); // Prevent default anchor behavior
+					$('#auto-draft-modal').modal('show');
+				});
+			}
+            
 
             // Ensure tabindex and class adjustments
             clonedAutoDraftButton.attr('tabindex', '0')
@@ -1372,7 +1451,7 @@
 			});
 	
 			if (!response.ok) {
-				console.error('Error Getting Credit info:', response.statusText);
+				//console.error('Error Getting Credit info:', response.statusText);
 				throw new Error('Network response was not ok');
 			}
 	
@@ -1383,7 +1462,7 @@
 			return credits_available;
 			
 		} catch (error) {
-			console.error('Error Getting Credits:', error);
+			//console.error('Error Getting Credits:', error);
 			return 0;
 		}
 	}
@@ -1581,6 +1660,11 @@
 		}
 	}
 
+	function isValidHtmlString(str) {
+		var doc = new DOMParser().parseFromString(str, "text/html");
+		return Array.from(doc.body.childNodes).some((node) => node.nodeType === 1); // Check for any element nodes
+	}
+
 	async function getTemplate(template_id){
 		var messageKey = rcmail.display_message('Loading template,please wait.....', 'loading');
 		try{
@@ -1597,9 +1681,20 @@
 
 			if(response.ok){
 				const selectedText = document.getElementById('composebody');
+				const htmlText = document.getElementById('composebody_ifr');
 				const existingText = selectedText.value;
 				const templateContent = responseData.template.template_content;
-				selectedText.value = `${templateContent}`;
+				if(selectedText){
+					selectedText.value = `${templateContent}`;
+				}	
+				if(htmlText){
+					const iframeDoc = htmlText.contentDocument;
+					var newParagraph = iframeDoc.createElement('div');
+					newParagraph.innerHTML = convertToHtml(templateContent);
+					var iframeBody = iframeDoc.body;
+					iframeBody.innerHTML = '';
+					iframeBody.appendChild(newParagraph);
+				}
 				rcmail.hide_message(messageKey, false);
 			}else{
 				showErrorModal('error-modal', 'Error', responseData.error);
@@ -1619,7 +1714,16 @@
 			const fromSelect = document.getElementById('_from');
 			const from_email = fromSelect.options[fromSelect.selectedIndex].text;
 			const selectedText = document.getElementById('composebody');
-			const template_content = selectedText.value;
+			const htmlText = document.getElementById('composebody_ifr');
+			var template_content;
+			if(selectedText){
+				template_content = selectedText.value;
+			}
+			if(htmlText){
+				var iframeDoc = htmlText.contentDocument;
+				var templateContent = JSON.stringify(iframeDoc.body.innerHTML);
+			}
+			 
 			const templateName = document.getElementById('template-name')
 			const template_name = templateName.value;
 			const response = await fetch(`${baseURL}add-template/`, {
