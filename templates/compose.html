@@ -1613,6 +1613,22 @@
 		// Show the modal using Bootstrap's modal function
 		$(`#${modalId}`).modal('show');
 	}
+
+	function addTag() {
+		const tagInput = document.getElementById('tag-input');
+		const tagValue = tagInput.value.trim();
+		if (tagValue !== '') {
+			// Create a new list item for the tag
+			const tagItem = document.createElement('li');
+			tagItem.classList.add('d-flex', 'align-items-center');
+			tagItem.innerHTML = `
+				<span class="badge badge-pill badge-info mr-2">${tagValue}</span>
+				<button type="button" class="btn btn-sm btn-danger" onclick="removeTag(this)">X</button>
+			`;
+			document.getElementById('tags-list').appendChild(tagItem);
+			tagInput.value = ''; // Clear the input field after adding
+		}
+	}
 	
 	async function getTemplates(){
 		const fromSelect = document.getElementById('_from');
