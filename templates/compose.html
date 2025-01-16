@@ -1670,7 +1670,7 @@
 			// Populate filter dropdown
 			uniqueTags.forEach(tag => {
 				const li = document.createElement("li");
-				li.className = "dropdown-item";
+				li.className = "dropdown-item list-group listing";
 				li.textContent = tag;
 				li.onclick = () => filterTemplatesByTag(tag, templates);
 				filterTagList.appendChild(li);
@@ -1684,7 +1684,7 @@
 
 	function renderTemplateList(templates, container) {
 		const ul = document.createElement("ul");
-		ul.className = "templates list-group listing";
+		ul.className = "templates";
 		templates.reverse().forEach(template => {
 			const li = document.createElement("li");
 			li.className = "list-group-item template-item";
