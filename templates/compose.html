@@ -1646,6 +1646,7 @@
 			templates = responseData.templates;
 			const templateContainer = document.getElementById("template-list");
 			const noTemplatesMessage = document.getElementById("no-templates");
+			const filterTagList = document.getElementById("tag-filter-list");
 
 			if (templateContainer) {
 				const listItems = document.getElementsByClassName('templates');
@@ -1655,24 +1656,89 @@
 					})
 				}
 			}
+
+			filterTagList.innerHTML = "";
+
+			const uniqueTags = new Set();
+			templates.forEach(template => {
+				template.tags.forEach(tagObj => {
+					uniqueTags.add(tagObj.tag);
+				});
+			});
+
+			// Populate filter dropdown
+			uniqueTags.forEach(tag => {
+				const li = document.createElement("li");
+				li.className = "dropdown-item";
+				li.textContent = tag;
+				li.onclick = () => filterTemplatesByTag(tag, templates);
+				filterTagList.appendChild(li);
+			});
+
 			if (noTemplatesMessage) noTemplatesMessage.style.display = "none";
 			//console.log(templates)
-			const ul = document.createElement("ul");
-			ul.className = "templates";
-			templates.reverse().forEach(template => {
-				const li = document.createElement("li");
-				li.className = "list-group-item template-item";
-				li.textContent = template.template_name;
-				li.cursor = 'pointer';
-				li.setAttribute("data-toggle", "modal");
-				li.setAttribute("data-target", "#template-modal");
-				li.onclick = function(){
-					getTemplate(template.template_id)
-				}
-				
-				ul.appendChild(li);
-			})
-			templateContainer.appendChild(ul);
+			//const ul = document.createElement("ul");
+			//ul.className = "templates";
+			//templates.reverse().forEach(template => {
+			//	const li = document.createElement("li");
+			//	li.className = "list-group-item template-item";
+			//	li.textContent = template.template_name;
+			//	li.cursor = 'pointer';
+			//	li.setAttribute("data-toggle", "modal");
+			//	li.setAttribute("data-target", "#template-modal");
+			//	li.onclick = function(){
+			//		getTemplate(template.template_id)
+			//	}
+			//	
+			//	ul.appendChild(li);
+			//})
+			//templateContainer.appendChild(ul);
+
+			renderTemplateList(templates, templateContainer);
+		}
+	}
+
+	function renderTemplateList(templates, container) {
+		const ul = document.createElement("ul");
+		ul.className = "templates";
+		templates.reverse().forEach(template => {
+			const li = document.createElement("li");
+			li.className = "list-group-item template-item";
+			li.textContent = template.template_name;
+			li.style.cursor = "pointer";
+			li.setAttribute("data-toggle", "modal");
+			li.setAttribute("data-target", "#template-modal");
+			li.onclick = function () {
+				getTemplate(template.template_id);
+			};
+			ul.appendChild(li);
+		});
+		container.appendChild(ul);
+	}
+	
+	function filterTemplatesByTag(tag, templates) {
+		const filteredTemplates = templates.filter(template =>
+			template.tags.some(tagObj => tagObj.tag === tag)
+		);
+		const templateContainer = document.getElementById("template-list");
+	
+		// Clear current templates
+		const listItems = document.getElementsByClassName('templates');
+		if (listItems) {
+			Array.from(listItems).forEach(listItem => {
+				listItem.remove();
+			});
+		}
+	
+		// Render filtered templates
+		renderTemplateList(filteredTemplates, templateContainer);
+	
+		// Show "No Templates" if no match
+		const noTemplatesMessage = document.getElementById("no-templates");
+		if (filteredTemplates.length === 0 && noTemplatesMessage) {
+			noTemplatesMessage.style.display = "block";
+		} else if (noTemplatesMessage) {
+			noTemplatesMessage.style.display = "none";
 		}
 	}
 
