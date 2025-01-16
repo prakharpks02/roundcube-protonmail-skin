@@ -9,6 +9,7 @@
 
 
 <script>
+	const baseURL = 'https://f4f1-117-250-76-237.ngrok-free.app/api/mail/'
 	function checksubject(){
 		// Start monitoring URL changes
 		monitorURLChanges();
@@ -16,6 +17,49 @@
 		// Initial call to inject button on page load
 		injectEditButton();
 	}
+
+	async function getCredits(email) {
+	
+		try {
+			const response = await fetch(`${baseURL}get-email-credits/`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ email: email }, 40000)
+			});
+	
+			if (!response.ok) {
+				//console.error('Error Getting Credit info:', response.statusText);
+				throw new Error('Network response was not ok');
+			}
+	
+			const responseData = await response.json();
+			const credit_limit = responseData.credit_limit;
+			const credit_used = responseData.credit_used;
+			const credits_available = credit_limit - credit_used;
+			return credits_available;
+			
+		} catch (error) {
+			//console.error('Error Getting Credits:', error);
+			return 0;
+		}
+	}
+
+	function displayCredits(){
+		const email = rcmail.env.user_name;
+		if(email){
+			const credits = getCredits(email);
+			const aboutElement = document.getElementsByClassName('about')[0];  // Get the first element with class 'about'
+			const spanElement = aboutElement.querySelector('span');
+			if(credits){
+				spanElement.innerText = 'credits';
+				spanElement.style.setProperty('display', 'block', 'important');
+			}
+			
+		}
+	}
+
 	function injectEditButton() {
 		// Check if the URL contains _mbox=Scheduled
 		const urlParams = new URLSearchParams(window.location.search);
@@ -383,7 +427,7 @@
 		const sidebar = document.getElementById('layout-sidebar');
 		const username = sidebar.getElementsByClassName('username')[0];
 		const from_email = username.textContent;
-		const baseURL = 'https://console.gofloww.co/api/mail/'
+		//const baseURL = 'https://console.gofloww.co/api/mail/'
 		const subjectText = subject.innerText;
 		if(content){
 			const emailBody = JSON.stringify(content.innerHTML);
