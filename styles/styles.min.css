@@ -5665,7 +5665,7 @@ body.status-flagged #message-header > .subject:before {
   border-color: #516065;
 }
 .list-group-item:hover {
-  background-color: #DED8F4;
+  background-color: #382295;
   color: #ffff;
   cursor: pointer;
 }
@@ -5815,6 +5815,11 @@ a.input-group-text.icon.add.active {
   border: 1px solid #7c949c;
   border-radius: 10px;
   padding-left: 1rem;
+}
+.tags-fliter:hover {
+  background-color: #382295;
+  color: #ffff;
+  cursor: pointer;
 }
 /*** Settings UI ***/
 .settings-default-icon tr > td.section::before,
