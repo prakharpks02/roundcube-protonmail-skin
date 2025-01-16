@@ -1660,6 +1660,7 @@
 			filterTagList.innerHTML = "";
 
 			const uniqueTags = new Set();
+			uniqueTags.add("Show All");
 			templates.forEach(template => {
 				template.tags.forEach(tagObj => {
 					uniqueTags.add(tagObj.tag);
@@ -1676,23 +1677,6 @@
 			});
 
 			if (noTemplatesMessage) noTemplatesMessage.style.display = "none";
-			//console.log(templates)
-			//const ul = document.createElement("ul");
-			//ul.className = "templates";
-			//templates.reverse().forEach(template => {
-			//	const li = document.createElement("li");
-			//	li.className = "list-group-item template-item";
-			//	li.textContent = template.template_name;
-			//	li.cursor = 'pointer';
-			//	li.setAttribute("data-toggle", "modal");
-			//	li.setAttribute("data-target", "#template-modal");
-			//	li.onclick = function(){
-			//		getTemplate(template.template_id)
-			//	}
-			//	
-			//	ul.appendChild(li);
-			//})
-			//templateContainer.appendChild(ul);
 
 			renderTemplateList(templates, templateContainer);
 		}
@@ -1717,10 +1701,18 @@
 	}
 	
 	function filterTemplatesByTag(tag, templates) {
-		const filteredTemplates = templates.filter(template =>
-			template.tags.some(tagObj => tagObj.tag === tag)
-		);
 		const templateContainer = document.getElementById("template-list");
+		let filteredTemplates;
+
+		if (tag === "Show All") {
+			// Show all templates
+			filteredTemplates = templates;
+		} else {
+			// Filter templates by the selected tag
+			filteredTemplates = templates.filter(template =>
+				template.tags.some(tagObj => tagObj.tag === tag)
+			);
+		}
 	
 		// Clear current templates
 		const listItems = document.getElementsByClassName('templates');
