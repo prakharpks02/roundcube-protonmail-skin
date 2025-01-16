@@ -934,6 +934,7 @@
 				
 				SubjectSelect.value = generatedSubject;
 				rcmail.hide_message(messageKey, false);
+				displayCredits();
 			}).catch(error => {
 				//console.error('Error generating email:', error);
 				showErrorModal('error-modal', 'Error', error.message);
@@ -1305,6 +1306,7 @@
 					iframeBody.insertBefore(newParagraph, iframeBody.firstChild);
 				}
 				rcmail.hide_message(messageKey, false);
+				displayCredits();
 			}).catch(error =>{
 				//console.error('Error generating email:', error);
 				showErrorModal('error-modal', 'Error', error.message);

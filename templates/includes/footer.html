@@ -470,6 +470,7 @@
 					subject.innerText = translatedSubject;
 					convertTranslateLink();
 					rcmail.hide_message(messageKey, false);
+					displayCredits();
 				}).catch(error =>{
 					//console.error('Error translating email:', error);
 					showErrorModal('error-modal', 'Error', error.message);
