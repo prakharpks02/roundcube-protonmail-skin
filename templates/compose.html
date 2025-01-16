@@ -1684,7 +1684,7 @@
 
 	function renderTemplateList(templates, container) {
 		const ul = document.createElement("ul");
-		ul.className = "templates";
+		ul.className = "templates list-group listing";
 		templates.reverse().forEach(template => {
 			const li = document.createElement("li");
 			li.className = "list-group-item template-item";
