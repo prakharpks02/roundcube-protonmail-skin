@@ -5816,9 +5816,8 @@ a.input-group-text.icon.add.active {
   border-radius: 10px;
   padding-left: 1rem;
 }
-.tags-fliter:hover {
-  background-color: #382295;
-  color: #ffff;
+.tags-filter:hover {
+  color: #382295;
   cursor: pointer;
 }
 /*** Settings UI ***/
@@ -6732,4 +6731,10 @@ html.dark-mode .pagenav.menu.footer {
   margin-right: 0.4rem !important;
   border-left: thin solid #516065;
   margin-left: 0.3rem !important;
+}
+html.dark-mode #tag-filter-list {
+  background: #23292C;
+}
+html.dark-mode .tags-filter {
+  color: #F1F3F3;
 }
