@@ -5811,6 +5811,11 @@ a.input-group-text.icon.add.active {
 #filterDropdown {
   margin-bottom: 0.5rem;
 }
+#tag-filter-list {
+  border: 1px solid #7c949c;
+  border-radius: 10px;
+  padding-left: 1rem;
+}
 /*** Settings UI ***/
 .settings-default-icon tr > td.section::before,
 .settings-default-icon li > a:before {
