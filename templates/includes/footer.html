@@ -49,14 +49,15 @@
 	function displayCredits(){
 		const email = rcmail.env.user_name;
 		if(email){
-			const credits = getCredits(email);
-			const aboutElement = document.getElementsByClassName('about')[0];  // Get the first element with class 'about'
-			const spanElement = aboutElement.querySelector('span');
-			if(credits){
+			getCredits(email).then(credits=>{
+				const aboutElement = document.getElementsByClassName('about')[0];  // Get the first element with class 'about'
+				const spanElement = aboutElement.querySelector('span');
 				spanElement.innerText = credits;
 				spanElement.style.setProperty('display', 'block', 'important');
-			}
-			
+				
+			}).catch(error => {
+				console.error('Error getting credits:', error);
+			});
 		}
 	}
 
