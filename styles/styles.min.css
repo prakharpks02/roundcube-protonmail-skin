@@ -2184,7 +2184,7 @@ a.toolbar-button {
   content: "\f011";
 }
 .menu a.about:before {
-  content: "\f128";
+  content: "\f51e";
 }
 .menu a.refresh:before {
   content: "\f021";
@@ -3093,7 +3093,7 @@ html.touch td.selection {
   content: "\f1cd";
 }
 .listing.iconized li a.about:before {
-  content: "\f51e";
+  content: "\f059";
   font-weight: 400;
 }
 .listing.iconized li a.license:before {
