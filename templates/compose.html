@@ -1742,12 +1742,19 @@
 			 
 			const templateName = document.getElementById('template-name')
 			const template_name = templateName.value;
+			const scope = document.querySelector('input[name="template-scope"]:checked')?.value;
+			const organizational = scope === 'organizational';
+			const tags = [];
+			document.querySelectorAll('#tags-list .badge').forEach(tag => {
+				tags.push(tag.innerText.trim());
+			});
+
 			const response = await fetch(`${baseURL}add-template/`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify({ email:from_email, template_name: template_name, template_content: template_content}, 40000)
+				body: JSON.stringify({ email:from_email, template_name: template_name, template_content: template_content, organizational: organizational, tags: tags}, 40000)
 			});
 			const responseData = await response.json();
 			if(response.ok){
