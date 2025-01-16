@@ -1670,7 +1670,7 @@
 			// Populate filter dropdown
 			uniqueTags.forEach(tag => {
 				const li = document.createElement("li");
-				li.className = "dropdown-item tags-filter";
+				li.className = "list-group-item";
 				li.textContent = tag;
 				li.onclick = () => filterTemplatesByTag(tag, templates);
 				filterTagList.appendChild(li);
