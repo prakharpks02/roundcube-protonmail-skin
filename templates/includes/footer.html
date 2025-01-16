@@ -35,9 +35,8 @@
 			}
 	
 			const responseData = await response.json();
-			const credit_limit = responseData.credit_limit;
-			const credit_used = responseData.credit_used;
-			const credits_available = credit_limit - credit_used;
+			const credits_available = responseData.credit_limit;
+			
 			return credits_available;
 			
 		} catch (error) {
