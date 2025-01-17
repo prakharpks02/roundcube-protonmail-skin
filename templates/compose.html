@@ -1457,7 +1457,7 @@
 		if (tagValue !== '') {
 			// Create a new list item for the tag
 			const tagItem = document.createElement('li');
-			tagItem.classList.add('d-flex', 'align-items-center');
+			tagItem.classList.add('d-inline-flex', 'align-items-center');
 			tagItem.innerHTML = `
 				<span class="badge badge-pill badge-info mr-2">${tagValue}</span>
 				<button type="button" class="btn btn-sm btn-danger" onclick="removeTag(this)">X</button>
