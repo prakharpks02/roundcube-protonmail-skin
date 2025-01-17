@@ -1646,7 +1646,7 @@
 			document.querySelectorAll('#tags-list .badge').forEach(tag => {
 				tags.push(tag.innerText.trim());
 			});
-			console.log({email:from_email, template_name: template_name, template_subject: subject.value, template_content: template_content, organizational: organizational, tags: tags})
+			console.log({email:from_email, template_name: template_name, template_subject: subject.innerText, template_content: template_content, organizational: organizational, tags: tags})
 			
 			const response = await fetch(`${baseURL}add-template/`, {
 				method: 'POST',
