@@ -1629,6 +1629,10 @@
 			const selectedText = document.getElementById('composebody');
 			const htmlText = document.getElementById('composebody_ifr');
 			const subject = document.getElementById('compose_subject');
+			var subjectValue = subject.value;
+			if(!subjectValue){
+				subjectValue = subject.innerText;
+			}
 			var template_content;
 			if(selectedText){
 				template_content = selectedText.value;
@@ -1646,14 +1650,14 @@
 			document.querySelectorAll('#tags-list .badge').forEach(tag => {
 				tags.push(tag.innerText.trim());
 			});
-			console.log({email:from_email, template_name: template_name, template_subject: subject.innerText, template_content: template_content, organizational: organizational, tags: tags})
+			console.log({email:from_email, template_name: template_name, template_subject: subjectValue, template_content: template_content, organizational: organizational, tags: tags})
 			
 			const response = await fetch(`${baseURL}add-template/`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify({ email:from_email, template_name: template_name, template_subject: subject.value, template_content: template_content, organizational: organizational, tags: tags}, 40000)
+				body: JSON.stringify({ email:from_email, template_name: template_name, template_subject: subjectValue, template_content: template_content, organizational: organizational, tags: tags}, 40000)
 			});
 			const responseData = await response.json();
 			if(response.ok){
