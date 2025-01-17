@@ -1595,6 +1595,7 @@
 				const htmlText = document.getElementById('composebody_ifr');
 				const existingText = selectedText.value;
 				const templateContent = responseData.template.template_content;
+				const subject = document.getElementById('compose-subject');
 				if(selectedText){
 					selectedText.value = `${templateContent}`;
 				}	
@@ -1606,6 +1607,7 @@
 					iframeBody.innerHTML = '';
 					iframeBody.appendChild(newParagraph);
 				}
+				subject.value = responseData.template.template_subject;
 				rcmail.hide_message(messageKey, false);
 			}else{
 				showErrorModal('error-modal', 'Error', responseData.error);
@@ -1626,6 +1628,7 @@
 			const from_email = fromSelect.options[fromSelect.selectedIndex].text;
 			const selectedText = document.getElementById('composebody');
 			const htmlText = document.getElementById('composebody_ifr');
+			const subject = document.getElementById('compose_subject');
 			var template_content;
 			if(selectedText){
 				template_content = selectedText.value;
@@ -1649,7 +1652,7 @@
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify({ email:from_email, template_name: template_name, template_content: template_content, organizational: organizational, tags: tags}, 40000)
+				body: JSON.stringify({ email:from_email, template_name: template_name, template_subject: subject.value, template_content: template_content, organizational: organizational, tags: tags}, 40000)
 			});
 			const responseData = await response.json();
 			if(response.ok){
