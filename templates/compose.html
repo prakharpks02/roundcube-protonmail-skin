@@ -1467,6 +1467,11 @@
 		}
 	}
 	
+	function removeTag(button) {
+		const tagItem = button.closest('li');
+		tagItem.remove();
+	}
+	
 	async function getTemplates(){
 		const fromSelect = document.getElementById('_from');
 		const from_email = fromSelect.options[fromSelect.selectedIndex].text;
