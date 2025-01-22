@@ -1535,8 +1535,26 @@
 			li.setAttribute("data-toggle", "modal");
 			li.setAttribute("data-target", "#template-modal");
 			li.onclick = function () {
-				getTemplate(template.template_id);
+				getTemplate(template
+				.template_id);
 			};
+
+			// Text content for the template name
+			const span = document.createElement("span");
+			span.textContent = template.template_name;
+	
+			// Create the 'a' tag for delete
+			const deleteLink = document.createElement("a");
+			deleteLink.textContent = "D";
+			deleteLink.style.cursor = "pointer";
+			deleteLink.onclick = function (event) {
+				event.stopPropagation(); // Prevent triggering the li click
+				deleteTemplate(template.template_id);
+			};
+	
+			// Append elements
+			li.appendChild(span); // Add the template name
+			li.appendChild(deleteLink);
 			ul.appendChild(li);
 		});
 		container.appendChild(ul);
