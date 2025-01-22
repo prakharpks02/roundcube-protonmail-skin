@@ -27,6 +27,11 @@ html.dark-mode {
     .scroller {
         // Firefox does not inherit scrollbar size from the html element
         scrollbar-width: thin;
+        box-shadow: none;
+    }
+
+    a{
+        color: @color-dark-main;
     }
 
     &:not(.touch) {
@@ -55,7 +60,6 @@ html.dark-mode {
     }
 
     #layout > div {
-        & > .searchbar,
         & > .scroller {
             border-right-color: @color-dark-border;
         }
@@ -89,7 +93,7 @@ html.dark-mode {
 
     #layout-menu {
         background: unset;
-        border-right: 1px solid @color-dark-border;
+        border-left: thin solid @color-dark-border;
 
         .popover-header,
         .special-buttons {
@@ -107,6 +111,10 @@ html.dark-mode {
         .special-buttons a:not(:focus) {
             background: @color-dark-background;
         }
+
+        .special-buttons a{
+            border-left: none !important;
+        }
     }
 
     &.layout-phone #layout-menu {
@@ -114,8 +122,7 @@ html.dark-mode {
     }
 
     .searchbar {
-        background-color: transparent;
-        border-color: @color-dark-border;
+        background-color: @color-dark-selected;
 
         form:before,
         a,
@@ -192,7 +199,12 @@ html.dark-mode {
 
         &.selected {
             background-color: @color-dark-list-selected-background;
+            color: @color-dark-main;
         }
+    }
+    #taskmenu .action-buttons a:hover {
+        color: @color-dark-main;
+        background: @color-dark-selected;
     }
 
     pre,
@@ -370,6 +382,11 @@ html.dark-mode {
         span.attachment span {
             color: @color-dark-hint;
         }
+    }
+    #layout-list .scroller{
+        border: thin solid @color-dark-border;
+        border-bottom: none !important;
+        box-shadow: none;
     }
 
     .folderlist li.mailbox .unreadcount {
@@ -1021,7 +1038,13 @@ html.dark-mode {
     }
 
     .list-group-item{
-        background-color: @color-main-dark;
+        background-color: @color-dark-background;
+        border-color: @color-dark-border;
+    }
+    .list-group-item:hover {
+        background-color: @color-main; 
+        color: #ffff;
+        cursor: pointer;
     }
     .popover {
         background-color: @color-dark-popover-background;
@@ -1153,5 +1176,19 @@ html.dark-mode {
         li.uid::before {
             opacity: 1;
         }
+    }
+
+    .pagenav.menu.footer {
+        margin-right: 0.4rem !important;
+        border-left: thin solid @color-dark-border;
+        margin-left: 0.3rem !important;
+    }
+
+    #tag-filter-list {
+        background: @color-dark-background;
+    }
+
+    .tags-filter {
+        color: @color-dark-font;
     }
 }

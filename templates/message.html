@@ -5,7 +5,7 @@
 
 <h1 class="voice"><roundcube:label name="arialabelmailpreviewframe" /></h1>
 
-<div id="layout-content" class="selected">
+<div id="layout-content" class="selected" >
 	<roundcube:if condition="!env:framed" />
 		<h2 id="aria-label-toolbar" class="voice"><roundcube:label name="arialabeltoolbar" /></h2>
 		<div class="header" role="toolbar" aria-labelledby="aria-label-toolbar">
@@ -16,7 +16,7 @@
 	<roundcube:endif />
 	<div class="content frame-content" role="main">
 		<div id="message-header">
-			<h2 class="subject">
+			<h2 class="subject" >
 				<span class="voice"><roundcube:label name="subject" />: </span>
 				<roundcube:object name="messageHeaders" valueOf="subject" />
 				<roundcube:if condition="!env:message_context && !env:extwin">
