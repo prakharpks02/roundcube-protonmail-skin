@@ -5816,8 +5816,14 @@ a.input-group-text.icon.add.active {
   border-radius: 10px;
   padding-left: 1rem;
 }
-.tags-filter:hover {
+.tags-filter::hover {
   color: #382295;
+  cursor: pointer;
+}
+.temp-del::before {
+  content: "\f1f8";
+  font-family: Icons;
+  font-size: 1rem;
   cursor: pointer;
 }
 /*** Settings UI ***/

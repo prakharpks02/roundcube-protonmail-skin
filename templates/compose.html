@@ -1545,7 +1545,10 @@
 	
 			// Create the 'a' tag for delete
 			const deleteLink = document.createElement("a");
-			deleteLink.textContent = "D";
+			deleteLink.className = "temp-del";
+			deleteLink.style.display = "inline-flex";
+			deleteLink.style.float = "right";
+			//deleteLink.textContent = "D";
 			deleteLink.style.cursor = "pointer";
 			deleteLink.onclick = function (event) {
 				event.stopPropagation(); // Prevent triggering the li click
