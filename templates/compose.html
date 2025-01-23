@@ -1545,15 +1545,23 @@
 	
 			// Create the 'a' tag for delete
 			const deleteLink = document.createElement("a");
+			// Create the 'a' tag for delete
+			const deleteLink = document.createElement("a");
 			deleteLink.className = "temp-del";
-			deleteLink.style.display = "inline-flex";
-			deleteLink.style.float = "right";
-			//deleteLink.textContent = "D";
+			deleteLink.style.display = "inline-flex"; // Flex is okay, but float isn't needed
+			deleteLink.textContent = "D"; // Ensure the link has visible content
 			deleteLink.style.cursor = "pointer";
+
+			// Add event handler
 			deleteLink.onclick = function (event) {
 				event.stopPropagation(); // Prevent triggering the li click
-				deleteTemplate(template.template_id);
+				deleteTemplate(template.template_id); // Make sure 'template' is defined
 			};
+
+			// Optional: Style the container (parent) instead of floating the <a> tag
+			// Example: Align using a flex container
+			
+
 	
 			// Append elements
 			li.appendChild(span); // Add the template name
