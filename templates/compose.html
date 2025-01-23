@@ -1626,29 +1626,17 @@
 
 	function filterTemplatesByType(type, templates) {
 		const templateContainer = document.getElementById("template-list");
-		let filteredTemplates;
 
-		if (type === "Show All") {
-			// Show all templates
-			filteredTemplates = templates;
-		} else if(type == "Organizational"){
-			filteredTemplates = templates.filter(template =>
-				template.organizational = true;
-			)
-		} else{
-			filteredTemplates = templates.filter(template =>
-				template.organizational = true;
-			)
-		}
+		// Filter templates based on type
+		const filteredTemplates = type === "Show All"
+			? templates
+			: templates.filter((template) => template.organizational === (type === "Organizational"));
 
-		// Clear current templates
-		const listItems = document.getElementsByClassName('templates');
-		if (listItems) {
-			Array.from(listItems).forEach(listItem => {
-				listItem.remove();
-			});
-		}
+		// Clear existing templates
+		const listItems = document.querySelectorAll('.templates');
+		listItems.forEach((listItem) => listItem.remove());
 
+		// Render filtered templates
 		renderTemplateList(filteredTemplates, templateContainer);
 
 		// Show "No Templates" if no match
