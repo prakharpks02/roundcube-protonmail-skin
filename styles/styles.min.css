@@ -6753,3 +6753,6 @@ html.dark-mode #type-filter-list {
 html.dark-mode .tags-filter {
   color: #F1F3F3;
 }
+html.dark-mode .type-filter {
+  color: #F1F3F3;
+}
