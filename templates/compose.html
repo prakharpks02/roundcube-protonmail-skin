@@ -1547,9 +1547,12 @@
 	
 			// Create the 'a' tag for delete
 			const deleteLink = document.createElement("span");
-			deleteLink.className = "temp-del";
+			deleteLink.className = "temp-del icons";
 			deleteLink.style.cursor = "pointer";
 			deleteLink.style.marginLeft = "auto"; // Align to the right when using flexbox
+
+			const trashIcon = documetn.createElement("i");
+			trashIcon.className = "fa-solid fa-trash"
 	
 			// Add event handler for delete
 			deleteLink.onclick = function (event) {
@@ -1563,6 +1566,7 @@
 			li.style.alignItems = "center"; // Center-align vertically
 	
 			// Append elements
+			deleteLink.appendChild(trashIcon);
 			li.appendChild(span); // Add the template name
 			li.appendChild(deleteLink); // Add the delete link
 			ul.appendChild(li); // Add the list item to the list
