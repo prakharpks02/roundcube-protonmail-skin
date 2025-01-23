@@ -1527,49 +1527,52 @@
 	function renderTemplateList(templates, container) {
 		const ul = document.createElement("ul");
 		ul.className = "templates";
+	
+		// Reverse templates and create list items
 		templates.reverse().forEach(template => {
 			const li = document.createElement("li");
 			li.className = "list-group-item template-item";
-			li.textContent = template.template_name;
 			li.style.cursor = "pointer";
 			li.setAttribute("data-toggle", "modal");
 			li.setAttribute("data-target", "#template-modal");
+			
+			// Handle click event on list item
 			li.onclick = function () {
-				getTemplate(template
-				.template_id);
+				getTemplate(template.template_id);
 			};
-
+	
 			// Text content for the template name
 			const span = document.createElement("span");
 			span.textContent = template.template_name;
 	
 			// Create the 'a' tag for delete
 			const deleteLink = document.createElement("a");
-			// Create the 'a' tag for delete
-			const deleteLink = document.createElement("a");
 			deleteLink.className = "temp-del";
-			deleteLink.style.display = "inline-flex"; // Flex is okay, but float isn't needed
-			deleteLink.textContent = "D"; // Ensure the link has visible content
+			deleteLink.textContent = "D"; // Visible content
 			deleteLink.style.cursor = "pointer";
-
-			// Add event handler
+			deleteLink.style.marginLeft = "auto"; // Align to the right when using flexbox
+	
+			// Add event handler for delete
 			deleteLink.onclick = function (event) {
 				event.stopPropagation(); // Prevent triggering the li click
-				deleteTemplate(template.template_id); // Make sure 'template' is defined
+				deleteTemplate(template.template_id);
 			};
-
-			// Optional: Style the container (parent) instead of floating the <a> tag
-			// Example: Align using a flex container
-			
-
+	
+			// Style the list item for proper layout
+			li.style.display = "flex";
+			li.style.justifyContent = "space-between"; // Distribute content with space between
+			li.style.alignItems = "center"; // Center-align vertically
 	
 			// Append elements
 			li.appendChild(span); // Add the template name
-			li.appendChild(deleteLink);
-			ul.appendChild(li);
+			li.appendChild(deleteLink); // Add the delete link
+			ul.appendChild(li); // Add the list item to the list
 		});
+	
+		// Append the list to the container
 		container.appendChild(ul);
 	}
+	
 	
 	function filterTemplatesByTag(tag, templates) {
 		const templateContainer = document.getElementById("template-list");
