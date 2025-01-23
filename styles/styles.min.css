@@ -5816,7 +5816,16 @@ a.input-group-text.icon.add.active {
   border-radius: 10px;
   padding-left: 1rem;
 }
+#type-filter-list {
+  border: 1px solid #7c949c;
+  border-radius: 10px;
+  padding-left: 1rem;
+}
 .tags-filter::hover {
+  color: #382295;
+  cursor: pointer;
+}
+.type-filter::hover {
   color: #382295;
   cursor: pointer;
 }
@@ -6736,6 +6745,9 @@ html.dark-mode .pagenav.menu.footer {
   margin-left: 0.3rem !important;
 }
 html.dark-mode #tag-filter-list {
+  background: #23292C;
+}
+html.dark-mode #type-filter-list {
   background: #23292C;
 }
 html.dark-mode .tags-filter {

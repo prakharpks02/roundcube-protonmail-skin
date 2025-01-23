@@ -1489,6 +1489,7 @@
 			const templateContainer = document.getElementById("template-list");
 			const noTemplatesMessage = document.getElementById("no-templates");
 			const filterTagList = document.getElementById("tag-filter-list");
+			const filterTypeList = document.getElementById("type-filter-list");
 
 			if (templateContainer) {
 				const listItems = document.getElementsByClassName('templates');
@@ -1516,6 +1517,17 @@
 				li.textContent = tag;
 				li.onclick = () => filterTemplatesByTag(tag, templates);
 				filterTagList.appendChild(li);
+			});
+
+			filterTypeList.innerHTML = ""; // Clear existing content
+
+			const typeOptions = ["Show All", "Organizational", "Private"]; 
+			typeOptions.forEach(type => {
+				const li = document.createElement("li");
+				li.className = "type-filter";
+				li.textContent = type;
+				li.onclick = () => filterTemplatesByType(type, templates); 
+				filterTypeList.appendChild(li);
 			});
 
 			if (noTemplatesMessage) noTemplatesMessage.style.display = "none";
@@ -1550,7 +1562,8 @@
 			deleteLink.className = "temp-del icons";
 			deleteLink.style.cursor = "pointer";
 			deleteLink.style.marginLeft = "auto"; // Align to the right when using flexbox
-
+			deleteLink.setAttribute("data-toggle", "modal");
+			deleteLink.setAttribute("data-target", "#template-modal");
 			const trashIcon = document.createElement("i");
 			trashIcon.className = "fa-solid fa-trash"
 	
@@ -1609,6 +1622,43 @@
 		} else if (noTemplatesMessage) {
 			noTemplatesMessage.style.display = "none";
 		}
+	}
+
+	function filterTemplatesByType(type, templates) {
+		const templateContainer = document.getElementById("template-list");
+		let filteredTemplates;
+
+		if (type === "Show All") {
+			// Show all templates
+			filteredTemplates = templates;
+		} else if(type == "Organizational"){
+			filteredTemplates = templates.filter(template =>
+				template.organizational = true;
+			)
+		} else{
+			filteredTemplates = templates.filter(template =>
+				template.organizational = true;
+			)
+		}
+
+		// Clear current templates
+		const listItems = document.getElementsByClassName('templates');
+		if (listItems) {
+			Array.from(listItems).forEach(listItem => {
+				listItem.remove();
+			});
+		}
+
+		renderTemplateList(filteredTemplates, templateContainer);
+
+		// Show "No Templates" if no match
+		const noTemplatesMessage = document.getElementById("no-templates");
+		if (filteredTemplates.length === 0 && noTemplatesMessage) {
+			noTemplatesMessage.style.display = "block";
+		} else if (noTemplatesMessage) {
+			noTemplatesMessage.style.display = "none";
+		}
+
 	}
 
 	function isValidHtmlString(str) {
