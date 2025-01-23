@@ -1519,16 +1519,16 @@
 				filterTagList.appendChild(li);
 			});
 
-			filterTypeList.innerHTML = ""; // Clear existing content
+			//filterTypeList.innerHTML = ""; // Clear existing content
 
-			const typeOptions = ["Show All", "Organizational", "Private"]; 
-			typeOptions.forEach(type => {
-				const li = document.createElement("li");
-				li.className = "type-filter";
-				li.textContent = type;
-				li.onclick = () => filterTemplatesByType(type, templates); 
-				filterTypeList.appendChild(li);
-			});
+			//const typeOptions = ["Show All", "Organizational", "Private"]; 
+			//typeOptions.forEach(type => {
+			//	const li = document.createElement("li");
+			//	li.className = "type-filter";
+			//	li.textContent = type;
+			//	li.onclick = () => filterTemplatesByType(type, templates); 
+			//	filterTypeList.appendChild(li);
+			//});
 
 			if (noTemplatesMessage) noTemplatesMessage.style.display = "none";
 
