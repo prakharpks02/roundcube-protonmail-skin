@@ -1562,8 +1562,9 @@
 			deleteLink.className = "temp-del icons";
 			deleteLink.style.cursor = "pointer";
 			deleteLink.style.marginLeft = "auto"; // Align to the right when using flexbox
+			deleteLink.setAttribute("data-dismiss", "modal");
 			deleteLink.setAttribute("data-toggle", "modal");
-			deleteLink.setAttribute("data-target", "#template-modal");
+			deleteLink.setAttribute("data-target", "#delete-confirm-modal");
 			const trashIcon = document.createElement("i");
 			trashIcon.className = "fa-solid fa-trash"
 	
@@ -1594,7 +1595,7 @@
 		const templateContainer = document.getElementById("template-list");
 		let filteredTemplates;
 
-		const dropdownButton = document.getElementsByClassName("tag-dropdown");
+		const dropdownButton = document.getElementsByClassName("tag-dropdown")[0];
 		dropdownButton.textContent = tag;
 
 		if (tag === "Show All") {
@@ -1630,7 +1631,7 @@
 	function filterTemplatesByType(type, templates) {
 		const templateContainer = document.getElementById("template-list");
 
-		const dropdownButton = document.getElementsByClassName("type-dropdown");
+		const dropdownButton = document.getElementsByClassName("type-dropdown")[0];
 		dropdownButton.textContent = type;
 
 		// Filter templates based on type
