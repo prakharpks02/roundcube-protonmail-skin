@@ -635,6 +635,12 @@
 		}
 	}
 
+	document.querySelectorAll('.folderlist li a').forEach(link => {
+		if (link.innerText.trim() === "Scheduled") {
+			link.classList.add('scheduled');
+		}
+	});
+
 </script>
 
 
