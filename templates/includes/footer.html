@@ -425,6 +425,8 @@
 				
 			}
 		}
+
+		
 		
 		const emailBody = content.innerHTML;
 		const sidebar = document.getElementById('layout-sidebar');
@@ -432,6 +434,8 @@
 		const from_email = username.textContent;
 		//const baseURL = 'https://console.gofloww.co/api/mail/'
 		const subjectText = subject.innerText;
+
+		console.log(emailBody);
 		if(content){
 			const emailBody = JSON.stringify(content.innerHTML);
 			//console.log( JSON.stringify({
