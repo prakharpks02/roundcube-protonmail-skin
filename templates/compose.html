@@ -1765,7 +1765,7 @@
 		}
 	}
 
-	let selectedTemplateId = null;
+	var selectedTemplateId = null;
 	function openDeleteModal(template_id) {
 		selectedTemplateId = template_id; // Store the template ID
 		//const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
@@ -1782,7 +1782,7 @@
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify({ email:from_email, template_id:template_id}, 40000)
+				body: JSON.stringify({ email:from_email, template_id:selectedTemplateId}, 40000)
 			});
 			const responseData = await response.json();
 			if(response.ok){
