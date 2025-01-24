@@ -1571,7 +1571,7 @@
 			// Add event handler for delete
 			deleteLink.onclick = function (event) {
 				event.stopPropagation(); // Prevent triggering the li click
-				openDeleteModal(template.template_id);
+				deleteTemplate(template.template_id);
 			};
 	
 			// Style the list item for proper layout
@@ -1772,7 +1772,7 @@
 		//deleteModal.show();
 	}
 
-	async function deleteTemplate(){
+	async function deleteTemplate(template_id){
 		var messageKey = rcmail.display_message('Deleting template ,please wait.....', 'uploading');
 		try{
 			const fromSelect = document.getElementById('_from');
@@ -1782,7 +1782,7 @@
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify({ email:from_email, template_id:selectedTemplateId}, 40000)
+				body: JSON.stringify({ email:from_email, template_id:template_id}, 40000)
 			});
 			const responseData = await response.json();
 			if(response.ok){
