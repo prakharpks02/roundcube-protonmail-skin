@@ -1570,7 +1570,7 @@
 			// Add event handler for delete
 			deleteLink.onclick = function (event) {
 				event.stopPropagation(); // Prevent triggering the li click
-				deleteTemplate(template.template_id);
+				openDeleteModal(template.template_id);
 			};
 	
 			// Style the list item for proper layout
@@ -1593,6 +1593,9 @@
 	function filterTemplatesByTag(tag, templates) {
 		const templateContainer = document.getElementById("template-list");
 		let filteredTemplates;
+
+		const dropdownButton = document.getElementsByClassName("tag-dropdown");
+		dropdownButton.textContent = tag;
 
 		if (tag === "Show All") {
 			// Show all templates
@@ -1626,6 +1629,9 @@
 
 	function filterTemplatesByType(type, templates) {
 		const templateContainer = document.getElementById("template-list");
+
+		const dropdownButton = document.getElementsByClassName("type-dropdown");
+		dropdownButton.textContent = type;
 
 		// Filter templates based on type
 		const filteredTemplates = type === "Show All"
@@ -1758,7 +1764,14 @@
 		}
 	}
 
-	async function deleteTemplate(template_id){
+	let template_id = null;
+	function openDeleteModal(template_id) {
+		selectedTemplateId = template_id; // Store the template ID
+		//const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+		//deleteModal.show();
+	}
+
+	async function deleteTemplate(){
 		var messageKey = rcmail.display_message('Deleting template ,please wait.....', 'uploading');
 		try{
 			const fromSelect = document.getElementById('_from');
@@ -1786,6 +1799,7 @@
 			rcmail.display_message('Could not delete the template', 'warning');
 			
 		}
+		template_id= null;
 	}
 
 	async function getTemplatesToDelete(){
