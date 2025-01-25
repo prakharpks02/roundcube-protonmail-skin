@@ -324,8 +324,14 @@
 					<div class="mt-3" id="template-list">
 						<div class="d-flex justify-content-between align-items-center">
 							<label for="template-display" class="form-label">Your Templates</label>
+							<div id="filter-type" class="dropdown">
+								<button class="btn btn-outline-secondary dropdown-toggle type-dropdown" type="button" id="filterDropdown" data-toggle="dropdown" aria-expanded="false">
+									Filter by Type
+								</button>
+								<ul class="dropdown-menu" id="type-filter-list" aria-labelledby="filterDropdown"></ul>
+							</div>
 							<div id="filter-tags" class="dropdown">
-								<button class="btn btn-outline-secondary dropdown-toggle" type="button" id="filterDropdown" data-toggle="dropdown" aria-expanded="false">
+								<button class="btn btn-outline-secondary dropdown-toggle tag-dropdown" type="button" id="filterDropdown" data-toggle="dropdown" aria-expanded="false">
 									Filter by Tags
 								</button>
 								<ul class="dropdown-menu" id="tag-filter-list" aria-labelledby="filterDropdown"></ul>
@@ -432,6 +438,27 @@
 					</div>	
 				</div>
 			</div>
+		</div>
+	</div>
+
+	<!--delete tempalte confirmation modal-->
+	<div id="delete-confirm-modal" class="modal fade" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+		<div class="modal-content ui-widget-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="logoutModalLabel">Confirm Delete Template</h5>
+				<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">&#10006;</button>
+			</div>
+			<div class="modal-body">
+				<p>Are you sure you want to delete the template ?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+				<a href="#" class="btn btn-danger" id="confirmDeleteTemplateButton" onclick="deleteTemplate()">
+				Delete
+				</a>
+			</div>
+		</div>
 		</div>
 	</div>
 

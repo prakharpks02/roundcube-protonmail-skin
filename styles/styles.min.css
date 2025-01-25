@@ -5816,9 +5816,24 @@ a.input-group-text.icon.add.active {
   border-radius: 10px;
   padding-left: 1rem;
 }
-.tags-filter:hover {
+#type-filter-list {
+  border: 1px solid #7c949c;
+  border-radius: 10px;
+  padding-left: 1rem;
+}
+.tags-filter::hover {
   color: #382295;
   cursor: pointer;
+}
+.type-filter::hover {
+  color: #382295;
+  cursor: pointer;
+}
+.temp-del {
+  padding-right: 10px;
+}
+.folderlist li a.scheduled::before {
+  content: "\f017" !important;
 }
 /*** Settings UI ***/
 .settings-default-icon tr > td.section::before,
@@ -6735,6 +6750,12 @@ html.dark-mode .pagenav.menu.footer {
 html.dark-mode #tag-filter-list {
   background: #23292C;
 }
+html.dark-mode #type-filter-list {
+  background: #23292C;
+}
 html.dark-mode .tags-filter {
+  color: #F1F3F3;
+}
+html.dark-mode .type-filter {
   color: #F1F3F3;
 }

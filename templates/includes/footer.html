@@ -9,7 +9,7 @@
 
 
 <script>
-	const baseURL = 'https://console.gofloww.co/api/mail/'
+	const baseURL = 'https://console.gofloww.co/api/mail//api/mail/'
 	function checksubject(){
 		// Start monitoring URL changes
 		monitorURLChanges();
@@ -425,6 +425,8 @@
 				
 			}
 		}
+
+		
 		
 		const emailBody = content.innerHTML;
 		const sidebar = document.getElementById('layout-sidebar');
@@ -432,6 +434,8 @@
 		const from_email = username.textContent;
 		//const baseURL = 'https://console.gofloww.co/api/mail/'
 		const subjectText = subject.innerText;
+
+		console.log(emailBody);
 		if(content){
 			const emailBody = JSON.stringify(content.innerHTML);
 			//console.log( JSON.stringify({
@@ -630,6 +634,12 @@
 			toggleButton.style.setProperty('--icon-content', '"\\f06e"'); // Eye
 		}
 	}
+
+	document.querySelectorAll('.folderlist li a').forEach(link => {
+		if (link.innerText.trim() === "Scheduled") {
+			link.classList.add('scheduled');
+		}
+	});
 
 </script>
 
