@@ -5858,6 +5858,7 @@ a.input-group-text.icon.add.active {
   border-radius: 5px;
 }
 .login-heading {
+  margin-top: 5%;
   font-weight: 700;
 }
 .login-subheading {
