@@ -5836,7 +5836,7 @@ a.input-group-text.icon.add.active {
   content: "\f017" !important;
 }
 #login-container {
-  background: #fff;
+  background: #fff !important;
   padding: 30px 40px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -5846,6 +5846,9 @@ a.input-group-text.icon.add.active {
   margin-right: 30%;
   margin-left: 30%;
   margin-top: 10%;
+}
+.login-layout {
+  background-color: #F0EAFF !important;
 }
 /*** Settings UI ***/
 .settings-default-icon tr > td.section::before,
