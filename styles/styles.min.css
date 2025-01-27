@@ -5298,7 +5298,7 @@ html.layout-phone .image-selector .attachmentslist {
   display: inline-block;
   position: relative;
   top: 16vh;
-  max-height: 100px;
+  max-height: 80px;
 }
 #login-form {
   margin: 0 auto;
@@ -5849,6 +5849,13 @@ a.input-group-text.icon.add.active {
 }
 .login-layout {
   background-color: #F0EAFF !important;
+}
+#rcmloginsubmit {
+  background: #2B2748;
+  border-color: #2B2748;
+  font-weight: 700;
+  font-size: 15px;
+  border-radius: 5px;
 }
 /*** Settings UI ***/
 .settings-default-icon tr > td.section::before,
