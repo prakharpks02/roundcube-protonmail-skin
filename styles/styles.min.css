@@ -5835,6 +5835,18 @@ a.input-group-text.icon.add.active {
 .folderlist li a.scheduled::before {
   content: "\f017" !important;
 }
+#layout-container {
+  background: #fff;
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  max-height: 900px;
+  height: 600px;
+  margin-right: 30%;
+  margin-left: 30%;
+  margin-top: 10%;
+}
 /*** Settings UI ***/
 .settings-default-icon tr > td.section::before,
 .settings-default-icon li > a:before {
