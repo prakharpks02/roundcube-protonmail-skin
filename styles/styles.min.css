@@ -93,8 +93,8 @@ body.status-flagged #message-header > .subject:before,
   src: url("../fonts/fa-regular-400.woff2") format('woff2'), url("../fonts/fa-regular-400.woff") format('woff');
 }
 @font-face {
-  font-family: Inter;
-  src: url('../fonts/Inter.ttf');
+  font-family: Verdana;
+  src: url('../fonts/VERDANAI.TTF');
 }
 /* Reset some Bootstrap style */
 body,
