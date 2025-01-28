@@ -1130,22 +1130,11 @@
 		const toEmail= document.getElementById('_to');
 		const subject = document.getElementById('compose-subject');
 
-		if (!toEmail || !subject) {
-			console.error("Required elements (_to or compose-subject) are not found in the DOM.");
-			return;
-		}
-		else if (!toEmail.value.trim() && !subject.value.trim()){
-			showErrorModal('error-modal', 'Error', "'To' email field is empty, 'Subject' email field is empty");
-			return;
-		}
-		else if (!toEmail.value.trim()) {
+		if (!toEmail.value.trim()) {
 			showErrorModal('error-modal', 'Error', "'To' email field is empty");
 			return;
 		}
-		else if (!subject.value.trim()) {
-			showErrorModal('error-modal', 'Error', "'Subject' email field is empty");
-			return;
-		}
+
 		else{
 			// Deselect all options
 			const options = document.getElementById('scheduleOptions').children;
