@@ -5884,6 +5884,10 @@ a.input-group-text.icon.add.active {
     font-size: 14px;
     /* Reduce button font size */
   }
+  #floww-logo {
+    width: 120px;
+    /* Reduce size for tablets */
+  }
 }
 @media (max-width: 768px) {
   #login-container {
@@ -5902,6 +5906,10 @@ a.input-group-text.icon.add.active {
   #rcmloginsubmit {
     font-size: 13px;
     /* Reduce button font size */
+  }
+  #floww-logo {
+    width: 100px;
+    /* Reduce size further */
   }
 }
 @media (max-width: 480px) {
@@ -5927,12 +5935,17 @@ a.input-group-text.icon.add.active {
     font-size: 12px;
     /* Adjust button font size */
   }
+  #floww-logo {
+    width: 80px;
+    /* Smallest size for very small screens */
+  }
 }
 #floww-logo {
   position: absolute;
   left: 10px;
   max-width: 150px;
   top: 10px;
+  height: auto;
 }
 /*** Settings UI ***/
 .settings-default-icon tr > td.section::before,
