@@ -951,7 +951,7 @@
 	}
 
 	function scheduleMessage(data){
-		var messageKey = rcmail.display_message('Generating email,please wait.....', 'loading');
+		var messageKey = rcmail.display_message('Scheduling email,please wait.....', 'loading');
 		return fetch(`${baseURL}schedule-send/`, {
 			method: 'POST',
 			headers: {
