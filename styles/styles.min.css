@@ -5916,8 +5916,6 @@ a.input-group-text.icon.add.active {
   #login-container {
     max-width: 95%;
     /* Almost full-width on small screens */
-    height: auto;
-    /* Dynamic height */
     padding: 10px;
     /* Minimal padding */
     margin: 10% auto;
@@ -5936,8 +5934,7 @@ a.input-group-text.icon.add.active {
     /* Adjust button font size */
   }
   #floww-logo {
-    width: 80px;
-    /* Smallest size for very small screens */
+    display: none !important;
   }
 }
 #floww-logo {
