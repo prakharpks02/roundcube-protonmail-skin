@@ -5869,10 +5869,8 @@ a.input-group-text.icon.add.active {
 /* Responsive Design */
 @media (max-width: 1024px) {
   #login-container {
-    max-width: 700px;
+    max-width: 600px;
     /* Adjusted max width */
-    height: auto;
-    /* Allow height to adjust dynamically */
     padding: 20px;
     /* Smaller padding */
     margin: 5% auto;
@@ -5891,6 +5889,7 @@ a.input-group-text.icon.add.active {
   #login-container {
     max-width: 90%;
     /* Use 90% of the screen width */
+    max-height: 70%;
     padding: 15px;
     /* Further reduce padding */
     margin: 5% auto;
