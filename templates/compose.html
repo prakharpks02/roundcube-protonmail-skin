@@ -951,6 +951,7 @@
 	}
 
 	function scheduleMessage(data){
+		var messageKey = rcmail.display_message('Generating email,please wait.....', 'loading');
 		return fetch(`${baseURL}schedule-send/`, {
 			method: 'POST',
 			headers: {
@@ -961,11 +962,14 @@
 			if(!response.ok){
 				//console.error('Error generating email:', error);
 				throw new Error('Network response was not ok');
+				messageKey = rcmail.display_message('Could not Schedule mail.....', 'warning');
 			}
 			return response.json();
 		}).then((result) =>{
+			rcmail.hide_message(messageKey, false);
 			return result;
 		}).catch((error)=>{
+			messageKey = rcmail.display_message('Could not Schedule mail.....', 'warning');
 			//console.error('Error Scheduling email:', error);
 		})
 	}
