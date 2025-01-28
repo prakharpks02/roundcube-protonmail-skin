@@ -5841,9 +5841,9 @@ a.input-group-text.icon.add.active {
   /* Reduced padding for smaller screens */
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  max-width: 800px;
+  max-width: 600px;
   max-height: 900px;
-  height: 600px;
+  height: 650px;
   margin: 2% auto;
   /* Centered horizontally */
 }
