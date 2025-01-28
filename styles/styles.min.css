@@ -5929,6 +5929,12 @@ a.input-group-text.icon.add.active {
     /* Adjust button font size */
   }
 }
+#floww-logo {
+  position: absolute;
+  left: 10px;
+  max-width: 150px;
+  top: 10px;
+}
 /*** Settings UI ***/
 .settings-default-icon tr > td.section::before,
 .settings-default-icon li > a:before {
