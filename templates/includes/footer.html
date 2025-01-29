@@ -641,6 +641,16 @@
 		}
 	});
 
+	document.addEventListener("DOMContentLoaded", function() {
+		if (rcmail && rcmail.env.task !== 'login') { 
+            if (document.cookie.indexOf('colorMode=dark') > -1 
+                || (document.cookie.indexOf('colorMode=light') === -1 && window.matchMedia('(prefers-color-scheme: dark)').matches)
+            ) {
+                document.documentElement.classList.add('dark-mode');
+            }
+        }
+	});
+
 </script>
 
 
