@@ -952,6 +952,9 @@
 
 	function scheduleMessage(data){
 		var messageKey = rcmail.display_message('Scheduling email,please wait.....', 'loading');
+
+		disableModalButtons(true);
+
 		return fetch(`${baseURL}schedule-send/`, {
 			method: 'POST',
 			headers: {
@@ -971,7 +974,15 @@
 		}).catch((error)=>{
 			messageKey = rcmail.display_message('Could not Schedule mail.....', 'warning');
 			//console.error('Error Scheduling email:', error);
-		})
+		}).finally(() => {
+        // Re-enable buttons
+        disableModalButtons(false);
+    	});
+	}
+
+	function disableModalButtons(disable) {
+		document.querySelectorAll('#schedule-send-modal button, #custom-date-time-modal button')
+			.forEach(button => button.disabled = disable);
 	}
 
 	function formatDate(date) {
