@@ -641,6 +641,12 @@
 		}
 	});
 
+	document.addEventListener("DOMContentLoaded", function() {
+		if (window.location.pathname.includes("login")) {
+			document.body.classList.add("login-page");
+		}
+	});
+
 </script>
 
 
