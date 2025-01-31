@@ -1553,7 +1553,8 @@
 			deleteLink.className = "temp-del icons";
 			deleteLink.style.cursor = "pointer";
 			deleteLink.style.marginLeft = "auto"; // Align to the right when using flexbox
-			deleteLink.setAttribute("data-dismiss", "modal");
+			deleteLink.setAttribute("data-toggle", "modal");
+			deleteLink.setAttribute("data-target", "#template-modal");
 			//deleteLink.setAttribute("data-toggle", "modal");
 			//deleteLink.setAttribute("data-target", "#delete-confirm-modal");
 			const trashIcon = document.createElement("i");
