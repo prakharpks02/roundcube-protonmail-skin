@@ -476,8 +476,12 @@
 					displayCredits();
 				}).catch(error =>{
 					//console.error('Error translating email:', error);
+					if(error.message == 'Email Already Translated') {
+						showErrorModal('error-modal', 'Error', error.message);
+					}else{
+						showErrorModal('error-modal', 'too complex to translate', 'This mail is too complex to translate, we are working on this!');
+					}
 					
-					showErrorModal('error-modal', 'too complex to translate', error.message);
 					rcmail.hide_message(messageKey, false);
 				})
 			} catch (error) {
