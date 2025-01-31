@@ -951,6 +951,10 @@
 	}
 
 	function scheduleMessage(data){
+		var messageKey = rcmail.display_message('Scheduling email,please wait.....', 'loading');
+
+		disableModalButtons(true);
+
 		return fetch(`${baseURL}schedule-send/`, {
 			method: 'POST',
 			headers: {
@@ -961,13 +965,24 @@
 			if(!response.ok){
 				//console.error('Error generating email:', error);
 				throw new Error('Network response was not ok');
+				messageKey = rcmail.display_message('Could not Schedule mail.....', 'warning');
 			}
 			return response.json();
 		}).then((result) =>{
+			rcmail.hide_message(messageKey, false);
 			return result;
 		}).catch((error)=>{
+			messageKey = rcmail.display_message('Could not Schedule mail.....', 'warning');
 			//console.error('Error Scheduling email:', error);
-		})
+		}).finally(() => {
+        // Re-enable buttons
+        disableModalButtons(false);
+    	});
+	}
+
+	function disableModalButtons(disable) {
+		document.querySelectorAll('#schedule-send-modal button, #custom-date-time-modal button')
+			.forEach(button => button.disabled = disable);
 	}
 
 	function formatDate(date) {
@@ -1126,22 +1141,11 @@
 		const toEmail= document.getElementById('_to');
 		const subject = document.getElementById('compose-subject');
 
-		if (!toEmail || !subject) {
-			console.error("Required elements (_to or compose-subject) are not found in the DOM.");
-			return;
-		}
-		else if (!toEmail.value.trim() && !subject.value.trim()){
-			showErrorModal('error-modal', 'Error', "'To' email field is empty, 'Subject' email field is empty");
-			return;
-		}
-		else if (!toEmail.value.trim()) {
+		if (!toEmail.value.trim()) {
 			showErrorModal('error-modal', 'Error', "'To' email field is empty");
 			return;
 		}
-		else if (!subject.value.trim()) {
-			showErrorModal('error-modal', 'Error', "'Subject' email field is empty");
-			return;
-		}
+
 		else{
 			// Deselect all options
 			const options = document.getElementById('scheduleOptions').children;
@@ -1203,20 +1207,8 @@
 		const toEmail= document.getElementById('_to');
 		const subject = document.getElementById('compose-subject');
 
-		if (!toEmail || !subject) {
-			console.error("Required elements (_to or compose-subject) are not found in the DOM.");
-			return;
-		}
-		else if (!toEmail.value.trim() && !subject.value.trim()){
-			showErrorModal('error-modal', 'Error', "'To' email field is empty, 'Subject' email field is empty");
-			return;
-		}
-		else if (!toEmail.value.trim()) {
+		if (!toEmail.value.trim()) {
 			showErrorModal('error-modal', 'Error', "'To' email field is empty");
-			return;
-		}
-		else if (!subject.value.trim()) {
-			showErrorModal('error-modal', 'Error', "'Subject' email field is empty");
 			return;
 		}
 		else{
