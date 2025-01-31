@@ -476,6 +476,8 @@
 					displayCredits();
 				}).catch(error =>{
 					//console.error('Error translating email:', error);
+					console.log(error.message);
+					console.log(error.message === 'Email Already Translated')
 					if(error.message === 'Email Already Translated') {
 						showErrorModal('error-modal', 'Error', error.message);
 					}else{
