@@ -1766,6 +1766,7 @@
 
 	async function deleteTemplate(template_id){
 		var messageKey = rcmail.display_message('Deleting template ,please wait.....', 'uploading');
+		$("#template-modal").modal("hide").removeClass("show").addClass("fade");
 		try{
 			const fromSelect = document.getElementById('_from');
 			const from_email = fromSelect.options[fromSelect.selectedIndex].text;
