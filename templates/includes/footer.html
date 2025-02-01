@@ -435,7 +435,7 @@
 		//const baseURL = 'https://console.gofloww.co/api/mail/'
 		const subjectText = subject.innerText;
 
-		console.log(emailBody);
+		//console.log(emailBody);
 		if(content){
 			const emailBody = JSON.stringify(content.innerHTML);
 			//console.log( JSON.stringify({
@@ -476,7 +476,14 @@
 					displayCredits();
 				}).catch(error =>{
 					//console.error('Error translating email:', error);
-					showErrorModal('error-modal', 'Error', error.message);
+					//console.log(error.message);
+					//console.log(error.message === 'Email Already Translated')
+					if(error.message === 'Email Already Translated') {
+						showErrorModal('error-modal', 'Error', error.message);
+					}else{
+						showErrorModal('error-modal', 'Too complex to translate', 'This mail is too complex to translate, we are working on this!!');
+					}
+					
 					rcmail.hide_message(messageKey, false);
 				})
 			} catch (error) {
@@ -638,6 +645,18 @@
 	document.querySelectorAll('.folderlist li a').forEach(link => {
 		if (link.innerText.trim() === "Scheduled") {
 			link.classList.add('scheduled');
+		}
+	});
+
+	document.addEventListener("DOMContentLoaded", function() {
+		if (rcmail && rcmail.env.task !== 'login') { 
+            if (document.cookie.indexOf('colorMode=dark') > -1 
+                || (document.cookie.indexOf('colorMode=light') === -1 && window.matchMedia('(prefers-color-scheme: dark)').matches)
+            ) {
+                document.documentElement.classList.add('dark-mode');
+            }
+        } else {
+			document.documentElement.classList.remove('dark-mode');
 		}
 	});
 

@@ -1553,9 +1553,10 @@
 			deleteLink.className = "temp-del icons";
 			deleteLink.style.cursor = "pointer";
 			deleteLink.style.marginLeft = "auto"; // Align to the right when using flexbox
-			deleteLink.setAttribute("data-dismiss", "modal");
 			deleteLink.setAttribute("data-toggle", "modal");
-			deleteLink.setAttribute("data-target", "#delete-confirm-modal");
+			deleteLink.setAttribute("data-target", "#template-modal");
+			//deleteLink.setAttribute("data-toggle", "modal");
+			//deleteLink.setAttribute("data-target", "#delete-confirm-modal");
 			const trashIcon = document.createElement("i");
 			trashIcon.className = "fa-solid fa-trash";
 	
@@ -1765,6 +1766,7 @@
 
 	async function deleteTemplate(template_id){
 		var messageKey = rcmail.display_message('Deleting template ,please wait.....', 'uploading');
+		$("#template-modal").modal("hide").removeClass("show").addClass("fade");
 		try{
 			const fromSelect = document.getElementById('_from');
 			const from_email = fromSelect.options[fromSelect.selectedIndex].text;

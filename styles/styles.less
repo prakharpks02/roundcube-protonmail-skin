@@ -35,7 +35,7 @@
         display: inline-block;
         position: relative;
         top: 16vh;
-        max-height: 100px;
+        max-height: 80px;
     }
 }
 
@@ -704,6 +704,114 @@ a.input-group-text.icon.add.active {
 
 .folderlist li a.scheduled::before {
     content: "\f017" !important; 
+}
+
+#login-container {
+    background: #fff !important;
+    padding: 20px 30px; /* Reduced padding for smaller screens */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    max-height: 900px;
+    height: 650px;
+    margin: 2% auto; /* Centered horizontally */
+}
+
+/* General Styling */
+.login-layout {
+    background-color: #F0EAFF !important;
+}
+
+#rcmloginsubmit {
+    background: #2B2748;
+    border-color: #2B2748;
+    font-weight: 700;
+    font-size: 15px;
+    border-radius: 5px;
+}
+
+.login-heading {
+    margin-top: 5%;
+    font-weight: 700;
+}
+
+.login-subheading {
+    color: #34445799;
+    font-size: x-large;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    #login-container {
+        max-width: 600px; /* Adjusted max width */
+        padding: 20px; /* Smaller padding */
+        margin: 5% auto; /* Adjusted margin for smaller viewports */
+    }
+
+    .login-subheading {
+        font-size: large; /* Reduce subheading font size */
+    }
+
+    #rcmloginsubmit {
+        font-size: 14px; /* Reduce button font size */
+    }
+
+    #floww-logo {
+        width: 120px; /* Reduce size for tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    #login-container {
+        max-width: 90%; /* Use 90% of the screen width */
+        max-height: 70%;
+        padding: 15px; /* Further reduce padding */
+        margin: 5% auto; /* Centered margin */
+    }
+
+    .login-subheading {
+        font-size: medium; /* Adjust subheading for smaller screens */
+    }
+
+    #rcmloginsubmit {
+        font-size: 13px; /* Reduce button font size */
+    }
+
+    #floww-logo {
+        width: 100px; /* Reduce size further */
+    }
+}
+
+@media (max-width: 480px) {
+    #login-container {
+        max-width: 95%; /* Almost full-width on small screens */
+        padding: 10px; /* Minimal padding */
+        margin: 10% auto; /* Adjust margin */
+    }
+
+    .login-heading {
+        font-size: 20px; /* Smaller heading */
+    }
+
+    .login-subheading {
+        font-size: small; /* Smaller subheading */
+    }
+
+    #rcmloginsubmit {
+        font-size: 12px; /* Adjust button font size */
+    }
+
+    #floww-logo {
+        display: none !important;
+    }
+}
+
+#floww-logo {
+    position: absolute;
+    left: 10px;
+    max-width: 120px;
+    top: 10px;
+    height: auto;
 }
 
 /*** Settings UI ***/
