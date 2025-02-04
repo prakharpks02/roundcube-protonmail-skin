@@ -2166,7 +2166,7 @@ a.toolbar-button {
   content: "\f0c0";
 }
 .menu a.options:before {
-  content: "\f0ad";
+  content: "\f0dc";
 }
 .menu a.settings:before {
   content: "\f013";
@@ -2503,7 +2503,7 @@ a.toolbar-button {
   margin: 0;
 }
 .searchbar a.options:before {
-  content: "\f107";
+  content: "\f0b0";
 }
 .searchbar a.reset:before {
   content: "\f00d";
@@ -2527,7 +2527,7 @@ a.toolbar-button {
   display: inline;
 }
 .searchbar.open a.options:before {
-  content: "\f106";
+  content: "\f0b0";
 }
 .searchoptions button.search {
   width: 100%;
