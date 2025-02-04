@@ -5294,6 +5294,8 @@ html.layout-phone .image-selector .attachmentslist {
   text-align: center;
   width: 100%;
   display: block;
+  min-height: 100dvh;
+  overflow-y: auto;
 }
 .task-login #logo {
   display: inline-block;
