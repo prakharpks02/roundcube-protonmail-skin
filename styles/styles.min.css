@@ -5940,10 +5940,10 @@ a.input-group-text.icon.add.active {
     display: none !important;
   }
   #floww-logo-mobile {
-    display: inline-block;
+    display: inline-block !important;
   }
   #login-footer {
-    display: inline-block;
+    display: inline-block !important;
   }
 }
 #floww-logo {
