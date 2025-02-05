@@ -9,7 +9,7 @@
 
 
 <script>
-	const baseURL = 'https://console.gofloww.co/api/mail/'
+	const baseURL = 'https://2078-103-15-228-94.ngrok-free.app/api/mail/'
 	function checksubject(){
 		// Start monitoring URL changes
 		monitorURLChanges();
@@ -209,6 +209,7 @@
 
 		// edit options from prefernces
 		try{
+			
 			const SpecialFolders = document.getElementById('rcmrowfolders');
 			const ServerSettings = document.getElementById('rcmrowserver');
 			const Encryption=  document.getElementById('rcmrowencryption');
@@ -220,6 +221,9 @@
 
 			DisplaySettings.querySelector('td').innerHTML = 'Advance Settings';
 			Composing.querySelector('td').innerHTML = 'Preferences';
+
+			document.querySelector('a[title="Manage responses"]')?.remove();
+
 		}catch(e){
 			//console.log(e);
 		}
