@@ -662,6 +662,7 @@
 
 	function unsubscribe() {
         const headerValue = getListUnsubscribeHeader();
+		console.log(headerValue)
         if (headerValue && confirm('Are you sure you want to unsubscribe?')) {
             window.open(headerValue, '_blank');
         }
