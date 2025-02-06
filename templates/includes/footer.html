@@ -672,10 +672,22 @@
     }
 
 	function getListUnsubscribeHeader() {
-        // Sample logic to extract the 'List-Unsubscribe' header from the email headers
-        const headers = document.getElementById('message-headers').innerText;
-        const match = headers.match(/List-Unsubscribe: <(.+)>/i);
-        return match ? match[1] : null;
+        const headerElement = document.querySelector('.frame-content');
+		if (!headerElement) {
+			console.error('Headers not found');
+			return null;
+		}
+
+		const headers = headerElement.innerHTML;
+		const match = headers.match(/<font class="bold">List-Unsubscribe:<\/font> &lt;mailto:(.+?)&gt;/i);
+		
+		if (match) {
+			console.log('List-Unsubscribe Email:', match[1]);
+			return match[1];
+		} else {
+			console.log('List-Unsubscribe header not found');
+			return null;
+		}
     }
 
 </script>
