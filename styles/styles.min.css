@@ -5992,6 +5992,7 @@ a.input-group-text.icon.add.active {
 @media screen and (min-width: 1200px) {
   #compose-plus {
     display: block;
+    text-decoration: none;
   }
   a.compose {
     display: none !important;
