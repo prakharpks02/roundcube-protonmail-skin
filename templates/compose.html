@@ -1340,8 +1340,64 @@
 		const fromSelect = document.getElementById('_from');
 		const from_email = fromSelect.options[fromSelect.selectedIndex].text;
 		const context = replyDetails.value; 
+
+		const skeletonEmail = `
+        <p class="skeleton-line short"></p>
+		<p class="skeleton-line medium"></p>
+		<p class="skeleton-line long"></p>
+		<p class="skeleton-line medium"></p>
+		<p class="skeleton-line long"></p>
+		<p class="skeleton-line short"></p>
+		<p class="skeleton-line extra-long"></p>
+		<p class="skeleton-line medium"></p>
+		<p class="skeleton-line long"></p>
+		<p class="skeleton-line signature"><br /></p>
+    	`;
+
+
 		//console.log({subject: emailSubject.value, email_body: existingText});
 		var messageKey = rcmail.display_message('Generating reply,please wait.....', 'loading');
+		if (htmlText) {
+			var iframeDoc = htmlText.contentDocument;
+
+			var style = iframeDoc.createElement('style');
+			style.textContent = `
+				.skeleton-container {
+					display: flex;
+					flex-direction: column;
+					gap: 4px;
+				}
+				.skeleton-line {
+					height: 12px;
+					width: 100%;
+					background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+					background-size: 200% 100%;
+					animation: shimmer 1.5s infinite linear;
+					border-radius: 4px;
+					margin: 2px 0; 
+				}
+				.short { width: 30%; }
+				.medium { width: 60%; }
+				.long { width: 80%; }
+				.extra-long { width: 100%; }
+				.signature { width: 40%; }
+				@keyframes shimmer {
+					0% {
+						background-position: -200% 0;
+					}
+					100% {
+						background-position: 200% 0;
+					}
+				}
+			`;
+			iframeDoc.head.appendChild(style);
+			var skeletonDiv = iframeDoc.createElement('div');
+			skeletonDiv.id = "skeletonEmail"; // Assign ID for later removal
+			skeletonDiv.innerHTML = skeletonEmail;
+			skeletonDiv.classList.add('skeleton-container'); // Add loading effect
+			iframeDoc.body.insertBefore(skeletonDiv, iframeDoc.body.firstChild);
+		}
+
 		try {
 			fetch(`${baseURL}reply-assist/`, {
 				method: 'POST',
@@ -1369,6 +1425,10 @@
 					selectedText.value = `${generatedEmail}\n\n${existingText}`;
 				}
 				if(htmlText){
+					var skeletonDiv = iframeDoc.getElementById("skeletonEmail");
+					if (skeletonDiv) {
+						skeletonDiv.remove(); // Remove skeleton email
+					}
 					var iframeDoc = htmlText.contentDocument;
 					var newParagraph = iframeDoc.createElement('div');
 					newParagraph.innerHTML = convertToHtml(generatedEmail);
@@ -1381,12 +1441,26 @@
 				//console.error('Error generating email:', error);
 				showErrorModal('error-modal', 'Error', error.message);
 				selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
+				if (htmlText) {
+					var iframeDoc = htmlText.contentDocument;
+					var skeletonDiv = iframeDoc.getElementById("skeletonEmail");
+					if (skeletonDiv) {
+						skeletonDiv.remove(); // Remove skeleton email
+					}
+				}
 				rcmail.hide_message(messageKey, false);
 			})
 		} catch (error) {
 			//console.error('Error generating email:', error);
 			showErrorModal('error-modal', 'Error', error.message);
 			selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
+			if (htmlText) {
+				var iframeDoc = htmlText.contentDocument;
+				var skeletonDiv = iframeDoc.getElementById("skeletonEmail");
+				if (skeletonDiv) {
+					skeletonDiv.remove(); // Remove skeleton email
+				}
+			}
 			rcmail.hide_message(messageKey, false);
 		}
 		
