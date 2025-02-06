@@ -492,7 +492,7 @@
 				}).then(responseData =>{
 					const translatedEmail = responseData.email_body;
 					const translatedSubject = responseData.subject;
-					orignalText = JSON.stringify(content.innerHTML);
+					//orignalText = JSON.stringify(content.innerHTML);
 					orignalSubject  =  subjectText;
 					content.innerHTML = translatedEmail;
 					subject.innerText = translatedSubject;
