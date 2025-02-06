@@ -5986,6 +5986,14 @@ a.input-group-text.icon.add.active {
   transition: box-shadow 0.08s linear, min-width 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   font-weight: bold;
 }
+@media screen and (min-width: 1200px) {
+  #compose-plus {
+    display: block;
+  }
+  a.compose {
+    display: none !important;
+  }
+}
 /*** Settings UI ***/
 .settings-default-icon tr > td.section::before,
 .settings-default-icon li > a:before {
