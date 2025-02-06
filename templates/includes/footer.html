@@ -660,16 +660,19 @@
 		}
 	});
 
-	document.addEventListener('DOMContentLoaded', function () {
-		var unsubscribeBtn = document.getElementById('unsubscribe-btn');
-		if (unsubscribeBtn) {
-			unsubscribeBtn.addEventListener('click', function () {
-				if (confirm('Are you sure you want to unsubscribe?')) {
-					window.open("https://www.gofloww.co", '_blank');
-				}
-			});
-		}
-	});
+	function unsubscribe() {
+        const headerValue = getListUnsubscribeHeader();
+        if (headerValue && confirm('Are you sure you want to unsubscribe?')) {
+            window.open(headerValue, '_blank');
+        }
+    }
+
+	function getListUnsubscribeHeader() {
+        // Sample logic to extract the 'List-Unsubscribe' header from the email headers
+        const headers = document.getElementById('message-headers').innerText;
+        const match = headers.match(/List-Unsubscribe: <(.+)>/i);
+        return match ? match[1] : null;
+    }
 
 </script>
 
