@@ -665,6 +665,9 @@
         if (headerValue && confirm('Are you sure you want to unsubscribe?')) {
             window.open(headerValue, '_blank');
         }
+		else if(!headerValue) {
+			alert("No headers present")
+		}
     }
 
 	function getListUnsubscribeHeader() {
