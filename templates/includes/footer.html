@@ -661,34 +661,44 @@
 	});
 
 	function unsubscribe() {
-        const headerValue = getListUnsubscribeHeader();
-		console.log(headerValue)
-        if (headerValue && confirm('Are you sure you want to unsubscribe?')) {
-            window.open(headerValue, '_blank');
-        }
-		else if(!headerValue) {
-			alert("No headers present")
+		const headerValue = getListUnsubscribeHeader();
+		if (headerValue) {
+			if (confirm('Are you sure you want to unsubscribe?')) {
+				window.open(headerValue, '_blank');
+			}
+		} else {
+			alert("No valid unsubscribe link found.");
 		}
-    }
+	}
 
 	function getListUnsubscribeHeader() {
-        const headerElement = document.querySelector('.frame-content');
+		const headerElement = document.querySelector('.frame-content');
 		if (!headerElement) {
 			console.error('Headers not found');
 			return null;
 		}
 
 		const headers = headerElement.innerHTML;
-		const match = headers.match(/<font class="bold">List-Unsubscribe:<\/font> &lt;mailto:(.+?)&gt;/i);
-		
-		if (match) {
-			console.log('List-Unsubscribe Email:', match[1]);
-			return match[1];
+
+		// Regex to capture different List-Unsubscribe links
+		const httpsMatch = headers.match(/https:\/\/[^\s,>]+/i);
+		const httpMatch = headers.match(/http:\/\/[^\s,>]+/i);
+		const mailtoMatch = headers.match(/mailto:[^\s,>]+/i);
+
+		if (httpsMatch) {
+			console.log('Using HTTPS Unsubscribe URL:', httpsMatch[0]);
+			return httpsMatch[0];
+		} else if (httpMatch) {
+			console.log('Using HTTP Unsubscribe URL:', httpMatch[0]);
+			return httpMatch[0];
+		} else if (mailtoMatch) {
+			console.log('Using Mailto Unsubscribe Link:', mailtoMatch[0]);
+			return mailtoMatch[0];
 		} else {
-			console.log('List-Unsubscribe header not found');
+			console.log('No valid List-Unsubscribe link found');
 			return null;
 		}
-    }
+	}
 
 </script>
 
