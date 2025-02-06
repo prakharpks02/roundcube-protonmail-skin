@@ -850,14 +850,15 @@ a.input-group-text.icon.add.active {
 }
 
 #compose-plus {
-    border: 1px solid;
-    padding: 5px;
-    margin-top: 1rem;
-    margin-right: 2rem;
+    padding: 0.5rem;
+    margin: 1rem 2rem 0rem 1rem;
     border-radius: 20px;
     text-align: center;
     color: #2c363a;
-    background: url(../images/compose_plus.png) no-repeat 1rem center;
+    background: url(../images/compose_plus.png) no-repeat 5rem center;
+    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302), 0 1px 3px 1px rgba(60, 64, 67, 0.149);
+    transition: box-shadow 0.08s linear, min-width 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: bold;
 }
 
 
