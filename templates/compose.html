@@ -884,6 +884,18 @@
 		const selectedText = document.getElementById('composebody');
 		const existingText = selectedText.value;
 		const htmlText = document.getElementById('composebody_ifr');
+
+		const skeletonEmail = `
+        <div class="skeleton">
+            <p class="skeleton-line">Dear [RECIPIENT],</p>
+            <p class="skeleton-line">I hope this message finds you well...</p>
+            <p class="skeleton-line">I would like to request time off...</p>
+            <p class="skeleton-line">Please let me know if you require...</p>
+            <p class="skeleton-line">Best regards, <br />[SENDER]</p>
+        </div>
+    	`;
+
+
 		
 		//const topic = searchBar.value;
 		const description = emailDetails.value;
@@ -893,6 +905,15 @@
 		//console.log(topic);
 		//console.log(description);
 		var messageKey = rcmail.display_message('Generating email,please wait.....', 'loading');
+
+		if (htmlText) {
+			var iframeDoc = htmlText.contentDocument;
+			var skeletonDiv = iframeDoc.createElement('div');
+			skeletonDiv.id = "skeletonEmail"; // Assign ID for later removal
+			skeletonDiv.innerHTML = skeletonEmail;
+			skeletonDiv.classList.add('skeleton-container'); // Add loading effect
+			iframeDoc.body.insertBefore(skeletonDiv, iframeDoc.body.firstChild);
+		}
 
 		try {
 			fetch(`${baseURL}auto-draft/`, {
@@ -925,6 +946,11 @@
 				}
 				if(htmlText){
 					var iframeDoc = htmlText.contentDocument;
+					var skeletonDiv = iframeDoc.getElementById("skeletonEmail");
+					if (skeletonDiv) {
+						skeletonDiv.remove(); // Remove skeleton email
+					}
+
 					var newParagraph = iframeDoc.createElement('div');
 					newParagraph.innerHTML = convertToHtml(generatedEmail);
 					var iframeBody = iframeDoc.body;
@@ -938,6 +964,15 @@
 				//console.error('Error generating email:', error);
 				showErrorModal('error-modal', 'Error', error.message);
 				selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
+
+				if (htmlText) {
+					var iframeDoc = htmlText.contentDocument;
+					var skeletonDiv = iframeDoc.getElementById("skeletonEmail");
+					if (skeletonDiv) {
+						skeletonDiv.remove(); // Remove skeleton email
+					}
+				}
+
 				rcmail.hide_message(messageKey, false);
 			})
 
@@ -945,6 +980,15 @@
 			//console.error('Error generating email:', error);
 			showErrorModal('error-modal', 'Error', error.message);
 			selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
+
+			if (htmlText) {
+				var iframeDoc = htmlText.contentDocument;
+				var skeletonDiv = iframeDoc.getElementById("skeletonEmail");
+				if (skeletonDiv) {
+					skeletonDiv.remove(); // Remove skeleton email
+				}
+			}
+			
 			rcmail.hide_message(messageKey, false);
 		}
 		
