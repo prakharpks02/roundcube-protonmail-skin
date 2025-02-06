@@ -6921,3 +6921,9 @@ html.dark-mode .tags-filter {
 html.dark-mode .type-filter {
   color: #F1F3F3;
 }
+html.dark-mode #compose-plus {
+  box-shadow: none;
+  transition: none;
+  background-color: #303638;
+  color: #F1F3F3;
+}
