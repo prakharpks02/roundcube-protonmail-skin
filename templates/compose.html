@@ -1442,26 +1442,13 @@
 				//console.error('Error generating email:', error);
 				showErrorModal('error-modal', 'Error', error.message);
 				selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
-				if (htmlText) {
-					var iframeDoc = htmlText.contentDocument;
-					var skeletonDiv = iframeDoc.getElementById("skeletonEmail");
-					if (skeletonDiv) {
-						skeletonDiv.remove(); // Remove skeleton email
-					}
-				}
 				rcmail.hide_message(messageKey, false);
 			})
 		} catch (error) {
 			//console.error('Error generating email:', error);
 			showErrorModal('error-modal', 'Error', error.message);
 			selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
-			if (htmlText) {
-				var iframeDoc = htmlText.contentDocument;
-				var skeletonDiv = iframeDoc.getElementById("skeletonEmail");
-				if (skeletonDiv) {
-					skeletonDiv.remove(); // Remove skeleton email
-				}
-			}
+			
 			rcmail.hide_message(messageKey, false);
 		}
 		
