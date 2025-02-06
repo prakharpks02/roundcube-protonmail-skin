@@ -1425,6 +1425,7 @@
 					selectedText.value = `${generatedEmail}\n\n${existingText}`;
 				}
 				if(htmlText){
+					var iframeDoc = htmlText.contentDocument;
 					var skeletonDiv = iframeDoc.getElementById("skeletonEmail");
 					if (skeletonDiv) {
 						skeletonDiv.remove(); // Remove skeleton email
