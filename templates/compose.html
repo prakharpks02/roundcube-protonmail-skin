@@ -908,6 +908,32 @@
 
 		if (htmlText) {
 			var iframeDoc = htmlText.contentDocument;
+
+			var style = iframeDoc.createElement('style');
+			style.textContent = `
+				.skeleton-container {
+					display: flex;
+					flex-direction: column;
+					gap: 10px;
+				}
+				.skeleton-line {
+					height: 12px;
+					width: 100%;
+					background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+					background-size: 200% 100%;
+					animation: shimmer 1.5s infinite linear;
+					border-radius: 4px;
+				}
+				@keyframes shimmer {
+					0% {
+						background-position: -200% 0;
+					}
+					100% {
+						background-position: 200% 0;
+					}
+				}
+			`;
+			iframeDoc.head.appendChild(style);
 			var skeletonDiv = iframeDoc.createElement('div');
 			skeletonDiv.id = "skeletonEmail"; // Assign ID for later removal
 			skeletonDiv.innerHTML = skeletonEmail;
@@ -988,7 +1014,7 @@
 					skeletonDiv.remove(); // Remove skeleton email
 				}
 			}
-			
+
 			rcmail.hide_message(messageKey, false);
 		}
 		
