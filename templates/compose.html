@@ -1430,7 +1430,7 @@
 					if (skeletonDiv) {
 						skeletonDiv.remove(); // Remove skeleton email
 					}
-					var iframeDoc = htmlText.contentDocument;
+					//var iframeDoc = htmlText.contentDocument;
 					var newParagraph = iframeDoc.createElement('div');
 					newParagraph.innerHTML = convertToHtml(generatedEmail);
 					var iframeBody = iframeDoc.body;
