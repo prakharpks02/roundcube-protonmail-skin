@@ -5953,11 +5953,11 @@ a.input-group-text.icon.add.active {
   top: 10px;
   height: auto;
 }
-/* Skeleton Loading Effect */
 .skeleton-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 4px;
+  /* Reduced vertical gap */
 }
 .skeleton-line {
   height: 12px;
@@ -5966,6 +5966,24 @@ a.input-group-text.icon.add.active {
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite linear;
   border-radius: 4px;
+  margin: 2px 0;
+  /* Reduce spacing */
+}
+/* Varying widths for an email-like appearance */
+.short {
+  width: 30%;
+}
+.medium {
+  width: 60%;
+}
+.long {
+  width: 80%;
+}
+.extra-long {
+  width: 100%;
+}
+.signature {
+  width: 40%;
 }
 @keyframes shimmer {
   0% {
