@@ -6955,5 +6955,5 @@ html.dark-mode #compose-plus {
   box-shadow: none;
   transition: none;
   color: #E9DFFF;
-  background: #303638 url(../images/compose_plus_dark.png) no-repeat right 2rem center / 1.5rem 1.5rem;
+  background: #303638 url(../images/compose_plus_dark.png) no-repeat left 2rem center / 1.5rem 1.5rem;
 }
