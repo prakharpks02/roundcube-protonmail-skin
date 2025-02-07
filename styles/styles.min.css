@@ -3049,6 +3049,9 @@ html.touch td.selection {
 .listing.iconized li.folders > a:before {
   content: "\f07b";
 }
+.listing.iconized li.responses {
+  display: none !important;
+}
 .listing.iconized li.responses > a:before {
   content: "\f075";
 }
