@@ -3137,12 +3137,21 @@ html.ie11 .listing.iconized li a:before {
 .listing.iconized tr.addressbook > td.section:before {
   content: "\f0c0";
 }
+.listing.iconized tr.folders {
+  display: none;
+}
 .listing.iconized tr.folders > td.section:before {
   content: "\f07b";
   font-weight: 400;
 }
+.listing.iconized tr.server {
+  display: none;
+}
 .listing.iconized tr.server > td.section:before {
   content: "\f233";
+}
+.listing.iconized tr.encryption {
+  display: none;
 }
 .listing.iconized tr.encryption > td.section:before {
   content: "\f023";
