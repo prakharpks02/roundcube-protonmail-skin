@@ -5998,9 +5998,8 @@ a.input-group-text.icon.add.active {
   margin: 1rem 2rem 0rem 1rem;
   border-radius: 20px;
   text-align: center;
-  color: #2c363a;
-  background: url(../images/compose_plus.png) no-repeat 5rem center;
-  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302), 0 1px 3px 1px rgba(60, 64, 67, 0.149);
+  color: #594780;
+  background: #E9DFFF url(../images/compose_plus.png) no-repeat right 5rem center / 1.5rem 1.5rem;
   transition: box-shadow 0.08s linear, min-width 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   font-weight: bold;
 }
