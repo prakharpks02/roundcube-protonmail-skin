@@ -3049,6 +3049,9 @@ html.touch td.selection {
 .listing.iconized li.folders > a:before {
   content: "\f07b";
 }
+.listing.iconized li.responses {
+  display: none !important;
+}
 .listing.iconized li.responses > a:before {
   content: "\f075";
 }
@@ -3134,12 +3137,21 @@ html.ie11 .listing.iconized li a:before {
 .listing.iconized tr.addressbook > td.section:before {
   content: "\f0c0";
 }
+.listing.iconized tr.folders {
+  display: none;
+}
 .listing.iconized tr.folders > td.section:before {
   content: "\f07b";
   font-weight: 400;
 }
+.listing.iconized tr.server {
+  display: none;
+}
 .listing.iconized tr.server > td.section:before {
   content: "\f233";
+}
+.listing.iconized tr.encryption {
+  display: none;
 }
 .listing.iconized tr.encryption > td.section:before {
   content: "\f023";
@@ -5953,6 +5965,68 @@ a.input-group-text.icon.add.active {
   top: 10px;
   height: auto;
 }
+.skeleton-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  /* Reduced vertical gap */
+}
+.skeleton-line {
+  height: 12px;
+  width: 100%;
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+  border-radius: 4px;
+  margin: 2px 0;
+  /* Reduce spacing */
+}
+/* Varying widths for an email-like appearance */
+.short {
+  width: 30%;
+}
+.medium {
+  width: 60%;
+}
+.long {
+  width: 80%;
+}
+.extra-long {
+  width: 100%;
+}
+.signature {
+  width: 40%;
+}
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+#compose-plus {
+  padding: 0.7rem;
+  margin: 1rem 2rem 0rem 1rem;
+  border-radius: 20px;
+  text-align: center;
+  color: #594780;
+  background: #E9DFFF url(../images/compose_plus.png) no-repeat left 2rem center / 1.5rem 1.5rem;
+  transition: box-shadow 0.08s linear, min-width 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: bold;
+}
+#compose-plus:hover {
+  box-shadow: 0 2px 4px 0 rgba(60, 64, 67, 0.4), 0 3px 5px 1px rgba(60, 64, 67, 0.3);
+}
+@media screen and (min-width: 1200px) {
+  #compose-plus {
+    display: block;
+    text-decoration: none;
+  }
+  a.compose {
+    display: none !important;
+  }
+}
 /*** Settings UI ***/
 .settings-default-icon tr > td.section::before,
 .settings-default-icon li > a:before {
@@ -6876,4 +6950,10 @@ html.dark-mode .tags-filter {
 }
 html.dark-mode .type-filter {
   color: #F1F3F3;
+}
+html.dark-mode #compose-plus {
+  box-shadow: none;
+  transition: none;
+  color: #E9DFFF;
+  background: #303638 url(../images/compose_plus_dark.png) no-repeat left 2rem center / 1.5rem 1.5rem;
 }

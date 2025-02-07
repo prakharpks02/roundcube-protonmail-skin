@@ -209,6 +209,7 @@
 
 		// edit options from prefernces
 		try{
+			
 			const SpecialFolders = document.getElementById('rcmrowfolders');
 			const ServerSettings = document.getElementById('rcmrowserver');
 			const Encryption=  document.getElementById('rcmrowencryption');
@@ -220,6 +221,11 @@
 
 			DisplaySettings.querySelector('td').innerHTML = 'Advance Settings';
 			Composing.querySelector('td').innerHTML = 'Preferences';
+
+			//document.querySelector('a[title="Manage responses"]')?.remove();
+			//const Responses = document.getElementById('settingstabresponses');
+			//Responses.remove();
+
 		}catch(e){
 			//console.log(e);
 		}
@@ -444,6 +450,25 @@
 			//	from_email: from_email
 			//}));
 			var messageKey = rcmail.display_message('Translating,please wait.....', 'loading');
+			const skeletonHTML = `
+            <div class="skeleton-container">
+                <p class="skeleton-line extra-long"></p>
+                <p class="skeleton-line long"></p>
+                <p class="skeleton-line medium"></p>
+                <p class="skeleton-line long"></p>
+				<p class="skeleton-line extra-long"></p>
+                <p class="skeleton-line long"></p>
+                <p class="skeleton-line medium"></p>
+                <p class="skeleton-line long"></p>
+				<p class="skeleton-line extra-long"></p>
+                <p class="skeleton-line long"></p>
+                <p class="skeleton-line medium"></p>
+                <p class="skeleton-line long"></p>
+            </div>
+        	`;
+			orignalText = JSON.stringify(content.innerHTML);
+			content.innerHTML = skeletonHTML;
+			
 			try {
 				fetch(`${baseURL}translate/`, {
 					method: 'POST',
@@ -467,7 +492,7 @@
 				}).then(responseData =>{
 					const translatedEmail = responseData.email_body;
 					const translatedSubject = responseData.subject;
-					orignalText = JSON.stringify(content.innerHTML);
+					//orignalText = JSON.stringify(content.innerHTML);
 					orignalSubject  =  subjectText;
 					content.innerHTML = translatedEmail;
 					subject.innerText = translatedSubject;
@@ -478,6 +503,7 @@
 					//console.error('Error translating email:', error);
 					//console.log(error.message);
 					//console.log(error.message === 'Email Already Translated')
+					content.innerHTML = originalContent;
 					if(error.message === 'Email Already Translated') {
 						showErrorModal('error-modal', 'Error', error.message);
 					}else{
@@ -488,6 +514,7 @@
 				})
 			} catch (error) {
 				//console.error('Error translating email:', error);
+				content.innerHTML = originalContent;
 				showErrorModal('error-modal', 'Error', error.message);
 				rcmail.hide_message(messageKey, false);
 			}
