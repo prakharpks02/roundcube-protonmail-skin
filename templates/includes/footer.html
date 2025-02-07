@@ -688,6 +688,49 @@
 		}
 	});
 
+	function unsubscribe() {
+		const headerValue = getListUnsubscribeHeader();
+		if (headerValue) {
+			if (headerValue.startsWith('mailto:')) {
+				const emailAddress = headerValue.replace('mailto:', '');
+				alert(`To unsubscribe, please send an email to: ${emailAddress}`);
+			} else if (confirm('Are you sure you want to unsubscribe?')) {
+				window.open(headerValue, '_blank');
+			}
+		} else {
+			alert("No List-Unsubscribe header found.");
+		}
+	}
+
+	function getListUnsubscribeHeader() {
+		const headerElement = document.querySelector('.frame-content');
+		if (!headerElement) {
+			console.error('Headers not found');
+			return null;
+		}
+
+		const headers = headerElement.innerHTML;
+
+		// Regex to capture different List-Unsubscribe links
+		const httpsMatch = headers.match(/https:\/\/[^\s,>]+/i);
+		const httpMatch = headers.match(/http:\/\/[^\s,>]+/i);
+		const mailtoMatch = headers.match(/mailto:[^\s,>]+/i);
+
+		if (httpsMatch) {
+			console.log('Using HTTPS Unsubscribe URL:', httpsMatch[0]);
+			return httpsMatch[0];
+		} else if (httpMatch) {
+			console.log('Using HTTP Unsubscribe URL:', httpMatch[0]);
+			return httpMatch[0];
+		} else if (mailtoMatch) {
+			console.log('Using Mailto Unsubscribe Link:', mailtoMatch[0]);
+			return mailtoMatch[0];
+		} else {
+			console.log('No valid List-Unsubscribe link found');
+			return null;
+		}
+	}
+
 </script>
 
 
