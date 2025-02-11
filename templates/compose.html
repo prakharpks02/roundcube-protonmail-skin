@@ -1875,6 +1875,11 @@
 			 
 			const templateName = document.getElementById('template-name')
 			const template_name = templateName.value;
+
+			if(!template_name){
+				showErrorModal('error-modal', 'Error', 'Template Name is required');
+				return;
+			}
 			const scope = document.querySelector('input[name="template-scope"]:checked')?.value;
 			const organizational = scope === 'organizational';
 			const tags = [];
