@@ -1878,6 +1878,8 @@
 
 			if(!template_name){
 				showErrorModal('error-modal', 'Error', 'Template Name is required');
+				rcmail.hide_message(messageKey, false);
+				messageKey = rcmail.display_message('Could not add the template', 'warning');
 				return;
 			}
 			const scope = document.querySelector('input[name="template-scope"]:checked')?.value;
