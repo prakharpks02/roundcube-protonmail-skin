@@ -6673,7 +6673,7 @@ html.dark-mode .tox .tox-collection__item h3,
 html.dark-mode .tox .tox-collection__item h4,
 html.dark-mode .tox .tox-collection__item h5,
 html.dark-mode .tox .tox-collection__item h6 {
-  color: #F1F3F3;
+  color: #F1F3F3 !important;
 }
 html.dark-mode .tox .tox-collection--grid .tox-collection__item {
   border: 0;
