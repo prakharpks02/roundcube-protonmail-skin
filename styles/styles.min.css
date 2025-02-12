@@ -6662,7 +6662,7 @@ html.dark-mode .tox .tox-collection__item-caret svg {
   fill: #F1F3F3;
 }
 html.dark-mode .tox .tox-collection__item {
-  color: #F1F3F3;
+  color: #F1F3F3 !important;
 }
 html.dark-mode .tox .tox-collection__item:not(:last-child) {
   border-bottom: 1px solid #516065;
@@ -6673,6 +6673,19 @@ html.dark-mode .tox .tox-collection__item h3,
 html.dark-mode .tox .tox-collection__item h4,
 html.dark-mode .tox .tox-collection__item h5,
 html.dark-mode .tox .tox-collection__item h6 {
+  color: #F1F3F3 !important;
+}
+html.dark-mode .tox .tox-collection__item-label div,
+html.dark-mode .tox .tox-collection__item-label p,
+html.dark-mode .tox .tox-collection__item-label strong,
+html.dark-mode .tox .tox-collection__item-label em,
+html.dark-mode .tox .tox-collection__item-label span,
+html.dark-mode .tox .tox-collection__item-label sup,
+html.dark-mode .tox .tox-collection__item-label sub,
+html.dark-mode .tox .tox-collection__item-label code,
+html.dark-mode .tox .tox-collection__item-label p,
+html.dark-mode .tox .tox-collection__item-label blockquote,
+html.dark-mode .tox .tox-collection__item-label pre {
   color: #F1F3F3 !important;
 }
 html.dark-mode .tox .tox-collection--grid .tox-collection__item {
