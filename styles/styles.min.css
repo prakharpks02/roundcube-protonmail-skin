@@ -6667,6 +6667,14 @@ html.dark-mode .tox .tox-collection__item {
 html.dark-mode .tox .tox-collection__item:not(:last-child) {
   border-bottom: 1px solid #516065;
 }
+html.dark-mode .tox .tox-collection__item h1,
+html.dark-mode .tox .tox-collection__item h2,
+html.dark-mode .tox .tox-collection__item h3,
+html.dark-mode .tox .tox-collection__item h4,
+html.dark-mode .tox .tox-collection__item h5,
+html.dark-mode .tox .tox-collection__item h6 {
+  color: #F1F3F3;
+}
 html.dark-mode .tox .tox-collection--grid .tox-collection__item {
   border: 0;
 }
