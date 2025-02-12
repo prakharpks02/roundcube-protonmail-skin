@@ -1907,6 +1907,9 @@
 				if(responseData.error=="Template limit exceeded"){
 					$('#template-limit-modal').modal('show');
 				}else{
+					if(responseData.error=="Template name must be unique"){
+						showErrorModal('error-modal', 'Error', 'Template name must be unique');
+					}
 					messageKey = rcmail.display_message('Could not add the template', 'warning');
 				}
 			}
