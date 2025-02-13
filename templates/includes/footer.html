@@ -738,7 +738,7 @@
 		tbody.dataset.originalContent = tbody.innerHTML;
 	
 		// Create skeleton rows
-		const skeletonRows = Array.from({ length: 3 }) // Adjust the number of skeleton rows
+		const skeletonRows = Array.from({ length: 11 }) // Adjust the number of skeleton rows
 			.map(() => `
 				<tr class="skeleton-row">
 					<td class="selection"><input type="checkbox" disabled></td>
@@ -781,7 +781,7 @@
 			setTimeout(resolve, 100); // Small delay to ensure execution
 		});
 	
-		await removeSkeletonLoader(); // Remove skeleton loader after search completes
+		//await removeSkeletonLoader(); // Remove skeleton loader after search completes
 		return false;
 	}
 	
