@@ -730,6 +730,96 @@
 		}
 	}
 
+	function showSkeletonLoader() {
+		const tbody = document.querySelector("#messagelist tbody");
+		if (!tbody) return;
+	
+		// Store the original content
+		tbody.dataset.originalContent = tbody.innerHTML;
+	
+		// Create skeleton rows
+		const skeletonRows = Array.from({ length: 3 }) // Adjust the number of skeleton rows
+			.map(() => `
+				<tr class="skeleton-row">
+					<td class="selection"><input type="checkbox" disabled></td>
+					<td class="subject">
+						<span class="fromto skip-on-drag">
+							<span class="adr skeleton-box" style="width: 120px; height: 12px;"></span>
+						</span>
+						<span class="date skip-on-drag skeleton-box" style="width: 80px; height: 12px;"></span>
+						<span class="size skip-on-drag skeleton-box" style="width: 50px; height: 12px;"></span>
+						<span class="subject">
+							<a href="#" tabindex="-1">
+								<span class="skeleton-box" style="margin-left: 1.1rem; width: 200px; height: 12px;"></span>
+							</a>
+						</span>
+					</td>
+					<td class="flags">
+						
+					</td>
+				</tr>
+			`)
+			.join("");
+	
+		tbody.innerHTML = skeletonRows;
+	}
+
+	function removeSkeletonLoader() {
+		const tbody = document.querySelector("#messagelist tbody");
+		if (!tbody) return;
+	
+		// Select all skeleton rows and remove them
+		tbody.querySelectorAll(".skeleton-row").forEach(row => row.remove());
+	}
+
+	async function searchCustom() {
+		await showSkeletonLoader(); // Show skeleton loader first
+	
+		// Ensure rcmail.command('search') executes sequentially
+		await new Promise(resolve => {
+			rcmail.command('search');
+			setTimeout(resolve, 100); // Small delay to ensure execution
+		});
+	
+		await removeSkeletonLoader(); // Remove skeleton loader after search completes
+		return false;
+	}
+	
+	function changeFunction() {
+		const searchInput = document.querySelector("input#mailsearchform[name='_q']");
+		
+		if (searchInput) {
+			const searchForm = searchInput.closest("form");
+	
+			if (searchForm) {
+				console.log("Form found! Overriding onsubmit...");
+	
+				// Remove inline `onsubmit` attribute if it exists
+				searchForm.removeAttribute("onsubmit");
+	
+				// Remove any existing submit event listeners
+				const newForm = searchForm.cloneNode(true);
+				searchForm.parentNode.replaceChild(newForm, searchForm);
+	
+				// Add new submit event listener
+				newForm.addEventListener("submit", function (event) {
+					event.preventDefault(); // Prevent default form submission
+					searchCustom(); // Call your custom search function
+					return false;
+				});
+	
+				console.log("New onsubmit event added!");
+			}
+		} else {
+			console.warn("Search input not found! Retrying...");
+			setTimeout(changeFunction, 500); // Retry after 500ms
+		}
+	}
+	
+	// Run after DOM loads
+	document.addEventListener("DOMContentLoaded", changeFunction);
+	
+
 </script>
 
 
