@@ -833,6 +833,26 @@
 		OpenInNewWindowButton.setAttribute("title", "Open in New Window");
 		
 		if (emailSubject.includes('Re:')) {
+			const htmlText = document.getElementById('composebody_ifr');
+			const space = `
+			<br class="replyspace" />
+			<br class="replyspace" />
+			<br class="replyspace" />
+			<br class="replyspace" />
+			<br class="replyspace" />
+			`
+			if (htmlText) {
+				var iframeDoc = htmlText.contentDocument;
+				var spaceElement = iframeDoc.getElementsByClassName("replyspace");
+
+				if(spaceElement.length === 0){
+					
+					var spaceDiv = iframeDoc.createElement('div');
+					spaceDiv.innerHTML = space;
+					iframeDoc.body.insertBefore(spaceDiv, iframeDoc.body.firstChild);
+				}
+			}
+			
 			let AiDraftButton = document.getElementById('auto-draft-button');
 			let AiDraftText = document.getElementById('ai-draft-text');
 			AiDraftText.textContent = ' Reply Assist ';
