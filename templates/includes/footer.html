@@ -731,37 +731,42 @@
 	}
 
 	function showSkeletonLoader() {
-		const tbody = document.querySelector("#messagelist tbody");
-		if (!tbody) return;
-	
-		// Store the original content
-		tbody.dataset.originalContent = tbody.innerHTML;
-	
-		// Create skeleton rows
-		const skeletonRows = Array.from({ length: 11 }) // Adjust the number of skeleton rows
-			.map(() => `
-				<tr class="skeleton-row">
-					<td class="selection"><input type="checkbox" disabled></td>
-					<td class="subject">
-						<span class="fromto skip-on-drag">
-							<span class="adr skeleton-box" style="width: 120px; height: 12px;"></span>
-						</span>
-						<span class="date skip-on-drag skeleton-box" style="width: 80px; height: 12px;"></span>
-						<span class="size skip-on-drag skeleton-box" style="width: 50px; height: 12px;"></span>
-						<span class="subject">
-							<a href="#" tabindex="-1">
-								<span class="skeleton-box" style="margin-left: 1.1rem; width: 200px; height: 12px;"></span>
-							</a>
-						</span>
-					</td>
-					<td class="flags">
-						
-					</td>
-				</tr>
-			`)
-			.join("");
-	
-		tbody.innerHTML = skeletonRows;
+		return new Promise((resolve) => {
+			const tbody = document.querySelector("#messagelist tbody");
+			if (!tbody){
+				resolve();
+				return;
+			}
+			// Store the original content
+			tbody.dataset.originalContent = tbody.innerHTML;
+		
+			// Create skeleton rows
+			const skeletonRows = Array.from({ length: 11 }) // Adjust the number of skeleton rows
+				.map(() => `
+					<tr class="skeleton-row">
+						<td class="selection"><input type="checkbox" disabled></td>
+						<td class="subject">
+							<span class="fromto skip-on-drag">
+								<span class="adr skeleton-box" style="width: 120px; height: 12px;"></span>
+							</span>
+							<span class="date skip-on-drag skeleton-box" style="width: 80px; height: 12px;"></span>
+							<span class="size skip-on-drag skeleton-box" style="width: 50px; height: 12px;"></span>
+							<span class="subject">
+								<a href="#" tabindex="-1">
+									<span class="skeleton-box" style="margin-left: 1.1rem; width: 200px; height: 12px;"></span>
+								</a>
+							</span>
+						</td>
+						<td class="flags">
+							
+						</td>
+					</tr>
+				`)
+				.join("");
+			
+			tbody.innerHTML = skeletonRows;
+			setTimeout(resolve, 50);
+		}); 
 	}
 
 	function removeSkeletonLoader() {
@@ -775,35 +780,15 @@
 	async function searchCustom() {
 		await showSkeletonLoader(); // Show skeleton loader first
 	
-		// Execute rcmail.command('search') and wait for table changes
-		await new Promise((resolve) => {
-			const tbody = document.querySelector("#messagelist tbody");
-	
-			if (!tbody) {
-				console.warn("Tbody not found. Executing search without observer.");
-				rcmail.command('search');
-				setTimeout(resolve, 500); // Fallback timeout
-				return;
-			}
-	
-			// Use MutationObserver to detect when tbody content changes
-			const observer = new MutationObserver((mutations, obs) => {
-				if (tbody.innerHTML.trim().length > 0) {
-					obs.disconnect(); // Stop observing
-					resolve(); // Resolve promise
-				}
-			});
-	
-			observer.observe(tbody, { childList: true, subtree: true });
-	
-			// Trigger the search
+		// Ensure rcmail.command('search') executes sequentially
+		//await new Promise(resolve => {
 			rcmail.command('search');
-		});
+		//	setTimeout(resolve, 100); // Small delay to ensure execution
+		//});
 	
 		await removeSkeletonLoader(); // Remove skeleton loader after search completes
 		return false;
 	}
-	
 	
 	function changeFunction() {
 		const searchInput = document.querySelector("input#mailsearchform[name='_q']");
