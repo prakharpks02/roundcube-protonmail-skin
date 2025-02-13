@@ -775,15 +775,35 @@
 	async function searchCustom() {
 		await showSkeletonLoader(); // Show skeleton loader first
 	
-		// Ensure rcmail.command('search') executes sequentially
-		await new Promise(resolve => {
+		// Execute rcmail.command('search') and wait for table changes
+		await new Promise((resolve) => {
+			const tbody = document.querySelector("#messagelist tbody");
+	
+			if (!tbody) {
+				console.warn("Tbody not found. Executing search without observer.");
+				rcmail.command('search');
+				setTimeout(resolve, 500); // Fallback timeout
+				return;
+			}
+	
+			// Use MutationObserver to detect when tbody content changes
+			const observer = new MutationObserver((mutations, obs) => {
+				if (tbody.innerHTML.trim().length > 0) {
+					obs.disconnect(); // Stop observing
+					resolve(); // Resolve promise
+				}
+			});
+	
+			observer.observe(tbody, { childList: true, subtree: true });
+	
+			// Trigger the search
 			rcmail.command('search');
-			setTimeout(resolve, 100); // Small delay to ensure execution
 		});
 	
-		//await removeSkeletonLoader(); // Remove skeleton loader after search completes
+		await removeSkeletonLoader(); // Remove skeleton loader after search completes
 		return false;
 	}
+	
 	
 	function changeFunction() {
 		const searchInput = document.querySelector("input#mailsearchform[name='_q']");
