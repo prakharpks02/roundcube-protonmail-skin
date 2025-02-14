@@ -833,6 +833,26 @@
 		OpenInNewWindowButton.setAttribute("title", "Open in New Window");
 		
 		if (emailSubject.includes('Re:')) {
+			const htmlText = document.getElementById('composebody_ifr');
+			const space = `
+			<br class="replyspace" />
+			<br class="replyspace" />
+			<br class="replyspace" />
+			<br class="replyspace" />
+			<br class="replyspace" />
+			`
+			if (htmlText) {
+				var iframeDoc = htmlText.contentDocument;
+				var spaceElement = iframeDoc.getElementsByClassName("replyspace");
+
+				if(spaceElement.length === 0){
+					
+					var spaceDiv = iframeDoc.createElement('div');
+					spaceDiv.innerHTML = space;
+					iframeDoc.body.insertBefore(spaceDiv, iframeDoc.body.firstChild);
+				}
+			}
+
 			let AiDraftButton = document.getElementById('auto-draft-button');
 			let AiDraftText = document.getElementById('ai-draft-text');
 			AiDraftText.textContent = ' Reply Assist ';
@@ -1875,13 +1895,20 @@
 			 
 			const templateName = document.getElementById('template-name')
 			const template_name = templateName.value;
+
+			if(!template_name){
+				showErrorModal('error-modal', 'Error', 'Template Name is required');
+				rcmail.hide_message(messageKey, false);
+				messageKey = rcmail.display_message('Could not add the template', 'warning');
+				return;
+			}
 			const scope = document.querySelector('input[name="template-scope"]:checked')?.value;
 			const organizational = scope === 'organizational';
 			const tags = [];
 			document.querySelectorAll('#tags-list .badge').forEach(tag => {
 				tags.push(tag.innerText.trim());
 			});
-			console.log({email:from_email, template_name: template_name, template_subject: subjectValue, template_content: template_content, organizational: organizational, tags: tags})
+			//changesconsole.log({email:from_email, template_name: template_name, template_subject: subjectValue, template_content: template_content, organizational: organizational, tags: tags})
 			
 			const response = await fetch(`${baseURL}add-template/`, {
 				method: 'POST',
@@ -1900,6 +1927,9 @@
 				if(responseData.error=="Template limit exceeded"){
 					$('#template-limit-modal').modal('show');
 				}else{
+					if(responseData.error=="Template name must be unique"){
+						showErrorModal('error-modal', 'Error', 'Template name must be unique');
+					}
 					messageKey = rcmail.display_message('Could not add the template', 'warning');
 				}
 			}
