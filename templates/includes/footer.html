@@ -797,7 +797,7 @@
 			const searchForm = searchInput.closest("form");
 	
 			if (searchForm) {
-				console.log("Form found! Overriding onsubmit...");
+				//console.log("Form found! Overriding onsubmit...");
 	
 				// Remove inline `onsubmit` attribute if it exists
 				searchForm.removeAttribute("onsubmit");
@@ -813,10 +813,10 @@
 					return false;
 				});
 	
-				console.log("New onsubmit event added!");
+				//console.log("New onsubmit event added!");
 			}
 		} else {
-			console.warn("Search input not found! Retrying...");
+			//console.warn("Search input not found! Retrying...");
 			setTimeout(changeFunction, 500); // Retry after 500ms
 		}
 	}
