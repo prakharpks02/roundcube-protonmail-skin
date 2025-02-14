@@ -852,7 +852,7 @@
 					iframeDoc.body.insertBefore(spaceDiv, iframeDoc.body.firstChild);
 				}
 			}
-			
+
 			let AiDraftButton = document.getElementById('auto-draft-button');
 			let AiDraftText = document.getElementById('ai-draft-text');
 			AiDraftText.textContent = ' Reply Assist ';
@@ -1908,7 +1908,7 @@
 			document.querySelectorAll('#tags-list .badge').forEach(tag => {
 				tags.push(tag.innerText.trim());
 			});
-			console.log({email:from_email, template_name: template_name, template_subject: subjectValue, template_content: template_content, organizational: organizational, tags: tags})
+			//changesconsole.log({email:from_email, template_name: template_name, template_subject: subjectValue, template_content: template_content, organizational: organizational, tags: tags})
 			
 			const response = await fetch(`${baseURL}add-template/`, {
 				method: 'POST',
