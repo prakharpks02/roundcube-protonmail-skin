@@ -26,7 +26,7 @@
 			<roundcube:object name="fileDropArea" id="compose-attachments" />
 		</div>
 		<!-- compose options -->
-		<div id="compose-options" class="formcontent" role="region" aria-labelledby="aria-label-composeoptions">
+		<!-- div id="compose-options" class="formcontent" role="region" aria-labelledby="aria-label-composeoptions">
 			<h2 id="aria-label-composeoptions" class="voice"><roundcube:label name="arialabelcomposeoptions" /></h2>
 			<roundcube:container name="composeoptions" id="compose-options" />
 			<roundcube:if condition="!in_array('mdn_default', (array)config:dont_override)" />
@@ -59,7 +59,7 @@
 				</div>
 			</div>
 			<roundcube:endif />
-		</div>
+		</div -->
 	</div>
 </div>
 
@@ -83,9 +83,9 @@
 				aria-haspopup="true" aria-expanded="false" tabindex="2" innerclass="inner" />
 			<roundcube:button command="insert-sig" type="link" class="signature disabled" classAct="signature"
 				label="signature" title="insertsignature" tabindex="2" innerclass="inner" />
-			<a href="#responses" class="responses" label="responses" title="<roundcube:label name='insertresponse' />" unselectable="on" tabindex="2" data-popup="responses-menu">
+			<!--a href="#responses" class="responses" label="responses" title="<roundcube:label name='insertresponse' />" unselectable="on" tabindex="2" data-popup="responses-menu">
 				<span class="inner"><roundcube:label name="responses" /></span>
-			</a>
+			</a-->
 			<span class="dropbutton" style="display:none">
 				<roundcube:button command="compose-encrypted" type="link" class="encrypt disabled"
 					classAct="encrypt" classSel="encrypt selected" innerclass="inner"
@@ -833,6 +833,26 @@
 		OpenInNewWindowButton.setAttribute("title", "Open in New Window");
 		
 		if (emailSubject.includes('Re:')) {
+			const htmlText = document.getElementById('composebody_ifr');
+			const space = `
+			<br class="replyspace" />
+			<br class="replyspace" />
+			<br class="replyspace" />
+			<br class="replyspace" />
+			<br class="replyspace" />
+			`
+			if (htmlText) {
+				var iframeDoc = htmlText.contentDocument;
+				var spaceElement = iframeDoc.getElementsByClassName("replyspace");
+
+				if(spaceElement.length === 0){
+					
+					var spaceDiv = iframeDoc.createElement('div');
+					spaceDiv.innerHTML = space;
+					iframeDoc.body.insertBefore(spaceDiv, iframeDoc.body.firstChild);
+				}
+			}
+
 			let AiDraftButton = document.getElementById('auto-draft-button');
 			let AiDraftText = document.getElementById('ai-draft-text');
 			AiDraftText.textContent = ' Reply Assist ';
@@ -884,6 +904,21 @@
 		const selectedText = document.getElementById('composebody');
 		const existingText = selectedText.value;
 		const htmlText = document.getElementById('composebody_ifr');
+
+		const skeletonEmail = `
+        <p class="skeleton-line short"></p>
+		<p class="skeleton-line medium"></p>
+		<p class="skeleton-line long"></p>
+		<p class="skeleton-line medium"></p>
+		<p class="skeleton-line long"></p>
+		<p class="skeleton-line short"></p>
+		<p class="skeleton-line extra-long"></p>
+		<p class="skeleton-line medium"></p>
+		<p class="skeleton-line long"></p>
+		<p class="skeleton-line signature"><br /></p>
+    	`;
+
+
 		
 		//const topic = searchBar.value;
 		const description = emailDetails.value;
@@ -893,6 +928,47 @@
 		//console.log(topic);
 		//console.log(description);
 		var messageKey = rcmail.display_message('Generating email,please wait.....', 'loading');
+
+		if (htmlText) {
+			var iframeDoc = htmlText.contentDocument;
+
+			var style = iframeDoc.createElement('style');
+			style.textContent = `
+				.skeleton-container {
+					display: flex;
+					flex-direction: column;
+					gap: 4px;
+				}
+				.skeleton-line {
+					height: 12px;
+					width: 100%;
+					background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+					background-size: 200% 100%;
+					animation: shimmer 1.5s infinite linear;
+					border-radius: 4px;
+					margin: 2px 0; 
+				}
+				.short { width: 30%; }
+				.medium { width: 60%; }
+				.long { width: 80%; }
+				.extra-long { width: 100%; }
+				.signature { width: 40%; }
+				@keyframes shimmer {
+					0% {
+						background-position: -200% 0;
+					}
+					100% {
+						background-position: 200% 0;
+					}
+				}
+			`;
+			iframeDoc.head.appendChild(style);
+			var skeletonDiv = iframeDoc.createElement('div');
+			skeletonDiv.id = "skeletonEmail"; // Assign ID for later removal
+			skeletonDiv.innerHTML = skeletonEmail;
+			skeletonDiv.classList.add('skeleton-container'); // Add loading effect
+			iframeDoc.body.insertBefore(skeletonDiv, iframeDoc.body.firstChild);
+		}
 
 		try {
 			fetch(`${baseURL}auto-draft/`, {
@@ -925,6 +1001,11 @@
 				}
 				if(htmlText){
 					var iframeDoc = htmlText.contentDocument;
+					var skeletonDiv = iframeDoc.getElementById("skeletonEmail");
+					if (skeletonDiv) {
+						skeletonDiv.remove(); // Remove skeleton email
+					}
+
 					var newParagraph = iframeDoc.createElement('div');
 					newParagraph.innerHTML = convertToHtml(generatedEmail);
 					var iframeBody = iframeDoc.body;
@@ -938,6 +1019,15 @@
 				//console.error('Error generating email:', error);
 				showErrorModal('error-modal', 'Error', error.message);
 				selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
+
+				if (htmlText) {
+					var iframeDoc = htmlText.contentDocument;
+					var skeletonDiv = iframeDoc.getElementById("skeletonEmail");
+					if (skeletonDiv) {
+						skeletonDiv.remove(); // Remove skeleton email
+					}
+				}
+
 				rcmail.hide_message(messageKey, false);
 			})
 
@@ -945,12 +1035,25 @@
 			//console.error('Error generating email:', error);
 			showErrorModal('error-modal', 'Error', error.message);
 			selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
+
+			if (htmlText) {
+				var iframeDoc = htmlText.contentDocument;
+				var skeletonDiv = iframeDoc.getElementById("skeletonEmail");
+				if (skeletonDiv) {
+					skeletonDiv.remove(); // Remove skeleton email
+				}
+			}
+
 			rcmail.hide_message(messageKey, false);
 		}
 		
 	}
 
 	function scheduleMessage(data){
+		var messageKey = rcmail.display_message('Scheduling email,please wait.....', 'loading');
+
+		disableModalButtons(true);
+
 		return fetch(`${baseURL}schedule-send/`, {
 			method: 'POST',
 			headers: {
@@ -961,13 +1064,24 @@
 			if(!response.ok){
 				//console.error('Error generating email:', error);
 				throw new Error('Network response was not ok');
+				messageKey = rcmail.display_message('Could not Schedule mail.....', 'warning');
 			}
 			return response.json();
 		}).then((result) =>{
+			rcmail.hide_message(messageKey, false);
 			return result;
 		}).catch((error)=>{
+			messageKey = rcmail.display_message('Could not Schedule mail.....', 'warning');
 			//console.error('Error Scheduling email:', error);
-		})
+		}).finally(() => {
+        // Re-enable buttons
+        disableModalButtons(false);
+    	});
+	}
+
+	function disableModalButtons(disable) {
+		document.querySelectorAll('#schedule-send-modal button, #custom-date-time-modal button')
+			.forEach(button => button.disabled = disable);
 	}
 
 	function formatDate(date) {
@@ -1126,22 +1240,11 @@
 		const toEmail= document.getElementById('_to');
 		const subject = document.getElementById('compose-subject');
 
-		if (!toEmail || !subject) {
-			console.error("Required elements (_to or compose-subject) are not found in the DOM.");
-			return;
-		}
-		else if (!toEmail.value.trim() && !subject.value.trim()){
-			showErrorModal('error-modal', 'Error', "'To' email field is empty, 'Subject' email field is empty");
-			return;
-		}
-		else if (!toEmail.value.trim()) {
+		if (!toEmail.value.trim()) {
 			showErrorModal('error-modal', 'Error', "'To' email field is empty");
 			return;
 		}
-		else if (!subject.value.trim()) {
-			showErrorModal('error-modal', 'Error', "'Subject' email field is empty");
-			return;
-		}
+
 		else{
 			// Deselect all options
 			const options = document.getElementById('scheduleOptions').children;
@@ -1203,20 +1306,8 @@
 		const toEmail= document.getElementById('_to');
 		const subject = document.getElementById('compose-subject');
 
-		if (!toEmail || !subject) {
-			console.error("Required elements (_to or compose-subject) are not found in the DOM.");
-			return;
-		}
-		else if (!toEmail.value.trim() && !subject.value.trim()){
-			showErrorModal('error-modal', 'Error', "'To' email field is empty, 'Subject' email field is empty");
-			return;
-		}
-		else if (!toEmail.value.trim()) {
+		if (!toEmail.value.trim()) {
 			showErrorModal('error-modal', 'Error', "'To' email field is empty");
-			return;
-		}
-		else if (!subject.value.trim()) {
-			showErrorModal('error-modal', 'Error', "'Subject' email field is empty");
 			return;
 		}
 		else{
@@ -1269,8 +1360,64 @@
 		const fromSelect = document.getElementById('_from');
 		const from_email = fromSelect.options[fromSelect.selectedIndex].text;
 		const context = replyDetails.value; 
+
+		const skeletonEmail = `
+        <p class="skeleton-line short"></p>
+		<p class="skeleton-line medium"></p>
+		<p class="skeleton-line long"></p>
+		<p class="skeleton-line medium"></p>
+		<p class="skeleton-line long"></p>
+		<p class="skeleton-line short"></p>
+		<p class="skeleton-line extra-long"></p>
+		<p class="skeleton-line medium"></p>
+		<p class="skeleton-line long"></p>
+		<p class="skeleton-line signature"><br /></p>
+    	`;
+
+
 		//console.log({subject: emailSubject.value, email_body: existingText});
 		var messageKey = rcmail.display_message('Generating reply,please wait.....', 'loading');
+		if (htmlText) {
+			var iframeDoc = htmlText.contentDocument;
+
+			var style = iframeDoc.createElement('style');
+			style.textContent = `
+				.skeleton-container {
+					display: flex;
+					flex-direction: column;
+					gap: 4px;
+				}
+				.skeleton-line {
+					height: 12px;
+					width: 100%;
+					background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+					background-size: 200% 100%;
+					animation: shimmer 1.5s infinite linear;
+					border-radius: 4px;
+					margin: 2px 0; 
+				}
+				.short { width: 30%; }
+				.medium { width: 60%; }
+				.long { width: 80%; }
+				.extra-long { width: 100%; }
+				.signature { width: 40%; }
+				@keyframes shimmer {
+					0% {
+						background-position: -200% 0;
+					}
+					100% {
+						background-position: 200% 0;
+					}
+				}
+			`;
+			iframeDoc.head.appendChild(style);
+			var skeletonDiv = iframeDoc.createElement('div');
+			skeletonDiv.id = "skeletonEmail"; // Assign ID for later removal
+			skeletonDiv.innerHTML = skeletonEmail;
+			skeletonDiv.classList.add('skeleton-container'); // Add loading effect
+			iframeDoc.body.insertBefore(skeletonDiv, iframeDoc.body.firstChild);
+		}
+
 		try {
 			fetch(`${baseURL}reply-assist/`, {
 				method: 'POST',
@@ -1299,6 +1446,11 @@
 				}
 				if(htmlText){
 					var iframeDoc = htmlText.contentDocument;
+					var skeletonDiv = iframeDoc.getElementById("skeletonEmail");
+					if (skeletonDiv) {
+						skeletonDiv.remove(); // Remove skeleton email
+					}
+					//var iframeDoc = htmlText.contentDocument;
 					var newParagraph = iframeDoc.createElement('div');
 					newParagraph.innerHTML = convertToHtml(generatedEmail);
 					var iframeBody = iframeDoc.body;
@@ -1310,12 +1462,26 @@
 				//console.error('Error generating email:', error);
 				showErrorModal('error-modal', 'Error', error.message);
 				selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
+				if (htmlText) {
+					var iframeDoc = htmlText.contentDocument;
+					var skeletonDiv = iframeDoc.getElementById("skeletonEmail");
+					if (skeletonDiv) {
+						skeletonDiv.remove(); // Remove skeleton email
+					}
+				}
 				rcmail.hide_message(messageKey, false);
 			})
 		} catch (error) {
 			//console.error('Error generating email:', error);
 			showErrorModal('error-modal', 'Error', error.message);
 			selectedText.value = `Error generating email. Please try again.\n\n${existingText}`;
+			if (htmlText) {
+				var iframeDoc = htmlText.contentDocument;
+				var skeletonDiv = iframeDoc.getElementById("skeletonEmail");
+				if (skeletonDiv) {
+					skeletonDiv.remove(); // Remove skeleton email
+				}
+			}
 			rcmail.hide_message(messageKey, false);
 		}
 		
@@ -1561,9 +1727,10 @@
 			deleteLink.className = "temp-del icons";
 			deleteLink.style.cursor = "pointer";
 			deleteLink.style.marginLeft = "auto"; // Align to the right when using flexbox
-			deleteLink.setAttribute("data-dismiss", "modal");
 			deleteLink.setAttribute("data-toggle", "modal");
-			deleteLink.setAttribute("data-target", "#delete-confirm-modal");
+			deleteLink.setAttribute("data-target", "#template-modal");
+			//deleteLink.setAttribute("data-toggle", "modal");
+			//deleteLink.setAttribute("data-target", "#delete-confirm-modal");
 			const trashIcon = document.createElement("i");
 			trashIcon.className = "fa-solid fa-trash";
 	
@@ -1728,13 +1895,20 @@
 			 
 			const templateName = document.getElementById('template-name')
 			const template_name = templateName.value;
+
+			if(!template_name){
+				showErrorModal('error-modal', 'Error', 'Template Name is required');
+				rcmail.hide_message(messageKey, false);
+				messageKey = rcmail.display_message('Could not add the template', 'warning');
+				return;
+			}
 			const scope = document.querySelector('input[name="template-scope"]:checked')?.value;
 			const organizational = scope === 'organizational';
 			const tags = [];
 			document.querySelectorAll('#tags-list .badge').forEach(tag => {
 				tags.push(tag.innerText.trim());
 			});
-			console.log({email:from_email, template_name: template_name, template_subject: subjectValue, template_content: template_content, organizational: organizational, tags: tags})
+			//changesconsole.log({email:from_email, template_name: template_name, template_subject: subjectValue, template_content: template_content, organizational: organizational, tags: tags})
 			
 			const response = await fetch(`${baseURL}add-template/`, {
 				method: 'POST',
@@ -1753,6 +1927,9 @@
 				if(responseData.error=="Template limit exceeded"){
 					$('#template-limit-modal').modal('show');
 				}else{
+					if(responseData.error=="Template name must be unique"){
+						showErrorModal('error-modal', 'Error', 'Template name must be unique');
+					}
 					messageKey = rcmail.display_message('Could not add the template', 'warning');
 				}
 			}
@@ -1773,6 +1950,7 @@
 
 	async function deleteTemplate(template_id){
 		var messageKey = rcmail.display_message('Deleting template ,please wait.....', 'uploading');
+		$("#template-modal").modal("hide").removeClass("show").addClass("fade");
 		try{
 			const fromSelect = document.getElementById('_from');
 			const from_email = fromSelect.options[fromSelect.selectedIndex].text;

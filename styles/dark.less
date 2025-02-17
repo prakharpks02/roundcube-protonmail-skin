@@ -812,10 +812,20 @@ html.dark-mode {
         }
 
         .tox-collection__item {
-            color: @color-dark-font;
+            color: @color-dark-font !important;
 
             &:not(:last-child) {
                 border-bottom: 1px solid @color-dark-list-border;
+            }
+
+            h1, h2, h3, h4, h5, h6 {
+                color: @color-dark-font !important;
+            }
+        }
+
+        .tox-collection__item-label {
+            div, p, strong, em, span, sup , sub, code, p, blockquote, pre {
+                color: @color-dark-font !important;
             }
         }
 
@@ -1198,5 +1208,12 @@ html.dark-mode {
 
     .type-filter {
         color: @color-dark-font;
+    }
+
+    #compose-plus {
+        box-shadow: none;
+        transition: none;
+        color: #E9DFFF;
+        background: @color-dark-selected url(../images/compose_plus_dark.png) no-repeat left 2rem center / 1.5rem 1.5rem;
     }
 }

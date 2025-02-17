@@ -249,6 +249,9 @@ html.touch {
     &.folders > a:before {
         content: @fa-var-folder;
     }
+    &.responses {
+        display: none !important;
+    }
     &.responses > a:before {
         content: @fa-var-comment;
     }
@@ -338,11 +341,20 @@ html.ie11 .listing.iconized li a:before {
     &.addressbook > td.section:before {
         content: @fa-var-users;
     }
+    &.folders {
+        display: none;
+    }
     &.folders > td.section:before {
         .font-icon-regular(@fa-var-folder);
     }
+    &.server {
+        display: none;
+    }
     &.server > td.section:before {
         content: @fa-var-server;
+    }
+    &.encryption {
+        display: none;
     }
     &.encryption > td.section:before {
         content: @fa-var-lock;
@@ -872,7 +884,7 @@ html.touch {
     padding: 0;
     margin: 0;
     display: flex;
-
+    flex-direction: column;
     gap: 1em;
 
     &:empty {

@@ -209,6 +209,7 @@
 
 		// edit options from prefernces
 		try{
+			
 			const SpecialFolders = document.getElementById('rcmrowfolders');
 			const ServerSettings = document.getElementById('rcmrowserver');
 			const Encryption=  document.getElementById('rcmrowencryption');
@@ -220,6 +221,11 @@
 
 			DisplaySettings.querySelector('td').innerHTML = 'Advance Settings';
 			Composing.querySelector('td').innerHTML = 'Preferences';
+
+			//document.querySelector('a[title="Manage responses"]')?.remove();
+			//const Responses = document.getElementById('settingstabresponses');
+			//Responses.remove();
+
 		}catch(e){
 			//console.log(e);
 		}
@@ -435,7 +441,7 @@
 		//const baseURL = 'https://console.gofloww.co/api/mail/'
 		const subjectText = subject.innerText;
 
-		console.log(emailBody);
+		//console.log(emailBody);
 		if(content){
 			const emailBody = JSON.stringify(content.innerHTML);
 			//console.log( JSON.stringify({
@@ -444,6 +450,25 @@
 			//	from_email: from_email
 			//}));
 			var messageKey = rcmail.display_message('Translating,please wait.....', 'loading');
+			const skeletonHTML = `
+            <div class="skeleton-container">
+                <p class="skeleton-line extra-long"></p>
+                <p class="skeleton-line long"></p>
+                <p class="skeleton-line medium"></p>
+                <p class="skeleton-line long"></p>
+				<p class="skeleton-line extra-long"></p>
+                <p class="skeleton-line long"></p>
+                <p class="skeleton-line medium"></p>
+                <p class="skeleton-line long"></p>
+				<p class="skeleton-line extra-long"></p>
+                <p class="skeleton-line long"></p>
+                <p class="skeleton-line medium"></p>
+                <p class="skeleton-line long"></p>
+            </div>
+        	`;
+			orignalText = JSON.stringify(content.innerHTML);
+			content.innerHTML = skeletonHTML;
+			
 			try {
 				fetch(`${baseURL}translate/`, {
 					method: 'POST',
@@ -467,7 +492,7 @@
 				}).then(responseData =>{
 					const translatedEmail = responseData.email_body;
 					const translatedSubject = responseData.subject;
-					orignalText = JSON.stringify(content.innerHTML);
+					//orignalText = JSON.stringify(content.innerHTML);
 					orignalSubject  =  subjectText;
 					content.innerHTML = translatedEmail;
 					subject.innerText = translatedSubject;
@@ -476,11 +501,20 @@
 					displayCredits();
 				}).catch(error =>{
 					//console.error('Error translating email:', error);
-					showErrorModal('error-modal', 'Error', error.message);
+					//console.log(error.message);
+					//console.log(error.message === 'Email Already Translated')
+					content.innerHTML = originalContent;
+					if(error.message === 'Email Already Translated') {
+						showErrorModal('error-modal', 'Error', error.message);
+					}else{
+						showErrorModal('error-modal', 'Too complex to translate', 'This mail is too complex to translate, we are working on this!!');
+					}
+					
 					rcmail.hide_message(messageKey, false);
 				})
 			} catch (error) {
 				//console.error('Error translating email:', error);
+				content.innerHTML = originalContent;
 				showErrorModal('error-modal', 'Error', error.message);
 				rcmail.hide_message(messageKey, false);
 			}
@@ -640,6 +674,156 @@
 			link.classList.add('scheduled');
 		}
 	});
+
+	document.addEventListener("DOMContentLoaded", function() {
+		if (rcmail && rcmail.env.task !== 'login') { 
+            if (document.cookie.indexOf('colorMode=dark') > -1 
+                || (document.cookie.indexOf('colorMode=light') === -1 && window.matchMedia('(prefers-color-scheme: dark)').matches)
+            ) {
+                document.documentElement.classList.add('dark-mode');
+            }
+        } else {
+			document.documentElement.classList.remove('dark-mode');
+		}
+	});
+
+	function unsubscribe() {
+		const headerValue = getListUnsubscribeHeader();
+		if (headerValue) {
+			if (headerValue.startsWith('mailto:')) {
+				const emailAddress = headerValue.replace('mailto:', '');
+				alert(`To unsubscribe, please send an email to: ${emailAddress}`);
+			} else if (confirm('Are you sure you want to unsubscribe?')) {
+				window.open(headerValue, '_blank');
+			}
+		} else {
+			alert("No List-Unsubscribe header found.");
+		}
+	}
+
+	function getListUnsubscribeHeader() {
+		const headerElement = document.querySelector('.frame-content');
+		if (!headerElement) {
+			console.error('Headers not found');
+			return null;
+		}
+
+		const headers = headerElement.innerHTML;
+
+		// Regex to capture different List-Unsubscribe links
+		const httpsMatch = headers.match(/https:\/\/[^\s,>]+/i);
+		const httpMatch = headers.match(/http:\/\/[^\s,>]+/i);
+		const mailtoMatch = headers.match(/mailto:[^\s,>]+/i);
+
+		if (httpsMatch) {
+			console.log('Using HTTPS Unsubscribe URL:', httpsMatch[0]);
+			return httpsMatch[0];
+		} else if (httpMatch) {
+			console.log('Using HTTP Unsubscribe URL:', httpMatch[0]);
+			return httpMatch[0];
+		} else if (mailtoMatch) {
+			console.log('Using Mailto Unsubscribe Link:', mailtoMatch[0]);
+			return mailtoMatch[0];
+		} else {
+			console.log('No valid List-Unsubscribe link found');
+			return null;
+		}
+	}
+
+	function showSkeletonLoader() {
+		return new Promise((resolve) => {
+			const tbody = document.querySelector("#messagelist tbody");
+			if (!tbody){
+				resolve();
+				return;
+			}
+			// Store the original content
+			tbody.dataset.originalContent = tbody.innerHTML;
+		
+			// Create skeleton rows
+			const skeletonRows = Array.from({ length: 11 }) // Adjust the number of skeleton rows
+				.map(() => `
+					<tr class="skeleton-row">
+						<td class="selection"><input type="checkbox" disabled></td>
+						<td class="subject">
+							<span class="fromto skip-on-drag">
+								<span class="adr skeleton-box" style="width: 120px; height: 12px;"></span>
+							</span>
+							<span class="date skip-on-drag skeleton-box" style="width: 80px; height: 12px;"></span>
+							<span class="size skip-on-drag skeleton-box" style="width: 50px; height: 12px;"></span>
+							<span class="subject">
+								<a href="#" tabindex="-1">
+									<span class="skeleton-box" style="margin-left: 1.1rem; width: 200px; height: 12px;"></span>
+								</a>
+							</span>
+						</td>
+						<td class="flags">
+							
+						</td>
+					</tr>
+				`)
+				.join("");
+			
+			tbody.innerHTML = skeletonRows;
+			setTimeout(resolve, 50);
+		}); 
+	}
+
+	function removeSkeletonLoader() {
+		const tbody = document.querySelector("#messagelist tbody");
+		if (!tbody) return;
+	
+		// Select all skeleton rows and remove them
+		tbody.querySelectorAll(".skeleton-row").forEach(row => row.remove());
+	}
+
+	async function searchCustom() {
+		await showSkeletonLoader(); // Show skeleton loader first
+	
+		// Ensure rcmail.command('search') executes sequentially
+		//await new Promise(resolve => {
+			rcmail.command('search');
+		//	setTimeout(resolve, 100); // Small delay to ensure execution
+		//});
+	
+		//await removeSkeletonLoader(); // Remove skeleton loader after search completes
+		return false;
+	}
+	
+	function changeFunction() {
+		const searchInput = document.querySelector("input#mailsearchform[name='_q']");
+		
+		if (searchInput) {
+			const searchForm = searchInput.closest("form");
+	
+			if (searchForm) {
+				//console.log("Form found! Overriding onsubmit...");
+	
+				// Remove inline `onsubmit` attribute if it exists
+				searchForm.removeAttribute("onsubmit");
+	
+				// Remove any existing submit event listeners
+				const newForm = searchForm.cloneNode(true);
+				searchForm.parentNode.replaceChild(newForm, searchForm);
+	
+				// Add new submit event listener
+				newForm.addEventListener("submit", function (event) {
+					event.preventDefault(); // Prevent default form submission
+					searchCustom(); // Call your custom search function
+					return false;
+				});
+	
+				//console.log("New onsubmit event added!");
+			}
+		} else {
+			//console.warn("Search input not found! Retrying...");
+			setTimeout(changeFunction, 500); // Retry after 500ms
+		}
+	}
+	
+	// Run after DOM loads
+	document.addEventListener("DOMContentLoaded", changeFunction);
+	
 
 </script>
 

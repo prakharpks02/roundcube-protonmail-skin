@@ -29,13 +29,15 @@
         text-align: center;
         width: 100%;
         display: block;
+        min-height: 100dvh;
+        overflow-y: auto;
     }
 
     #logo {
         display: inline-block;
         position: relative;
         top: 16vh;
-        max-height: 100px;
+        max-height: 80px;
     }
 }
 
@@ -705,6 +707,196 @@ a.input-group-text.icon.add.active {
 .folderlist li a.scheduled::before {
     content: "\f017" !important; 
 }
+
+#login-container {
+    background: #fff !important;
+    padding: 20px 30px; /* Reduced padding for smaller screens */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    max-height: 900px;
+    height: 650px;
+    margin: 2% auto; /* Centered horizontally */
+}
+
+/* General Styling */
+.login-layout {
+    background-color: #F0EAFF !important;
+}
+
+#rcmloginsubmit {
+    background: #2B2748;
+    border-color: #2B2748;
+    font-weight: 700;
+    font-size: 15px;
+    border-radius: 5px;
+}
+
+.login-heading {
+    margin-top: 5%;
+    font-weight: 700;
+}
+
+.login-subheading {
+    color: #34445799;
+    font-size: x-large;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    #login-container {
+        max-width: 600px; /* Adjusted max width */
+        padding: 20px; /* Smaller padding */
+        margin: 5% auto; /* Adjusted margin for smaller viewports */
+    }
+
+    .login-subheading {
+        font-size: large; /* Reduce subheading font size */
+    }
+
+    #rcmloginsubmit {
+        font-size: 14px; /* Reduce button font size */
+    }
+
+    #floww-logo {
+        width: 120px; /* Reduce size for tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    #login-container {
+        max-width: 90%; /* Use 90% of the screen width */
+        max-height: 70%;
+        padding: 15px; /* Further reduce padding */
+        margin: 5% auto; /* Centered margin */
+    }
+
+    .login-subheading {
+        font-size: medium; /* Adjust subheading for smaller screens */
+    }
+
+    #rcmloginsubmit {
+        font-size: 13px; /* Reduce button font size */
+    }
+
+    #floww-logo {
+        width: 100px; /* Reduce size further */
+    }
+}
+
+@media (max-width: 480px) {
+    #login-container {
+        max-width: 95%; /* Almost full-width on small screens */
+        padding: 10px; /* Minimal padding */
+        margin: 10% auto; /* Adjust margin */
+    }
+
+    .login-heading {
+        font-size: 20px; /* Smaller heading */
+    }
+
+    .login-subheading {
+        font-size: small; /* Smaller subheading */
+    }
+
+    #rcmloginsubmit {
+        font-size: 12px; /* Adjust button font size */
+    }
+
+    #floww-logo {
+        display: none !important;
+    }
+
+    #floww-logo-mobile {
+        display: inline-block !important;
+    }
+
+    #login-footer {
+        display: inline-block !important;
+    }
+}
+
+#floww-logo {
+    position: absolute;
+    left: 10px;
+    max-width: 120px;
+    top: 10px;
+    height: auto;
+}
+
+.skeleton-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px; /* Reduced vertical gap */
+}
+
+.skeleton-line {
+    height: 12px;
+    width: 100%;
+    background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite linear;
+    border-radius: 4px;
+    margin: 2px 0; /* Reduce spacing */
+}
+
+/* Varying widths for an email-like appearance */
+.short { width: 30%; }
+.medium { width: 60%; }
+.long { width: 80%; }
+.extra-long { width: 100%; }
+.signature { width: 40%; }
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+#compose-plus {
+    padding: 0.7rem;
+    margin: 1rem 2rem 0rem 1rem;
+    border-radius: 20px;
+    text-align: center;
+    color: #594780;
+    background: #E9DFFF url(../images/compose_plus.png) no-repeat left 2rem center / 1.5rem 1.5rem;
+    transition: box-shadow 0.08s linear, min-width 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: bold;
+}
+
+#compose-plus:hover {
+    box-shadow: 0 2px 4px 0 rgba(60, 64, 67, 0.4), 0 3px 5px 1px rgba(60, 64, 67, 0.3);
+}
+
+@media screen and (min-width: 1200px) {
+    #compose-plus {
+        display: block;
+        text-decoration: none;
+    }
+
+    a.compose {
+        display: none !important;
+    }
+}
+
+.skeleton-box {
+    padding: 0.5rem;
+    margin-top: 1rem;
+    display: inline-block;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite linear;
+    border-radius: 4px;
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+.skeleton-row {
+    opacity: 0.6;
+}
+
 
 /*** Settings UI ***/
 

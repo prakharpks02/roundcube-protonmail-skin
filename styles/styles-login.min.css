@@ -84,13 +84,13 @@ body.status-flagged #message-header > .subject:before,
   font-family: 'Icons';
   font-style: normal;
   font-weight: 900;
-  src: url("../fonts/fa-solid-900.woff2") format('woff2'), url("../fonts/fa-regular-400.woff2") format('woff2'), url("../fonts/fa-brands-400.woff2") format('woff2'), url("../fonts/fa-solid-900.woff") format('woff');
+  src: url("../fonts/fa-solid-900.woff2") format('woff2'), url("../fonts/fa-solid-900.woff") format('woff');
 }
 @font-face {
   font-family: 'Icons';
   font-style: normal;
   font-weight: 400;
-  src: url("../fonts/fa-regular-400.woff2") format('woff2'), url("../fonts/fa-regular-400.woff2") format('woff2'), url("../fonts/fa-brands-400.woff2") format('woff2'), url("../fonts/fa-regular-400.woff") format('woff');
+  src: url("../fonts/fa-regular-400.woff2") format('woff2'), url("../fonts/fa-regular-400.woff") format('woff');
 }
 @font-face {
   font-family: Inter;
@@ -2166,7 +2166,7 @@ a.toolbar-button {
   content: "\f0c0";
 }
 .menu a.options:before {
-  content: "\f0dc";
+  content: "\f0ad";
 }
 .menu a.settings:before {
   content: "\f013";
@@ -2503,7 +2503,7 @@ a.toolbar-button {
   margin: 0;
 }
 .searchbar a.options:before {
-  content: "\f0b0";
+  content: "\f107";
 }
 .searchbar a.reset:before {
   content: "\f00d";
@@ -2527,7 +2527,7 @@ a.toolbar-button {
   display: inline;
 }
 .searchbar.open a.options:before {
-  content: "\f0b0";
+  content: "\f106";
 }
 .searchoptions button.search {
   width: 100%;
@@ -3049,9 +3049,6 @@ html.touch td.selection {
 .listing.iconized li.folders > a:before {
   content: "\f07b";
 }
-.listing.iconized li.responses {
-  display: none !important;
-}
 .listing.iconized li.responses > a:before {
   content: "\f075";
 }
@@ -3137,21 +3134,12 @@ html.ie11 .listing.iconized li a:before {
 .listing.iconized tr.addressbook > td.section:before {
   content: "\f0c0";
 }
-.listing.iconized tr.folders {
-  display: none;
-}
 .listing.iconized tr.folders > td.section:before {
   content: "\f07b";
   font-weight: 400;
 }
-.listing.iconized tr.server {
-  display: none;
-}
 .listing.iconized tr.server > td.section:before {
   content: "\f233";
-}
-.listing.iconized tr.encryption {
-  display: none;
 }
 .listing.iconized tr.encryption > td.section:before {
   content: "\f023";
@@ -3569,7 +3557,6 @@ html.touch .messagelist td.subject .subject {
   padding: 0;
   margin: 0;
   display: flex;
-  flex-direction: column;
   gap: 1em;
 }
 .attachmentslist:empty {
@@ -5306,8 +5293,6 @@ html.layout-phone .image-selector .attachmentslist {
   text-align: center;
   width: 100%;
   display: block;
-  min-height: 100dvh;
-  overflow-y: auto;
 }
 .task-login #logo {
   display: inline-block;
@@ -5951,12 +5936,6 @@ a.input-group-text.icon.add.active {
   #floww-logo {
     display: none !important;
   }
-  #floww-logo-mobile {
-    display: inline-block !important;
-  }
-  #login-footer {
-    display: inline-block !important;
-  }
 }
 #floww-logo {
   position: absolute;
@@ -5965,94 +5944,13 @@ a.input-group-text.icon.add.active {
   top: 10px;
   height: auto;
 }
-.skeleton-container {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  /* Reduced vertical gap */
-}
-.skeleton-line {
-  height: 12px;
-  width: 100%;
-  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite linear;
-  border-radius: 4px;
-  margin: 2px 0;
-  /* Reduce spacing */
-}
-/* Varying widths for an email-like appearance */
-.short {
-  width: 30%;
-}
-.medium {
-  width: 60%;
-}
-.long {
-  width: 80%;
-}
-.extra-long {
-  width: 100%;
-}
-.signature {
-  width: 40%;
-}
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-#compose-plus {
-  padding: 0.7rem;
-  margin: 1rem 2rem 0rem 1rem;
-  border-radius: 20px;
-  text-align: center;
-  color: #594780;
-  background: #E9DFFF url(../images/compose_plus.png) no-repeat left 2rem center / 1.5rem 1.5rem;
-  transition: box-shadow 0.08s linear, min-width 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-  font-weight: bold;
-}
-#compose-plus:hover {
-  box-shadow: 0 2px 4px 0 rgba(60, 64, 67, 0.4), 0 3px 5px 1px rgba(60, 64, 67, 0.3);
-}
-@media screen and (min-width: 1200px) {
-  #compose-plus {
-    display: block;
-    text-decoration: none;
-  }
-  a.compose {
-    display: none !important;
-  }
-}
-.skeleton-box {
-  padding: 0.5rem;
-  margin-top: 1rem;
-  display: inline-block;
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite linear;
-  border-radius: 4px;
-}
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-.skeleton-row {
-  opacity: 0.6;
-}
 /*** Settings UI ***/
 .settings-default-icon tr > td.section::before,
 .settings-default-icon li > a:before {
   content: "\f013";
 }
-/**
+html:not(.login-heading) {
+  /**
  * Roundcube webmail styles for the Elastic skin
  *
  * Copyright (c) The Roundcube Dev Team
@@ -6062,939 +5960,913 @@ a.input-group-text.icon.add.active {
  * by keeping credits to the original authors in the README.md file.
  * See http://creativecommons.org/licenses/by-sa/3.0/ for details.
  */
-html.dark-mode {
+}
+html:not(.login-heading) html.dark-mode {
   scrollbar-color: #7B69C5 #516065;
   scrollbar-width: thin;
 }
-html.dark-mode textarea,
-html.dark-mode select,
-html.dark-mode .popover-body,
-html.dark-mode .popupmenu,
-html.dark-mode .ui-dialog-content,
-html.dark-mode .frame-content,
-html.dark-mode .formcontent,
-html.dark-mode .table-responsive,
-html.dark-mode .table-responsive-sm,
-html.dark-mode .scroller {
+html:not(.login-heading) html.dark-mode textarea,
+html:not(.login-heading) html.dark-mode select,
+html:not(.login-heading) html.dark-mode .popover-body,
+html:not(.login-heading) html.dark-mode .popupmenu,
+html:not(.login-heading) html.dark-mode .ui-dialog-content,
+html:not(.login-heading) html.dark-mode .frame-content,
+html:not(.login-heading) html.dark-mode .formcontent,
+html:not(.login-heading) html.dark-mode .table-responsive,
+html:not(.login-heading) html.dark-mode .table-responsive-sm,
+html:not(.login-heading) html.dark-mode .scroller {
   scrollbar-width: thin;
   box-shadow: none;
 }
-html.dark-mode a {
+html:not(.login-heading) html.dark-mode a {
   color: #7B69C5;
 }
-html.dark-mode:not(.touch) ::-webkit-scrollbar {
+html:not(.login-heading) html.dark-mode:not(.touch) ::-webkit-scrollbar {
   width: 6px;
 }
-html.dark-mode:not(.touch) ::-webkit-scrollbar-track {
+html:not(.login-heading) html.dark-mode:not(.touch) ::-webkit-scrollbar-track {
   background-color: #516065;
 }
-html.dark-mode:not(.touch) ::-webkit-scrollbar-thumb {
+html:not(.login-heading) html.dark-mode:not(.touch) ::-webkit-scrollbar-thumb {
   background-color: #7B69C5;
 }
-html.dark-mode body {
+html:not(.login-heading) html.dark-mode body {
   color: #F1F3F3;
   background-color: #23292C;
 }
-html.dark-mode #logo {
+html:not(.login-heading) html.dark-mode #logo {
   opacity: 0.8;
 }
-html.dark-mode #layout > div > .scroller {
+html:not(.login-heading) html.dark-mode #layout > div > .scroller {
   border-right-color: #516065;
 }
-html.dark-mode #layout-list,
-html.dark-mode #layout-content,
-html.dark-mode #layout-sidebar,
-html.dark-mode #layout > div > .header,
-html.dark-mode #layout > div > .footer,
-html.dark-mode .popup .listbox .footer,
-html.dark-mode .menu.pagenav.pagenav-list,
-html.dark-mode .menu.pagenav.pagenav-list + .navlist,
-html.dark-mode .menu.pagenav.pagenav-list.expanded + .navlist {
+html:not(.login-heading) html.dark-mode #layout-list,
+html:not(.login-heading) html.dark-mode #layout-content,
+html:not(.login-heading) html.dark-mode #layout-sidebar,
+html:not(.login-heading) html.dark-mode #layout > div > .header,
+html:not(.login-heading) html.dark-mode #layout > div > .footer,
+html:not(.login-heading) html.dark-mode .popup .listbox .footer,
+html:not(.login-heading) html.dark-mode .menu.pagenav.pagenav-list,
+html:not(.login-heading) html.dark-mode .menu.pagenav.pagenav-list + .navlist,
+html:not(.login-heading) html.dark-mode .menu.pagenav.pagenav-list.expanded + .navlist {
   background-color: transparent;
   border-color: #516065;
 }
-html.dark-mode #layout > div > .footer {
+html:not(.login-heading) html.dark-mode #layout > div > .footer {
   font-weight: normal;
 }
-html.dark-mode #layout > div > .header,
-html.dark-mode #layout > div > .footer {
+html:not(.login-heading) html.dark-mode #layout > div > .header,
+html:not(.login-heading) html.dark-mode #layout > div > .footer {
   color: unset;
 }
-html.dark-mode #layout > div > .header a.button,
-html.dark-mode #layout > div > .footer a.button {
+html:not(.login-heading) html.dark-mode #layout > div > .header a.button,
+html:not(.login-heading) html.dark-mode #layout > div > .footer a.button {
   color: #F1F3F3;
 }
-html.dark-mode #layout-menu {
+html:not(.login-heading) html.dark-mode #layout-menu {
   background: unset;
   border-left: thin solid #516065;
 }
-html.dark-mode #layout-menu .popover-header,
-html.dark-mode #layout-menu .special-buttons {
+html:not(.login-heading) html.dark-mode #layout-menu .popover-header,
+html:not(.login-heading) html.dark-mode #layout-menu .special-buttons {
   background: transparent !important;
 }
 @media screen and (max-width: 480px) {
-  html.dark-mode #layout-menu {
+  html:not(.login-heading) html.dark-mode #layout-menu {
     border-left: 0;
   }
-  html.dark-mode #layout-menu .popover-header {
+  html:not(.login-heading) html.dark-mode #layout-menu .popover-header {
     border-bottom: 1px solid #516065;
   }
 }
-html.dark-mode #layout-menu .special-buttons a:not(:focus) {
+html:not(.login-heading) html.dark-mode #layout-menu .special-buttons a:not(:focus) {
   background: #23292C;
 }
-html.dark-mode #layout-menu .special-buttons a {
+html:not(.login-heading) html.dark-mode #layout-menu .special-buttons a {
   border-left: none !important;
 }
-html.dark-mode.layout-phone #layout-menu {
+html:not(.login-heading) html.dark-mode.layout-phone #layout-menu {
   background: #23292C;
 }
-html.dark-mode .searchbar {
+html:not(.login-heading) html.dark-mode .searchbar {
   background-color: #303638;
 }
-html.dark-mode .searchbar form:before,
-html.dark-mode .searchbar a,
-html.dark-mode .searchbar input {
+html:not(.login-heading) html.dark-mode .searchbar form:before,
+html:not(.login-heading) html.dark-mode .searchbar a,
+html:not(.login-heading) html.dark-mode .searchbar input {
   color: unset;
 }
-html.dark-mode .searchbar a.selected {
+html:not(.login-heading) html.dark-mode .searchbar a.selected {
   color: #41b849;
 }
-html.dark-mode #messagestack div {
+html:not(.login-heading) html.dark-mode #messagestack div {
   color: #F1F3F3;
 }
-html.dark-mode #messagestack div i.icon:before {
+html:not(.login-heading) html.dark-mode #messagestack div i.icon:before {
   color: #F1F3F3;
 }
-html.dark-mode .ui.alert.boxinformation,
-html.dark-mode #messagestack .alert-info {
+html:not(.login-heading) html.dark-mode .ui.alert.boxinformation,
+html:not(.login-heading) html.dark-mode #messagestack .alert-info {
   background-color: #4a3f76;
 }
-html.dark-mode .ui.alert.boxerror,
-html.dark-mode #messagestack .alert-danger {
+html:not(.login-heading) html.dark-mode .ui.alert.boxerror,
+html:not(.login-heading) html.dark-mode #messagestack .alert-danger {
   background-color: #993331;
 }
-html.dark-mode .ui.alert.boxwarning,
-html.dark-mode #messagestack .alert-warning {
+html:not(.login-heading) html.dark-mode .ui.alert.boxwarning,
+html:not(.login-heading) html.dark-mode #messagestack .alert-warning {
   background-color: #997f31;
 }
-html.dark-mode .ui.alert.boxconfirmation,
-html.dark-mode #messagestack .alert-success {
+html:not(.login-heading) html.dark-mode .ui.alert.boxconfirmation,
+html:not(.login-heading) html.dark-mode #messagestack .alert-success {
   background-color: #276e2c;
 }
-html.dark-mode #messagestack .loading {
+html:not(.login-heading) html.dark-mode #messagestack .loading {
   background-color: #3a4348;
 }
-html.dark-mode .ui.alert.boxinformation,
-html.dark-mode .ui.alert.boxerror,
-html.dark-mode .ui.alert.boxwarning,
-html.dark-mode .ui.alert.boxconfirmation {
+html:not(.login-heading) html.dark-mode .ui.alert.boxinformation,
+html:not(.login-heading) html.dark-mode .ui.alert.boxerror,
+html:not(.login-heading) html.dark-mode .ui.alert.boxwarning,
+html:not(.login-heading) html.dark-mode .ui.alert.boxconfirmation {
   color: #F1F3F3;
 }
-html.dark-mode .ui.alert.boxinformation i.icon:before,
-html.dark-mode .ui.alert.boxerror i.icon:before,
-html.dark-mode .ui.alert.boxwarning i.icon:before,
-html.dark-mode .ui.alert.boxconfirmation i.icon:before {
+html:not(.login-heading) html.dark-mode .ui.alert.boxinformation i.icon:before,
+html:not(.login-heading) html.dark-mode .ui.alert.boxerror i.icon:before,
+html:not(.login-heading) html.dark-mode .ui.alert.boxwarning i.icon:before,
+html:not(.login-heading) html.dark-mode .ui.alert.boxconfirmation i.icon:before {
   color: #F1F3F3;
 }
-html.dark-mode .ui.alert a:not(.btn) {
+html:not(.login-heading) html.dark-mode .ui.alert a:not(.btn) {
   color: #F1F3F3;
   text-decoration: underline;
 }
-html.dark-mode .iframe-loader {
+html:not(.login-heading) html.dark-mode .iframe-loader {
   background-color: rgba(35, 41, 44, 0.9);
 }
-html.dark-mode .iframe-loader .spinner-border {
+html:not(.login-heading) html.dark-mode .iframe-loader .spinner-border {
   color: #acb8b8;
   border-color: currentColor #6a7b7b currentColor currentColor;
 }
-html.dark-mode #taskmenu a,
-html.dark-mode .menu.toolbar a {
+html:not(.login-heading) html.dark-mode #taskmenu a,
+html:not(.login-heading) html.dark-mode .menu.toolbar a {
   color: #F1F3F3;
 }
-html.dark-mode #taskmenu a.selected,
-html.dark-mode .menu.toolbar a.selected {
+html:not(.login-heading) html.dark-mode #taskmenu a.selected,
+html:not(.login-heading) html.dark-mode .menu.toolbar a.selected {
   background-color: #303638;
   color: #7B69C5;
 }
-html.dark-mode #taskmenu .action-buttons a:hover {
+html:not(.login-heading) html.dark-mode #taskmenu .action-buttons a:hover {
   color: #7B69C5;
   background: #303638;
 }
-html.dark-mode pre,
-html.dark-mode .popover .menu li a[aria-haspopup]::after,
-html.dark-mode .menu.pagenav .pagenav-text,
-html.dark-mode .menu.pagenav a {
+html:not(.login-heading) html.dark-mode pre,
+html:not(.login-heading) html.dark-mode .popover .menu li a[aria-haspopup]::after,
+html:not(.login-heading) html.dark-mode .menu.pagenav .pagenav-text,
+html:not(.login-heading) html.dark-mode .menu.pagenav a {
   color: unset;
 }
-html.dark-mode #taskmenu .action-buttons a {
+html:not(.login-heading) html.dark-mode #taskmenu .action-buttons a {
   color: #382295;
 }
 @media screen and (max-width: 480px) {
-  html.dark-mode #taskmenu a {
+  html:not(.login-heading) html.dark-mode #taskmenu a {
     border-color: #516065 !important;
   }
-  html.dark-mode #taskmenu a.selected {
+  html:not(.login-heading) html.dark-mode #taskmenu a.selected {
     background: transparent;
   }
 }
 @media screen and (min-width: 481px) and (max-width: 1024px) {
-  html.dark-mode #taskmenu a {
+  html:not(.login-heading) html.dark-mode #taskmenu a {
     width: 41px;
   }
 }
 @media screen and (min-width: 1025px) {
-  html.dark-mode #taskmenu a {
+  html:not(.login-heading) html.dark-mode #taskmenu a {
     width: 77px;
   }
 }
-html.dark-mode.layout-small .popover,
-html.dark-mode.layout-phone .popover {
+html:not(.login-heading) html.dark-mode.layout-small .popover,
+html:not(.login-heading) html.dark-mode.layout-phone .popover {
   border-left: 1px solid #516065;
 }
-html.dark-mode.layout-small .popover .menu .dropbutton a.dropdown,
-html.dark-mode.layout-phone .popover .menu .dropbutton a.dropdown {
+html:not(.login-heading) html.dark-mode.layout-small .popover .menu .dropbutton a.dropdown,
+html:not(.login-heading) html.dark-mode.layout-phone .popover .menu .dropbutton a.dropdown {
   background: transparent;
 }
-html.dark-mode.layout-small .popover:not(.select-menu) .listing li:last-child,
-html.dark-mode.layout-phone .popover:not(.select-menu) .listing li:last-child {
+html:not(.login-heading) html.dark-mode.layout-small .popover:not(.select-menu) .listing li:last-child,
+html:not(.login-heading) html.dark-mode.layout-phone .popover:not(.select-menu) .listing li:last-child {
   border-color: #516065;
 }
-html.dark-mode.layout-small .popover-header,
-html.dark-mode.layout-phone .popover-header {
+html:not(.login-heading) html.dark-mode.layout-small .popover-header,
+html:not(.login-heading) html.dark-mode.layout-phone .popover-header {
   background: #23292C;
   border-bottom: 1px solid #516065;
   color: unset;
 }
-html.dark-mode.layout-small .popover-overlay,
-html.dark-mode.layout-phone .popover-overlay {
+html:not(.login-heading) html.dark-mode.layout-small .popover-overlay,
+html:not(.login-heading) html.dark-mode.layout-phone .popover-overlay {
   background: #23292C;
 }
-html.dark-mode #taskmenu a:hover,
-html.dark-mode .popupmenu .listing li > a:not(.disabled):hover,
-html.dark-mode .header a.button.icon:not(.disabled):focus,
-html.dark-mode .header a.button.icon:not(.disabled):hover,
-html.dark-mode .menu.toolbar .dropbutton:not(.disabled):hover,
-html.dark-mode .menu a:not(.disabled):focus,
-html.dark-mode .menu a:not(.disabled):hover {
+html:not(.login-heading) html.dark-mode #taskmenu a:hover,
+html:not(.login-heading) html.dark-mode .popupmenu .listing li > a:not(.disabled):hover,
+html:not(.login-heading) html.dark-mode .header a.button.icon:not(.disabled):focus,
+html:not(.login-heading) html.dark-mode .header a.button.icon:not(.disabled):hover,
+html:not(.login-heading) html.dark-mode .menu.toolbar .dropbutton:not(.disabled):hover,
+html:not(.login-heading) html.dark-mode .menu a:not(.disabled):focus,
+html:not(.login-heading) html.dark-mode .menu a:not(.disabled):hover {
   background-color: #303638;
 }
-html.dark-mode .menu.toolbar a.selected {
+html:not(.login-heading) html.dark-mode .menu.toolbar a.selected {
   color: #41b849;
   background: transparent;
 }
-html.dark-mode .menu.toolbar .dropbutton a.dropdown:hover {
+html:not(.login-heading) html.dark-mode .menu.toolbar .dropbutton a.dropdown:hover {
   background-color: #3c4346;
 }
-html.dark-mode .listing tbody td,
-html.dark-mode .listing tbody td a,
-html.dark-mode .listing li a {
+html:not(.login-heading) html.dark-mode .listing tbody td,
+html:not(.login-heading) html.dark-mode .listing tbody td a,
+html:not(.login-heading) html.dark-mode .listing li a {
   color: #F1F3F3;
 }
-html.dark-mode .listing li,
-html.dark-mode .listing li ul,
-html.dark-mode .listing tbody td,
-html.dark-mode .listing li {
+html:not(.login-heading) html.dark-mode .listing li,
+html:not(.login-heading) html.dark-mode .listing li ul,
+html:not(.login-heading) html.dark-mode .listing tbody td,
+html:not(.login-heading) html.dark-mode .listing li {
   border-color: #516065;
 }
-html.dark-mode .listing li.selected,
-html.dark-mode .listing li.selected > a,
-html.dark-mode .listing li.selected > div > a,
-html.dark-mode .listing tr.selected td {
+html:not(.login-heading) html.dark-mode .listing li.selected,
+html:not(.login-heading) html.dark-mode .listing li.selected > a,
+html:not(.login-heading) html.dark-mode .listing li.selected > div > a,
+html:not(.login-heading) html.dark-mode .listing tr.selected td {
   color: #F1F3F3;
   background-color: #303638;
 }
-html.dark-mode .listing li.selected ul {
+html:not(.login-heading) html.dark-mode .listing li.selected ul {
   background-color: #23292C;
 }
-html.dark-mode .listing li.selected ul div.treetoggle {
+html:not(.login-heading) html.dark-mode .listing li.selected ul div.treetoggle {
   color: #F1F3F3;
 }
-html.dark-mode .listing li.disabled,
-html.dark-mode .listing tr.disabled td {
+html:not(.login-heading) html.dark-mode .listing li.disabled,
+html:not(.login-heading) html.dark-mode .listing tr.disabled td {
   color: #91a1a1;
 }
-html.dark-mode .listing li.droptarget > a,
-html.dark-mode .listing tr.droptarget > td {
+html:not(.login-heading) html.dark-mode .listing li.droptarget > a,
+html:not(.login-heading) html.dark-mode .listing tr.droptarget > td {
   background-color: #4d4d00;
 }
-html.dark-mode .messagelist {
+html:not(.login-heading) html.dark-mode .messagelist {
   color: #F1F3F3;
 }
-html.dark-mode .messagelist tr.selected td.subject span.size,
-html.dark-mode .messagelist tr.selected td.subject span.date,
-html.dark-mode .messagelist tr.selected td.subject span.fromto {
+html:not(.login-heading) html.dark-mode .messagelist tr.selected td.subject span.size,
+html:not(.login-heading) html.dark-mode .messagelist tr.selected td.subject span.date,
+html:not(.login-heading) html.dark-mode .messagelist tr.selected td.subject span.fromto {
   color: #F1F3F3;
 }
-html.dark-mode .messagelist tr:not(.flagged):not(.deleted) td.subject span.size,
-html.dark-mode .messagelist tr:not(.flagged):not(.deleted) td.subject span.date,
-html.dark-mode .messagelist tr:not(.flagged):not(.deleted) td.subject span.fromto {
+html:not(.login-heading) html.dark-mode .messagelist tr:not(.flagged):not(.deleted) td.subject span.size,
+html:not(.login-heading) html.dark-mode .messagelist tr:not(.flagged):not(.deleted) td.subject span.date,
+html:not(.login-heading) html.dark-mode .messagelist tr:not(.flagged):not(.deleted) td.subject span.fromto {
   color: #bac4c4;
 }
-html.dark-mode .messagelist tr:not(.flagged):not(.deleted) td.subject span.msgicon.status {
+html:not(.login-heading) html.dark-mode .messagelist tr:not(.flagged):not(.deleted) td.subject span.msgicon.status {
   color: #F1F3F3;
 }
-html.dark-mode .messagelist tr:not(.flagged):not(.deleted) td.subject span.msgicon.status.unread::before {
+html:not(.login-heading) html.dark-mode .messagelist tr:not(.flagged):not(.deleted) td.subject span.msgicon.status.unread::before {
   color: #b88a00;
 }
-html.dark-mode .messagelist tr:not(.flagged):not(.deleted) span.flag {
+html:not(.login-heading) html.dark-mode .messagelist tr:not(.flagged):not(.deleted) span.flag {
   color: #F1F3F3;
 }
-html.dark-mode .messagelist tr:not(.flagged):not(.deleted).selected td.subject a,
-html.dark-mode .messagelist tr:not(.flagged):not(.deleted).selected td.subject span.msgicon.status {
+html:not(.login-heading) html.dark-mode .messagelist tr:not(.flagged):not(.deleted).selected td.subject a,
+html:not(.login-heading) html.dark-mode .messagelist tr:not(.flagged):not(.deleted).selected td.subject span.msgicon.status {
   color: #F1F3F3;
 }
-html.dark-mode .messagelist tr.deleted td span.flag,
-html.dark-mode .messagelist tr.deleted td span.attachment span,
-html.dark-mode .messagelist tr.deleted td.subject span.msgicon.status,
-html.dark-mode .messagelist tr.deleted td.subject span.msgicon.status.unread:before,
-html.dark-mode .messagelist tr.deleted td.subject span.subject a,
-html.dark-mode .messagelist tr.deleted td.subject span.date,
-html.dark-mode .messagelist tr.deleted td.subject span.fromto {
+html:not(.login-heading) html.dark-mode .messagelist tr.deleted td span.flag,
+html:not(.login-heading) html.dark-mode .messagelist tr.deleted td span.attachment span,
+html:not(.login-heading) html.dark-mode .messagelist tr.deleted td.subject span.msgicon.status,
+html:not(.login-heading) html.dark-mode .messagelist tr.deleted td.subject span.msgicon.status.unread:before,
+html:not(.login-heading) html.dark-mode .messagelist tr.deleted td.subject span.subject a,
+html:not(.login-heading) html.dark-mode .messagelist tr.deleted td.subject span.date,
+html:not(.login-heading) html.dark-mode .messagelist tr.deleted td.subject span.fromto {
   color: #91a1a1;
 }
-html.dark-mode .messagelist span.attachment span {
+html:not(.login-heading) html.dark-mode .messagelist span.attachment span {
   color: #bac4c4;
 }
-html.dark-mode #layout-list .scroller {
+html:not(.login-heading) html.dark-mode #layout-list .scroller {
   border: thin solid #516065;
   border-bottom: none !important;
   box-shadow: none;
 }
-html.dark-mode .folderlist li.mailbox .unreadcount {
+html:not(.login-heading) html.dark-mode .folderlist li.mailbox .unreadcount {
   background-color: #516065;
   color: #ffffff;
   font-weight: normal;
 }
-html.dark-mode .attachmentslist a {
+html:not(.login-heading) html.dark-mode .attachmentslist a {
   color: #F1F3F3;
 }
-html.dark-mode .attachmentslist li {
+html:not(.login-heading) html.dark-mode .attachmentslist li {
   border-color: #516065;
 }
-html.dark-mode .attachmentslist li .attachment-name {
+html:not(.login-heading) html.dark-mode .attachmentslist li .attachment-name {
   color: #F1F3F3;
 }
-html.dark-mode .attachmentslist li .attachment-size {
+html:not(.login-heading) html.dark-mode .attachmentslist li .attachment-size {
   color: #bac4c4;
 }
-html.dark-mode .btn {
+html:not(.login-heading) html.dark-mode .btn {
   color: #F1F3F3;
 }
-html.dark-mode .btn:focus,
-html.dark-mode .btn:hover {
+html:not(.login-heading) html.dark-mode .btn:focus,
+html:not(.login-heading) html.dark-mode .btn:hover {
   color: #ffffff;
 }
-html.dark-mode .btn:disabled {
+html:not(.login-heading) html.dark-mode .btn:disabled {
   opacity: 0.5 !important;
 }
-html.dark-mode .btn-primary {
+html:not(.login-heading) html.dark-mode .btn-primary {
   background-color: #7B69C5;
   color: #ffffff;
 }
-html.dark-mode .btn-primary:hover:not(:disabled) {
+html:not(.login-heading) html.dark-mode .btn-primary:hover:not(:disabled) {
   background-color: #8b7bcc;
 }
-html.dark-mode .btn-secondary {
+html:not(.login-heading) html.dark-mode .btn-secondary {
   background-color: #516065;
   color: #ffffff;
 }
-html.dark-mode .btn-secondary:hover:not(:disabled) {
+html:not(.login-heading) html.dark-mode .btn-secondary:hover:not(:disabled) {
   background-color: #5c6d73;
 }
-html.dark-mode .btn-danger {
+html:not(.login-heading) html.dark-mode .btn-danger {
   background-color: #993331;
   color: #ffffff;
 }
-html.dark-mode .btn-danger:hover:not(:disabled) {
+html:not(.login-heading) html.dark-mode .btn-danger:hover:not(:disabled) {
   background-color: #ac3937;
 }
-html.dark-mode .floating-action-buttons a.button {
+html:not(.login-heading) html.dark-mode .floating-action-buttons a.button {
   box-shadow: none;
   background: #7B69C5;
 }
-html.dark-mode .custom-file-label,
-html.dark-mode .form-control {
+html:not(.login-heading) html.dark-mode .custom-file-label,
+html:not(.login-heading) html.dark-mode .form-control {
   background-color: #23292C;
   color: #F1F3F3;
 }
-html.dark-mode .custom-file-label:not(.is-invalid),
-html.dark-mode .form-control:not(.is-invalid) {
+html:not(.login-heading) html.dark-mode .custom-file-label:not(.is-invalid),
+html:not(.login-heading) html.dark-mode .form-control:not(.is-invalid) {
   border-color: #7c949c;
 }
-html.dark-mode .custom-file-label:focus,
-html.dark-mode .form-control:focus {
+html:not(.login-heading) html.dark-mode .custom-file-label:focus,
+html:not(.login-heading) html.dark-mode .form-control:focus {
   background-color: #2e363a;
 }
-html.dark-mode .custom-file-label:focus:not(.is-invalid),
-html.dark-mode .form-control:focus:not(.is-invalid) {
+html:not(.login-heading) html.dark-mode .custom-file-label:focus:not(.is-invalid),
+html:not(.login-heading) html.dark-mode .form-control:focus:not(.is-invalid) {
   color: #e2e7e9 !important;
   border-color: #382295;
 }
-html.dark-mode .custom-file-label::after {
+html:not(.login-heading) html.dark-mode .custom-file-label::after {
   color: #F1F3F3;
   background-color: #374549;
 }
-html.dark-mode .custom-select {
+html:not(.login-heading) html.dark-mode .custom-select {
   background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23F1F3F3' viewBox='0 0 4 5'%3e%3cpath d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.75rem center / 8px 10px;
 }
-html.dark-mode .custom-switch .custom-control-label::before {
+html:not(.login-heading) html.dark-mode .custom-switch .custom-control-label::before {
   background-color: #516065;
 }
-html.dark-mode .custom-switch .custom-control-label::after {
+html:not(.login-heading) html.dark-mode .custom-switch .custom-control-label::after {
   background-color: #F1F3F3;
 }
-html.dark-mode .custom-switch .custom-control-input:disabled ~ .custom-control-label {
+html:not(.login-heading) html.dark-mode .custom-switch .custom-control-input:disabled ~ .custom-control-label {
   opacity: 0.4;
 }
-html.dark-mode .custom-switch .custom-control-input:checked ~ .custom-control-label::before {
+html:not(.login-heading) html.dark-mode .custom-switch .custom-control-input:checked ~ .custom-control-label::before {
   background-color: #7B69C5;
 }
-html.dark-mode .custom-switch .custom-control-input:checked ~ .custom-control-label::after {
+html:not(.login-heading) html.dark-mode .custom-switch .custom-control-input:checked ~ .custom-control-label::after {
   background-color: #F1F3F3;
 }
-html.dark-mode input:disabled,
-html.dark-mode select:disabled {
+html:not(.login-heading) html.dark-mode input:disabled,
+html:not(.login-heading) html.dark-mode select:disabled {
   opacity: 0.5;
 }
-html.dark-mode .multi-input:not(.is-invalid) > .content {
+html:not(.login-heading) html.dark-mode .multi-input:not(.is-invalid) > .content {
   border-color: #7c949c;
 }
-html.dark-mode .multi-input:not(.is-invalid) > .content.focused {
+html:not(.login-heading) html.dark-mode .multi-input:not(.is-invalid) > .content.focused {
   border-color: #382295;
 }
-html.dark-mode .input-group-text {
+html:not(.login-heading) html.dark-mode .input-group-text {
   color: #F1F3F3;
   background-color: #374549;
   border-color: #7c949c;
 }
-html.dark-mode .input-group a:focus {
+html:not(.login-heading) html.dark-mode .input-group a:focus {
   border-color: #382295;
   box-shadow: 0 0 0 0.2rem rgba(56, 34, 149, 0.25);
   z-index: 1;
 }
-html.dark-mode .form-control-plaintext {
+html:not(.login-heading) html.dark-mode .form-control-plaintext {
   color: unset;
 }
-html.dark-mode .recipient-input.focus {
+html:not(.login-heading) html.dark-mode .recipient-input.focus {
   color: #e2e7e9;
   background-color: #2e363a;
   border-color: #382295;
 }
-html.dark-mode .recipient-input a.button.icon,
-html.dark-mode .recipient-input input {
+html:not(.login-heading) html.dark-mode .recipient-input a.button.icon,
+html:not(.login-heading) html.dark-mode .recipient-input input {
   color: #F1F3F3;
 }
-html.dark-mode .recipient-input .recipient {
+html:not(.login-heading) html.dark-mode .recipient-input .recipient {
   background-color: #374549;
   border-color: #7c949c;
 }
-html.dark-mode .file-upload {
+html:not(.login-heading) html.dark-mode .file-upload {
   border-color: #516065;
 }
-html.dark-mode .file-upload:after {
+html:not(.login-heading) html.dark-mode .file-upload:after {
   mix-blend-mode: soft-light;
 }
-html.dark-mode .file-upload.droptarget.active {
+html:not(.login-heading) html.dark-mode .file-upload.droptarget.active {
   border-color: #F1F3F3;
 }
-html.dark-mode .file-upload.droptarget.hover {
+html:not(.login-heading) html.dark-mode .file-upload.droptarget.hover {
   border-color: #F1F3F3;
   background-color: #303638;
 }
-html.dark-mode .file-upload .attachmentslist {
+html:not(.login-heading) html.dark-mode .file-upload .attachmentslist {
   background: transparent;
 }
-html.dark-mode .image-upload {
+html:not(.login-heading) html.dark-mode .image-upload {
   background-color: #303638;
 }
-html.dark-mode .image-upload a.button {
+html:not(.login-heading) html.dark-mode .image-upload a.button {
   background-color: rgba(35, 41, 44, 0.25);
 }
-html.dark-mode .formcontent.raweditor .CodeMirror {
+html:not(.login-heading) html.dark-mode .formcontent.raweditor .CodeMirror {
   color: #F1F3F3;
   background-color: #23292C;
   border-color: #7c949c;
 }
-html.dark-mode .formcontent.raweditor .CodeMirror-focused {
+html:not(.login-heading) html.dark-mode .formcontent.raweditor .CodeMirror-focused {
   background-color: #2e363a;
   border-color: #382295;
 }
-html.dark-mode .CodeMirror-selected,
-html.dark-mode .CodeMirror-line::selection,
-html.dark-mode .CodeMirror-line > span::selection,
-html.dark-mode .CodeMirror-line > span > span::selection {
+html:not(.login-heading) html.dark-mode .CodeMirror-selected,
+html:not(.login-heading) html.dark-mode .CodeMirror-line::selection,
+html:not(.login-heading) html.dark-mode .CodeMirror-line > span::selection,
+html:not(.login-heading) html.dark-mode .CodeMirror-line > span > span::selection {
   background: #303638;
 }
-html.dark-mode .CodeMirror-gutters {
+html:not(.login-heading) html.dark-mode .CodeMirror-gutters {
   background-color: #181c1d;
   border: 0;
 }
-html.dark-mode .CodeMirror-activeline-background {
+html:not(.login-heading) html.dark-mode .CodeMirror-activeline-background {
   background: #303638;
 }
-html.dark-mode .skinselection .skinthumbnail {
+html:not(.login-heading) html.dark-mode .skinselection .skinthumbnail {
   border-color: #7c949c;
   background: transparent;
 }
-html.dark-mode .html-editor .editor-toolbar {
+html:not(.login-heading) html.dark-mode .html-editor .editor-toolbar {
   background-color: #374549;
   border-color: #7c949c;
 }
-html.dark-mode .html-editor .editor-toolbar .mce-i-html {
+html:not(.login-heading) html.dark-mode .html-editor .editor-toolbar .mce-i-html {
   color: unset;
 }
-html.dark-mode .html-editor .editor-toolbar .mce-i-html:hover,
-html.dark-mode .html-editor .editor-toolbar .mce-i-html:focus {
+html:not(.login-heading) html.dark-mode .html-editor .editor-toolbar .mce-i-html:hover,
+html:not(.login-heading) html.dark-mode .html-editor .editor-toolbar .mce-i-html:focus {
   background-color: #535e61;
   border-color: transparent;
 }
-html.dark-mode .tox.tox-tinymce {
+html:not(.login-heading) html.dark-mode .tox.tox-tinymce {
   border-color: #7c949c;
 }
-html.dark-mode .tox .tox-toolbar {
+html:not(.login-heading) html.dark-mode .tox .tox-toolbar {
   background-color: #374549;
   border-color: #7c949c;
 }
-html.dark-mode .tox .tox-toolbar-overlord > div {
+html:not(.login-heading) html.dark-mode .tox .tox-toolbar-overlord > div {
   background: url("data:image/svg+xml,%3Csvg height='33px' viewBox='0 0 40 33px' width='40' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='32px' width='100' height='1' fill='%237c949c'/%3E%3C/svg%3E") #374549;
 }
-html.dark-mode .tox .tox-pop.tox-pop--top:before,
-html.dark-mode .tox .tox-pop.tox-pop--top:after {
+html:not(.login-heading) html.dark-mode .tox .tox-pop.tox-pop--top:before,
+html:not(.login-heading) html.dark-mode .tox .tox-pop.tox-pop--top:after {
   border-bottom-color: #9daab1;
 }
-html.dark-mode .tox .tox-pop__dialog {
+html:not(.login-heading) html.dark-mode .tox .tox-pop__dialog {
   box-shadow: none;
   border-color: #9daab1;
 }
-html.dark-mode .tox .tox-tbtn,
-html.dark-mode .tox .tox-split-button,
-html.dark-mode .tox .tox-swatches__picker-btn {
+html:not(.login-heading) html.dark-mode .tox .tox-tbtn,
+html:not(.login-heading) html.dark-mode .tox .tox-split-button,
+html:not(.login-heading) html.dark-mode .tox .tox-swatches__picker-btn {
   color: #F1F3F3;
 }
-html.dark-mode .tox .tox-tbtn svg,
-html.dark-mode .tox .tox-split-button svg,
-html.dark-mode .tox .tox-swatches__picker-btn svg {
+html:not(.login-heading) html.dark-mode .tox .tox-tbtn svg,
+html:not(.login-heading) html.dark-mode .tox .tox-split-button svg,
+html:not(.login-heading) html.dark-mode .tox .tox-swatches__picker-btn svg {
   fill: #F1F3F3 !important;
 }
-html.dark-mode .tox .tox-tbtn:hover,
-html.dark-mode .tox .tox-split-button:hover,
-html.dark-mode .tox .tox-swatches__picker-btn:hover,
-html.dark-mode .tox .tox-tbtn:focus,
-html.dark-mode .tox .tox-split-button:focus,
-html.dark-mode .tox .tox-swatches__picker-btn:focus {
+html:not(.login-heading) html.dark-mode .tox .tox-tbtn:hover,
+html:not(.login-heading) html.dark-mode .tox .tox-split-button:hover,
+html:not(.login-heading) html.dark-mode .tox .tox-swatches__picker-btn:hover,
+html:not(.login-heading) html.dark-mode .tox .tox-tbtn:focus,
+html:not(.login-heading) html.dark-mode .tox .tox-split-button:focus,
+html:not(.login-heading) html.dark-mode .tox .tox-swatches__picker-btn:focus {
   color: #F1F3F3;
   background: #535e61;
   box-shadow: none;
 }
-html.dark-mode .tox .tox-tbtn--enabled {
+html:not(.login-heading) html.dark-mode .tox .tox-tbtn--enabled {
   background: #535e61;
 }
-html.dark-mode .tox .tox-button--naked:focus:not(:disabled),
-html.dark-mode .tox .tox-button--naked.tox-button--icon:hover:not(:disabled) {
+html:not(.login-heading) html.dark-mode .tox .tox-button--naked:focus:not(:disabled),
+html:not(.login-heading) html.dark-mode .tox .tox-button--naked.tox-button--icon:hover:not(:disabled) {
   color: #ffffff;
   background-color: #535e61;
   border-color: transparent;
 }
-html.dark-mode .tox .tox-button--naked:disabled {
+html:not(.login-heading) html.dark-mode .tox .tox-button--naked:disabled {
   background: transparent;
   border: transparent;
 }
-html.dark-mode .tox .tox-dialog__header .tox-button--naked:hover {
+html:not(.login-heading) html.dark-mode .tox .tox-dialog__header .tox-button--naked:hover {
   background: transparent !important;
 }
-html.dark-mode .tox .tox-selectfield select {
+html:not(.login-heading) html.dark-mode .tox .tox-selectfield select {
   background: transparent;
   color: #F1F3F3;
 }
-html.dark-mode .tox .tox-selectfield svg {
+html:not(.login-heading) html.dark-mode .tox .tox-selectfield svg {
   fill: #F1F3F3;
 }
-html.dark-mode .tox .tox-color-input span::before {
+html:not(.login-heading) html.dark-mode .tox .tox-color-input span::before {
   background-color: #F1F3F3;
 }
-html.dark-mode .tox .tox-toolbar__group:not(:last-of-type) {
+html:not(.login-heading) html.dark-mode .tox .tox-toolbar__group:not(:last-of-type) {
   border-color: #7c949c;
 }
-html.dark-mode .tox .tox-dialog,
-html.dark-mode .tox .tox-dialog__header,
-html.dark-mode .tox .tox-dialog__body,
-html.dark-mode .tox .tox-dialog__footer,
-html.dark-mode .tox .tox-dialog__title {
+html:not(.login-heading) html.dark-mode .tox .tox-dialog,
+html:not(.login-heading) html.dark-mode .tox .tox-dialog__header,
+html:not(.login-heading) html.dark-mode .tox .tox-dialog__body,
+html:not(.login-heading) html.dark-mode .tox .tox-dialog__footer,
+html:not(.login-heading) html.dark-mode .tox .tox-dialog__title {
   color: #F1F3F3;
   border-color: #516065;
   background-color: #23292C;
 }
-html.dark-mode .tox .tox-textfield,
-html.dark-mode .tox .tox-color-input > input,
-html.dark-mode .tox .tox-label,
-html.dark-mode .tox .tox-dialog__body-nav-item,
-html.dark-mode .tox .tox-button--naked,
-html.dark-mode .tox .tox-dialog__header .tox-button,
-html.dark-mode .tox .tox-insert-table-picker__label {
+html:not(.login-heading) html.dark-mode .tox .tox-textfield,
+html:not(.login-heading) html.dark-mode .tox .tox-color-input > input,
+html:not(.login-heading) html.dark-mode .tox .tox-label,
+html:not(.login-heading) html.dark-mode .tox .tox-dialog__body-nav-item,
+html:not(.login-heading) html.dark-mode .tox .tox-button--naked,
+html:not(.login-heading) html.dark-mode .tox .tox-dialog__header .tox-button,
+html:not(.login-heading) html.dark-mode .tox .tox-insert-table-picker__label {
   color: #F1F3F3;
 }
-html.dark-mode .tox .tox-dialog__footer .tox-button {
+html:not(.login-heading) html.dark-mode .tox .tox-dialog__footer .tox-button {
   background-color: #7B69C5;
   color: #ffffff;
 }
-html.dark-mode .tox .tox-dialog__footer .tox-button:disabled {
+html:not(.login-heading) html.dark-mode .tox .tox-dialog__footer .tox-button:disabled {
   opacity: 0.5;
 }
 @media screen and (max-width: 480px) {
-  html.dark-mode .tox .tox-dialog__footer .tox-button {
+  html:not(.login-heading) html.dark-mode .tox .tox-dialog__footer .tox-button {
     color: #F1F3F3 !important;
   }
 }
-html.dark-mode .tox .tox-dialog__footer .tox-button:focus:not(:disabled) {
+html:not(.login-heading) html.dark-mode .tox .tox-dialog__footer .tox-button:focus:not(:disabled) {
   background-color: #7B69C5;
 }
-html.dark-mode .tox .tox-dialog__footer .tox-button:hover:not(:disabled) {
+html:not(.login-heading) html.dark-mode .tox .tox-dialog__footer .tox-button:hover:not(:disabled) {
   background-color: #8b7bcc;
 }
-html.dark-mode .tox .tox-dialog__footer .tox-button.tox-button--secondary {
+html:not(.login-heading) html.dark-mode .tox .tox-dialog__footer .tox-button.tox-button--secondary {
   background-color: #516065;
   color: #ffffff;
 }
-html.dark-mode .tox .tox-dialog__footer .tox-button.tox-button--secondary:focus:not(:disabled) {
+html:not(.login-heading) html.dark-mode .tox .tox-dialog__footer .tox-button.tox-button--secondary:focus:not(:disabled) {
   background-color: #516065;
 }
-html.dark-mode .tox .tox-dialog__footer .tox-button.tox-button--secondary:hover:not(:disabled) {
+html:not(.login-heading) html.dark-mode .tox .tox-dialog__footer .tox-button.tox-button--secondary:hover:not(:disabled) {
   background-color: #5c6d73;
 }
-html.dark-mode .tox .tox-dialog__body-nav-item--active {
+html:not(.login-heading) html.dark-mode .tox .tox-dialog__body-nav-item--active {
   color: #382295;
 }
-html.dark-mode .tox .tox-dialog-wrap__backdrop {
+html:not(.login-heading) html.dark-mode .tox .tox-dialog-wrap__backdrop {
   background-color: #23292C;
 }
-html.dark-mode .tox .tox-menu {
+html:not(.login-heading) html.dark-mode .tox .tox-menu {
   scrollbar-width: thin;
   background-color: #23292C;
   border-color: #9daab1;
   box-shadow: none;
 }
-html.dark-mode .tox .tox-dialog__body-nav,
-html.dark-mode .tox .tox-collection__group {
+html:not(.login-heading) html.dark-mode .tox .tox-dialog__body-nav,
+html:not(.login-heading) html.dark-mode .tox .tox-collection__group {
   scrollbar-width: thin;
 }
-html.dark-mode .tox .tox-collection__item-caret svg {
+html:not(.login-heading) html.dark-mode .tox .tox-collection__item-caret svg {
   fill: #F1F3F3;
 }
-html.dark-mode .tox .tox-collection__item {
-  color: #F1F3F3 !important;
+html:not(.login-heading) html.dark-mode .tox .tox-collection__item {
+  color: #F1F3F3;
 }
-html.dark-mode .tox .tox-collection__item:not(:last-child) {
+html:not(.login-heading) html.dark-mode .tox .tox-collection__item:not(:last-child) {
   border-bottom: 1px solid #516065;
 }
-html.dark-mode .tox .tox-collection__item h1,
-html.dark-mode .tox .tox-collection__item h2,
-html.dark-mode .tox .tox-collection__item h3,
-html.dark-mode .tox .tox-collection__item h4,
-html.dark-mode .tox .tox-collection__item h5,
-html.dark-mode .tox .tox-collection__item h6 {
-  color: #F1F3F3 !important;
-}
-html.dark-mode .tox .tox-collection__item-label div,
-html.dark-mode .tox .tox-collection__item-label p,
-html.dark-mode .tox .tox-collection__item-label strong,
-html.dark-mode .tox .tox-collection__item-label em,
-html.dark-mode .tox .tox-collection__item-label span,
-html.dark-mode .tox .tox-collection__item-label sup,
-html.dark-mode .tox .tox-collection__item-label sub,
-html.dark-mode .tox .tox-collection__item-label code,
-html.dark-mode .tox .tox-collection__item-label p,
-html.dark-mode .tox .tox-collection__item-label blockquote,
-html.dark-mode .tox .tox-collection__item-label pre {
-  color: #F1F3F3 !important;
-}
-html.dark-mode .tox .tox-collection--grid .tox-collection__item {
+html:not(.login-heading) html.dark-mode .tox .tox-collection--grid .tox-collection__item {
   border: 0;
 }
-html.dark-mode .tox .tox-collection__item--active,
-html.dark-mode .tox .tox-collection__item--active:not(.tox-collection__item--state-disabled) {
+html:not(.login-heading) html.dark-mode .tox .tox-collection__item--active,
+html:not(.login-heading) html.dark-mode .tox .tox-collection__item--active:not(.tox-collection__item--state-disabled) {
   color: #F1F3F3;
   background-color: #303638;
 }
-html.dark-mode .tox .tox-collection__item--enabled {
+html:not(.login-heading) html.dark-mode .tox .tox-collection__item--enabled {
   color: #F1F3F3;
   background-color: #303638;
 }
-html.dark-mode .message-part,
-html.dark-mode .message-htmlpart {
+html:not(.login-heading) html.dark-mode .message-part,
+html:not(.login-heading) html.dark-mode .message-htmlpart {
   border-color: #516065;
 }
-html.dark-mode .message-part blockquote,
-html.dark-mode .message-htmlpart blockquote {
+html:not(.login-heading) html.dark-mode .message-part blockquote,
+html:not(.login-heading) html.dark-mode .message-htmlpart blockquote {
   background-color: #23292C;
   border-color: #9b8ed3;
   color: #9b8ed3;
 }
-html.dark-mode .message-part blockquote span.blockquote-link,
-html.dark-mode .message-htmlpart blockquote span.blockquote-link {
+html:not(.login-heading) html.dark-mode .message-part blockquote span.blockquote-link,
+html:not(.login-heading) html.dark-mode .message-htmlpart blockquote span.blockquote-link {
   color: currentColor;
   background: #23292C;
   border-color: currentColor;
 }
-html.dark-mode .message-part blockquote blockquote,
-html.dark-mode .message-htmlpart blockquote blockquote {
+html:not(.login-heading) html.dark-mode .message-part blockquote blockquote,
+html:not(.login-heading) html.dark-mode .message-htmlpart blockquote blockquote {
   color: #64c86b;
   border-color: #64c86b;
 }
-html.dark-mode .message-part blockquote blockquote blockquote,
-html.dark-mode .message-htmlpart blockquote blockquote blockquote {
+html:not(.login-heading) html.dark-mode .message-part blockquote blockquote blockquote,
+html:not(.login-heading) html.dark-mode .message-htmlpart blockquote blockquote blockquote {
   color: #ff8785;
   border-color: #ff8785;
 }
-html.dark-mode .message-part span.sig {
+html:not(.login-heading) html.dark-mode .message-part span.sig {
   color: #bac4c4;
 }
-html.dark-mode .message-htmlpart {
+html:not(.login-heading) html.dark-mode .message-htmlpart {
   background-color: white;
   color: #2c363a;
   padding: 1rem;
   margin-top: 0.5rem;
 }
-html.dark-mode #message-header .header-headers .header-title {
+html:not(.login-heading) html.dark-mode #message-header .header-headers .header-title {
   color: #F1F3F3;
   font-weight: normal;
 }
-html.dark-mode .message-partheaders {
+html:not(.login-heading) html.dark-mode .message-partheaders {
   background-color: #303638;
   border: 0;
 }
-html.dark-mode .message-partheaders table.headers-table {
+html:not(.login-heading) html.dark-mode .message-partheaders table.headers-table {
   color: #F1F3F3;
 }
-html.dark-mode .message-partheaders table.headers-table * {
+html:not(.login-heading) html.dark-mode .message-partheaders table.headers-table * {
   font-weight: normal;
 }
-html.dark-mode p.image-attachment {
+html:not(.login-heading) html.dark-mode p.image-attachment {
   border-color: #516065;
   background-color: #303638;
 }
-html.dark-mode p.image-attachment span {
+html:not(.login-heading) html.dark-mode p.image-attachment span {
   color: #bac4c4;
 }
-html.dark-mode fieldset.image-attachment legend {
+html:not(.login-heading) html.dark-mode fieldset.image-attachment legend {
   color: #bac4c4;
   border-color: #516065;
 }
-html.dark-mode #messagepartframe {
+html:not(.login-heading) html.dark-mode #messagepartframe {
   background: #fff;
 }
-html.dark-mode .ui-widget {
+html:not(.login-heading) html.dark-mode .ui-widget {
   border-color: #516065;
 }
-html.dark-mode .ui-widget-overlay {
+html:not(.login-heading) html.dark-mode .ui-widget-overlay {
   background-color: #23292C;
 }
-html.dark-mode .ui-widget-header,
-html.dark-mode .ui-widget-content {
+html:not(.login-heading) html.dark-mode .ui-widget-header,
+html:not(.login-heading) html.dark-mode .ui-widget-content {
   background-color: #23292C;
 }
-html.dark-mode .ui-dialog .ui-dialog-titlebar {
+html:not(.login-heading) html.dark-mode .ui-dialog .ui-dialog-titlebar {
   border-color: #516065;
 }
-html.dark-mode .ui-dialog .ui-dialog-title,
-html.dark-mode .ui-dialog .ui-dialog-titlebar-close {
+html:not(.login-heading) html.dark-mode .ui-dialog .ui-dialog-title,
+html:not(.login-heading) html.dark-mode .ui-dialog .ui-dialog-titlebar-close {
   color: #F1F3F3;
   background: transparent;
 }
-html.dark-mode .ui-dialog .ui-dialog-buttonpane {
+html:not(.login-heading) html.dark-mode .ui-dialog .ui-dialog-buttonpane {
   border-color: #516065;
 }
-html.dark-mode .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset a.btn-link {
+html:not(.login-heading) html.dark-mode .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset a.btn-link {
   color: #F1F3F3;
 }
-html.dark-mode .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset a.btn-link:focus {
+html:not(.login-heading) html.dark-mode .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset a.btn-link:focus {
   background: transparent;
 }
 @media screen and (max-width: 480px) {
-  html.dark-mode .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset button.btn-primary:not(.btn-danger),
-  html.dark-mode .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset button.btn-secondary {
+  html:not(.login-heading) html.dark-mode .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset button.btn-primary:not(.btn-danger),
+  html:not(.login-heading) html.dark-mode .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset button.btn-secondary {
     color: #F1F3F3;
   }
 }
-html.dark-mode .ui-datepicker .ui-datepicker-header {
+html:not(.login-heading) html.dark-mode .ui-datepicker .ui-datepicker-header {
   border-color: #516065;
 }
-html.dark-mode .ui-datepicker th {
+html:not(.login-heading) html.dark-mode .ui-datepicker th {
   color: #bac4c4;
   font-size: 80%;
   font-weight: normal;
 }
-html.dark-mode .ui-datepicker .ui-datepicker-prev,
-html.dark-mode .ui-datepicker .ui-datepicker-next,
-html.dark-mode .ui-datepicker .ui-state-default,
-html.dark-mode .ui-datepicker.ui-widget-content .ui-state-default {
+html:not(.login-heading) html.dark-mode .ui-datepicker .ui-datepicker-prev,
+html:not(.login-heading) html.dark-mode .ui-datepicker .ui-datepicker-next,
+html:not(.login-heading) html.dark-mode .ui-datepicker .ui-state-default,
+html:not(.login-heading) html.dark-mode .ui-datepicker.ui-widget-content .ui-state-default {
   color: #F1F3F3;
 }
-html.dark-mode .ui-datepicker .ui-state-highlight,
-html.dark-mode .ui-datepicker.ui-widget-content .ui-state-highlight {
+html:not(.login-heading) html.dark-mode .ui-datepicker .ui-state-highlight,
+html:not(.login-heading) html.dark-mode .ui-datepicker.ui-widget-content .ui-state-highlight {
   color: #382295;
   background-color: #303638;
 }
-html.dark-mode .ui-datepicker .ui-datepicker-days-cell-over a {
+html:not(.login-heading) html.dark-mode .ui-datepicker .ui-datepicker-days-cell-over a {
   background-color: #485053;
 }
-html.dark-mode .ui-menu {
+html:not(.login-heading) html.dark-mode .ui-menu {
   scrollbar-width: thin;
   background-color: #23292C;
   border-color: #9daab1;
   box-shadow: none;
 }
-html.dark-mode .ui-menu .ui-menu-item {
+html:not(.login-heading) html.dark-mode .ui-menu .ui-menu-item {
   border-bottom: 1px solid #516065;
 }
-html.dark-mode .ui-menu .ui-state-active {
+html:not(.login-heading) html.dark-mode .ui-menu .ui-state-active {
   background-color: #303638 !important;
 }
-html.dark-mode .minicolors-panel {
+html:not(.login-heading) html.dark-mode .minicolors-panel {
   box-shadow: none;
   border-color: #516065;
   background: #23292C;
 }
-html.dark-mode ::placeholder,
-html.dark-mode ::-webkit-input-placeholder,
-html.dark-mode .listing-info,
-html.dark-mode .listing span.secondary,
-html.dark-mode .file-upload .hint,
-html.dark-mode .contactlist span.email,
-html.dark-mode #login-footer,
-html.dark-mode #contacthead.readonly .source.row,
-html.dark-mode .formcontent .hint {
+html:not(.login-heading) html.dark-mode ::placeholder,
+html:not(.login-heading) html.dark-mode ::-webkit-input-placeholder,
+html:not(.login-heading) html.dark-mode .listing-info,
+html:not(.login-heading) html.dark-mode .listing span.secondary,
+html:not(.login-heading) html.dark-mode .file-upload .hint,
+html:not(.login-heading) html.dark-mode .contactlist span.email,
+html:not(.login-heading) html.dark-mode #login-footer,
+html:not(.login-heading) html.dark-mode #contacthead.readonly .source.row,
+html:not(.login-heading) html.dark-mode .formcontent .hint {
   font-weight: normal;
   color: #bac4c4;
 }
-html.dark-mode .list-group-item {
+html:not(.login-heading) html.dark-mode .list-group-item {
   background-color: #23292C;
   border-color: #516065;
 }
-html.dark-mode .list-group-item:hover {
+html:not(.login-heading) html.dark-mode .list-group-item:hover {
   background-color: #382295;
   color: #ffff;
   cursor: pointer;
 }
-html.dark-mode .popover {
+html:not(.login-heading) html.dark-mode .popover {
   background-color: #23292C;
   border-color: #9daab1;
   box-shadow: none;
 }
-html.dark-mode .popover .menu li.separator {
+html:not(.login-heading) html.dark-mode .popover .menu li.separator {
   background-color: transparent;
   color: #bac4c4;
 }
-html.dark-mode .popover .menu ul + li.separator {
+html:not(.login-heading) html.dark-mode .popover .menu ul + li.separator {
   border-top: 1px solid #516065;
 }
-html.dark-mode .popover-body {
+html:not(.login-heading) html.dark-mode .popover-body {
   color: #F1F3F3;
 }
-html.dark-mode .bs-popover-auto[x-placement^="right"] > .arrow::after,
-html.dark-mode .bs-popover-right > .arrow::after {
+html:not(.login-heading) html.dark-mode .bs-popover-auto[x-placement^="right"] > .arrow::after,
+html:not(.login-heading) html.dark-mode .bs-popover-right > .arrow::after {
   border-right-color: #9daab1;
 }
-html.dark-mode .bs-popover-auto[x-placement^="left"] > .arrow::after,
-html.dark-mode .bs-popover-left > .arrow::after {
+html:not(.login-heading) html.dark-mode .bs-popover-auto[x-placement^="left"] > .arrow::after,
+html:not(.login-heading) html.dark-mode .bs-popover-left > .arrow::after {
   border-left-color: #9daab1;
 }
-html.dark-mode .bs-popover-auto[x-placement^="top"] > .arrow::after,
-html.dark-mode .bs-popover-top > .arrow::after {
+html:not(.login-heading) html.dark-mode .bs-popover-auto[x-placement^="top"] > .arrow::after,
+html:not(.login-heading) html.dark-mode .bs-popover-top > .arrow::after {
   border-top-color: #9daab1;
 }
-html.dark-mode .bs-popover-auto[x-placement^="bottom"] > .arrow::after,
-html.dark-mode .bs-popover-bottom > .arrow::after {
+html:not(.login-heading) html.dark-mode .bs-popover-auto[x-placement^="bottom"] > .arrow::after,
+html:not(.login-heading) html.dark-mode .bs-popover-bottom > .arrow::after {
   border-bottom-color: #9daab1;
 }
-html.dark-mode .nav-tabs {
+html:not(.login-heading) html.dark-mode .nav-tabs {
   border-color: #516065;
 }
-html.dark-mode .nav-tabs .nav-link {
+html:not(.login-heading) html.dark-mode .nav-tabs .nav-link {
   color: #F1F3F3;
   border-color: transparent;
   border-bottom-color: #516065;
 }
-html.dark-mode .nav-tabs .nav-link:hover {
+html:not(.login-heading) html.dark-mode .nav-tabs .nav-link:hover {
   background: #23292C;
   border-color: #516065;
   color: #F1F3F3;
 }
-html.dark-mode .nav-tabs .nav-link.active {
+html:not(.login-heading) html.dark-mode .nav-tabs .nav-link.active {
   background: #23292C;
   border-color: #516065;
   border-bottom-color: transparent;
   color: #fff;
 }
-html.dark-mode .table {
+html:not(.login-heading) html.dark-mode .table {
   color: #F1F3F3;
 }
-html.dark-mode .table td,
-html.dark-mode .table th,
-html.dark-mode .table thead th {
+html:not(.login-heading) html.dark-mode .table td,
+html:not(.login-heading) html.dark-mode .table th,
+html:not(.login-heading) html.dark-mode .table thead th {
   border-color: #516065;
 }
-html.dark-mode .table-widget {
+html:not(.login-heading) html.dark-mode .table-widget {
   border-color: #516065;
 }
-html.dark-mode .table-widget > .footer {
+html:not(.login-heading) html.dark-mode .table-widget > .footer {
   border-color: #516065;
 }
-html.dark-mode .table-widget table.options-table tr:last-child td {
+html:not(.login-heading) html.dark-mode .table-widget table.options-table tr:last-child td {
   border-color: #516065;
 }
-html.dark-mode .table-widget table.options-table tr.selected td {
+html:not(.login-heading) html.dark-mode .table-widget table.options-table tr.selected td {
   background-color: #303638;
   color: #F1F3F3;
 }
-html.dark-mode #rcmdraglayer {
+html:not(.login-heading) html.dark-mode #rcmdraglayer {
   background-color: #23292C;
   border: 1px solid #9daab1;
   box-shadow: none;
   color: #F1F3F3;
 }
-html.dark-mode .quota-widget {
+html:not(.login-heading) html.dark-mode .quota-widget {
   color: unset;
 }
-html.dark-mode .quota-widget .bar {
+html:not(.login-heading) html.dark-mode .quota-widget .bar {
   border-color: #516065;
   background-color: #516065;
 }
-html.dark-mode .quota-info .root {
+html:not(.login-heading) html.dark-mode .quota-info .root {
   color: #bac4c4;
   background-color: transparent;
 }
-html.dark-mode img.contactphoto,
-html.dark-mode #contactpic {
+html:not(.login-heading) html.dark-mode img.contactphoto,
+html:not(.login-heading) html.dark-mode #contactpic {
   background-color: #303638 !important;
 }
-html.dark-mode .pgpkeyimport div.key.revoked,
-html.dark-mode .pgpkeyimport div.key.disabled {
+html:not(.login-heading) html.dark-mode .pgpkeyimport div.key.revoked,
+html:not(.login-heading) html.dark-mode .pgpkeyimport div.key.disabled {
   color: #91a1a1;
 }
-html.dark-mode .pgpkeyimport li.uid::before {
+html:not(.login-heading) html.dark-mode .pgpkeyimport li.uid::before {
   opacity: 1;
 }
-html.dark-mode .pagenav.menu.footer {
+html:not(.login-heading) html.dark-mode .pagenav.menu.footer {
   margin-right: 0.4rem !important;
   border-left: thin solid #516065;
   margin-left: 0.3rem !important;
 }
-html.dark-mode #tag-filter-list {
+html:not(.login-heading) html.dark-mode #tag-filter-list {
   background: #23292C;
 }
-html.dark-mode #type-filter-list {
+html:not(.login-heading) html.dark-mode #type-filter-list {
   background: #23292C;
 }
-html.dark-mode .tags-filter {
+html:not(.login-heading) html.dark-mode .tags-filter {
   color: #F1F3F3;
 }
-html.dark-mode .type-filter {
+html:not(.login-heading) html.dark-mode .type-filter {
   color: #F1F3F3;
-}
-html.dark-mode #compose-plus {
-  box-shadow: none;
-  transition: none;
-  color: #E9DFFF;
-  background: #303638 url(../images/compose_plus_dark.png) no-repeat left 2rem center / 1.5rem 1.5rem;
 }
