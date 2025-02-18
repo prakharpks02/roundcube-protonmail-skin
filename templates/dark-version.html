@@ -18,7 +18,7 @@
       .floww-main-part {
         width: 100vw;
         height: 100vh;
-        background-color: white;
+        background-color: transparent;
         position: relative;
       }
 
@@ -375,6 +375,12 @@
       </div>
     </div>
 
-    <!--------------------mobile version ended ----------------------------------->
+    <script>
+      function closePopup() {
+        window.parent.postMessage('closePopup', '*');
+      }
+    </script>
+
+    <!--------------------mobile version ended ------------------------------------>
   </body>
 </html>

@@ -825,7 +825,11 @@
 	document.addEventListener("DOMContentLoaded", changeFunction);
 	
 	function openPopup() {
-		document.getElementById('popupFrame').src = 'skins/roundcube-protonmail-skin/templates/light-version.html';
+		var isDarkMode = document.documentElement.classList.contains('dark-mode');
+
+    	// Choose the template based on dark mode
+   		var template = isDarkMode ? 'skins/roundcube-protonmail-skin/templates/dark-version.html' : 'skins/roundcube-protonmail-skin/templates/light-version.html';
+		document.getElementById('popupFrame').src = template;
 		document.getElementById('popupContainer').style.display = 'block';
 		document.getElementById('overlay').style.display = 'block';
 	}
