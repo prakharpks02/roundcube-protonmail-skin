@@ -381,8 +381,7 @@
     <!--------------------- Mobile Version Starts Dark View ------------------------>
     <script>
       function closePopup() {
-        document.getElementById('popupContainer').style.display = 'none';
-        document.getElementById('overlay').style.display = 'none';
+        window.parent.postMessage('closePopup', '*');
       }
     </script>
   

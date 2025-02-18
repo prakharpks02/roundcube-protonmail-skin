@@ -830,6 +830,12 @@
 		document.getElementById('overlay').style.display = 'block';
 	}
 
+	window.addEventListener('message', function(event) {
+		if (event.data === 'closePopup') {
+			closePopup();
+		}
+	});
+
 	function closePopup() {
 		document.getElementById('popupContainer').style.display = 'none';
 		document.getElementById('overlay').style.display = 'none';
