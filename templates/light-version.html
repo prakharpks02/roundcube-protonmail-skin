@@ -19,7 +19,7 @@
       .floww-main-part {
         width: 100vw;
         height: 100vh;
-        background-color: white;
+        background-color: transparent;
         position: relative;
       }
 
@@ -306,8 +306,8 @@
           <div style="width: 50%; height: 100%">
             <div class="floww-banner-images">
               <div class="floww-banner-image-inner-part">
-                <roundcube:object name="logo"
-                  src="/images/Tess-desktop-1.png"
+                <img
+                  src="/skins/roundcube-protonmail-skin/images/Tess-desktop-1.png"
                   alt=""
                   style="
                     width: 100%;
@@ -320,7 +320,7 @@
           </div>
           <div style="width: 50%; height: 100%; padding: 20px">
             <div class="floww-close-button-part">
-              <button class="close-btn">
+              <button class="close-btn" onclick="closePopup()">
                 <span style="font-size: 2.5rem">&#10006;</span>
               </button>
             </div>
@@ -358,7 +358,7 @@
       <div class="floww-ai-mail-mobile-part">
         <div class="floww-mobile-ai-mail-container">
           <div class="card">
-            <button class="floww-mobile-close-btn">
+            <button class="floww-mobile-close-btn" onclick="closePopup()">
               <span style="font-size: 3rem"> &times; </span>
             </button>
             <p class="floww-mobile-ai-mail-heaidng">TESS</p>
@@ -373,11 +373,18 @@
             </div>
             <button class="floww-mobile-submit-btn">Submit</button>
           </div>
-          <roundcube:object name="logo" src="/images/robot-mobile.png" alt="Robot" class="robot-img" />
+          <img src="/skins/roundcube-protonmail-skin/images/robot-mobile.png" alt="Robot" class="robot-img" />
         </div>
       </div>
     </div>
 
     <!--------------------- Mobile Version Starts Dark View ------------------------>
+    <script>
+      function closePopup() {
+        document.getElementById('popupContainer').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+      }
+    </script>
+  
   </body>
 </html>
