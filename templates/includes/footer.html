@@ -824,7 +824,16 @@
 	// Run after DOM loads
 	document.addEventListener("DOMContentLoaded", changeFunction);
 	
+	function openPopup() {
+		document.getElementById('popupFrame').src = 'skins/classic/templates/light-version.html';
+		document.getElementById('popupContainer').style.display = 'block';
+		document.getElementById('overlay').style.display = 'block';
+	}
 
+	function closePopup() {
+		document.getElementById('popupContainer').style.display = 'none';
+		document.getElementById('overlay').style.display = 'none';
+	}
 </script>
 
 
