@@ -339,7 +339,7 @@
               </div>
               <div class="terms">
                 <input type="checkbox" />
-                <p>I agree to the Terms and Conditions.</p>
+                <p onclick="openTermsAndConditions()" style="cursor: pointer;">I agree to the Terms and Conditions.</p>
               </div>
               <div>
                 <button class="submit-btn">Submit</button>
@@ -369,7 +369,7 @@
             </p>
             <div class="checkbox-container">
               <input type="checkbox" id="terms" />
-              <label for="terms">I agree to the Terms and Conditions.</label>
+              <label for="terms" onclick="openTermsAndConditions()" style="cursor: pointer;">I agree to the Terms and Conditions.</label>
             </div>
             <button class="floww-mobile-submit-btn">Submit</button>
           </div>
@@ -382,6 +382,23 @@
     <script>
       function closePopup() {
         window.parent.postMessage('closePopup', '*');
+      }
+
+      function closePopup() {
+        window.parent.postMessage('closePopup', '*');
+      }
+
+      function submitPermission() {
+        const checkbox_desktop= document.getElementById("terms-desktop");
+        const checkbox_mobile = document.getElementById("terms");
+        if (checkbox_desktop.checked || checkbox_desktop.checked) {
+          window.parent.postMessage('submitPermission', '*');
+        }
+        window.parent.postMessage('closePopup', '*');
+      }
+
+      function openTermsAndConditions() {
+        window.parent.postMessage('openTermsAndConditions', '*');
       }
     </script>
   

@@ -895,6 +895,26 @@
 			return 0;
 		}
 	}
+
+	function openTermsAndConditions() {
+		const width = 800;
+		const height = 600;
+		const left = (screen.width - width) / 2;
+		const top = (screen.height - height) / 2;
+	
+		const popup = window.open(
+			'skins/roundcube-protonmail-skin/templates/Terms-and-Conditions-converted.html',
+			'TermsAndConditionsPopup',
+			`width=${width},height=${height},top=${top},left=${left},resizable=no,scrollbars=yes`
+		);
+	
+		if (!popup) {
+			alert("Popup blocked! Please allow popups for this site.");
+		} else {
+			popup.focus();
+		}
+	}
+	
 </script>
 
 
