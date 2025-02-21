@@ -335,11 +335,11 @@
                 </p>
               </div>
               <div class="terms">
-                <input type="checkbox" />
+                <input type="checkbox" id="terms-desktop"/>
                 <p>I agree to the Terms and Conditions.</p>
               </div>
               <div>
-                <button class="submit-btn">Submit</button>
+                <button class="submit-btn" onclick="submitPermission()">Submit</button>
               </div>
             </div>
           </div>
@@ -368,7 +368,7 @@
               <input type="checkbox" id="terms" />
               <label for="terms">I agree to the Terms and Conditions.</label>
             </div>
-            <button class="submit-btn">Submit</button>
+            <button class="submit-btn" onclick="submitPermission()">Submit</button>
           </div>
           <img src="/skins/roundcube-protonmail-skin/images/robot-mobile.png" alt="Robot" class="robot-img" />
         </div>
@@ -377,6 +377,17 @@
 
     <script>
       function closePopup() {
+        window.parent.postMessage('closePopup', '*');
+      }
+
+      baseURL = 'https://e9b4-117-250-76-237.ngrok-free.app/api/mail/'
+
+      function submitPermission() {
+        const checkbox_desktop= document.getElementById("terms-desktop");
+        const checkbox_mobile = document.getElementById("terms");
+        if (checkbox_desktop.checked || checkbox_desktop.checked) {
+          window.parent.postMessage('submitPermission', '*');
+        }
         window.parent.postMessage('closePopup', '*');
       }
     </script>
