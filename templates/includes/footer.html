@@ -845,7 +845,56 @@
 		document.getElementById('overlay').style.display = 'none';
 	}
 
+	async function checkPermission(){
+		const email = rcmail.env.user_name;
 	
+		try {
+			const response = await fetch(`${baseURL}get-permission-status-tess/`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ email: email }, 40000)
+			});
+	
+			if (!response.ok) {
+				//console.error('Error Getting Credit info:', response.statusText);
+				throw new Error('Network response was not ok');
+			}
+	
+			const responseData = await response.json();
+            
+			if(responseData.permission === false) {
+                console.log("opening");
+				openPopup();
+			}
+			
+			
+			
+		} catch (error) {
+			//console.error('Error Getting Credits:', error);
+			return 0;
+		}
+	}
+
+	async function submitPermission() {
+		const email = rcmail.env.user_name;
+		try {
+			const response = await fetch(`${baseURL}grant-permission-tess/`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ email: email }, 40000)
+			});
+	
+			if (!response.ok) {
+				throw new Error('Network response was not ok');
+			}
+		} catch (error) {
+			return 0;
+		}
+	}
 </script>
 
 
