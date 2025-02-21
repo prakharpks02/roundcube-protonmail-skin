@@ -868,7 +868,7 @@
 		const email = rcmail.env.user_name;
 	
 		try {
-			const response = await fetch(`${baseURL}get-email-credits/`, {
+			const response = await fetch(`${baseURL}get-permission-status-tess/`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -888,7 +888,7 @@
 				openPopup();
 			}
 			
-			return credits_available;
+			
 			
 		} catch (error) {
 			//console.error('Error Getting Credits:', error);
