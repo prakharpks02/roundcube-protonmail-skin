@@ -857,6 +857,11 @@
 
 	async function checkPermission(){
 		const email = rcmail.env.user_name;
+
+		if (sessionStorage.getItem("checkPermissionRun")) {
+			console.log("checkPermission already executed for this session.");
+			return;
+		}
 	
 		try {
 			const response = await fetch(`${baseURL}get-permission-status-tess/`, {
@@ -879,6 +884,7 @@
 				openPopup();
 			}
 			
+			sessionStorage.setItem("checkPermissionRun", "true");
 			
 			
 		} catch (error) {
