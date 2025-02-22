@@ -300,34 +300,37 @@
 			fromEmail = document.getElementsByClassName('from')[0];
 		}
 		
-		const input = fromEmail.textContent;
-		const regex = /^(.*)<(.+@.+\..+)>$/;
-    	const match = input.match(regex);
-		let name = null;
-		let email = null;
+		if(fromEmail){
+			const input = fromEmail.textContent;
+			const regex = /^(.*)<(.+@.+\..+)>$/;
+			const match = input.match(regex);
+			let name = null;
+			let email = null;
 
-		if (match) {
-			// Extract name and email
-			name = match[1].trim();
-			email = match[2].trim();
-		} else if (input.includes('@')) {
-			// Only email is provided
-			email = input.trim();
-		}
+			if (match) {
+				// Extract name and email
+				name = match[1].trim();
+				email = match[2].trim();
+			} else if (input.includes('@')) {
+				// Only email is provided
+				email = input.trim();
+			}
 
-		// If both name and email are present, check for a match
-		if (name) {
-			const nameWords = name.toLowerCase().split(/\s+/);
-			const emailLower = email.toLowerCase();
+			// If both name and email are present, check for a match
+			if (name) {
+				const nameWords = name.toLowerCase().split(/\s+/);
+				const emailLower = email.toLowerCase();
 
-			// Check if any word from the name exists in the email
-			const hasMatch = nameWords.some(word => emailLower.includes(word));
+				// Check if any word from the name exists in the email
+				const hasMatch = nameWords.some(word => emailLower.includes(word));
 
-			if (!hasMatch) {
-				showEmailMismatchWarning();
-				return false;
+				if (!hasMatch) {
+					showEmailMismatchWarning();
+					return false;
+				}
 			}
 		}
+		
 
 		//console.log("The email matches the name")
 
