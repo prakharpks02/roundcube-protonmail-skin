@@ -391,8 +391,14 @@
       function submitPermission() {
         const checkbox_desktop= document.getElementById("terms-desktop");
         const checkbox_mobile = document.getElementById("terms");
-        if (checkbox_desktop.checked || checkbox_mobile.checked) {
-          window.parent.postMessage('submitPermission', '*');
+        if(checkbox_desktop){
+          if(checkbox_desktop.checked) {
+            window.parent.postMessage('submitPermission', '*');
+          }
+        }else if(checkbox_mobile){
+          if(checkbox_mobile.checked) {
+            window.parent.postMessage('submitPermission', '*');
+          }
         }
         window.parent.postMessage('closePopup', '*');
       }
