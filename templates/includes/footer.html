@@ -47,6 +47,7 @@
 
 	function displayCredits(){
 		const email = rcmail.env.user_name;
+		console.log("getting credits");
 		if(email){
 			getCredits(email).then(credits=>{
 				const aboutElement = document.getElementsByClassName('about')[0];  // Get the first element with class 'about'
