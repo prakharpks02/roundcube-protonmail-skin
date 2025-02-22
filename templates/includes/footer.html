@@ -47,7 +47,7 @@
 
 	function displayCredits(){
 		const email = rcmail.env.user_name;
-		console.log("getting credits");
+		//console.log("getting credits");
 		if(email){
 			getCredits(email).then(credits=>{
 				const aboutElement = document.getElementsByClassName('about')[0];  // Get the first element with class 'about'
@@ -860,7 +860,7 @@
 		const task = rcmail.env.task;
 		if(task === 'mail'){
 			if (sessionStorage.getItem("checkPermissionRun")) {
-				console.log("checkPermission already executed for this session.");
+				//console.log("checkPermission already executed for this session.");
 				return;
 			}
 		
