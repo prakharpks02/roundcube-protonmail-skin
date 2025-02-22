@@ -838,6 +838,11 @@
 		if (event.data === 'closePopup') {
 			closePopup();
 		}
+		else if (event.data === 'submitPermission') {
+			submitPermission();
+		} else if( event.data === 'openTermsAndConditions') {
+			openTermsAndConditions();
+		}
 	});
 
 	function closePopup() {
