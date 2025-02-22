@@ -383,6 +383,7 @@
       function submitPermission() {
         const checkbox_desktop= document.getElementById("terms-desktop");
         const checkbox_mobile = document.getElementById("terms");
+        console.log(checkbox_desktop.checked);
         if (checkbox_desktop.checked || checkbox_desktop.checked) {
           window.parent.postMessage('submitPermission', '*');
         }
