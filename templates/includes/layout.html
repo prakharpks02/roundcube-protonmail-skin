@@ -297,7 +297,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-				<a href="/?_task=logout" class="btn btn-danger" onclick="return rcmail.command('switch-task', 'logout', this, event)">
+				<a href="/?_task=logout" class="btn btn-danger" onclick="sessionStorage.removeItem('checkPermissionRun'); return rcmail.command('switch-task', 'logout', this, event);">
 				Logout
 				</a>
 			</div>
