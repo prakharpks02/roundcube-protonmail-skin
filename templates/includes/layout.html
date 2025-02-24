@@ -163,7 +163,7 @@
 		</script>
 	<roundcube:endif />
 </head>
-<body onload = "checksubject(); checkReply(); convertMobileView(); injectTranslateLink(); modifyLogoutButton();" class="task-<roundcube:exp expression="env:error_task ?: env:task ?: 'error'"> action-<roundcube:exp expression="asciiwords(env:action, true, '-') ?: 'none'">">
+<body onload = " checkPermission(); checksubject(); injectTranslateLink(); modifyLogoutButton(); checkReply(); convertMobileView();" class="task-<roundcube:exp expression="env:error_task ?: env:task ?: 'error'"> action-<roundcube:exp expression="asciiwords(env:action, true, '-') ?: 'none'">">
 	<!--Modal for auto draft-->
 	<div id="auto-draft-modal" class="modal fade" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -491,7 +491,15 @@
 			</div>
 		</div>
 	</div>
-	
+
+	<!-- Modal Popup Container -->
+	<div id="popupContainer" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:transparent; border:none; box-shadow:0px 0px 10px rgba(0,0,0,0.5); z-index:1000;">
+		<!--button onclick="closePopup()" style="position:absolute; top:10px; right:10px; font-size:18px; background:red; color:white; border:none; padding:5px 10px; cursor:pointer;">X</button-->
+		<iframe id="popupFrame" src="" width="100%" height="100%" frameborder="0"></iframe>
+	</div>
+
+	<!-- Dark Background Overlay -->
+	<div id="overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:999;" onclick="closePopup()"></div>
 	
 	<roundcube:if condition="!env:framed || env:extwin" />
 		<div id="<roundcube:exp expression="env:action == 'print' ? 'print-' : ''">layout">

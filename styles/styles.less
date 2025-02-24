@@ -897,6 +897,288 @@ a.input-group-text.icon.add.active {
     opacity: 0.6;
 }
 
+/** Tess UI **/
+.floww-main-part {
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    position: relative;
+  }
+
+  .floww-main-part-div-element {
+    width: 60vw;
+    height: 80vh;
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    background-color: #2e3380;
+  }
+
+  .floww-modal {
+    border-radius: 10px;
+    position: relative;
+  }
+
+  .floww-close-button-part {
+    text-align: right;
+  }
+  .floww-close-btn {
+    color: #2e3380;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .floww-heading-text p {
+    color: white;
+    font-size: 3.5rem;
+    font-weight: 800;
+  }
+
+  .floww-paragraph-inner p {
+    font-size: 1.8rem;
+    color: white;
+  }
+
+  .floww-last-paragraph {
+    font-size: 1.3em;
+    margin-top: 0.5rem;
+    margin-bottom: 2.5rem;
+    color: white;
+  }
+
+  .floww-terms {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2.5rem;
+    gap: 5px;
+    color: #b8a5e7;
+  }
+
+  .flowww-terms input {
+    margin-right: 10px;
+  }
+
+  .floww-terms p {
+    font-size: 1.2rem;
+    color: #b8a5e7;
+  }
+
+  input[type="checkbox"] {
+    transform: scale(1.5);
+    margin: 5px;
+  }
+
+  .floww-submit-btn {
+    width: 100%;
+    border: 2px solid white;
+    background: none;
+    padding: 4px;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 500;
+    border-radius: 25px;
+    cursor: pointer;
+  }
+
+  .floww-submit-btn:hover {
+    background: white;
+    color: #3e3e88;
+  }
+
+  .floww-banner-images {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .floww-banner-image-inner-part {
+    width: 90%;
+    height: 90%;
+  }
+
+  .floww-banner-image-inner-part img {
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (max-width: 1200px) {
+    .floww-last-paragraph {
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+    .floww-terms {
+      margin-bottom: 2rem;
+    }
+    .floww-heading-text p {
+      font-size: 3rem;
+    }
+    .floww-paragraph-inner p {
+      font-size: 1.5rem;
+    }
+    .floww-terms p {
+      font-size: 0.8rem;
+    }
+    input[type="checkbox"] {
+      transform: scale(1);
+      margin: 3px;
+    }
+    .floww-submit-btn {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .floww-last-paragraph {
+      margin-bottom: 2rem;
+      font-size: 0.9rem;
+    }
+    .floww-terms {
+      margin-bottom: 2rem;
+    }
+    .floww-heading-text p {
+      font-size: 2.5rem;
+    }
+    .floww-paragraph-inner p {
+      font-size: 1.2rem;
+    }
+    .floww-terms p {
+      font-size: 0.8rem;
+    }
+    input[type="checkbox"] {
+      transform: scale(1);
+      margin: 3px;
+    }
+    .floww-submit-btn {
+      font-size: 1rem;
+    }
+  }
+
+  /* Mobile part starts */
+
+  .floww-ai-mail-mobile-part {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+    margin: 0;
+    font-family: "Poppins", serif;
+  }
+  .floww-mobile-ai-mail-container {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+    margin: auto;
+    text-align: center;
+    top: 20%;
+  }
+
+  .floww-robot-img {
+    width: 300px;
+    position: absolute;
+    top: -214px;
+    left: 65%;
+    transform: translateX(-50%);
+  }
+
+  .floww-card {
+    position: relative;
+    background: linear-gradient(135deg, #1e1e01, #3a3aa9);
+    color: white;
+    padding: 20px;
+    border-radius: 12px;
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    margin-top: 50px;
+  }
+
+  .floww-mobile-ai-mail-heaidng {
+    margin: 0;
+    font-size: 4rem;
+    font-weight: 800;
+  }
+
+  .floww-mobile-first-paragraph {
+    font-size: 2rem;
+    margin-top: -15px;
+    margin-bottom: 1rem;
+  }
+  .floww-mobile-last-paragraph {
+    font-size: 1.1rem;
+  }
+
+  .floww-card p {
+    text-align: start;
+  }
+
+  .floww-mobile-close-btn {
+    position: absolute;
+    top: -10px;
+    right: -8px;
+    background: white;
+    color: #3a3aa9;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+  }
+  .checkbox-container {
+    margin-top: 1.5rem;
+    text-align: start;
+    margin-bottom: 1.5rem;
+  }
+  .checkbox-container input {
+    margin-right: 5px;
+  }
+  .floww-mobile-submit-btn {
+    width: 100%;
+    border: 2px solid #b8a5e7;
+    background: white;
+    color: #3e3e88;
+    padding: 4px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    border-radius: 25px;
+    cursor: pointer;
+  }
+  .floww-mobile-submit-btn:hover {
+    background: #3e3e88;
+    color: white;
+  }
+  .checkbox-container label {
+    color: #b8a5e7;
+  }
+
+  /* Code For both the version  */
+
+  @media (max-width: 600px) {
+    .floww-desktop-light-version-part {
+      display: none;
+    }
+    .floww-mobile-light-version-part {
+      display: block;
+    }
+  }
+
+  @media (min-width: 601px) {
+    .floww-desktop-light-version-part {
+      display: block;
+    }
+    .floww-mobile-light-version-part {
+      display: none;
+    }
+  }
+
 
 /*** Settings UI ***/
 

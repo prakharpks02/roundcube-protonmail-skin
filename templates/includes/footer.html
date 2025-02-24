@@ -47,6 +47,7 @@
 
 	function displayCredits(){
 		const email = rcmail.env.user_name;
+		//console.log("getting credits");
 		if(email){
 			getCredits(email).then(credits=>{
 				const aboutElement = document.getElementsByClassName('about')[0];  // Get the first element with class 'about'
@@ -299,34 +300,37 @@
 			fromEmail = document.getElementsByClassName('from')[0];
 		}
 		
-		const input = fromEmail.textContent;
-		const regex = /^(.*)<(.+@.+\..+)>$/;
-    	const match = input.match(regex);
-		let name = null;
-		let email = null;
+		if(fromEmail){
+			const input = fromEmail.textContent;
+			const regex = /^(.*)<(.+@.+\..+)>$/;
+			const match = input.match(regex);
+			let name = null;
+			let email = null;
 
-		if (match) {
-			// Extract name and email
-			name = match[1].trim();
-			email = match[2].trim();
-		} else if (input.includes('@')) {
-			// Only email is provided
-			email = input.trim();
-		}
+			if (match) {
+				// Extract name and email
+				name = match[1].trim();
+				email = match[2].trim();
+			} else if (input.includes('@')) {
+				// Only email is provided
+				email = input.trim();
+			}
 
-		// If both name and email are present, check for a match
-		if (name) {
-			const nameWords = name.toLowerCase().split(/\s+/);
-			const emailLower = email.toLowerCase();
+			// If both name and email are present, check for a match
+			if (name) {
+				const nameWords = name.toLowerCase().split(/\s+/);
+				const emailLower = email.toLowerCase();
 
-			// Check if any word from the name exists in the email
-			const hasMatch = nameWords.some(word => emailLower.includes(word));
+				// Check if any word from the name exists in the email
+				const hasMatch = nameWords.some(word => emailLower.includes(word));
 
-			if (!hasMatch) {
-				showEmailMismatchWarning();
-				return false;
+				if (!hasMatch) {
+					showEmailMismatchWarning();
+					return false;
+				}
 			}
 		}
+		
 
 		//console.log("The email matches the name")
 
@@ -567,6 +571,7 @@
 		
 		modifyLogoutButton();
 		removeCloseAbout();
+		displayCredits();
 		const iframe = document.querySelector('iframe');
 		const headerLinks = document.getElementsByClassName('header-links')[0];
 		if (iframe || headerLinks) {
@@ -824,7 +829,111 @@
 	// Run after DOM loads
 	document.addEventListener("DOMContentLoaded", changeFunction);
 	
+	function openPopup() {
+		var isDarkMode = document.documentElement.classList.contains('dark-mode');
 
+    	// Choose the template based on dark mode
+   		var template = isDarkMode ? 'skins/floww-mail/templates/dark-version.html' : 'skins/floww-mail/templates/light-version.html';
+		document.getElementById('popupFrame').src = template;
+		document.getElementById('popupContainer').style.display = 'block';
+		document.getElementById('overlay').style.display = 'block';
+	}
+
+	window.addEventListener('message', function(event) {
+		if (event.data === 'closePopup') {
+			closePopup();
+		}
+		else if (event.data === 'submitPermission') {
+			submitPermission();
+		} else if( event.data === 'openTermsAndConditions') {
+			openTermsAndConditions();
+		}
+	});
+
+	function closePopup() {
+		document.getElementById('popupContainer').style.display = 'none';
+		document.getElementById('overlay').style.display = 'none';
+	}
+
+	async function checkPermission(){
+		const email = rcmail.env.user_name;
+		const task = rcmail.env.task;
+		if(task === 'mail'){
+			if (sessionStorage.getItem("checkPermissionRun")) {
+				//console.log("checkPermission already executed for this session.");
+				return;
+			}
+		
+			try {
+				const response = await fetch(`${baseURL}get-permission-status-tess/`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ email: email }, 40000)
+				});
+		
+				if (!response.ok) {
+					//console.error('Error Getting Credit info:', response.statusText);
+					throw new Error('Network response was not ok');
+				}
+		
+				const responseData = await response.json();
+				
+				if(responseData.permission === false) {
+					console.log("opening");
+					openPopup();
+				}
+				
+				sessionStorage.setItem("checkPermissionRun", "true");
+				
+				
+			} catch (error) {
+				//console.error('Error Getting Credits:', error);
+				return 0;
+			}
+		}
+		
+	}
+
+	async function submitPermission() {
+		const email = rcmail.env.user_name;
+		try {
+			const response = await fetch(`${baseURL}grant-permission-tess/`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({ email: email }, 40000)
+			});
+	
+			if (!response.ok) {
+				throw new Error('Network response was not ok');
+			}
+		} catch (error) {
+			return 0;
+		}
+	}
+
+	function openTermsAndConditions() {
+		const width = 800;
+		const height = 600;
+		const left = (screen.width - width) / 2;
+		const top = (screen.height - height) / 2;
+	
+		const popup = window.open(
+			'skins/floww-mail/templates/Terms-and-Conditions-converted.html',
+			'TermsAndConditionsPopup',
+			`width=${width},height=${height},top=${top},left=${left},resizable=no,scrollbars=yes`
+		);
+	
+		if (!popup) {
+			alert("Popup blocked! Please allow popups for this site.");
+		} else {
+			popup.focus();
+		}
+	}
+	
 </script>
 
 

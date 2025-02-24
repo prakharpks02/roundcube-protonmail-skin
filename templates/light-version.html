@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI MAIL Light Version</title>
+
+    <style>
+      /* Desktop part starts */
+      @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+      * {
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+        font-family: "Poppins", serif;
+      }
+
+      .floww-main-part {
+        width: 100vw;
+        height: 100vh;
+        background-color: transparent;
+        position: relative;
+      }
+
+      .floww-main-part-div-element {
+        width: 60vw;
+        height: 80vh;
+        display: flex;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.8);
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        background-color: #2e3380;
+      }
+
+      .modal {
+        border-radius: 10px;
+        position: relative;
+      }
+
+      .floww-close-button-part {
+        text-align: right;
+      }
+      .close-btn {
+        color: #2e3380;
+        width: 65px;
+        height: 65px;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+
+      .floww-heading-text p {
+        color: white;
+        font-size: 3.5rem;
+        font-weight: 800;
+      }
+
+      .floww-paragraph-inner p {
+        font-size: 1.8rem;
+        color: white;
+      }
+
+      .floww-last-paragraph {
+        font-size: 1.1em;
+        margin-top: 0.5rem;
+        margin-bottom: 2.5rem;
+        color: white;
+      }
+
+      .terms {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2.5rem;
+        gap: 5px;
+        color: #b8a5e7;
+      }
+
+      .terms input {
+        margin-right: 10px;
+      }
+
+      .terms p {
+        font-size: 1.2rem;
+        color: #b8a5e7;
+      }
+
+      input[type="checkbox"] {
+        transform: scale(1.5);
+        margin: 5px;
+      }
+
+      .submit-btn {
+        width: 100%;
+        border: 2px solid white;
+        background: none;
+        padding: 4px;
+        color: white;
+        font-size: 1.2rem;
+        font-weight: 500;
+        border-radius: 25px;
+        cursor: pointer;
+      }
+
+      .submit-btn:hover {
+        background: white;
+        color: #3e3e88;
+      }
+
+      .floww-banner-images {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .floww-banner-image-inner-part {
+        width: 90%;
+        height: 90%;
+      }
+
+      .floww-banner-image-inner-part img {
+        width: 100%;
+        height: 100%;
+      }
+
+      @media (max-width: 1200px) {
+        .floww-last-paragraph {
+          margin-bottom: 2rem;
+          font-size: 1.1rem;
+        }
+        .terms {
+          margin-bottom: 2rem;
+        }
+        .floww-heading-text p {
+          font-size: 3rem;
+        }
+        .floww-paragraph-inner p {
+          font-size: 1.5rem;
+        }
+        .terms p {
+          font-size: 0.8rem;
+        }
+        input[type="checkbox"] {
+          transform: scale(1);
+          margin: 3px;
+        }
+        .submit-btn {
+          font-size: 1rem;
+        }
+      }
+
+      @media (max-width: 900px) {
+        .floww-last-paragraph {
+          margin-bottom: 2rem;
+          font-size: 0.9rem;
+        }
+        .terms {
+          margin-bottom: 2rem;
+        }
+        .floww-heading-text p {
+          font-size: 2.5rem;
+        }
+        .floww-paragraph-inner p {
+          font-size: 1.2rem;
+        }
+        .terms p {
+          font-size: 0.8rem;
+        }
+        input[type="checkbox"] {
+          transform: scale(1);
+          margin: 3px;
+        }
+        .submit-btn {
+          font-size: 1rem;
+        }
+      }
+
+      /* Mobile part starts */
+
+      .floww-ai-mail-mobile-part {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 90vh;
+        background-color: transparent;
+        margin: 0;
+        font-family: "Poppins", serif;
+      }
+      .floww-mobile-ai-mail-container {
+        position: relative;
+        width: 100%;
+        max-width: 320px;
+        margin: auto;
+        text-align: center;
+        top: 20%;
+        scale: 0.8;
+      }
+
+      .robot-img {
+        width: 300px;
+        position: absolute;
+        top: -214px;
+        left: 65%;
+        transform: translateX(-50%);
+      }
+
+      .card {
+        position: relative;
+        background: linear-gradient(135deg, #1e1e01, #3a3aa9);
+        color: white;
+        padding: 20px;
+        border-radius: 12px;
+        width: 100%;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        margin-top: 50px;
+      }
+
+      .floww-mobile-ai-mail-heaidng {
+        margin: 0;
+        font-size: 4rem;
+        font-weight: 800;
+      }
+
+      .floww-mobile-first-paragraph {
+        font-size: 2rem;
+        margin-top: -15px;
+        margin-bottom: 1rem;
+      }
+      .floww-mobile-last-paragraph {
+        font-size: 1.1rem;
+      }
+
+      .card p {
+        text-align: start;
+      }
+
+      .floww-mobile-close-btn {
+        position: absolute;
+        top: -10px;
+        right: -8px;
+        background: white;
+        color: #3a3aa9;
+        border: none;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        cursor: pointer;
+      }
+      .checkbox-container {
+        margin-top: 1.5rem;
+        text-align: start;
+        margin-bottom: 1.5rem;
+      }
+      .checkbox-container input {
+        margin-right: 5px;
+      }
+      .floww-mobile-submit-btn {
+        width: 100%;
+        border: 2px solid #b8a5e7;
+        background: white;
+        color: #3e3e88;
+        padding: 4px;
+        font-size: 1.2rem;
+        font-weight: 500;
+        border-radius: 25px;
+        cursor: pointer;
+      }
+      .floww-mobile-submit-btn:hover {
+        background: #3e3e88;
+        color: white;
+      }
+      .checkbox-container label {
+        color: #b8a5e7;
+      }
+
+      /* Code For both the version  */
+
+      @media (max-width: 600px) {
+        .floww-desktop-light-version-part {
+          display: none;
+        }
+        .floww-mobile-light-version-part {
+          display: block;
+        }
+      }
+
+      @media (min-width: 601px) {
+        .floww-desktop-light-version-part {
+          display: block;
+        }
+        .floww-mobile-light-version-part {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!--------------------- Desktop Version Starts Dark View ------------------------>
+    <div class="floww-desktop-light-version-part">
+      <div class="floww-main-part">
+        <div class="floww-main-part-div-element">
+          <div style="width: 50%; height: 100%">
+            <div class="floww-banner-images">
+              <div class="floww-banner-image-inner-part">
+                <img
+                  src="/skins/floww-mail/images/Tess-desktop-1.png"
+                  alt=""
+                  style="
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 10px 0 0 10px;
+                  "
+                />
+              </div>
+            </div>
+          </div>
+          <div style="width: 50%; height: 100%; padding: 20px">
+            <div class="floww-close-button-part">
+              <button class="close-btn" onclick="closePopup()">
+                <span style="font-size: 2.5rem">&#10006;</span>
+              </button>
+            </div>
+            <div class="modal">
+              <div class="floww-heading-text">
+                <p style="font-weight: bold">TESS</p>
+              </div>
+              <div class="floww-paragraph-inner">
+                <p>Your AI Assistant</p>
+              </div>
+              <div class="floww-last-paragraph">
+                <p>
+                  Get instant help, answers, and
+                  more from our AI assistant.
+                </p>
+              </div>
+              <div class="terms">
+                <input type="checkbox" />
+                <p >I agree to the <p onclick="openTermsAndConditions()" style="cursor: pointer; text-decoration: underline;">Terms and Conditions.</p></p>
+              </div>
+              <div>
+                <button class="submit-btn">Submit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--------------------- Desktop Version Starts Dark View ------------------------>
+
+    <!--------------------- Mobile Version Starts Dark View ------------------------>
+
+    <div class="floww-mobile-light-version-part">
+      <div class="floww-ai-mail-mobile-part">
+        <div class="floww-mobile-ai-mail-container">
+          <div class="card">
+            <button class="floww-mobile-close-btn" onclick="closePopup()">
+              <span style="font-size: 3rem"> &times; </span>
+            </button>
+            <p class="floww-mobile-ai-mail-heaidng">TESS</p>
+            <p class="floww-mobile-first-paragraph">Your AI Assistant</p>
+            <p class="floww-mobile-last-paragraph">
+              Get instant help, answers, and <br />
+              more from our AI assistant.
+            </p>
+            <div class="checkbox-container">
+              <input type="checkbox" id="terms" />
+              <label style="font-size: 0.8rem;">I agree to the <span onclick="openTermsAndConditions()" style="cursor: pointer; text-decoration: underline;">Terms and Conditions.</span></label>
+            </div>
+            <button class="floww-mobile-submit-btn" onclick="submitPermission()">Submit</button>
+          </div>
+          <img src="/skins/floww-mail/images/robot-mobile.png" alt="Robot" class="robot-img" />
+        </div>
+      </div>
+    </div>
+
+    <!--------------------- Mobile Version Starts Dark View ------------------------>
+    <script>
+      function closePopup() {
+        window.parent.postMessage('closePopup', '*');
+      }
+
+      function closePopup() {
+        window.parent.postMessage('closePopup', '*');
+      }
+
+      function submitPermission() {
+        const checkbox_desktop= document.getElementById("terms-desktop");
+        const checkbox_mobile = document.getElementById("terms");
+        if(checkbox_desktop){
+          if(checkbox_desktop.checked) {
+            window.parent.postMessage('submitPermission', '*');
+          }
+        }else if(checkbox_mobile){
+          if(checkbox_mobile.checked) {
+            window.parent.postMessage('submitPermission', '*');
+          }
+        }
+        window.parent.postMessage('closePopup', '*');
+      }
+
+      function openTermsAndConditions() {
+        window.parent.postMessage('openTermsAndConditions', '*');
+      }
+    </script>
+  
+  </body>
+</html>
