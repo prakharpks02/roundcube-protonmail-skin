@@ -9,7 +9,7 @@
 
 
 <script>
-	const baseURL = 'https://console.gofloww.co/api/mail/'
+	const baseURL = 'https://388c-117-250-76-237.ngrok-free.app/api/mail/'
 	function checksubject(){
 		// Start monitoring URL changes
 		monitorURLChanges();
@@ -439,9 +439,9 @@
 		
 		
 		const emailBody = content.innerHTML;
-		const sidebar = document.getElementById('layout-sidebar');
-		const username = sidebar.getElementsByClassName('username')[0];
-		const from_email = username.textContent;
+		//const sidebar = document.getElementById('layout-sidebar');
+		//const username = sidebar.getElementsByClassName('username')[0];
+		const from_email = rcmail.env.user_name; 
 		//const baseURL = 'https://console.gofloww.co/api/mail/'
 		const subjectText = subject.innerText;
 
