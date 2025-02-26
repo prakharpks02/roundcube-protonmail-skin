@@ -439,9 +439,9 @@
 		
 		
 		const emailBody = content.innerHTML;
-		const sidebar = document.getElementById('layout-sidebar');
-		const username = sidebar.getElementsByClassName('username')[0];
-		const from_email = username.textContent;
+		//const sidebar = document.getElementById('layout-sidebar');
+		//const username = sidebar.getElementsByClassName('username')[0];
+		const from_email = rcmail.env.user_name; 
 		//const baseURL = 'https://console.gofloww.co/api/mail/'
 		const subjectText = subject.innerText;
 
@@ -893,6 +893,9 @@
 				return 0;
 			}
 		}
+		else if(task === 'mail'){
+			sessionStorage.removeItem("checkPermissionRun");
+		}
 		
 	}
 
@@ -933,7 +936,6 @@
 			popup.focus();
 		}
 	}
-	
 </script>
 
 
