@@ -1005,11 +1005,17 @@
 					if (skeletonDiv) {
 						skeletonDiv.remove(); // Remove skeleton email
 					}
-
-					var newParagraph = iframeDoc.createElement('div');
-					newParagraph.innerHTML = convertToHtml(generatedEmail);
-					var iframeBody = iframeDoc.body;
-					iframeBody.insertBefore(newParagraph, iframeBody.firstChild);
+					var signatureDiv = iframeBody.querySelector("#_rc_sig");
+					if (signatureDiv) {
+						signatureDiv.remove(); // Temporarily remove signature
+					}
+					iframeBody.innerHTML = "";
+					var newContent = iframeDoc.createElement("div");
+					newContent.innerHTML = convertToHtml(generatedEmail);
+					iframeBody.appendChild(newContent);
+					if (signatureDiv) {
+						iframeBody.appendChild(signatureDiv);
+					}
 				}
 				
 				SubjectSelect.value = generatedSubject;
