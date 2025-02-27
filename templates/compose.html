@@ -1446,6 +1446,7 @@
 					currentElement = nextElement;
 				}
 			}
+			console.log(extractedContent);
 			existingText = extractedContent.textContent.trim();
 			iframeBody.replaceChildren();
 			iframeBody.appendChild(skeletonDiv);
@@ -1479,6 +1480,7 @@
 					selectedText.value = `${generatedEmail}\n\n${existingText}`;
 				}
 				if(htmlText){
+					console.log(extractedContent);
 					var iframeDoc = htmlText.contentDocument;
 					var skeletonDiv = iframeDoc.getElementById("skeletonEmail");
 					if (skeletonDiv) {
@@ -1490,6 +1492,7 @@
 					newParagraph.innerHTML = convertToHtml(generatedEmail);
 					iframeBody.innerHTML = "";
 					iframeBody.appendChild(newParagraph);
+					console.log(extractedContent);
 					if(extractedContent){
 						iframeBody.appendChild(extractedContent);
 					}
