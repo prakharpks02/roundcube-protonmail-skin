@@ -1442,15 +1442,15 @@
 				var currentElement = repSpaceDiv;
 				while (currentElement) {
 					let nextElement = currentElement.nextSibling; 
-					extractedContent.appendChild(currentElement);
+					extractedContent.appendChild(currentElement.cloneNode(true));
 					currentElement = nextElement;
 				}
 			}
-			console.log(extractedContent);
+			
 			existingText = extractedContent.textContent.trim();
 			iframeBody.replaceChildren();
 			iframeBody.appendChild(skeletonDiv);
-			iframeBody.appendChild(extractedContent);
+			iframeBody.appendChild(extractedContent.cloneNode(true));
 		}
 
 		try {
