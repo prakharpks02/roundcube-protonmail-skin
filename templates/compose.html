@@ -1371,9 +1371,11 @@
 		const emailSubject= document.getElementById('compose-subject');
 		const selectedText = document.getElementById('composebody');
 		const htmlText = document.getElementById('composebody_ifr');
+		var existingText;
 		if(selectedText){
-			const existingText = selectedText.value;
+			existingText = selectedText.value;
 		}
+		
 		const fromSelect = document.getElementById('_from');
 		const from_email = fromSelect.options[fromSelect.selectedIndex].text;
 		const context = replyDetails.value; 
@@ -1444,6 +1446,7 @@
 					currentElement = nextElement;
 				}
 			}
+			existingText = extractedContent.textContent.trim();
 			iframeBody.replaceChildren();
 			iframeBody.appendChild(skeletonDiv);
 			iframeBody.appendChild(extractedContent);
