@@ -928,10 +928,9 @@
 		//console.log(topic);
 		//console.log(description);
 		var messageKey = rcmail.display_message('Generating email,please wait.....', 'loading');
-
+		var signatureDiv;
 		if (htmlText) {
 			var iframeDoc = htmlText.contentDocument;
-
 			var style = iframeDoc.createElement('style');
 			style.textContent = `
 				.skeleton-container {
@@ -967,7 +966,15 @@
 			skeletonDiv.id = "skeletonEmail"; // Assign ID for later removal
 			skeletonDiv.innerHTML = skeletonEmail;
 			skeletonDiv.classList.add('skeleton-container'); // Add loading effect
-			iframeDoc.body.insertBefore(skeletonDiv, iframeDoc.body.firstChild);
+
+			signatureDiv = iframeBody.querySelector("#_rc_sig");
+			if (signatureDiv) {
+				signatureDiv.remove(); // Temporarily remove signature
+			}
+			var iframeBody = iframeDoc.body;
+			iframeBody.innerHTML = "";
+			iframeBody.appendChild(skeletonDiv);
+			//iframeDoc.body.insertBefore(skeletonDiv, iframeDoc.body.firstChild);
 		}
 
 		try {
@@ -1006,10 +1013,10 @@
 						skeletonDiv.remove(); // Remove skeleton email
 					}
 					var iframeBody = iframeDoc.body;
-					var signatureDiv = iframeBody.querySelector("#_rc_sig");
-					if (signatureDiv) {
-						signatureDiv.remove(); // Temporarily remove signature
-					}
+					//var signatureDiv = iframeBody.querySelector("#_rc_sig");
+					//if (signatureDiv) {
+					//	signatureDiv.remove(); // Temporarily remove signature
+					//}
 					iframeBody.innerHTML = "";
 					var newContent = iframeDoc.createElement("div");
 					newContent.innerHTML = convertToHtml(generatedEmail);
