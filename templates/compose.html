@@ -848,6 +848,7 @@
 				if(spaceElement.length === 0){
 					
 					var spaceDiv = iframeDoc.createElement('div');
+					spaceDiv.id = "rep-space"; 
 					spaceDiv.innerHTML = space;
 					iframeDoc.body.insertBefore(spaceDiv, iframeDoc.body.firstChild);
 				}
@@ -1374,7 +1375,8 @@
 		const fromSelect = document.getElementById('_from');
 		const from_email = fromSelect.options[fromSelect.selectedIndex].text;
 		const context = replyDetails.value; 
-
+		var extractedContent;
+		var allContent;
 		const skeletonEmail = `
         <p class="skeleton-line short"></p>
 		<p class="skeleton-line medium"></p>
@@ -1429,7 +1431,20 @@
 			skeletonDiv.id = "skeletonEmail"; // Assign ID for later removal
 			skeletonDiv.innerHTML = skeletonEmail;
 			skeletonDiv.classList.add('skeleton-container'); // Add loading effect
-			iframeDoc.body.insertBefore(skeletonDiv, iframeDoc.body.firstChild);
+			var iframeBody = iframeDoc.body;
+			var repSpaceDiv = iframeDoc.getElementById("rep-space");
+			if (repSpaceDiv) {
+				var extractedContent = iframeDoc.createDocumentFragment();
+				var currentElement = repSpaceDiv;
+				while (currentElement) {
+					let nextElement = currentElement.nextSibling; 
+					extractedContent.appendChild(currentElement);
+					currentElement = nextElement;
+				}
+			}
+			iframeBody.replaceChildren();
+			iframeBody.appendChild(skeletonDiv);
+			iframeBody.appendChild(extractedContent);
 		}
 
 		try {
@@ -1465,10 +1480,15 @@
 						skeletonDiv.remove(); // Remove skeleton email
 					}
 					//var iframeDoc = htmlText.contentDocument;
+					var iframeBody = iframeDoc.body;
 					var newParagraph = iframeDoc.createElement('div');
 					newParagraph.innerHTML = convertToHtml(generatedEmail);
-					var iframeBody = iframeDoc.body;
-					iframeBody.insertBefore(newParagraph, iframeBody.firstChild);
+					iframeBody.innerHTML = "";
+					iframeBody.appendChild(newParagraph);
+					if(extractedContent){
+						iframeBody.appendChild(extractedContent);
+					}
+					//iframeBody.insertBefore(newParagraph, iframeBody.firstChild);
 				}
 				rcmail.hide_message(messageKey, false);
 				displayCredits();
