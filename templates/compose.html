@@ -1371,7 +1371,9 @@
 		const emailSubject= document.getElementById('compose-subject');
 		const selectedText = document.getElementById('composebody');
 		const htmlText = document.getElementById('composebody_ifr');
-		const existingText = selectedText.value;
+		if(selectedText){
+			const existingText = selectedText.value;
+		}
 		const fromSelect = document.getElementById('_from');
 		const from_email = fromSelect.options[fromSelect.selectedIndex].text;
 		const context = replyDetails.value; 
@@ -1434,7 +1436,7 @@
 			var iframeBody = iframeDoc.body;
 			var repSpaceDiv = iframeDoc.getElementById("rep-space");
 			if (repSpaceDiv) {
-				var extractedContent = iframeDoc.createDocumentFragment();
+				extractedContent = iframeDoc.createDocumentFragment();
 				var currentElement = repSpaceDiv;
 				while (currentElement) {
 					let nextElement = currentElement.nextSibling; 
