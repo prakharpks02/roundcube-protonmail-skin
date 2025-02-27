@@ -1005,6 +1005,8 @@
 					if (skeletonDiv) {
 						skeletonDiv.remove(); // Remove skeleton email
 					}
+					var iframeBody = iframeDoc.body;
+					
 					var signatureDiv = iframeBody.querySelector("#_rc_sig");
 					if (signatureDiv) {
 						signatureDiv.remove(); // Temporarily remove signature
