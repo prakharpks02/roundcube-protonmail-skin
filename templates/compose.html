@@ -966,13 +966,13 @@
 			skeletonDiv.id = "skeletonEmail"; // Assign ID for later removal
 			skeletonDiv.innerHTML = skeletonEmail;
 			skeletonDiv.classList.add('skeleton-container'); // Add loading effect
-
+			var iframeBody = iframeDoc.body;
 			signatureDiv = iframeBody.querySelector("#_rc_sig");
 			if (signatureDiv) {
 				signatureDiv.remove(); // Temporarily remove signature
 			}
-			var iframeBody = iframeDoc.body;
-			iframeBody.innerHTML = "";
+			
+			iframeBody.replaceChildren();
 			iframeBody.appendChild(skeletonDiv);
 			//iframeDoc.body.insertBefore(skeletonDiv, iframeDoc.body.firstChild);
 		}
