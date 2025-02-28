@@ -100,6 +100,8 @@
         font-weight: 500;
         border-radius: 25px;
         cursor: pointer;
+        opacity: 0.5;
+        pointer-events: none;
       }
 
       .submit-btn:hover {
@@ -271,6 +273,8 @@
         font-weight: 500;
         border-radius: 25px;
         cursor: pointer;
+        opacity: 0.5;
+        pointer-events: none;
       }
       .floww-mobile-submit-btn:hover {
         background: #3e3e88;
@@ -338,11 +342,11 @@
                 </p>
               </div>
               <div class="terms">
-                <input type="checkbox" id="terms-desktop"/>
+                <input type="checkbox" id="terms-desktop" onchange="toggleSubmitButton()"/>
                 <p>I agree to the <p onclick="openTermsAndConditions()" style="cursor: pointer; text-decoration: underline;">Terms and Conditions.</p></p>
               </div>
               <div>
-                <button class="submit-btn" onclick="submitPermission()">Submit</button>
+                <button id="submit-btn" class="submit-btn" onclick="submitPermission()">Submit</button>
               </div>
             </div>
           </div>
@@ -368,10 +372,10 @@
               more from our AI assistant.
             </p>
             <div class="checkbox-container">
-              <input type="checkbox" id="terms" />
+              <input type="checkbox" id="terms" onchange="toggleSubmitButton()" />
               <label style="font-size: 0.8rem;">I agree to the <span onclick="openTermsAndConditions()" style="cursor: pointer; text-decoration: underline;">Terms and Conditions.</span></label>
             </div>
-            <button class="submit-btn" onclick="submitPermission()">Submit</button>
+            <button id = "mobile-submit-btn" class="submit-btn" onclick="submitPermission()">Submit</button>
           </div>
           <img src="/skins/roundcube-protonmail-skin/images/robot-mobile.png" alt="Robot" class="robot-img" />
         </div>
@@ -400,6 +404,35 @@
 
       function openTermsAndConditions() {
         window.parent.postMessage('openTermsAndConditions', '*');
+      }
+
+      function toggleSubmitButton() {
+        const checkbox = document.getElementById("terms-desktop");
+        const checkboxMobile = document.getElementById("terms");
+        const submitButton = document.getElementById("submit-btn");
+        const submitButtonMobile = document.getElementById("mobile-submit-btn");
+    
+        if (checkbox.checked) {
+          submitButton.disabled = false;
+          submitButton.style.opacity = "1";
+          submitButton.style.pointerEvents = "auto";
+        } else {
+          submitButton.disabled = true;
+          submitButton.style.opacity = "0.5";
+          submitButton.style.pointerEvents = "none";
+        }
+
+        if (checkboxMobile.checked) {
+          submitButtonMobile.disabled = false;
+          submitButtonMobile.style.opacity = "1";
+          submitButtonMobile.style.pointerEvents = "auto";
+        } else {
+          submitButtonMobile.disabled = true;
+          submitButtonMobile.style.opacity = "0.5";
+          submitButtonMobile.style.pointerEvents = "none";
+        }
+
+        
       }
 
     </script>
