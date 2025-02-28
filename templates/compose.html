@@ -1508,9 +1508,7 @@
 					if (skeletonDiv) {
 						skeletonDiv.remove(); // Remove skeleton email
 					}
-					var iframeBody = iframeDoc.body;
-					iframeBody.innerHTML = "";
-					iframeBody.appendChild(allContent);
+					iframeDoc.body.innerHTML = allContent;
 				}
 				rcmail.hide_message(messageKey, false);
 			})
@@ -1524,9 +1522,8 @@
 				if (skeletonDiv) {
 					skeletonDiv.remove(); // Remove skeleton email
 				}
-				var iframeBody = iframeDoc.body;
-				iframeBody.innerHTML = "";
-				iframeBody.appendChild(allContent);
+				iframeDoc.body.innerHTML = allContent;
+				//iframeBody.appendChild(allContent);
 			}
 			rcmail.hide_message(messageKey, false);
 		}
