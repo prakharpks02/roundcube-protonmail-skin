@@ -903,7 +903,7 @@
 		const selectedText = document.getElementById('composebody');
 		const existingText = selectedText.value;
 		const htmlText = document.getElementById('composebody_ifr');
-
+		var allContent;
 		const skeletonEmail = `
         <p class="skeleton-line short"></p>
 		<p class="skeleton-line medium"></p>
@@ -930,6 +930,7 @@
 		var signatureDiv;
 		if (htmlText) {
 			var iframeDoc = htmlText.contentDocument;
+			allContent = iframeDoc.body.innerHTML;
 			var style = iframeDoc.createElement('style');
 			style.textContent = `
 				.skeleton-container {
@@ -1039,6 +1040,7 @@
 					if (skeletonDiv) {
 						skeletonDiv.remove(); // Remove skeleton email
 					}
+					iframeDoc.body.innerHTML = allContent;
 				}
 
 				rcmail.hide_message(messageKey, false);
@@ -1055,6 +1057,7 @@
 				if (skeletonDiv) {
 					skeletonDiv.remove(); // Remove skeleton email
 				}
+				iframeDoc.body.innerHTML = allContent;
 			}
 
 			rcmail.hide_message(messageKey, false);
