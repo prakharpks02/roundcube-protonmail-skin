@@ -1397,7 +1397,7 @@
 		var messageKey = rcmail.display_message('Generating reply,please wait.....', 'loading');
 		if (htmlText) {
 			var iframeDoc = htmlText.contentDocument;
-
+			allContent = iframeDoc.body.innerHTML;
 			var style = iframeDoc.createElement('style');
 			style.textContent = `
 				.skeleton-container {
@@ -1508,6 +1508,9 @@
 					if (skeletonDiv) {
 						skeletonDiv.remove(); // Remove skeleton email
 					}
+					var iframeBody = iframeDoc.body;
+					iframeBody.innerHTML = "";
+					iframeBody.appendChild(allContent);
 				}
 				rcmail.hide_message(messageKey, false);
 			})
@@ -1521,6 +1524,9 @@
 				if (skeletonDiv) {
 					skeletonDiv.remove(); // Remove skeleton email
 				}
+				var iframeBody = iframeDoc.body;
+				iframeBody.innerHTML = "";
+				iframeBody.appendChild(allContent);
 			}
 			rcmail.hide_message(messageKey, false);
 		}
