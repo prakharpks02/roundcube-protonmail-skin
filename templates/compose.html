@@ -838,8 +838,6 @@
 			<br class="replyspace" />
 			<br class="replyspace" />
 			<br class="replyspace" />
-			<br class="replyspace" />
-			<br class="replyspace" />
 			`
 			if (htmlText) {
 				var iframeDoc = htmlText.contentDocument;
@@ -848,6 +846,7 @@
 				if(spaceElement.length === 0){
 					
 					var spaceDiv = iframeDoc.createElement('div');
+					spaceDiv.id = "rep-space"; 
 					spaceDiv.innerHTML = space;
 					iframeDoc.body.insertBefore(spaceDiv, iframeDoc.body.firstChild);
 				}
@@ -904,7 +903,7 @@
 		const selectedText = document.getElementById('composebody');
 		const existingText = selectedText.value;
 		const htmlText = document.getElementById('composebody_ifr');
-
+		var allContent;
 		const skeletonEmail = `
         <p class="skeleton-line short"></p>
 		<p class="skeleton-line medium"></p>
@@ -928,10 +927,10 @@
 		//console.log(topic);
 		//console.log(description);
 		var messageKey = rcmail.display_message('Generating email,please wait.....', 'loading');
-
+		var signatureDiv;
 		if (htmlText) {
 			var iframeDoc = htmlText.contentDocument;
-
+			allContent = iframeDoc.body.innerHTML;
 			var style = iframeDoc.createElement('style');
 			style.textContent = `
 				.skeleton-container {
@@ -967,7 +966,15 @@
 			skeletonDiv.id = "skeletonEmail"; // Assign ID for later removal
 			skeletonDiv.innerHTML = skeletonEmail;
 			skeletonDiv.classList.add('skeleton-container'); // Add loading effect
-			iframeDoc.body.insertBefore(skeletonDiv, iframeDoc.body.firstChild);
+			var iframeBody = iframeDoc.body;
+			signatureDiv = iframeBody.querySelector("#_rc_sig");
+			if (signatureDiv) {
+				signatureDiv.remove(); // Temporarily remove signature
+			}
+			
+			iframeBody.replaceChildren();
+			iframeBody.appendChild(skeletonDiv);
+			//iframeDoc.body.insertBefore(skeletonDiv, iframeDoc.body.firstChild);
 		}
 
 		try {
@@ -1005,11 +1012,18 @@
 					if (skeletonDiv) {
 						skeletonDiv.remove(); // Remove skeleton email
 					}
-
-					var newParagraph = iframeDoc.createElement('div');
-					newParagraph.innerHTML = convertToHtml(generatedEmail);
 					var iframeBody = iframeDoc.body;
-					iframeBody.insertBefore(newParagraph, iframeBody.firstChild);
+					//var signatureDiv = iframeBody.querySelector("#_rc_sig");
+					//if (signatureDiv) {
+					//	signatureDiv.remove(); // Temporarily remove signature
+					//}
+					iframeBody.innerHTML = "";
+					var newContent = iframeDoc.createElement("div");
+					newContent.innerHTML = convertToHtml(generatedEmail);
+					iframeBody.appendChild(newContent);
+					if (signatureDiv) {
+						iframeBody.appendChild(signatureDiv);
+					}
 				}
 				
 				SubjectSelect.value = generatedSubject;
@@ -1026,6 +1040,7 @@
 					if (skeletonDiv) {
 						skeletonDiv.remove(); // Remove skeleton email
 					}
+					iframeDoc.body.innerHTML = allContent;
 				}
 
 				rcmail.hide_message(messageKey, false);
@@ -1042,6 +1057,7 @@
 				if (skeletonDiv) {
 					skeletonDiv.remove(); // Remove skeleton email
 				}
+				iframeDoc.body.innerHTML = allContent;
 			}
 
 			rcmail.hide_message(messageKey, false);
@@ -1356,11 +1372,16 @@
 		const emailSubject= document.getElementById('compose-subject');
 		const selectedText = document.getElementById('composebody');
 		const htmlText = document.getElementById('composebody_ifr');
-		const existingText = selectedText.value;
+		var existingText;
+		if(selectedText){
+			existingText = selectedText.value;
+		}
+		
 		const fromSelect = document.getElementById('_from');
 		const from_email = fromSelect.options[fromSelect.selectedIndex].text;
 		const context = replyDetails.value; 
-
+		var extractedContent;
+		var allContent;
 		const skeletonEmail = `
         <p class="skeleton-line short"></p>
 		<p class="skeleton-line medium"></p>
@@ -1379,7 +1400,7 @@
 		var messageKey = rcmail.display_message('Generating reply,please wait.....', 'loading');
 		if (htmlText) {
 			var iframeDoc = htmlText.contentDocument;
-
+			allContent = iframeDoc.body.innerHTML;
 			var style = iframeDoc.createElement('style');
 			style.textContent = `
 				.skeleton-container {
@@ -1415,7 +1436,22 @@
 			skeletonDiv.id = "skeletonEmail"; // Assign ID for later removal
 			skeletonDiv.innerHTML = skeletonEmail;
 			skeletonDiv.classList.add('skeleton-container'); // Add loading effect
-			iframeDoc.body.insertBefore(skeletonDiv, iframeDoc.body.firstChild);
+			var iframeBody = iframeDoc.body;
+			var repSpaceDiv = iframeDoc.getElementById("reply-intro");
+			if (repSpaceDiv) {
+				extractedContent = iframeDoc.createDocumentFragment();
+				var currentElement = repSpaceDiv;
+				while (currentElement) {
+					let nextElement = currentElement.nextSibling; 
+					extractedContent.appendChild(currentElement.cloneNode(true));
+					currentElement = nextElement;
+				}
+			}
+			
+			existingText = extractedContent.textContent.trim();
+			iframeBody.replaceChildren();
+			iframeBody.appendChild(skeletonDiv);
+			iframeBody.appendChild(extractedContent.cloneNode(true));
 		}
 
 		try {
@@ -1445,16 +1481,23 @@
 					selectedText.value = `${generatedEmail}\n\n${existingText}`;
 				}
 				if(htmlText){
+					console.log(extractedContent);
 					var iframeDoc = htmlText.contentDocument;
 					var skeletonDiv = iframeDoc.getElementById("skeletonEmail");
 					if (skeletonDiv) {
 						skeletonDiv.remove(); // Remove skeleton email
 					}
 					//var iframeDoc = htmlText.contentDocument;
+					var iframeBody = iframeDoc.body;
 					var newParagraph = iframeDoc.createElement('div');
 					newParagraph.innerHTML = convertToHtml(generatedEmail);
-					var iframeBody = iframeDoc.body;
-					iframeBody.insertBefore(newParagraph, iframeBody.firstChild);
+					iframeBody.innerHTML = "";
+					iframeBody.appendChild(newParagraph);
+					console.log(extractedContent);
+					if(extractedContent){
+						iframeBody.appendChild(extractedContent);
+					}
+					//iframeBody.insertBefore(newParagraph, iframeBody.firstChild);
 				}
 				rcmail.hide_message(messageKey, false);
 				displayCredits();
@@ -1468,6 +1511,7 @@
 					if (skeletonDiv) {
 						skeletonDiv.remove(); // Remove skeleton email
 					}
+					iframeDoc.body.innerHTML = allContent;
 				}
 				rcmail.hide_message(messageKey, false);
 			})
@@ -1481,6 +1525,8 @@
 				if (skeletonDiv) {
 					skeletonDiv.remove(); // Remove skeleton email
 				}
+				iframeDoc.body.innerHTML = allContent;
+				//iframeBody.appendChild(allContent);
 			}
 			rcmail.hide_message(messageKey, false);
 		}
