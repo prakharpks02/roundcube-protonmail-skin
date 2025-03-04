@@ -1906,10 +1906,10 @@
 
 					iframeBody.innerHTML = '';
 					if (signature) {
-						iframeBody.appendChild(newParagraph); // Insert content
-						iframeBody.insertBefore(newParagraph, signature); // Place it before the signature
+						iframeBody.appendChild(newParagraph);
+                        iframeBody.appendChild(signature);
 					} else {
-						iframeBody.appendChild(newParagraph); // If no signature, just insert normally
+						iframeBody.appendChild(newParagraph); 
 					}
 				}
 				subject.value = responseData.template.template_subject;
