@@ -1936,7 +1936,14 @@
 			}
 			if(htmlText){
 				var iframeDoc = htmlText.contentDocument;
-				var templateContent = JSON.stringify(iframeDoc.body.innerHTML);
+				var clonedBody = iframeDoc.body.cloneNode(true); 
+
+				var signature = clonedBody.querySelector("#_rc_sig");
+				if (signature) {
+					signature.remove();
+				}
+
+				var templateContent = JSON.stringify(clonedBody.innerHTML);
 			}
 			 
 			const templateName = document.getElementById('template-name')
