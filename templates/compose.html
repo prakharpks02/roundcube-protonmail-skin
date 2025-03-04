@@ -1900,9 +1900,17 @@
 					const iframeDoc = htmlText.contentDocument;
 					var newParagraph = iframeDoc.createElement('div');
 					newParagraph.innerHTML = convertToHtml(templateContent);
+
 					var iframeBody = iframeDoc.body;
+					var signature = iframeDoc.querySelector("#_rc_sig");
+
 					iframeBody.innerHTML = '';
-					iframeBody.appendChild(newParagraph);
+					if (signature) {
+						iframeBody.appendChild(newParagraph); // Insert content
+						iframeBody.insertBefore(newParagraph, signature); // Place it before the signature
+					} else {
+						iframeBody.appendChild(newParagraph); // If no signature, just insert normally
+					}
 				}
 				subject.value = responseData.template.template_subject;
 				rcmail.hide_message(messageKey, false);
@@ -1943,7 +1951,7 @@
 					signature.remove();
 				}
 
-				var templateContent = JSON.stringify(clonedBody.innerHTML);
+				var template_content = JSON.stringify(clonedBody.innerHTML);
 			}
 			 
 			const templateName = document.getElementById('template-name')
