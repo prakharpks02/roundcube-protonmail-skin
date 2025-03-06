@@ -1900,9 +1900,17 @@
 					const iframeDoc = htmlText.contentDocument;
 					var newParagraph = iframeDoc.createElement('div');
 					newParagraph.innerHTML = convertToHtml(templateContent);
+
 					var iframeBody = iframeDoc.body;
+					var signature = iframeDoc.querySelector("#_rc_sig");
+
 					iframeBody.innerHTML = '';
-					iframeBody.appendChild(newParagraph);
+					if (signature) {
+						iframeBody.appendChild(newParagraph);
+                        iframeBody.appendChild(signature);
+					} else {
+						iframeBody.appendChild(newParagraph); 
+					}
 				}
 				subject.value = responseData.template.template_subject;
 				rcmail.hide_message(messageKey, false);
@@ -1936,7 +1944,14 @@
 			}
 			if(htmlText){
 				var iframeDoc = htmlText.contentDocument;
-				var templateContent = JSON.stringify(iframeDoc.body.innerHTML);
+				var clonedBody = iframeDoc.body.cloneNode(true); 
+
+				var signature = clonedBody.querySelector("#_rc_sig");
+				if (signature) {
+					signature.remove();
+				}
+
+				var template_content = clonedBody.innerHTML;
 			}
 			 
 			const templateName = document.getElementById('template-name')
