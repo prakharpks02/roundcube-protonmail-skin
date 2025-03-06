@@ -9,7 +9,7 @@
 
 
 <script>
-	const baseURL = 'https://388c-117-250-76-237.ngrok-free.app/api/mail/'
+	const baseURL = 'https://console.gofloww.co/api/mail/'
 	function checksubject(){
 		// Start monitoring URL changes
 		monitorURLChanges();
@@ -395,7 +395,7 @@
 		}else{
 			translateLink = document.getElementsByClassName('translate-link')[0];
 		}
-		translateLink.innerHTML = "See Orignal";
+		translateLink.innerHTML = "See Original";
 		translateLink.removeAttribute("data-toggle");
 		translateLink.removeAttribute("data-modal"); // Remove the data-modal attribute
     	translateLink.removeAttribute("data-target");;
@@ -833,7 +833,7 @@
 		var isDarkMode = document.documentElement.classList.contains('dark-mode');
 
     	// Choose the template based on dark mode
-   		var template = isDarkMode ? 'skins/roundcube-protonmail-skin/templates/dark-version.html' : 'skins/roundcube-protonmail-skin/templates/light-version.html';
+   		var template = isDarkMode ? 'skins/floww-mail/templates/dark-version.html' : 'skins/floww-mail/templates/light-version.html';
 		document.getElementById('popupFrame').src = template;
 		document.getElementById('popupContainer').style.display = 'block';
 		document.getElementById('overlay').style.display = 'block';
@@ -925,7 +925,7 @@
 		const top = (screen.height - height) / 2;
 	
 		const popup = window.open(
-			'skins/roundcube-protonmail-skin/templates/Terms-and-Conditions-converted.html',
+			'skins/floww-mail/templates/Terms-and-Conditions-converted.html',
 			'TermsAndConditionsPopup',
 			`width=${width},height=${height},top=${top},left=${left},resizable=no,scrollbars=yes`
 		);
