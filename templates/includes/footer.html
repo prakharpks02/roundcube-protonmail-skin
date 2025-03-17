@@ -9,7 +9,13 @@
 
 
 <script>
-	const baseURL = 'https://console.gofloww.co/api/mail/'
+	
+	const baseURL = window.location.hostname === 'mail.gofloww.co'
+	? 'https://console.gofloww.co/api/mail/'
+	: 'https://dev.gofloww.co/api/mail/';
+
+console.log(baseURL);
+
 	function checksubject(){
 		// Start monitoring URL changes
 		monitorURLChanges();
